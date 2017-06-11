@@ -17,6 +17,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="<%=ContextPath.root%>/map">Map</a></li>
 				<li><a href="#">Login</a></li>
+				<li><a href="<%=ContextPath.root%>/mypage">Mypage</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">
