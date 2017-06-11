@@ -15,7 +15,7 @@
 	<div class="navbar-left">
 		<ul class="nav nav-pills nav-stacked">
 		  <li ><a href="#">개인정보수정</a></li>
-		  <li ><a href="#">내가쓴후기</a></li>
+		  <li ><a href="#">양호민</a></li>
 		  <li ><a href="#">내가본후기</a></li>
 		  <li ><a href="#">팔로우</a></li>
 		  <li ><a href="#">매장관리</a></li>
