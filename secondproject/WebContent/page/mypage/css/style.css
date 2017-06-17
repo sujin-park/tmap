@@ -1,0 +1,25 @@
+@CHARSET "EUC-KR";
+
+.a {
+	padding-top:50px;
+}
+
+
+body {
+	background-color: #111;
+	
+}
+
+.c{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 160px;
+	height: 100%;
+	background-color: #000;
+}
+
+.d{
+	width:20px;
+	height:20px;
+}

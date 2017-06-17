@@ -1,0 +1,21 @@
+action
+	-팔로우관리
+		MypageFollowCategoryMakeAction  //카테고리생성
+		MypageFollowCategoryModifyAction //카테고리수정
+		MypageFollowCategoryDeleteAction //카테고리삭제
+		MypageFollowCategoryOrderChangeAction //카테고리순서변경
+		MypageFollowViewAction //팔로우보기
+		MypageFollowAddAction //팔로우추가
+		MypageFollowDeleteAction //팔로우삭제
+		MypageFollowMoveAction //팔로우카테고리변경
+		MypageFollowAliasAction //별칭
+		MypageFollowCommentAction //코멘트
+	-내가쓴후기
+		MypageReviewViewAction  //후기보기
+		MypageReviewDeleteAction  //후기삭제
+
+model
+	FavoriteCategoryDto
+	FavoriteUserDto
+	
+

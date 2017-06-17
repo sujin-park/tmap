@@ -1,27 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-
-<title>Insert title here</title>
-</head>
-<body>
+	pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
 
 
+		<div class="col-xs-9 col-md-9 col-xs-offset-1">
 
-<div class="container-fluid">
-	<div class="navbar-left">
-		<ul class="nav nav-pills nav-stacked">
-		  <li ><a href="#">개인정보수정</a></li>
-		  <li ><a href="#">양호민수정</a></li>
-		  <li ><a href="#">이형규</a></li>
-		  <li ><a href="#">내가본후기</a></li>
-		  <li ><a href="#">팔로우</a></li>
-		  <li ><a href="#">매장관리</a></li>
-		</ul>
-	</div>	
-</div>
-</body>
-</html>
+
+			<h2 class="sub-header">팔로우 관리</h2>
+
+			<div class="form-group form-inline">
+				<div class="row">
+					<div class="col-xs-6">
+						<select
+							name="" onchange="" class="form-control">
+							<option value="">전체</option>
+							<option value="">키트리</option>
+							<option value="">한식</option>
+							<option value="">내맘대로</option>
+						</select>
+					</div>
+					<div class="col-xs-6">
+						<form class="pull-right" role="search">
+						  
+						  <button type="submit" class="btn btn-default">그룹관리</button>
+						  <button type="submit" class="btn btn-default">그룹이동</button>
+						  <button type="submit" class="btn btn-default">삭제</button>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+			<div>
+				
+			</div>
+		</div>
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="../../assets/js/vendor/holder.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
