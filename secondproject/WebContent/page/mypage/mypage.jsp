@@ -19,15 +19,41 @@
 						</select>
 					</div>
 					<div class="col-xs-6">
-						<form class="pull-right" role="search">
-						  
-						  <button type="submit" class="btn btn-default">그룹관리</button>
-						  <button type="submit" class="btn btn-default">그룹이동</button>
-						  <button type="submit" class="btn btn-default">삭제</button>
-						</form>
+						<div class="pull-right">
+						  <a class="btn btn-default" href="<%=ContextPath.root %>/mypage?act=followCategoryListView" role="button">그룹관리</a>
+						  <a class="btn btn-default" href="#" role="button">그룹이동</a>
+						  <a class="btn btn-default" href="#" role="button">삭제</a>
+						</div>
 					</div>
 					
 				</div>
+				<div class="row table-responsive">
+				
+					<table class="table table-bordered">
+				    <thead>
+				      <tr>
+				        <th><input type="checkbox" name=""></th>
+				        <th>카테고리</th>
+				        <th>id  |  상태메세지</th>
+				        <th>최근후기등록일</th>
+				        <th>팔로우한날짜</th>
+				        <th>별칭 </th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td><input type="checkbox" name=""></td>
+				        <td>키트리</td>
+				        <td>did | 졸리다</td>
+				        <td>2017-06-16</td>
+				        <td>2017-06-15</td>
+				        <td>호미니  c</td>
+				      </tr>
+				      
+				    </tbody>
+				  </table>
+				</div>
+				
 			</div>
 			<div>
 				

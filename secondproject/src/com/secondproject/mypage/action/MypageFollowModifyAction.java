@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
 
-public class MypageFollowCommentAction implements Action{
+public class MypageFollowModifyAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)

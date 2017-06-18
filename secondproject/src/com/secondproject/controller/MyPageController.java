@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class MyPageController
- */
+import com.secondproject.factory.MypageFactory;
+
 @WebServlet("/mypage")
 public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,16 +18,15 @@ public class MyPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path="/page/mypage/mypage.jsp";
 		String act = request.getParameter("act");
-		if("modify".equals(act)) {
-			path="/page/mypage/modify.jsp";
-		} else if("write".equals(act)) {
-			path="/page/mypage/write.jsp";
-		} else if("view".equals(act)) {
-			path="/page/mypage/view.jsp";
-		} else if("follow".equals(act)) {
-			path="/page/mypage/follow.jsp";
-		} else if("management".equals(act)) {
-			path="/page/mypage/management.jsp";
+		if("followCategoryListView".equals(act)) {
+			path = MypageFactory.getMypageFollowCategoryListView().execute(request, response);
+		} else if("".equals(act)) {
+			
+		} else if("".equals(act)) {
+			
+		} else if("".equals(act)) {
+			
+		} else if("".equals(act)) {
 		} 
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);

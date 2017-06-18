@@ -1,5 +1,9 @@
 package com.secondproject.mypage.service;
 
-public interface MypageService {
+import java.util.List;
 
+import com.secondproject.mypage.model.FavoriteCategoryDto;
+
+public interface MypageService {
+	 List<FavoriteCategoryDto> followCategoryListView(int userId);
 }

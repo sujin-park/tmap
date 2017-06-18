@@ -17,7 +17,7 @@ public class DBConnection {
 	public static Connection getConnection() {
 		 Connection conn = null;
 		 try {
-			conn= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","kitri","kitri");
+			conn= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","map","map");
 //			System.out.println("db연결성공");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
