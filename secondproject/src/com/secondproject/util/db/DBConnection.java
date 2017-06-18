@@ -15,6 +15,7 @@ public class DBConnection {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "map", "map");
+			//conn= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","map","map");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
