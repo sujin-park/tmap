@@ -2,23 +2,22 @@ package com.secondproject.util.db;
 
 import java.sql.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class DBConnection {
-	static {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-//			System.out.println("드라이버로딩 성공");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
 	public static Connection getConnection() {
 		 Connection conn = null;
 		 try {
-			conn= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","map","map");
-//			System.out.println("db연결성공");
+			Context ctx = new InitialContext();
+			Context ictx = (Context) ctx.lookup("java:comp/env");
+			DataSource ds = (DataSource) ictx.lookup("jdbc/map");
+			conn=ds.getConnection();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

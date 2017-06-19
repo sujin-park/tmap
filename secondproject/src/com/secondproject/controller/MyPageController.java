@@ -20,10 +20,10 @@ public class MyPageController extends HttpServlet {
 		String act = request.getParameter("act");
 		if("followCategoryListView".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryListView().execute(request, response);
-		} else if("".equals(act)) {
-			
-		} else if("".equals(act)) {
-			
+		} else if("upOrder".equals(act)) {
+			path = MypageFactory.getMypageFollowCategoryUpOrderAction().execute(request, response);
+		} else if("downOrder".equals(act)) {
+			path = MypageFactory.getMypageFollowCategoryDownOrderAction().execute(request, response);
 		} else if("".equals(act)) {
 			
 		} else if("".equals(act)) {
@@ -37,6 +37,7 @@ public class MyPageController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
 	}
 
 }
