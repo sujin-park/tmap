@@ -13,7 +13,7 @@
 							<input type="text" class="form-control" name="subject" placeholder="기획전 제목을 입력해주세요"/>
 						</div>
 						<div class="ckbox">
-							<input type="checkbox" id="checkbox1" name="checkbox1" value="1"> 노출 여부 <label for="checkbox1"></label>
+							<input type="checkbox" id="checkbox1" name="checkbox1"> 노출 여부 <label for="checkbox1"></label>
 						</div>
 						<label for="inputStore">매장명</label>
 						<div class="input-group">
@@ -22,7 +22,6 @@
 									<button class="btn btn-warning" type="button" onclick="javascript:mvshoplist();">Search</button>
 								</span>
 						</div>
-						<%@ include file="/adminpage/expage/modal.jsp"%>
 						<div class="form-group">
 							<label for="inputContent">기획전 설명</label>
 							<textarea class="form-control" id="content" name="content" rows="15" cols="15" placeholder="기획전 내용을 입력해주세요"></textarea>

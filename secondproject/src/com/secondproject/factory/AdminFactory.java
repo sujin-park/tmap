@@ -1,6 +1,7 @@
 package com.secondproject.factory;
 
-import com.secondproject.admin.action.*;
+import com.secondproject.admin.action.ExhibitionListAction;
+import com.secondproject.admin.action.ExhibitionWriteAction;
 
 public class AdminFactory {
 
@@ -9,16 +10,10 @@ public class AdminFactory {
 
 	private static ExhibitionListAction exhibitionListAction;
 	
-	private static ExhibitionViewAction exhibitionViewAction;
-
-	public static ExhibitionViewAction getExhibitionViewAction() {
-		return exhibitionViewAction;
-	}
 
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
 		exhibitionListAction = new ExhibitionListAction();
-		exhibitionViewAction = new ExhibitionViewAction();
 	}
 	
 	public static ExhibitionListAction getExhibitionListAction() {
