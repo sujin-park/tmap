@@ -11,4 +11,5 @@ public interface ExhibitionDao {
 	int writeExhibition(ExhibitionDetailDto exhibitionDetailDto);
 	
 	List<ExhibitionDto> listExhibition();
+	ExhibitionDetailDto viewExhibition(int seq);
 }

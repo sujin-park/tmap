@@ -37,7 +37,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			sql.append("	values (?, ?, ?, ?, ?, ?) \n");
 			sql.append("	into exhibition_detail (exhibition_id, shop_id, exd_order, exd_desc) \n");
 			sql.append("	values (?,?,?,?) \n");
-			
+
 			sql.append("select * from dual");
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
@@ -52,7 +52,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			pstmt.setInt(++idx, exhibitionDetailDto.getExdOrder());
 			pstmt.setString(++idx, exhibitionDetailDto.getExdDesc());
 			cnt = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -92,34 +92,75 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
+			sql.append("select exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
 			sql.append("from exhibition \n");
 			sql.append("order by ex_order");
-			
+
 			pstmt = conn.prepareStatement(sql.toString());
-			rs =pstmt.executeQuery();
-			while(rs.next()) {
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
 				ExhibitionDto exhibitionDto = new ExhibitionDto();
+				exhibitionDto.setExhibitionId(rs.getInt("exhibition_id"));
 				exhibitionDto.setExTitle(rs.getString("ex_title"));
 				exhibitionDto.setExDesc(rs.getString("ex_desc"));
 				exhibitionDto.setExImage(rs.getString("ex_image"));
 				exhibitionDto.setExOrder(rs.getInt("ex_order"));
 				exhibitionDto.setExVisiable(rs.getInt("ex_visiable"));
-				
+
 				list.add(exhibitionDto);
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		} finally {
 			DBClose.close(conn, pstmt, rs);
 		}
-		
+
 		return list;
+	}
+
+	@Override
+	public ExhibitionDetailDto viewExhibition(int seq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ExhibitionDetailDto exhibitionDetailDto = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select ex.exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable, \n");
+			sql.append("   	   shop_id, exd_order, exd_desc \n");
+			sql.append("       from exhibition ex, exhibition_detail exd \n");
+			sql.append("       where ex.exhibition_id = exd.exhibition_id \n");
+			sql.append("and ex.exhibition_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				exhibitionDetailDto = new ExhibitionDetailDto();
+				exhibitionDetailDto.setExhibitionId(rs.getInt("exhibition_id"));
+				exhibitionDetailDto.setExTitle(rs.getString("ex_title"));
+				exhibitionDetailDto.setExDesc(rs.getString("ex_desc"));
+				exhibitionDetailDto.setExImage(rs.getString("ex_image"));
+				exhibitionDetailDto.setExOrder(rs.getInt("ex_order"));
+				exhibitionDetailDto.setExVisiable(rs.getInt("ex_visiable"));
+				exhibitionDetailDto.setShopId(rs.getInt("shop_id"));
+				exhibitionDetailDto.setExdOrder(rs.getInt("exd_order"));
+				exhibitionDetailDto.setExdDesc(rs.getString("exd_desc"));
+				
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return exhibitionDetailDto;
 	}
 
 }

@@ -16,18 +16,21 @@ public class ExhibitionWriteAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ExhibitionDetailDto exhibitionDetailDto = new ExhibitionDetailDto();
-		
 		String path = "/adminIndex.jsp";
+		ExhibitionDetailDto exhibitionDetailDto = new ExhibitionDetailDto();
+		int order = 6;
+		int visiable = 1;
+		
+		if (request.getParameter("checkbox1") == null) {
+			visiable = 0;
+		}
 		int seq = ExhibitionDaoImpl.getExhibitionDao().getNextSeq(); // 글 번호 얻기 db에서
-		String subject = request.getParameter("subject");
-		System.out.println("1" + subject);
 		exhibitionDetailDto.setExhibitionId(seq);
 		exhibitionDetailDto.setExTitle(request.getParameter("subject"));
 		exhibitionDetailDto.setExDesc(request.getParameter("content"));
 		exhibitionDetailDto.setExImage("asdfsdf");
-		exhibitionDetailDto.setExOrder(6); // 일단 6번째 기획전이라고 가정 8ㅅ8 가정좀 그만해,,
-		exhibitionDetailDto.setExVisiable(1); // 체크박스 value값 나오게 하기
+		exhibitionDetailDto.setExOrder(++order); // 일단 6번째 기획전이라고 가정 8ㅅ8 가정좀 그만해,,
+		exhibitionDetailDto.setExVisiable(visiable); // 체크박스 value값 나오게 하기
 		exhibitionDetailDto.setShopId(1); // 매장명을 받아서 dto에 shopId로 어떻게 저장할건지..좀 더 고민..
 		exhibitionDetailDto.setExdOrder(1); // 일단 첫번째라고 가정  
 		exhibitionDetailDto.setExdDesc("매장코멘트"); // 가정하기

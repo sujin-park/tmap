@@ -10,4 +10,6 @@ public interface ExhibitionService {
 	int writeExhibition(ExhibitionDetailDto exhibitionDetailDto);
 	
 	List<ExhibitionDto> listExhibition();
+	
+	ExhibitionDetailDto viewExhibition(int seq);
 }
