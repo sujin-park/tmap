@@ -19,7 +19,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="store" name="store" placeholder="추가할 매장명을 입력해주세요">
 								<span class="input-group-btn">
-									<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#myModal">Search</button>
+									<button class="btn btn-warning" type="button" onclick="javascript:mvshoplist();">Search</button>
 								</span>
 						</div>
 						<%@ include file="/adminpage/expage/modal.jsp"%>
@@ -54,6 +54,10 @@ function writeArticle() {
 
 function moveList() {
 	document.location.href = "<%=ContextPath.root%>/admin?act=mvexhibition";	
+}
+
+function mvshoplist() {
+	document.location.href ="<%=ContextPath.root%>/exhibition?act=mvshoplist";
 }
 
 </script>

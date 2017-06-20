@@ -13,7 +13,7 @@ public class DBConnection {
 		 try {
 			Context ctx = new InitialContext();
 			Context ictx = (Context) ctx.lookup("java:comp/env");
-			DataSource ds = (DataSource) ictx.lookup("jdbc/kitri");
+			DataSource ds = (DataSource) ictx.lookup("jdbc/map");
 			conn=ds.getConnection();
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block

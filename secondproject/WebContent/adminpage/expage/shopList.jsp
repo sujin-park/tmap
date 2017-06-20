@@ -20,7 +20,7 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 						<div class="input-group">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								검색조건
+								가나다순
 								<span class="caret"></span> 
 								<span class="sr-only">Toggle Dropdown</span>
 							</button>
@@ -131,13 +131,3 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 	</div>
 </section>
 	<%@ include file="/adminpage/include/pageNav.jsp"%>
-<script type="text/javascript" src="<%=ContextPath.root%>/adminpage/js/checkbox.js"></script>
-<script>
-function moveWrite(){
-	document.location.href = "<%=ContextPath.root%>/exhibition?act=mvwrite";
-}
-
-function viewExhibition(seq) {
-	document.location.href = "<%=ContextPath.root%>/exhibition?act=view&seq=" + seq;
-}
-</script>

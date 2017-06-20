@@ -49,6 +49,13 @@ public class ExhibitionController extends HttpServlet {
 			
 			RequestDispatcher disp = request.getRequestDispatcher(path);
 			disp.forward(request, response);
+		} else if ("mvshoplist".equals(act)) {
+			contentPath = AdminFactory.getExhibitionViewAction().execute(request, response);
+			path = "/template/admin/admin.jsp";
+			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			
 		}
 
 	}
