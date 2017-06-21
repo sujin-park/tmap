@@ -4,9 +4,9 @@ public class ShopDto {
 	private int shopId;
 	private int categoryId;
 	private String title;
-	private long lat;
-	private long lng;
-	private long score;
+	private Double lat;
+	private Double lng;
+	private Double score;
 	private int ownerId;
 	private String reserveUrl;
 	private String address;
@@ -38,27 +38,27 @@ public class ShopDto {
 		this.title = title;
 	}
 
-	public long getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
-	public void setLat(long lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
-	public long getLng() {
+	public Double getLng() {
 		return lng;
 	}
 
-	public void setLng(long lng) {
+	public void setLng(Double lng) {
 		this.lng = lng;
 	}
 
-	public long getScore() {
+	public Double getScore() {
 		return score;
 	}
 
-	public void setScore(long score) {
+	public void setScore(Double score) {
 		this.score = score;
 	}
 

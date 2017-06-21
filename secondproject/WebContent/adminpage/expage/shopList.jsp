@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"%>
+
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
 %>
@@ -19,7 +20,7 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 						<div class="input-group">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								검색조건
+								가나다순
 								<span class="caret"></span> 
 								<span class="sr-only">Toggle Dropdown</span>
 							</button>
@@ -36,26 +37,33 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 					</div>
 				</div>
 				<div class="table-container table-responsive">
-					<table class="table table-filter">
+					<table class="table table-filter" id="extable">
 						<tbody>
 							<tr class="warning" align="center">
-								<td>Check</td>
+								<td>
+									<div class="ckbox">
+										<input type="checkbox" id="checkall"><label
+											for="checkall"></label>
+									</div>
+								</td>
 								<td>사진</td>
 								<td>기획전명</td>
 								<td>내용</td>
 								<td>노출여부</td>
 								<td>배치 순서</td>
+								<td>Edit</td>
 							</tr>
 							<%
 								int size = list.size();
 								for (int i = 0; i < size; i++) {
 									ExhibitionDto exhibitionDto = list.get(i);
+									String checkbox = "checkbox" + i;
 							%>
 							<tr>
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" id="checkbox1"> <label
-											for="checkbox1"></label>
+										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="<%=checkbox%>"> <label
+											for="<%=checkbox%>"></label>
 									</div>
 								</td>
 								<td>
@@ -91,7 +99,15 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 										</div>
 									</div>
 								</td>
+								<td>
+									<p data-placement="top" data-toggle="tooltip" title="Edit">
+										<button class="btn btn-warning btn-xs" data-title="Edit" data-toggle="modal" 
+							    		data-target="#edit" onclick="javascript:viewExhibition(<%=exhibitionDto.getExhibitionId()%>);"><span class="glyphicon glyphicon-pencil"></span>
+							    		</button>
+							    	</p>
+							    </td>
 							</tr>
+							    
 							<%
 								}
 							%>
@@ -115,8 +131,3 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 	</div>
 </section>
 	<%@ include file="/adminpage/include/pageNav.jsp"%>
-<script>
-function moveWrite(){
-	document.location.href = "<%=ContextPath.root%>/exhibition?act=mvwrite";
-}
-</script>

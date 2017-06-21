@@ -3,11 +3,10 @@ package com.secondproject.map.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
+import com.google.gson.Gson;
 import com.secondproject.map.dao.MapDaoImpl;
 import com.secondproject.map.model.ShopDto;
+import com.secondproject.util.map.Bounds;
 
 public class MapServiceImpl implements MapService {
 
@@ -24,20 +23,13 @@ public class MapServiceImpl implements MapService {
 	}
 
 	@Override
-	public ArrayList<ShopDto> getShopList() {
-		return MapDaoImpl.getMapDao().getShopList();
+	public ArrayList<ShopDto> getShopList(Bounds bounds) {
+		return MapDaoImpl.getMapDao().getShopList(bounds);
 	}
 
 	@Override
-	public String getShopListInJsonString() {
-		ArrayList<HashMap<String, Object>> list = MapDaoImpl.getMapDao().getShopHashMapList();
-		JSONArray returnList = new JSONArray();
-		
-		for (HashMap shop : list) {
-			returnList.add(new JSONObject(shop));
-		}
-		
-		return returnList.toJSONString();
+	public String getShopListJSON(Bounds bounds) {
+		return new Gson().toJson(getShopList(bounds));
 	}
 
 }

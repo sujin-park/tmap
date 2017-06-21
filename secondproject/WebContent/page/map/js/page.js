@@ -1,62 +1,38 @@
-$("#search_modal_open").on("click", function() {
-	$('.modal').modal('show');
+var mapSlick = $('.search-list-container-mobile .search-list').slick({'arrows' : false});
+
+// 모바일버전 search-list 스와이프
+$(document).on('swipe', '.search-list-container-mobile .search-list', function(event, slick, direction){
+	map.moveMapByMarkerIndex($(this).slick('slickCurrentSlide'));
 });
 
-$("#search_submit").on("click", function() {
-	var currentBounds = map.getBounds();
-	var search_menu = $("#search_menu").val();
-	var search_orderby = $("#search_orderby").val();
-	var search_where = $("#search_where").val();
+//데스크탑 search-list 마우스오버
+$(document).on('mouseenter', '.search-list-container .shop', function() {
+	$('.search-list-container .shop').removeClass('on').eq($(this).index()).addClass('on');
+	map.moveMapByMarkerIndex($(this).index());
+});
+
+//search-detail 열기
+$(document).on('click', '#search_detail_controll_btn', function () {
+	pageFunc.showSearchDetail(true);
+});
+
+// search-detail 닫기
+$(document).on('click', '#search_detail_controll_close_btn', function() {
+	pageFunc.showSearchDetail(false);
+});
+
+// search-detail submit 클릭시
+$(document).on('click', '#search-detail-controll-submit', function() {
+	var btn = $(this).button('searching');
+	btn.attr('disabled', 'disabled');
 	
-	$.ajax({
-		method: "get",
-		url: "/secondproject/map",
-		data: {
-			"act": "ajaxGetShopList"
-		},
-		dataType: "json",
-		success: function(data) {
-			if (data === null) {
-				alert("no DATA");
-			}
-			if (search_where === "myposition") {
-				map.moveMapToCurrentPosition();
-			}
-
-			map.makeShopListMarker(data);
-		}
-	})
-	
-	$('.modal').modal('hide');
+	pageFunc.getShopList(mapSlick, function () {
+		pageFunc.showSearchDetail(false);
+		btn.removeAttr('disabled');
+		btn.button('reset');
+	});
 });
 
-$("#test").on("click", function () {
-	var currentBounds = map.getBounds();
-	var jsonDataToServer = JSON.stringify(currentBounds);
-	console.log("currentBounds");
-	console.log(currentBounds);
-	console.log("jsonDataToServer");
-	console.log(jsonDataToServer);
-	$.ajax({
-		method: "get",
-		url: "/secondproject/map",
-		data: {
-			"act": "ajaxGetShopList",
-			"minLat" : currentBounds._min._lat,
-			"minLng" : currentBounds._min._lng,
-			"maxLat" : currentBounds._max._lat,
-			"maxLng" : currentBounds._max._lng,
-			"bounds" : jsonDataToServer
-		},
-		dataType: "json",
-		success: function(data) {
-			if (data === null) {
-				alert("no DATA");
-			}
-			console.log("ajaxData");
-			console.log(data);
-		}
-	})
-	//map.setMarker(currentBounds);
+$(document).on('click', '#modal_add_shop_btn', function() {
+	$('#modal_add_shop').modal('show');
 });
-

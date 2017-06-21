@@ -1,10 +1,11 @@
 var map = (function() {
 	
-	var currentPosition;
+	var currentPosition = {};
 	var currentPositionMarker;
+	
 	var map;
-	var mapOptions;
-	var currentMarkers = [];
+	var markers = [];
+	var AnimateMarkers = [];
 	
 	navigator.geolocation.getCurrentPosition(function(pos) {
 		initMap(pos.coords.latitude, pos.coords.longitude);
@@ -12,45 +13,40 @@ var map = (function() {
 	
 	function initMap(lat, lng) {
 		setCurrentPosition(lat, lng);
-		setMapOptions();
 		loadMap();
 		makeCurrentPositionMarker();
-		console.log(map.getBounds());
+		pageFunc.getShopList(mapSlick);
 	}
 	
 	function notSupportGPS(err) {
 		switch (err.code){
-	        case err.PERMISSION_DENIED:
-	            msg = "PERMISSION_DENIED";
-	        break;
-	        case err.PERMISSION_UNAVAILABLE:
-	            msg = "PERMISSION_UNAVAILABLE";
-	        break;
-	        case err.TIMEOUT:
-	            msg = "TIMEOUT";
-	        break;
-	        case err.UNKNOWN_ERROR:
-	            msg = "UNKNOWN_ERROR";
-	        break;
-	    }
-		alert("GPS Fail :: " + msg);
+			case err.PERMISSION_DENIED:
+				msg = "PERMISSION_DENIED";
+			break;
+			case err.PERMISSION_UNAVAILABLE:
+				msg = "PERMISSION_UNAVAILABLE";
+			break;
+			case err.TIMEOUT:
+				msg = "TIMEOUT";
+			break;
+			case err.UNKNOWN_ERROR:
+				msg = "UNKNOWN_ERROR";
+			break;
+		}
+		alert('GPS Fail :: ' + msg);
+		initMap(37.485141, 126.898811);
 	}
 	
 	function setCurrentPosition(lat, lng) {
-		currentPosition = {};
 		currentPosition.lat = lat;
 		currentPosition.lng = lng;
 	}
 	
-	function setMapOptions() {
-		mapOptions = {
-			center: new naver.maps.LatLng(currentPosition.lat, currentPosition.lng),
-			zoom: 10
-		};
-	}
-	
 	function loadMap() {
-		map = new naver.maps.Map('map', mapOptions);
+		map = new naver.maps.Map('map', {
+			center: new naver.maps.LatLng(currentPosition.lat, currentPosition.lng),
+			zoom: 7
+		});
 	}
 	
 	function makeCurrentPositionMarker() {
@@ -60,54 +56,83 @@ var map = (function() {
 		});
 	}
 	
-	function makeShopListMarker(shoplist) {
-		clearCurrentMarker();
-		if (shoplist) {
-			shoplist.forEach(function(shop) {
-				var lat = shop.lat;
-				var lng = shop.lng;
-				var marker = new naver.maps.Marker({
-					position: new naver.maps.LatLng(lat, lng),
-					map: map
-				})
-				currentMarkers.push(marker);
+	function getCurrentPositionMarker() {
+		return currentPositionMarker;
+	}
+	
+	function addMarkers(items, clickFunc) {
+		SYSOUT('addMarkers markers.length start = ' + markers.length);
+		if (items) {
+			items.forEach(function(item) {
+				addMarker(item, clickFunc);
 			});
+		} else {
+			SYSOUT('map.addMarkers(items) :: items 인자 값이 비어있음');
 		}
-		console.log(currentMarkers);
+		SYSOUT('addMarkers markers.length end = ' + markers.length);
 	}
 	
-	function setMarker(bounds) {
-		var lat = bounds._min._lat;
-		var lng = bounds._min._lng;
-		var marker = new naver.maps.Marker({
-			position: new naver.maps.LatLng(lat, lng),
-			map: map
-		})
-		
-		var lat = bounds._max._lat;
-		var lng = bounds._max._lng;
-		var marker = new naver.maps.Marker({
-			position: new naver.maps.LatLng(lat, lng),
-			map: map
-		})
+	function addMarker(data, clickFunc) {
+		if (data.lat && data.lng) {
+			var marker = new naver.maps.Marker({
+				position: new naver.maps.LatLng(data.lat, data.lng),
+				map: map
+			});
+			markers.push(marker);
+			var index = markers.indexOf(marker);
+			naver.maps.Event.addListener(marker, 'click', function() {
+				clickFunc(index);
+			});
+			
+		} else {
+			SYSOUT('map.addMarker(data) :: data.lat or data.lng 값이 없음');
+		}
 	}
 	
-	function clearCurrentMarker() {
-		if (currentMarkers.length > 0) {
-			currentMarkers.forEach(function (marker) {
+	function clearMarkers() {
+		SYSOUT('clearMarkers markers.length start = ' + markers.length);
+		if (markers.length > 0) {
+			markers.forEach(function (marker) {
 				clearMarker(marker);
 			});
-			currentMarkers = [];
+			markers = [];
 		}
+		SYSOUT('clearMarkers markers.length end = ' + markers.length);
 	}
 	
 	function clearMarker(marker) {
 		marker.setMap(null);
 	}
 	
+	function setMarkerAnimationByIndex(index) {
+		setAnimationToMarker(markers[index]);
+	}
+	
+	function setAnimationToMarker(marker) {
+		marker.setAnimation(naver.maps.Animation.BOUNCE);
+		AnimateMarkers.push(marker);
+	}
+	
+	function clearAnimationMarkers() {
+		AnimateMarkers.forEach(function(marker) {
+			marker.setAnimation(null);
+		});
+		AnimateMarkers = [];
+	}
+	
 	function moveMapToCurrentPosition() {
-		map.setCenter(currentPosition);
-		map.refresh(true);
+		moveMap(currentPosition);
+	}
+	
+	function moveMapByMarkerIndex(index) {
+		clearAnimationMarkers();
+		setMarkerAnimationByIndex(index);
+		moveMap(markers[index].position);
+	}
+	
+	function moveMap(position) {
+//		SYSOUT('map.moveMap(position) :: position._lat = ' + position._lat + ' position._lng = ' + position._lng);
+		map.panTo(new naver.maps.LatLng(position._lat, position._lng), map.getZoom());
 	}
 	
 	function getBounds() {
@@ -115,10 +140,13 @@ var map = (function() {
 	}
 	
 	return {
-		"setMarker" : setMarker,
-		"makeShopListMarker" : makeShopListMarker,
-		"moveMapToCurrentPosition" : moveMapToCurrentPosition,
-		"getBounds" : getBounds
+		'getCurrentPositionMarker': getCurrentPositionMarker,
+		'getBounds': getBounds,
+		'addMarkers': addMarkers,
+		'clearMarkers': clearMarkers,
+		'clearAnimationMarkers': clearAnimationMarkers,
+		'setMarkerAnimationByIndex': setMarkerAnimationByIndex,
+		'moveMapByMarkerIndex': moveMapByMarkerIndex,
 	}
 	
 })();

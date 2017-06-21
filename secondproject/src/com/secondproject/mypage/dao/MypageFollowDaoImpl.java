@@ -10,7 +10,7 @@ import java.util.Map;
 
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
-import com.secondproject.mypage.model.FavoriteCategoryDto;
+import com.secondproject.mypage.model.FollowCategoryDto;
 import com.secondproject.mypage.model.FavoriteUserDto;
 
 public class MypageFollowDaoImpl implements MypageFollowDao {
@@ -32,7 +32,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public int followCategoryMake(FavoriteCategoryDto favoriteCategoryDto) {
+	public int followCategoryMake(FollowCategoryDto favoriteCategoryDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -62,7 +62,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	}
 
 	@Override
-	public int followCategoryModify(FavoriteCategoryDto favoriteCategoryDto) {
+	public int followCategoryModify(FollowCategoryDto favoriteCategoryDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -75,7 +75,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, favoriteCategoryDto.getCategoryName());
-			pstmt.setInt(2, favoriteCategoryDto.getFavoriteCategoryId());
+			pstmt.setInt(2, favoriteCategoryDto.getFollowCategoryId());
 			
 		
 
@@ -144,8 +144,8 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public FavoriteCategoryDto getFollowCategory(int favoriteCategoryId) {
-		FavoriteCategoryDto fcdto = null;
+	public FollowCategoryDto getFollowCategory(int favoriteCategoryId) {
+		FollowCategoryDto fcdto = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -153,21 +153,20 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select favorite_category_id,user_id,parent_category_id, \n");
+			sql.append("select follow_category_id,user_id, \n");
 			sql.append("		category_name,category_order \n");
-			sql.append("from favorite_category \n");
-			sql.append("where favorite_category_id=?");
+			sql.append("from follow_category \n");
+			sql.append("where follow_category_id=?");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, favoriteCategoryId);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				fcdto=new FavoriteCategoryDto();
-				fcdto.setFavoriteCategoryId(favoriteCategoryId);
+				fcdto=new FollowCategoryDto();
+				fcdto.setFollowCategoryId(favoriteCategoryId);
 				fcdto.setUserId(rs.getInt("user_id"));
-				fcdto.setParentCategoryId(rs.getInt("parent_category_id"));
 				fcdto.setCategoryName(rs.getString("category_name"));
-				fcdto.setCategoryOrder(rs.getString("category_order"));
+				fcdto.setCategoryOrder(rs.getInt("category_order"));
 			}
 
 		} catch (SQLException e) {
@@ -217,9 +216,9 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public List<FavoriteCategoryDto> followCategoryListView(int userId) {
-		List<FavoriteCategoryDto> list = new ArrayList<FavoriteCategoryDto>();
-		FavoriteCategoryDto fcdto = null;
+	public List<FollowCategoryDto> followCategoryListView(int userId) {
+		List<FollowCategoryDto> list = new ArrayList<FollowCategoryDto>();
+		FollowCategoryDto fcdto = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -236,11 +235,11 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				fcdto=new FavoriteCategoryDto();
-				fcdto.setFavoriteCategoryId(rs.getInt("follow_category_id"));
+				fcdto=new FollowCategoryDto();
+				fcdto.setFollowCategoryId(rs.getInt("follow_category_id"));
 				fcdto.setUserId(rs.getInt("user_id"));
 				fcdto.setCategoryName(rs.getString("category_name"));
-				fcdto.setCategoryOrder(rs.getString("category_order"));
+				fcdto.setCategoryOrder(rs.getInt("category_order"));
 				list.add(fcdto);
 			}
 
@@ -252,6 +251,152 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		}
 
 		return list;
+	}
+
+
+	@Override
+	public int upOrder(int favoriteCategoryId) {
+		FollowCategoryDto fcdto = getFollowCategory(favoriteCategoryId);
+
+		int cnt =0;
+		System.out.println("업할때"+fcdto.getCategoryOrder());
+		if(fcdto.getCategoryOrder()==1) {
+			cnt =0;
+			System.out.println("업할때 ");
+		} else {
+
+//		getCategoryId(userId, myorder-1);
+		
+	         Connection conn = null;
+	         PreparedStatement pstmt = null;
+	         
+	         try {
+	            conn = DBConnection.getConnection();
+	            conn.setAutoCommit(false);
+	            
+	            StringBuffer update_preorder = new StringBuffer();
+	            update_preorder.append("update follow_category \n");
+	            update_preorder.append("set category_order=category_order+1 \n");
+	            update_preorder.append("where user_id = ? and category_order=?");
+	            pstmt = conn.prepareStatement(update_preorder.toString());
+	            pstmt.setInt(1, fcdto.getUserId());
+	            pstmt.setInt(2, fcdto.getCategoryOrder()-1);
+	            pstmt.executeUpdate();
+	            pstmt.close();
+	            
+	            StringBuffer update_myorder = new StringBuffer();
+	            update_myorder.append("update follow_category \n");
+	            update_myorder.append("set category_order=category_order-1 \n");
+	            update_myorder.append("where follow_category_id=?");
+	            pstmt = conn.prepareStatement(update_myorder.toString());
+	            pstmt.setInt(1, favoriteCategoryId);
+	            pstmt.executeUpdate();
+	            pstmt.close();
+	            conn.commit();
+	           
+
+	            cnt = 1;
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	            try {
+	               conn.rollback();
+	               cnt = 0;
+	            } catch (SQLException e1) {
+	               e1.printStackTrace();
+	            }
+	         } finally {
+	            DBClose.close(conn, pstmt);
+	         }
+
+		}
+		return cnt;
+	}
+
+
+	@Override
+	public int downOrder(int favoriteCategoryId) {
+		FollowCategoryDto fcdto = getFollowCategory(favoriteCategoryId);
+		System.out.println("다운할때"+fcdto.getCategoryOrder());
+			int cnt =0;
+	         Connection conn = null;
+	         PreparedStatement pstmt = null;      
+	         try {
+	            conn = DBConnection.getConnection();
+	            conn.setAutoCommit(false);
+	        
+	            StringBuffer update_nextorder = new StringBuffer();
+	            update_nextorder.append("update follow_category \n");
+	            update_nextorder.append("set category_order=category_order-1 \n");
+	            update_nextorder.append("where user_id = ? and category_order=?");
+	            pstmt = conn.prepareStatement(update_nextorder.toString());
+	            pstmt.setInt(1, fcdto.getUserId());
+	            pstmt.setInt(2, fcdto.getCategoryOrder()+1);
+	            pstmt.executeUpdate();
+	            pstmt.close();
+	            
+	            StringBuffer update_myorder = new StringBuffer();
+	            update_myorder.append("update follow_category \n");
+	            update_myorder.append("set category_order=category_order+1 \n");
+	            update_myorder.append("where follow_category_id=?");
+	            pstmt = conn.prepareStatement(update_myorder.toString());
+	            pstmt.setInt(1, favoriteCategoryId);
+	            pstmt.executeUpdate();
+	            pstmt.close();
+	            conn.commit();
+	           
+
+	            cnt = 1;
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	            try {
+	               conn.rollback();
+	               cnt = 0;
+	            } catch (SQLException e1) {
+	               e1.printStackTrace();
+	            }
+	         } finally {
+	            DBClose.close(conn, pstmt);
+	         }
+
+		
+		return cnt;
+	}
+
+
+	@Override
+	public FollowCategoryDto getCategoryId(int userId, int category_order) {
+		FollowCategoryDto fcdto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select * from follow_category \n");
+			sql.append("where user_id=? \n");
+			sql.append("and category_order=?");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, category_order);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				fcdto=new FollowCategoryDto();
+				fcdto.setFollowCategoryId(rs.getInt("follow_category_id"));
+				fcdto.setUserId(rs.getInt("user_id"));
+				fcdto.setCategoryName(rs.getString("category_name"));
+				fcdto.setCategoryOrder(rs.getInt("category_order"));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return fcdto;
 	}
 
 }

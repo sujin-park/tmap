@@ -1,32 +1,26 @@
 package com.secondproject.map.action;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
+import com.google.gson.Gson;
 import com.secondproject.action.Action;
-import com.secondproject.map.model.ShopDto;
 import com.secondproject.map.service.MapServiceImpl;
+import com.secondproject.util.map.Bounds;
 
 public class ShopListAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String minLat = request.getParameter("minLat");
-		String minLng = request.getParameter("minLng");
-		String maxLat = request.getParameter("maxLat");
-		String maxLng = request.getParameter("maxLng");
-		String bounds = request.getParameter("bounds");
-		System.out.println("bounds = " + bounds);
-		return MapServiceImpl.getMapService().getShopListInJsonString();
+		Bounds bounds = new Gson().fromJson(request.getParameter("bounds"), Bounds.class);
+//		System.out.println("bounds._min._lat = " + bounds._min._lat);
+//		System.out.println("bounds._min._lng = " + bounds._min._lng);
+//		System.out.println("bounds._max._lat = " + bounds._max._lat);
+//		System.out.println("bounds._max._lng = " + bounds._max._lng);
+		return MapServiceImpl.getMapService().getShopListJSON(bounds);
 	}
 
 }

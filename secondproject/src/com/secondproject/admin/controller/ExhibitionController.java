@@ -39,7 +39,7 @@ public class ExhibitionController extends HttpServlet {
 			
 			RequestDispatcher disp = request.getRequestDispatcher(path);
 			disp.forward(request, response);
-		}
+		} 
 			
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
