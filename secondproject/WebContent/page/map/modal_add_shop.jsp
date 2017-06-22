@@ -15,12 +15,11 @@
 			<form>
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="title">매장명</label>
-						<input type="email" class="form-control" id="title" placeholder="Email">
+						<input type="email" class="form-control" id="title" placeholder="매장명을 입력해주세요">
 					</div>
 					<div class="form-group">
-						<label for="address">주소</label>
-						<input type="email" class="form-control" id="address">
+						<div id="map_add_shop"></div>
+						<input type="address" class="form-control" id="address" placeholder="주소를 입력해주세요">
 					</div>
 					<div class="form-group">
 						<label for="detail">메모</label>

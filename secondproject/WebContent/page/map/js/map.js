@@ -19,6 +19,7 @@ var map = (function() {
 	}
 	
 	function notSupportGPS(err) {
+		initMap(37.485141, 126.898811);
 		switch (err.code){
 			case err.PERMISSION_DENIED:
 				msg = "PERMISSION_DENIED";
@@ -34,7 +35,6 @@ var map = (function() {
 			break;
 		}
 		alert('GPS Fail :: ' + msg);
-		initMap(37.485141, 126.898811);
 	}
 	
 	function setCurrentPosition(lat, lng) {
