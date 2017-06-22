@@ -3,38 +3,30 @@
 
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
+String order = (String) request.getAttribute("order");
 %>
 <section class="content page-top">
 	<div class="col-md-10 col-md-push-1">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
-					<div class="pull-left col-md-7">
+					<div class="pull-right col-md-offset-2">
 						<div class="btn-group">
+						
 							<button type="button" class="btn btn-default btn-filter" onclick="javascript:moveWrite();">기획전 등록</button>
-							<button type="button" class="btn btn-warning btn-filter">기획전 삭제</button>
+							<button type="button" class="btn btn-warning btn-filter" onclick="javascript:deleteExhibition();">기획전 삭제</button>
 						</div>
 					</div>
-
-					<div class="pull-right col-md-5">
-						<div class="input-group">
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								가나다순
-								<span class="caret"></span> 
-								<span class="sr-only">Toggle Dropdown</span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">기획전이름</a></li>
-								<li><a href="#">매장명</a></li>
-							</ul>
+					
+					<!-- <div class="pull-right col-md-5">
+						<div class="btn-group pull-right">
+							<select class="form-control" name="key">
+									  	<option value="orderby">배치순</option>
+									  	<option value="nameby">가나다순</option>
+									  	<option value="visiableby">노출여부순</option>
+									</select>
 						</div>
-							<input type="text" class="form-control" placeholder="검색어 입력">
-							<span class="input-group-btn">
-								<button class="btn btn-warning" type="button">Search</button>
-							</span>
-						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
@@ -47,11 +39,12 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 									</div>
 								</td>
 								<td>사진</td>
-								<td>기획전명</td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=nameby"  style="text-decoration:none; color:red">기획전명</a></td>
 								<td>내용</td>
-								<td>노출여부</td>
-								<td>배치 순서</td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=visiableby" style="text-decoration:none; color:red">노출여부</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=orderby" style="text-decoration:none; color:red">배치순서</a></td>
 								<td>Edit</td>
+								<td>Delete</td>
 							</tr>
 							<%
 								int size = list.size();
@@ -101,10 +94,16 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 								</td>
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
-										<button class="btn btn-warning btn-xs" data-title="Edit" data-toggle="modal" 
-							    		data-target="#edit" onclick="javascript:viewExhibition(<%=exhibitionDto.getExhibitionId()%>);"><span class="glyphicon glyphicon-pencil"></span>
+										<button class="btn btn-warning btn-xs" data-title="Edit"
+							    		onclick="javascript:viewExhibition('<%=exhibitionDto.getExhibitionId()%>');"><span class="glyphicon glyphicon-pencil"></span>
 							    		</button>
 							    	</p>
+							    </td>
+							    <td>
+							    	<p data-placement="top" data-toggle="tooltip" title="Delete">
+							    	<button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"
+							    	onclick="javascript:deleteExhibition('<%=exhibitionDto.getExhibitionId()%>');">
+							    	<span class="glyphicon glyphicon-trash"></span></button></p>
 							    </td>
 							</tr>
 							    
@@ -114,20 +113,25 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 						</tbody>
 					</table>
 				</div>
-				<div class="btn-group pull-right">
-					<button type="button" class="btn btn-warning">가나다순</button>
-					<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						<span class="caret"></span> 
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">가나다순</a></li>
-						<li><a href="#">가입일순</a></li>
-						<li><a href="#">신뢰도순</a></li>
-					</ul>
-				</div>
+				<form name="searchForm" method="get" action="">
+					<input type="hidden" name="act" value="mvexhibition"> 
+						<div class="pull-right col-md-5">
+							<div class="input-group">
+								<div class="input-group-btn">
+									<select class="form-control" name="key">
+									  	<option value="title">기획전이름</option>
+									  	<option value="shopname">매장명</option>
+									</select>
+								</div>
+									<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="3">
+									<span class="input-group-btn">
+										<button class="btn btn-warning" type="button" onclick="javascript:searchExhibition();">Search</button>
+									</span>
+							</div>
+						</div>
+					</form>
 			</div>
 		</div>
 	</div>
 </section>
-	<%@ include file="/adminpage/include/pageNav.jsp"%>
+	<%@ include file="/page/adminpage/include/pageNav.jsp"%>

@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"%>
+	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"
+	import="com.secondproject.shop.model.*"%>
+
 <%
-List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
+List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 %>
 <section class="content page-top">
 	<div class="col-md-10 col-md-push-1">
@@ -10,8 +12,7 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 				<div class="row">
 					<div class="pull-left col-md-7">
 						<div class="btn-group">
-							<button type="button" class="btn btn-default btn-filter" onclick="javascript:moveWrite();">기획전 등록</button>
-							<button type="button" class="btn btn-warning btn-filter">기획전 삭제</button>
+							<button type="button" class="btn btn-default btn-filter">매장 추가</button>
 						</div>
 					</div>
 
@@ -19,13 +20,13 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 						<div class="input-group">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								검색조건
+								매장명
 								<span class="caret"></span> 
 								<span class="sr-only">Toggle Dropdown</span>
 							</button>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">기획전이름</a></li>
 								<li><a href="#">매장명</a></li>
+								<li><a href="#">카테고리</a></li>
 							</ul>
 						</div>
 							<input type="text" class="form-control" placeholder="검색어 입력">
@@ -36,62 +37,77 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 					</div>
 				</div>
 				<div class="table-container table-responsive">
-					<table class="table table-filter">
+					<table class="table table-filter" id="extable">
 						<tbody>
 							<tr class="warning" align="center">
-								<td>Check</td>
-								<td>사진</td>
-								<td>기획전명</td>
-								<td>내용</td>
-								<td>노출여부</td>
-								<td>배치 순서</td>
+								<td>
+									<div class="ckbox">
+										<input type="checkbox" id="checkall"><label
+											for="checkall"></label>
+									</div>
+								</td>
+								<td>매장명</td>
+								<td>음식종류</td>
+								<td>평점</td>
+								<td>매장 주소</td>
+								<td>영업시간</td>
+								<td>상세 설명</td>
 							</tr>
 							<%
 								int size = list.size();
 								for (int i = 0; i < size; i++) {
-									ExhibitionDto exhibitionDto = list.get(i);
+									ShopDto shopDto = list.get(i);
+									String checkbox = "checkbox" + i;
 							%>
 							<tr>
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" id="checkbox1"> <label
-											for="checkbox1"></label>
+										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="<%=checkbox%>"> <label
+											for="<%=checkbox%>"></label>
 									</div>
 								</td>
 								<td>
 									<div class="media">
-										<span class="media-meta"><%=exhibitionDto.getExImage() %></span>
+										<span class="media-meta"><%=shopDto.getTitle() %></span>
 									</div>
 								</td>
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<p class="media-meta"><%=exhibitionDto.getExTitle() %></p>
+											<p class="media-meta"><%=shopDto.getCategoryTitle() %></p>
 										</div>
 									</div>
 								</td>
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=exhibitionDto.getExDesc() %></span>
+											<span class="media-meta"><%=shopDto.getAddress()%></span>
 										</div>
 									</div>
 								</td>
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=exhibitionDto.getExVisiable() %></span>
+											<span class="media-meta"><%=shopDto.getBusinessTime() %></span>
 										</div>
 									</div>
 								</td>
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=exhibitionDto.getExOrder() %></span>
+											<span class="media-meta"><%=shopDto.getScore()%></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<div class="media-body">
+											<span class="media-meta"><%=shopDto.getDetail() %></span>
 										</div>
 									</div>
 								</td>
 							</tr>
+							    
 							<%
 								}
 							%>
@@ -114,9 +130,4 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 		</div>
 	</div>
 </section>
-	<%@ include file="/adminpage/include/pageNav.jsp"%>
-<script>
-function moveWrite(){
-	document.location.href = "<%=ContextPath.root%>/exhibition?act=mvwrite";
-}
-</script>
+	<%@ include file="/page/adminpage/include/pageNav.jsp"%>
