@@ -16,10 +16,8 @@ public class DBConnection {
 			DataSource ds = (DataSource) ictx.lookup("jdbc/map");
 			conn=ds.getConnection();
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conn;

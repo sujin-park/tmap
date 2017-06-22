@@ -1,0 +1,74 @@
+@CHARSET "EUC-KR";
+
+@media screen and (min-width : 768px) {
+	.map-container{
+		padding-right: 400px;
+	}
+
+	.search-controll-container{
+		padding-right: 400px;
+	}
+
+	.search-list-container-mobile{
+		display: none;
+	}
+	
+	.search-list-container{
+		display: block;
+		position: fixed;
+		right: 0;
+		top: 0;
+		width: 400px;
+		height: 100%;
+		padding-top: 50px;
+		background-color: transparent;
+		z-index: 100;
+	}
+	
+	.search-list-container .search-list{
+		padding: 12px;
+		background-color: #fff;
+	}
+	
+	.search-list-container h3{
+		text-align: center;
+	}
+	
+	.search-list-container .search-list .shop{
+		margin-bottom: 13px;
+		cursor: pointer;
+		-webkit-transition: all 0.45s ease;
+		-moz-transition: all 0.45s ease;
+		-ms-transition: all 0.45s ease;
+		-o-transition: all 0.45s ease;
+		transition: all 0.45s ease;
+	}
+	
+	.search-list-container .search-list .shop.on{
+		color: #fff;
+		background-color: #ff8d00;
+	}
+	
+	.search-list-container .search-list .shop a{
+		display: block;
+		width: 100%;
+		height: 100%;
+		text-decoration: none;
+		color: #666;
+	}
+	
+	.search-list-container .search-list .shop.on a{
+		color: #fff;
+	}
+	
+	.search-list-container .search-list .shop .rank{
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	.search-list-container .search-list .shop .title{
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+}
