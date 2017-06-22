@@ -11,7 +11,7 @@ import java.util.Map;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 import com.secondproject.mypage.model.FollowCategoryDto;
-import com.secondproject.mypage.model.FavoriteUserDto;
+import com.secondproject.mypage.model.FollowUserDto;
 
 public class MypageFollowDaoImpl implements MypageFollowDao {
 
@@ -32,7 +32,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public int followCategoryMake(FollowCategoryDto favoriteCategoryDto) {
+	public int followCategoryMake(FollowCategoryDto followCategoryDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -46,9 +46,9 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
 
-			pstmt.setInt(++idx, favoriteCategoryDto.getUserId());
-			pstmt.setString(++idx, favoriteCategoryDto.getCategoryName());
-			pstmt.setInt(++idx, favoriteCategoryDto.getUserId());
+			pstmt.setInt(++idx, followCategoryDto.getUserId());
+			pstmt.setString(++idx, followCategoryDto.getCategoryName());
+			pstmt.setInt(++idx, followCategoryDto.getUserId());
 		
 
 			cnt = pstmt.executeUpdate();
@@ -62,7 +62,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	}
 
 	@Override
-	public int followCategoryModify(FollowCategoryDto favoriteCategoryDto) {
+	public int followCategoryModify(FollowCategoryDto followCategoryDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -74,8 +74,8 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("where favorite_category_id=?");
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, favoriteCategoryDto.getCategoryName());
-			pstmt.setInt(2, favoriteCategoryDto.getFollowCategoryId());
+			pstmt.setString(1, followCategoryDto.getCategoryName());
+			pstmt.setInt(2, followCategoryDto.getFollowCategoryId());
 			
 		
 
@@ -90,7 +90,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	}
 
 	@Override
-	public int followCategoryDelete(int favoriteCategoryId) {
+	public int followCategoryDelete(int followCategoryId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt=0;
@@ -101,7 +101,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("where favorite_category_id=?");
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setInt(1, favoriteCategoryId);
+			pstmt.setInt(1, followCategoryId);
 			
 			cnt=pstmt.executeUpdate();
 
@@ -117,7 +117,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public int followCategoryOrder(int favoriteCategoryId, int category_order) {
+	public int followCategoryOrder(int followCategoryId, int category_order) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt=0;
@@ -130,7 +130,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setInt(1, category_order);
-			pstmt.setInt(2, favoriteCategoryId);
+			pstmt.setInt(2, followCategoryId);
 			
 			cnt=pstmt.executeUpdate();
 
@@ -144,7 +144,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public FollowCategoryDto getFollowCategory(int favoriteCategoryId) {
+	public FollowCategoryDto getFollowCategory(int followCategoryId) {
 		FollowCategoryDto fcdto = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -159,11 +159,11 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("where follow_category_id=?");
 
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, favoriteCategoryId);
+			pstmt.setInt(1, followCategoryId);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				fcdto=new FollowCategoryDto();
-				fcdto.setFollowCategoryId(favoriteCategoryId);
+				fcdto.setFollowCategoryId(followCategoryId);
 				fcdto.setUserId(rs.getInt("user_id"));
 				fcdto.setCategoryName(rs.getString("category_name"));
 				fcdto.setCategoryOrder(rs.getInt("category_order"));
@@ -181,16 +181,53 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public FavoriteUserDto getFollow(int favoriteUserId) {
+	public FollowUserDto getFollow(int favoriteUserId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	public List<FavoriteUserDto> followListView(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FollowUserDto> followListView(int userId) {
+		List<FollowUserDto> list = new ArrayList<FollowUserDto>();
+		FollowUserDto fudto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select fc.category_name,u.email,u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
+			sql.append("		to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
+			sql.append("from follow_user fu \n");
+			sql.append("join follow_category fc ON fu.follow_category_id = fc.follow_category_id \n");
+			sql.append("join users u ON fu.reg_user_id = u.user_id \n");
+			sql.append("where fu.user_id = ?");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, userId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				fudto=new FollowUserDto();
+				fudto.setCategoryName(rs.getString("category_name"));
+				fudto.setEmail(rs.getString("email"));
+				fudto.setStatusMsg(rs.getString("status_msg"));
+				fudto.setRegDate(rs.getString("follow_reg_date"));
+				fudto.setFavoriteRegDate(rs.getString("reg_date"));
+				fudto.setAlias(rs.getString("alias"));
+				fudto.setMemo(rs.getString("memo"));
+				list.add(fudto);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return list;
 	}
 
 
@@ -255,14 +292,12 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public int upOrder(int favoriteCategoryId) {
-		FollowCategoryDto fcdto = getFollowCategory(favoriteCategoryId);
+	public int upOrder(int followCategoryId) {
+		FollowCategoryDto fcdto = getFollowCategory(followCategoryId);
 
 		int cnt =0;
-		System.out.println("업할때"+fcdto.getCategoryOrder());
 		if(fcdto.getCategoryOrder()==1) {
 			cnt =0;
-			System.out.println("업할때 ");
 		} else {
 
 //		getCategoryId(userId, myorder-1);
@@ -289,7 +324,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	            update_myorder.append("set category_order=category_order-1 \n");
 	            update_myorder.append("where follow_category_id=?");
 	            pstmt = conn.prepareStatement(update_myorder.toString());
-	            pstmt.setInt(1, favoriteCategoryId);
+	            pstmt.setInt(1, followCategoryId);
 	            pstmt.executeUpdate();
 	            pstmt.close();
 	            conn.commit();
@@ -314,9 +349,8 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public int downOrder(int favoriteCategoryId) {
-		FollowCategoryDto fcdto = getFollowCategory(favoriteCategoryId);
-		System.out.println("다운할때"+fcdto.getCategoryOrder());
+	public int downOrder(int followCategoryId) {
+		FollowCategoryDto fcdto = getFollowCategory(followCategoryId);
 			int cnt =0;
 	         Connection conn = null;
 	         PreparedStatement pstmt = null;      
@@ -339,7 +373,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	            update_myorder.append("set category_order=category_order+1 \n");
 	            update_myorder.append("where follow_category_id=?");
 	            pstmt = conn.prepareStatement(update_myorder.toString());
-	            pstmt.setInt(1, favoriteCategoryId);
+	            pstmt.setInt(1, followCategoryId);
 	            pstmt.executeUpdate();
 	            pstmt.close();
 	            conn.commit();
