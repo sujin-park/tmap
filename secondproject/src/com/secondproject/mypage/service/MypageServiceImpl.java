@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.secondproject.mypage.dao.MypageFollowDaoImpl;
 import com.secondproject.mypage.model.FollowCategoryDto;
+import com.secondproject.mypage.model.FollowUserDto;
 
 public class MypageServiceImpl implements MypageService {
 
@@ -25,14 +26,26 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int upOrder(int favoriteCategoryId) {
-		return MypageFollowDaoImpl.getMypageFollowDao().upOrder(favoriteCategoryId);
+	public int upOrder(int followCategoryId) {
+		return MypageFollowDaoImpl.getMypageFollowDao().upOrder(followCategoryId);
 	}
 
 	@Override
-	public int downOrder(int favoriteCategoryId) {
+	public int downOrder(int followCategoryId) {
 		// TODO Auto-generated method stub
-		return MypageFollowDaoImpl.getMypageFollowDao().downOrder(favoriteCategoryId);
+		return MypageFollowDaoImpl.getMypageFollowDao().downOrder(followCategoryId);
+	}
+
+	@Override
+	public int followCategoryMake(FollowCategoryDto followCategoryDto) {
+		
+		return MypageFollowDaoImpl.getMypageFollowDao().followCategoryMake(followCategoryDto);
+	}
+
+	@Override
+	public List<FollowUserDto> followListView(int userId) {
+		
+		return MypageFollowDaoImpl.getMypageFollowDao().followListView(userId);
 	}
 
 }

@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.factory.MypageFactory;
+import com.secondproject.mypage.action.MypageFollowAddAction;
 
 @WebServlet("/mypage")
 public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path="/page/mypage/mypage.jsp";
+		String path = MypageFactory.getMypageFollowViewAction().execute(request, response);
 		String act = request.getParameter("act");
 		if("followCategoryListView".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryListView().execute(request, response);
@@ -24,9 +25,10 @@ public class MyPageController extends HttpServlet {
 			path = MypageFactory.getMypageFollowCategoryUpOrderAction().execute(request, response);
 		} else if("downOrder".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryDownOrderAction().execute(request, response);
+		} else if("catemake".equals(act)) {
+			path = MypageFactory.getMypageFollowCategoryMakeAction().execute(request, response);
 		} else if("".equals(act)) {
 			
-		} else if("".equals(act)) {
 		} 
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
@@ -37,6 +39,7 @@ public class MyPageController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("EUC-KR");
 		doGet(request,response);
 	}
 

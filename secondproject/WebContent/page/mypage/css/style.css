@@ -5,8 +5,9 @@
 }
 
 
+
 body {
-	background-color: #111;
+	background-color: ;
 	
 }
 
@@ -23,3 +24,19 @@ body {
 	width:20px;
 	height:20px;
 }
+
+.mar{
+    margin-bottom: 15px;
+}
+.marright{
+	margin-right:20px;
+}
+.lar {
+	width: 20px;
+    height: 20px;
+}
+
+.center {
+	text-align: center;
+}
+	

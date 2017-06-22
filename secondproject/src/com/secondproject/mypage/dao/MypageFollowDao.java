@@ -4,22 +4,22 @@ import java.util.List;
 import java.util.Map;
 
 import com.secondproject.mypage.model.FollowCategoryDto;
-import com.secondproject.mypage.model.FavoriteUserDto;
+import com.secondproject.mypage.model.FollowUserDto;
 
 public interface MypageFollowDao {
 	//favorite_category
-	 int followCategoryMake(FollowCategoryDto favoriteCategoryDto);
-	 int followCategoryModify(FollowCategoryDto favoriteCategoryDto);
-	 int followCategoryDelete(int favoriteCategoryId);
-	 int followCategoryOrder(int favoriteCategoryId,int category_order);
-	 FollowCategoryDto getFollowCategory(int favoriteCategoryId);
+	 int followCategoryMake(FollowCategoryDto followCategoryDto);
+	 int followCategoryModify(FollowCategoryDto followCategoryDto);
+	 int followCategoryDelete(int followCategoryId);
+	 int followCategoryOrder(int followCategoryId,int category_order);
+	 FollowCategoryDto getFollowCategory(int followCategoryId);
 	 FollowCategoryDto getCategoryId(int userId,int category_order);
-	 int upOrder(int favoriteCategoryId);
-	 int downOrder(int favoriteCategoryId);
+	 int upOrder(int followCategoryId);
+	 int downOrder(int followCategoryId);
 	 List<FollowCategoryDto> followCategoryListView(int userId);
 	 //favorite_user
-	 FavoriteUserDto getFollow(int favoriteUserId);
-	 List<FavoriteUserDto> followListView(int userId);
+	 FollowUserDto getFollow(int favoriteUserId);
+	 List<FollowUserDto> followListView(int userId);
 	 int followMove(Map<String,String> map);
 	 int followDelete(int favoriteUserId);
 	 int followModify(Map<String,String> map);
