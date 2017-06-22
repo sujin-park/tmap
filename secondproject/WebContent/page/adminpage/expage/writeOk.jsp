@@ -23,4 +23,4 @@
 		</div>
 	</div>
 </section>
-	<%@ include file="/adminpage/include/pageNav.jsp"%>
+	<%@ include file="/page/adminpage/include/pageNav.jsp"%>

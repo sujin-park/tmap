@@ -23,7 +23,7 @@ public class MypageFollowCategoryDownOrderAction implements Action{
 		int userId=2;
 		List<FollowCategoryDto> list = MypageServiceImpl.getMypageService().followCategoryListView(userId);
 		request.setAttribute("favoriteCategoryList", list);
-		path = "/page/mypage/followCategoryList.jsp";
+		path = "/page/mypage/mypage.jsp";
 		}
 		return path;
 	}
