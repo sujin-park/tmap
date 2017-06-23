@@ -29,6 +29,7 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public String getShopListJSON(Bounds bounds) {
+		System.out.println(new Gson().toJson(getShopList(bounds)));
 		return new Gson().toJson(getShopList(bounds));
 	}
 

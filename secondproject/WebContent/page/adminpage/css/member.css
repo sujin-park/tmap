@@ -33,7 +33,7 @@ body {
 	margin: 15px 0 30px;
 }
 .panel .input-group {
-	margin: 15px 0 30px;
+	
 }
 .panel .btn-group .btn {
 	transition: background-color .3s ease;
@@ -90,6 +90,11 @@ body {
 	cursor: pointer;
 	background-color: #eee;
 }
+.table-filter thead tr th {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
 .table-filter tbody tr td {
 	padding: 10px;
 	vertical-align: middle;
@@ -108,6 +113,7 @@ body {
 .table-filter .media {
 	text-align:center;
 }
+
 /*	--------------------------------------------------
 	:: Page Navigation ¼³Á¤
 	-------------------------------------------------- */
