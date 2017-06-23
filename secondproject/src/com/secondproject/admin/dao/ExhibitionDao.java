@@ -14,7 +14,10 @@ public interface ExhibitionDao {
 	
 	List<ExhibitionDto> listExhibition(Map<String, String> map);
 	ExhibitionDetailDto viewExhibition(int seq);
-	List<ShopDto> shopExhibition();
+	List<ShopDto> shopExhibition(Map<String, String> map);
 	
-	int deleteExhibition(int seq);
+	int deleteExhibition(String[] exhibitions);
+	int plusExhibition(String[] shops);
+	
+	int modifyExhibition(ExhibitionDto exhibitionDto);
 }

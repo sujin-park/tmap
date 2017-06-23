@@ -11,7 +11,8 @@
 				<div class="panel-body">
 					<form id="writeForm" name="writeForm" method="post" action="">
 						<div class="form-group">
-							<input type="hidden" name="act" value="write">
+							<input type="hidden" name="act" value="modify">
+							<input type="hidden" name="seq" value="<%=exhibitionDetailDto.getExhibitionId()%>">
 							<label for="inputName">기획전 이름</label>
 							<input type="text" class="form-control" name="subject" value="<%=exhibitionDetailDto.getExTitle()%>">
 						</div>
@@ -19,11 +20,11 @@
 						<%
 						if (exhibitionDetailDto.getExVisiable() != 0) {
 						%>
-							<input type="checkbox" id="checkbox1" name="checkbox1" checked="checked"><label for="checkbox1"></label>
+							<input type="checkbox" id="checkbox1" name="checkbox1" checked="checked" value="1"><label for="checkbox1"></label>
 						<%
 						} else {
 						%>
-						<input type="checkbox" id="checkbox1" name="checkbox1" checked="checked"><label for="checkbox1"></label>
+						<input type="checkbox" id="checkbox1" name="checkbox1"><label for="checkbox1"></label>
 						<%	
 						}
 						%>
@@ -32,7 +33,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="store" name="store" value="<%=exhibitionDetailDto.getShopId()%>">
 								<span class="input-group-btn">
-									<button class="btn btn-warning" type="button">Search</button>
+									<button class="btn btn-warning" type="button" onclick="javascript:mvshoplist('<%=exhibitionDetailDto.getExhibitionId()%>');">매장 추가</button>
 								</span>
 						</div>
 						<div class="form-group">
@@ -42,7 +43,7 @@
 </textarea>
 						</div>
 						<div class="btn-group pull-right">
-							<button type="button" class="btn btn-warning" onclick="javascript:writeArticle();">수정</button>
+							<button type="button" class="btn btn-warning" onclick="javascript:modifyArticle();">수정</button>
 							<button type="button" class="btn btn-default" onclick="javascript:moveList();">취소</button>
 						</div>
 					</form>
@@ -51,18 +52,9 @@
 	</div>
 </section>
 <script>
-function writeArticle() {
-	if(document.writeForm.subject.value == "") {
-		alert("기획전 제목을 입력해주세요");
-	} else if (document.writeForm.store.value == "") {
-		alert("매장명을 추가해주세요");
-	} else if (document.writeForm.content.value =="") {
-		alert("기획전 내용을 입력해주세요");
-	} else {
-		alert(document.writeForm.subject.value);
-		document.writeForm.action = "<%=ContextPath.root%>/exhibition";
-		document.writeForm.submit();
-	}
+function modifyArticle() {
+	document.writeForm.action = "<%=ContextPath.root%>/exhibition";
+	document.writeForm.submit();
 }
 function moveList() {
 	document.location.href = "<%=ContextPath.root%>/admin?act=mvexhibition";	

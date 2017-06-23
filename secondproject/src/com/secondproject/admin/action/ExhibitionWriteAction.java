@@ -10,6 +10,7 @@ import com.secondproject.action.Action;
 import com.secondproject.admin.dao.ExhibitionDaoImpl;
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
+import com.secondproject.util.NumberCheck;
 
 public class ExhibitionWriteAction implements Action {
 
@@ -21,11 +22,13 @@ public class ExhibitionWriteAction implements Action {
 		String path = "/adminIndex.jsp";
 		int seq = ExhibitionDaoImpl.getExhibitionDao().getNextSeq(); // 글 번호 얻기 db에서
 		String subject = request.getParameter("subject");
-		int visiable = 1;
+		int visiable = 0;
 		int order = 6;
-		
-		if (request.getParameter("checkbox1") == null) 
-		System.out.println("1" + subject);
+		if (NumberCheck.nullToZero(request.getParameter("checkbox1")) == 0) {
+			visiable = 0;
+		} else {
+			visiable = 1;
+		}
 		exhibitionDetailDto.setExhibitionId(seq);
 		exhibitionDetailDto.setExTitle(request.getParameter("subject"));
 		exhibitionDetailDto.setExDesc(request.getParameter("content"));
@@ -37,9 +40,9 @@ public class ExhibitionWriteAction implements Action {
 		exhibitionDetailDto.setExdDesc("매장코멘트"); // 가정하기
 		
 		int cnt = ExhibitionServiceImpl.getExhibitionService().writeExhibition(exhibitionDetailDto);
-		System.out.println(cnt);
 		if (cnt != 0) {
-			path = "/page/adminpage/expage/writeOk.jsp";
+			request.setAttribute("exhibitionInfo", exhibitionDetailDto);
+			path = "/page/adminpage/expage/view.jsp";
 		} else {
 			path = "/page/adminpage/expage/writeFail.jsp";
 		}
