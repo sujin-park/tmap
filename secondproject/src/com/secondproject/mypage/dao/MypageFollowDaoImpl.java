@@ -300,7 +300,6 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			cnt =0;
 		} else {
 
-//		getCategoryId(userId, myorder-1);
 		
 	         Connection conn = null;
 	         PreparedStatement pstmt = null;

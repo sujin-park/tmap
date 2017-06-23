@@ -55,9 +55,7 @@ function moveList() {
 	document.location.href = "<%=ContextPath.root%>/admin?act=mvexhibition";	
 }
 
-function mvshoplist() {
-	document.location.href ="<%=ContextPath.root%>/exhibition?act=mvshoplist";
-}
+
 
 $(document).ready(function() {
     $('#summernote').summernote();

@@ -11,8 +11,9 @@ String order = (String) request.getAttribute("order");
 			<div class="panel-body">
 				<div class="row">
 					<div class="pull-right col-md-offset-2">
+					<form name="exhibitionForm" method="post" action="">
+					<input type="hidden" name="act" value="delete">
 						<div class="btn-group">
-						
 							<button type="button" class="btn btn-default btn-filter" onclick="javascript:moveWrite();">기획전 등록</button>
 							<button type="button" class="btn btn-warning btn-filter" onclick="javascript:deleteExhibition();">기획전 삭제</button>
 						</div>
@@ -29,13 +30,14 @@ String order = (String) request.getAttribute("order");
 					</div> -->
 				</div>
 				<div class="table-container table-responsive">
+					
 					<table class="table table-filter" id="extable">
 						<tbody>
 							<tr class="warning" align="center">
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" id="checkall"><label
-											for="checkall"></label>
+										<input type="checkbox" id="checkedAll"><label
+											for="checkedAll"></label>
 									</div>
 								</td>
 								<td>사진</td>
@@ -44,7 +46,6 @@ String order = (String) request.getAttribute("order");
 								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=visiableby" style="text-decoration:none; color:red">노출여부</a></td>
 								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=orderby" style="text-decoration:none; color:red">배치순서</a></td>
 								<td>Edit</td>
-								<td>Delete</td>
 							</tr>
 							<%
 								int size = list.size();
@@ -55,7 +56,7 @@ String order = (String) request.getAttribute("order");
 							<tr>
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="<%=checkbox%>"> <label
+										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="checkbox" value="<%=exhibitionDto.getExhibitionId()%>"> <label
 											for="<%=checkbox%>"></label>
 									</div>
 								</td>
@@ -94,16 +95,10 @@ String order = (String) request.getAttribute("order");
 								</td>
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
-										<button class="btn btn-warning btn-xs" data-title="Edit"
+										<button type="button" class="btn btn-warning btn-xs" 
 							    		onclick="javascript:viewExhibition('<%=exhibitionDto.getExhibitionId()%>');"><span class="glyphicon glyphicon-pencil"></span>
 							    		</button>
 							    	</p>
-							    </td>
-							    <td>
-							    	<p data-placement="top" data-toggle="tooltip" title="Delete">
-							    	<button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"
-							    	onclick="javascript:deleteExhibition('<%=exhibitionDto.getExhibitionId()%>');">
-							    	<span class="glyphicon glyphicon-trash"></span></button></p>
 							    </td>
 							</tr>
 							    
@@ -112,6 +107,7 @@ String order = (String) request.getAttribute("order");
 							%>
 						</tbody>
 					</table>
+					</form>
 				</div>
 				<form name="searchForm" method="get" action="">
 					<input type="hidden" name="act" value="mvexhibition"> 

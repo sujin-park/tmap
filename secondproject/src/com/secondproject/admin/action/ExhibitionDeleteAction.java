@@ -1,6 +1,7 @@
 package com.secondproject.admin.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +16,15 @@ public class ExhibitionDeleteAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String path = "/adminIndex.jsp"; 
-		int seq = Integer.parseInt(request.getParameter("seq"));
-		int cnt = ExhibitionServiceImpl.getExhibitionService().deleteExhibition(seq);
+		String path = "/adminIndex.jsp";
+		String[] exhibitions = request.getParameterValues("checkbox");
+//		int seq = Integer.parseInt(request.getParameter("seq"));
+		int cnt = ExhibitionServiceImpl.getExhibitionService().deleteExhibition(exhibitions);
 		if (cnt!=0) {
 			path = "/page/adminpage/expage/writeOk.jsp";
 		} else 
 			path = "/page/adminpage/expage/writeFail.jsp";
+		
 		return path;
 	}
 

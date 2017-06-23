@@ -4,6 +4,7 @@
 
 <%
 List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
+int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
 %>
 <section class="content page-top">
 	<div class="col-md-10 col-md-push-1">
@@ -12,38 +13,37 @@ List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 				<div class="row">
 					<div class="pull-left col-md-7">
 						<div class="btn-group">
-							<button type="button" class="btn btn-default btn-filter">매장 추가</button>
+							<button type="button" class="btn btn-default btn-filter" onclick="javascript:plusShop();">매장 추가</button>
 						</div>
 					</div>
-
+				<form name="searchForm" method="get" action="">
+					<input type="hidden" name="act" value="mvshoplist"> 
 					<div class="pull-right col-md-5">
 						<div class="input-group">
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								매장명
-								<span class="caret"></span> 
-								<span class="sr-only">Toggle Dropdown</span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">매장명</a></li>
-								<li><a href="#">카테고리</a></li>
-							</ul>
+							<div class="input-group-btn">
+									<select class="form-control" name="key">
+									  	<option value="title">매장명</option>
+									  	<option value="category">카테고리명</option>
+									</select>
 						</div>
-							<input type="text" class="form-control" placeholder="검색어 입력">
+							<input type="text" class="form-control" placeholder="검색어 입력" name="word">
 							<span class="input-group-btn">
-								<button class="btn btn-warning" type="button">Search</button>
+								<button class="btn btn-warning" type="button" onclick="javascript:searchShop();">Search</button>
 							</span>
 						</div>
 					</div>
+				</form>
 				</div>
+				<form name="updateForm" method="post" action="">
+				<input type="hidden" name="act" value="plusshop">
 				<div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
 						<tbody>
 							<tr class="warning" align="center">
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" id="checkall"><label
-											for="checkall"></label>
+										<input type="checkbox" id="checkedAll"><label
+											for="checkedAll"></label>
 									</div>
 								</td>
 								<td>매장명</td>
@@ -62,7 +62,7 @@ List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 							<tr>
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="<%=checkbox%>"> <label
+										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="checkbox" value="<%=shopDto.getShopId()%>"> <label
 											for="<%=checkbox%>"></label>
 									</div>
 								</td>
@@ -114,20 +114,32 @@ List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 						</tbody>
 					</table>
 				</div>
+				</form>
 				<div class="btn-group pull-right">
-					<button type="button" class="btn btn-warning">가나다순</button>
-					<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						<span class="caret"></span> 
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">가나다순</a></li>
-						<li><a href="#">가입일순</a></li>
-						<li><a href="#">신뢰도순</a></li>
-					</ul>
+									<select class="form-control" name="key">
+									  	<option value="shopname">매장명순</option>
+									  	<option value="category">카테고리순</option>
+									</select>
+								</div>
 				</div>
 			</div>
 		</div>
-	</div>
 </section>
 	<%@ include file="/page/adminpage/include/pageNav.jsp"%>
+<script>
+
+function searchShop() {
+	if (document.searchForm.word.value == "")	{
+		alert("검색어 입력!!!!!");
+	} else {
+		document.searchForm.action = "<%=ContextPath.root%>/exhibition";
+		document.searchForm.submit();
+	}
+}
+
+function plusShop(seq) {
+	document.location.href = "<%=ContextPath.root%>/exhibition";
+}
+
+
+</script>

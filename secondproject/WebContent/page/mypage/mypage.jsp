@@ -1,18 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath"%>
-
+	pageEncoding="EUC-KR" import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath "%>
+<script type="text/javascript" src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
 <script type="text/javascript"> 
-    function upOrder(id) {
+    function upOrder(order,id) {
+    	if(order==1) {
+    	return alert("첫번째 순서입니다.");
+    	} else {
     	document.orderForm.act.value = "upOrder"; 
     	document.orderForm.id.value=id;
     	document.orderForm.action="<%=ContextPath.root%>/mypage";
         document.orderForm.submit();
+    	}
     }
-    function downOrder(id) {
+
+    function downOrder(order,id) {
+    	if(document.getElementsByName("trtr").length==order) {
+    		return alert("마지막 순서입니다.");
+    	} else {
     	document.orderForm.act.value = "downOrder";
     	document.orderForm.id.value = id;
     	document.orderForm.action = "<%=ContextPath.root%>/mypage";
 		document.orderForm.submit();
+    	}
 	}
 	function first() {
 		alert("첫번째 순서 입니다");
@@ -36,15 +45,63 @@
 	        cbox.checked=input_form.all.checked;
 	    }
 	}
-	function categoryMake() {
-		document.catemake.act.value ="catemake"; 
-    	document.catemake.action="<%=ContextPath.root%>/mypage";
-        document.catemake.submit();
+ 
+	function getData() {
+		
+		var catename = $("#text").val();
+		var name = "act=catemake&catename=" + encodeURI(catename);
+		sendRequest("/secondproject/mypage", name, receiveBookData, "GET");
 	}
+	
+	function receiveBookData() {
+		if(httpRequest.readyState == 4) {
+			if(httpRequest.status == 200) {
+				var bookxml = httpRequest.responseXML;
+				viewData(bookxml);//<book><title>제목</title><price>1000</price></book>
+			} else {
+				alert("문제발생 : " + httpRequest.status);
+			}
+		}
+	}
+	function viewData(category) {
+		var cateid = category.getElementsByTagName("cateid")[0].firstChild.data;
+		var order = category.getElementsByTagName("order")[0].firstChild.data;
+		var name = category.getElementsByTagName("name")[0].firstChild.data;
+		var tr = document.createElement("tr");
+		var td = document.createElement("td");
+		var txtorder = document.createTextNode(order);
+		td.appendChild(txtorder);
+		var td2 = document.createElement("td");
+		var txtname = document.createTextNode(name);
+		td2.appendChild(txtname);
+		var div = document.createElement("div");
+		div.setAttribute("class","pull-right");
+		var a2 = document.createElement("a");
+		a2.setAttribute("class","btn btn-default");
+		a2.setAttribute("href","javascript:upOrder('"+order+"','"+cateid+"');");
+		a2.setAttribute("role","button");
+		a2.appendChild(document.createTextNode("▲"));
+		var a4 = document.createElement("a");
+		a4.setAttribute("class","btn btn-default");
+		a4.setAttribute("href","javascript:downOrder('"+order+"','"+cateid+"');");
+		a4.setAttribute("role","button");
+		a4.appendChild(document.createTextNode("▼"));
+		div.appendChild(a2);
+		div.appendChild(document.createTextNode(" "));
+		div.appendChild(a4);
+		td2.appendChild(div);
+		tr.setAttribute("name","trtr");
+		tr.appendChild(td);
+		tr.appendChild(td2);
+		var tt = document.getElementById("tt");
+		tt.appendChild(tr); 
+		$("#text").empty();
+		
+	}
+	
 	
 </script>
 		<div class="col-xs-9 col-md-9 col-xs-offset-1 a">
-
 
 			<h2 class="sub-header">팔로우 관리</h2>
 
@@ -53,7 +110,7 @@
 					<div class="col-xs-6">
 						<select
 							name="" onchange="" class="form-control">
-							<option value="">전체</option>
+							<option value="all">전체</option>
 							<option value="">키트리</option>
 							<option value="">한식</option>
 							<option value="">내맘대로</option>
@@ -84,7 +141,8 @@
 				    <tbody>
 				    	<%
 									List<FollowUserDto> fulist = (List<FollowUserDto>) request.getAttribute("list");
-									int size = fulist.size();
+				    		if(fulist!=null) {	
+				    		int size = fulist.size();
 									for (int i = 0; i < size; i++) {
 										FollowUserDto fudto = fulist.get(i);
 								%>
@@ -104,7 +162,9 @@
 				        <td><%=fudto.getAlias() %></td>
 				      <%} %>
 				      </tr>
-				      <% } %>
+				      <% }
+									} else { %>팔로우한사람이 없습니다.
+									<% }%>
 				    </tbody>
 				  </table>
 				  </form>
@@ -140,55 +200,40 @@
 
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="tt" name="tt">
 
 
 								<%
 									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
-									size = list.size();
+								if(list!=null) {	
+								int size = list.size();
 									for (int i = 0; i < size; i++) {
 										FollowCategoryDto fcdto = list.get(i);
 								%>
-								<tr>
-									<td><%=fcdto.getCategoryOrder()%></td>
-									<td><%=fcdto.getCategoryName()%>
-										<div class="pull-right">
-											<%
-												if (i == 0) {
-											%>
-
-											<a class="btn btn-default" href="javascript:first();"
-												role="button">△</a>
-											<%
-												} else {
-											%>
-											<a class="btn btn-default"
-												href="javascript:upOrder('<%=fcdto.getFollowCategoryId()%>');"
+								<tr name="trtr">
+									<td id="<%=fcdto.getCategoryOrder()%>"><%=fcdto.getCategoryOrder()%></td>
+									<td id="nana"><%=fcdto.getCategoryName()%>
+										<div id="divv" class="pull-right">
+											
+											<a id="aa" class="btn btn-default"
+												href="javascript:upOrder('<%=i+1%>','<%=fcdto.getFollowCategoryId() %>');"
 												role="button">▲</a>
-											<%
-												}
-											%>
-
-											<%
-												if (i + 1 == size) {
-											%>
-											<a class="btn btn-default" href="javascript:last();"
-												role="button">▽</a>
-											<%
-												} else {
-											%>
+											
 											<a class="btn btn-default"
-												href="javascript:downOrder('<%=fcdto.getFollowCategoryId()%>');"
+												href="javascript:downOrder('<%=i+1%>','<%=fcdto.getFollowCategoryId() %>');"
 												role="button">▼</a>
 
-											<%
-												}
-											%>
+											
 										</div></td>
 								</tr>
 
 
 								<%
+									}
+								} else {
+									%>
+									등록한 카테고리가 없습니다. 	
+									<%
 									}
 								%>
 
@@ -200,8 +245,8 @@
 			<div class="modal-footer">
 				<form name=catemake method="post">
 				<input type="hidden" name="act">
-				<input type="text" name="catename" class="marright"><button class="btn btn-primary" type="button"
-					onclick="javascript:categoryMake();">추가</button>
+				<input type="text" id="text" name="catename" class="marright"><button id="btn" class="btn btn-primary" type="button"
+					onclick="getData();">추가</button>
 				<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
 				</form>
 			</div>

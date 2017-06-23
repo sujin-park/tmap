@@ -11,14 +11,20 @@ function searchExhibition() {
 	if (document.searchForm.word.value == "")	{
 		alert("검색어 입력!!!!!");
 	} else {
-		document.searchForm.action = "<%=ContextPath.root%>/admin?act=mvexhibition";
+		document.searchForm.action = "<%=ContextPath.root%>/admin?act=mvshoplist";
 		document.searchForm.submit();
 	}
 		
 }
 
-function deleteExhibition(seq) {
-	document.location.href ="<%=ContextPath.root%>/exhibition?act=delete&seq=" + seq;
+function mvshoplist(seq) {
+	document.location.href ="<%=ContextPath.root%>/exhibition?act=mvshoplist&seq=" + seq;
 }
+
+function deleteExhibition() {
+	document.exhibitionForm.action = "<%=ContextPath.root%>/exhibition";
+	document.exhibitionForm.submit();
+}
+
 </script>
 <script type="text/javascript" src="<%=ContextPath.root%>/page/adminpage/js/checkbox.js"></script>

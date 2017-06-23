@@ -9,14 +9,8 @@ public class AdminFactory {
 	private static ExhibitionViewAction exhibitionViewAction;
 	private static ExhibitionShopAction exhibitionShopAction;
 	private static ExhibitionDeleteAction exhibitionDeleteAction;
-
-	public static ExhibitionDeleteAction getExhibitionDeleteAction() {
-		return exhibitionDeleteAction;
-	}
-
-	public static ExhibitionShopAction getExhibitionShopAction() {
-		return exhibitionShopAction;
-	}
+	private static ExhibitionShopUpAction exhibitionShopUpAction;
+	private static ExhibitionModifyAction exhibitionModifyAction;
 
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
@@ -24,6 +18,8 @@ public class AdminFactory {
 		exhibitionViewAction = new ExhibitionViewAction();
 		exhibitionShopAction = new ExhibitionShopAction();
 		exhibitionDeleteAction = new ExhibitionDeleteAction();
+		exhibitionShopUpAction = new ExhibitionShopUpAction();
+		exhibitionModifyAction = new ExhibitionModifyAction();
 	}
 	
 	public static ExhibitionListAction getExhibitionListAction() {
@@ -36,5 +32,21 @@ public class AdminFactory {
 	
 	public static ExhibitionViewAction getExhibitionViewAction() {
 		return exhibitionViewAction;
+	}
+	
+	public static ExhibitionShopUpAction getExhibitionShopUpAction() {
+		return exhibitionShopUpAction;
+	}
+
+	public static ExhibitionDeleteAction getExhibitionDeleteAction() {
+		return exhibitionDeleteAction;
+	}
+
+	public static ExhibitionShopAction getExhibitionShopAction() {
+		return exhibitionShopAction;
+	}
+	
+	public static ExhibitionModifyAction getExhibitionModifyAction() {
+		return exhibitionModifyAction;
 	}
 }

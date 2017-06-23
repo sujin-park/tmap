@@ -11,6 +11,9 @@ public interface ExhibitionService {
 	int writeExhibition(ExhibitionDetailDto exhibitionDetailDto);
 	List<ExhibitionDto> listExhibition(String key, String word, String order, String column);
 	ExhibitionDetailDto viewExhibition(int seq);
-	List<ShopDto> shopExhibition();
-	int deleteExhibition(int seq);
+	List<ShopDto> shopExhibition(String key, String word, String order, String column);
+	int deleteExhibition(String[] exhibitions);
+	
+	int plusExhibition(String[] shops);
+	int modifyExhibition(ExhibitionDto exhibitionDto);
 }
