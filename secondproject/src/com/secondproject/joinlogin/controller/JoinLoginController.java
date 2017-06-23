@@ -22,15 +22,10 @@ public class JoinLoginController extends HttpServlet {
 		//System.out.print("2");
 		if("login".equals(act)){
 			path = JoinLoginFactory.getLoginAction().execute(request, response);
-//			path += queryString;
 			PageMove.forward(path, request, response);
 		} else if ("join".equals(act)){
-			//System.out.print("3");
 			path = JoinLoginFactory.getJoinAction().execute(request, response);
-			//System.out.print(path);
-//			path += queryString;
 			PageMove.forward(path, request, response);
-			System.out.print("5");
 		}
 	}
 

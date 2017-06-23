@@ -18,7 +18,7 @@ public class JoinAction implements Action {
 			throws ServletException, IOException {
 		String path = "/index.jsp";
 		UserDto userDto = new UserDto();
-		System.out.println(request.getParameter("gender"));
+		//System.out.println(request.getParameter("gender"));
 		userDto.setEmail(request.getParameter("email"));
 		userDto.setPassword(request.getParameter("password"));
 		userDto.setGender(Integer.parseInt(request.getParameter("gender")));

@@ -1,5 +1,9 @@
 package com.secondproject.joinlogin.dao;
 
-public interface LoginDao {
+import java.util.Map;
 
+import com.secondproject.userdto.UserDto;
+
+public interface LoginDao {
+	UserDto login(Map<String, String> map);
 }
