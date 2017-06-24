@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.secondproject.controller.PageMove;
 import com.secondproject.factory.AdminFactory;
-import com.secondproject.util.Encoding;
+import com.secondproject.util.*;
 
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
@@ -21,11 +20,12 @@ public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String act = request.getParameter("act");
 		String path = "/index.jsp";
+		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = request.getParameter("word");
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
+		String queryString = "?pg=" + pg + "&key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
 //		System.out.println(order);
 //		System.out.println(column);
 		if ("mvexhibition".equals(act)) {

@@ -119,6 +119,7 @@ body {
 	-------------------------------------------------- */
 .pgnav{
 	text-align: center;
+	clear :both;
 }
 .pagination>li>a.color-orange {
 		color: #ec9a25;

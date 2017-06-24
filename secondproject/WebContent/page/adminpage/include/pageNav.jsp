@@ -3,8 +3,12 @@
 	
 <div class="pgnav">
 	<ul class="pagination">
-		<li><a href="#" aria-label="Previous"> <span
-				aria-hidden="true"><font color="#ec9a25">&laquo;</font></span>
+		
+		<li><a href="#" aria-label="Previous"> 
+		<span aria-hidden="true"><font color="#ec9a25">√÷Ω≈</font></span>
+		</a></li>
+		<li><a href="#" aria-label="Previous"> 
+		<span aria-hidden="true"><font color="#ec9a25">&laquo;</font></span>
 		</a></li>
 		<%
 			int count = 11;
@@ -14,8 +18,11 @@
 		<%
 			}
 		%>
-		<li><a href="#" aria-label="Next"> <span aria-hidden="true"><font
-					color="#ec9a25">&raquo;</font></span>
+		<li><a href="#" aria-label="Next"> <span aria-hidden="true">
+		<font color="#ec9a25">&raquo;</font></span>
+		</a></li>
+		<li><a href="#" aria-label="Next"> 
+		<span aria-hidden="true"><font color="#ec9a25">≥°</font></span>
 		</a></li>
 	</ul>
 </div>

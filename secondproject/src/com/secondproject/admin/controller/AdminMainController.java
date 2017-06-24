@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.secondproject.controller.PageMove;
+import com.secondproject.util.PageMove;
 
 @WebServlet("/adminmain")
 public class AdminMainController extends HttpServlet {

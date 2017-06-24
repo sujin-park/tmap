@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.secondproject.action.Action;
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
+import com.secondproject.util.NumberCheck;
 
 public class ExhibitionShopUpAction implements Action {
 
@@ -18,28 +19,16 @@ public class ExhibitionShopUpAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp"; 
+		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		String[] shops = request.getParameterValues("checkbox");
-		PrintWriter out = response.getWriter();
-		if (shops == null || shops.length <= 0) {
-			out.println("<script>alert(\"선택된 매장이 없습니다.\")</script>");
-		} else {
-			for (int i = 0; i < shops.length; i++) {
-				out.println("선택한 값 : " + shops[i] + "<br>");
-			}
-		}
-		
+		int size = shops.length;
 		ExhibitionDetailDto exhibitionDetailDto = new ExhibitionDetailDto();
-//		exhibitionDetailDto.setExhibitionId(exhibitionId);
-//		exhibitionDetailDto.setShopId(shopId);
-//		exhibitionDetailDto.setExdDesc(exdDesc);
-//		exhibitionDetailDto.setExdOrder(exdOrder);
-//		int cnt = ExhibitionServiceImpl.getExhibitionService().plusExhibition(shops);
-//		
-//		if (cnt != 0) {
-//			path = "/page/adminpage/expage/writeOk.jsp";
-//		} else  {
-//			path = "/page/adminpage/expage/writeFail.jsp";
-//		}
+		int cnt = ExhibitionServiceImpl.getExhibitionService().plusExhibition(shops, seq);
+		if (cnt !=0) {
+			path = "/page/adminpage/expage/writeOk.jsp";
+		} else {
+			path = "/page/adminpage/expage/writeFail.jsp";
+		}
 		return path;
 	}
 

@@ -1,9 +1,11 @@
+<%@page import="com.secondproject.util.PageNavigation"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"%>
 
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
 String order = (String) request.getAttribute("order");
+PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
 %>
 <section class="content page-top">
 	<div class="col-md-10 col-md-push-1">
@@ -130,4 +132,4 @@ String order = (String) request.getAttribute("order");
 		</div>
 	</div>
 </section>
-	<%@ include file="/page/adminpage/include/pageNav.jsp"%>
+<%=pageNavigation.getNavigator()%>
