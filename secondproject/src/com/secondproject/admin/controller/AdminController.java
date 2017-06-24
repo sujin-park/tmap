@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.factory.AdminFactory;
 import com.secondproject.util.Encoding;
+import com.secondproject.util.NumberCheck;
 import com.secondproject.util.PageMove;
 
 @WebServlet("/admin")
@@ -22,6 +23,7 @@ public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String act = request.getParameter("act");
 		String path = "/index.jsp";
+		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = request.getParameter("word");
 		String order = Encoding.nullToBlank(request.getParameter("order"));
