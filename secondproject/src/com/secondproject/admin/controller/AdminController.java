@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.secondproject.factory.AdminFactory;
-import com.secondproject.util.Encoding;
-import com.secondproject.util.NumberCheck;
-import com.secondproject.util.PageMove;
+import com.secondproject.util.*;
 
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
@@ -24,12 +22,11 @@ public class AdminController extends HttpServlet {
 		String word = request.getParameter("word");
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
-//		System.out.println(order);
-//		System.out.println(column);
+		String queryString = "?pg=" + pg + "&key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
+		String contentPath = "";
 		if ("mvexhibition".equals(act)) {
 			path ="/template/admin/admin.jsp";
-			String contentPath = AdminFactory.getExhibitionListAction().execute(request, response);
+			contentPath = AdminFactory.getExhibitionListAction().execute(request, response);
 			request.setAttribute("titleTagValue", "타이틀");
 			request.setAttribute("contentPath", contentPath + queryString);
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
@@ -44,8 +41,16 @@ public class AdminController extends HttpServlet {
 			
 			PageMove.forward(path, request, response);
 			// 수정아직 안된부분
-		}
+		} else if ("mvreview".equals(act)) {
+			path ="/template/admin/admin.jsp";
+			contentPath = AdminFactory.getReviewListAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath + queryString);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			
+			PageMove.forward(path, request, response);
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");

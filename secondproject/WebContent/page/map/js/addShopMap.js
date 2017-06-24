@@ -42,15 +42,10 @@ function addShopMap () {
 			for (var i = 0, ii = items.length, item, addrType; i < ii; i++) {
 				item = items[i];
 				if (item.isRoadAddress === false) {
-					htmlAddresses.push((i + 1) + ' ' + item.address);
+					htmlAddresses.push('<div>' + (i + 1) + ' ' + item.address + '</div>');
 				}
 			}
-	
-			infoWindow.setContent([
-				'<div style="padding:10px 15px;">',
-				'<div></div>',
-				'<button>이곳이맞나요</button></div>'
-				]);
+			infoWindow.setContent('<div style="padding:10px 15px;">' + htmlAddresses + '<button>이곳이맞나요</button></div>');
 			infoWindow.open(map, latlng);
 		});
 	}

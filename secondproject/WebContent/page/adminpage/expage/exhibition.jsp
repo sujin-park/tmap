@@ -7,7 +7,7 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 String order = (String) request.getAttribute("order");
 PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
 %>
-<section class="content page-top">
+<section class="content page-top row">
 	<div class="col-md-10 col-md-push-1">
 		<div class="panel panel-default">
 			<div class="panel-body">
