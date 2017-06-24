@@ -36,6 +36,7 @@ int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
 				</div>
 				<form name="updateForm" method="post" action="">
 				<input type="hidden" name="act" value="plusshop">
+				<input type="hidden" name="seq" value="<%=seq%>">
 				<div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
 						<tbody>
@@ -137,9 +138,13 @@ function searchShop() {
 	}
 }
 
-function plusShop(seq) {
-	document.location.href = "<%=ContextPath.root%>/exhibition";
-}
+function plusShop() {
+	if (confirm("매장을 등록하시겠습니까?")) {
+	document.updateForm.action = "<%=ContextPath.root%>/exhibition";
+	document.updateForm.submit();
+	}
+	
+	}
 
 
 </script>

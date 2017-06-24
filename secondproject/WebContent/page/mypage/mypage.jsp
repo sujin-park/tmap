@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath "%>
 <script type="text/javascript" src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 <script type="text/javascript"> 
     function upOrder(order,id) {
-    	if(order==1) {
+    	if(order==1) { 
     	return alert("첫번째 순서입니다.");
     	} else {
     	document.orderForm.act.value = "upOrder"; 
@@ -23,14 +24,6 @@
 		document.orderForm.submit();
     	}
 	}
-	function first() {
-		alert("첫번째 순서 입니다");
-		return;
-	}
-	function last() {
-		alert("마지막 순서입니다");
-		return;
-	}
 	
 	function modal() {
 		$('#modal').modal({show:true});
@@ -47,7 +40,6 @@
 	}
  
 	function getData() {
-		
 		var catename = $("#text").val();
 		var name = "act=catemake&catename=" + encodeURI(catename);
 		sendRequest("/secondproject/mypage", name, receiveBookData, "GET");
@@ -98,12 +90,31 @@
 		$("#text").empty();
 		
 	}
-	
-	
+	function followdelete(){
+		var valueArr = new Array();
+	    var list = $("input[name='chk']");
+	    for(var i = 0; i < list.length; i++){
+	        if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+	        	 valueArr.push(list[i]);
+	        }
+	    }
+	    
+	}
+	var valueArr;
+	$(document).ready(function() {
+		$("#getCheckedAll").click(function() {
+				valueArr = new Array();	
+			$("input[name=chk]:checked").each(function() {
+				valueArr.push($(this).val());
+			});
+			document.location.href="<%=ContextPath.root%>/mypage?act=followdelete&id="+valueArr;
+		});
+	});
 </script>
 		<div class="col-xs-9 col-md-9 col-xs-offset-1 a">
 
 			<h2 class="sub-header">팔로우 관리</h2>
+
 
 			<div class="form-group form-inline">
 				<div class="row mar">
@@ -119,8 +130,8 @@
 					<div class="col-xs-6">
 						<div class="pull-right">
 						  <a class="btn btn-default" href="javascript:modal();" role="button">그룹관리</a>
-						  <a class="btn btn-default" href="#" role="button">그룹이동</a>
-						  <a class="btn btn-default" href="#" role="button">삭제</a>
+						  <a class="btn btn-default" href="#" role="button" id="getCheckedAll">그룹이동</a>
+						  <a class="btn btn-default" href="javascript:followdelete();" role="button" >삭제</a>
 						</div>
 					</div>
 					
@@ -147,7 +158,7 @@
 										FollowUserDto fudto = fulist.get(i);
 								%>
 				      <tr>
-				        <td class="center"><input type="checkbox"  name="chk" class="lar"></td>
+				        <td class="center"><input type="checkbox"  name="chk" class="lar" value="<%=fudto.getFavoriteUserId()%>"></td>
 				        <td><%=fudto.getCategoryName()%></td>
 				        <td><%=fudto.getEmail() %> | <%=fudto.getStatusMsg() %></td>
 				        <td><%=fudto.getRegDate() %></td>

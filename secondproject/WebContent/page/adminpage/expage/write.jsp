@@ -45,9 +45,10 @@ function writeArticle() {
 	} else if (document.writeForm.content.value =="") {
 		alert("기획전 내용을 입력해주세요");
 	} else {
-		alert(document.writeForm.subject.value);
+		if (confirm("등록하시겠습니까?")){
 		document.writeForm.action = "<%=ContextPath.root%>/exhibition";
 		document.writeForm.submit();
+		}
 	}
 }
 

@@ -198,7 +198,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select fc.category_name,u.email,u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
+			sql.append("select fu.follow_user_id,fc.category_name,u.email,u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
 			sql.append("		to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
 			sql.append("from follow_user fu \n");
 			sql.append("join follow_category fc ON fu.follow_category_id = fc.follow_category_id \n");
@@ -211,6 +211,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			
 			while (rs.next()) {
 				fudto=new FollowUserDto();
+				fudto.setFavoriteUserId(rs.getInt("follow_user_id"));
 				fudto.setCategoryName(rs.getString("category_name"));
 				fudto.setEmail(rs.getString("email"));
 				fudto.setStatusMsg(rs.getString("status_msg"));

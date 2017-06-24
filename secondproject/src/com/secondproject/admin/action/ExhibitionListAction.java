@@ -7,11 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.secondproject.util.Encoding;
 import com.secondproject.action.Action;
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.model.ExhibitionDto;
+import com.secondproject.admin.service.CommonServiceImpl;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
+import com.secondproject.util.*;
 
 public class ExhibitionListAction implements Action {
 
@@ -19,6 +20,7 @@ public class ExhibitionListAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp";
+		int pg = NumberCheck.nullToOne(request.getParameter("pg")); 
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = Encoding.isoToEuc(request.getParameter("word"));
 		String order = Encoding.nullToBlank(request.getParameter("order"));
@@ -33,9 +35,15 @@ public class ExhibitionListAction implements Action {
 		}
 
 		List<ExhibitionDto> list = ExhibitionServiceImpl.getExhibitionService().listExhibition(key, word, order,
-				column);
+				column, pg);
 		request.setAttribute("order", order);
 		request.setAttribute("exhibitionList", list);
+		
+		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word);
+		// root는 여기서 가져옴
+		pageNavigation.setRoot(request.getContextPath());
+		pageNavigation.setNavigator();
+		request.setAttribute("navigator", pageNavigation);
 		path = "/page/adminpage/expage/exhibition.jsp";
 		return path;
 	}
