@@ -2,17 +2,15 @@ package com.secondproject.admin.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.secondproject.util.*;
-import com.secondproject.admin.action.ExhibitionWriteAction;
-import com.secondproject.controller.PageMove;
 import com.secondproject.factory.AdminFactory;
+import com.secondproject.util.Encoding;
+import com.secondproject.util.PageMove;
 
 @WebServlet("/exhibition")
 public class ExhibitionController extends HttpServlet {
