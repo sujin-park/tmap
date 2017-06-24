@@ -27,8 +27,8 @@ public class MyPageController extends HttpServlet {
 			path = MypageFactory.getMypageFollowCategoryDownOrderAction().execute(request, response);
 		} else if("catemake".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryMakeAction().execute(request, response);
-		} else if("".equals(act)) {
-			
+		} else if("followdelete".equals(act)) {
+			path = MypageFactory.getMypageFollowDeleteAction().execute(request, response);
 		} 
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
