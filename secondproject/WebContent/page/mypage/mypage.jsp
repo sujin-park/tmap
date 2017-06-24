@@ -4,7 +4,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 <script type="text/javascript"> 
     function upOrder(order,id) {
-    	if(order==1) {
+    	if(order==1) { 
     	return alert("첫번째 순서입니다.");
     	} else {
     	document.orderForm.act.value = "upOrder"; 
