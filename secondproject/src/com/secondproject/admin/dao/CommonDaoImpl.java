@@ -38,7 +38,7 @@ public class CommonDaoImpl implements CommonDao {
 			String word = map.get("word");
 	         if (!key.isEmpty() && !word.isEmpty()) {
 	        	 if (key.equals("title")) {
-	        		 sql.append("	   and ex_title like '%' ||?|| '%'\n");
+	        		 sql.append("	  where ex_title like '%' ||?|| '%'\n");
 	        	 }
 	         }
 			pstmt = conn.prepareStatement(sql.toString());
