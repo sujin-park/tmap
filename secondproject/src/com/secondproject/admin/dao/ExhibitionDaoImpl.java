@@ -27,32 +27,25 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 	// 새 기획전 등록
 	@Override
-	public int writeExhibition(ExhibitionDetailDto exhibitionDetailDto) {
+	public int writeExhibition(ExhibitionDto exhibitionDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("insert all \n");
+			sql.append("insert \n");
 			sql.append("	into exhibition (exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable) \n");
 			sql.append("	values (?, ?, ?, ?, ?, ?) \n");
-			sql.append("	into exhibition_detail (exhibition_id, shop_id, exd_order, exd_desc) \n");
-			sql.append("	values (?,?,?,?) \n");
 
-			sql.append("select * from dual");
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
-			pstmt.setInt(++idx, exhibitionDetailDto.getExhibitionId());
-			pstmt.setString(++idx, exhibitionDetailDto.getExTitle());
-			pstmt.setString(++idx, exhibitionDetailDto.getExDesc());
-			pstmt.setString(++idx, exhibitionDetailDto.getExImage());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExOrder());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExVisiable());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExhibitionId());
-			pstmt.setInt(++idx, exhibitionDetailDto.getShopId());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExdOrder());
-			pstmt.setString(++idx, exhibitionDetailDto.getExdDesc());
+			pstmt.setInt(++idx, exhibitionDto.getExhibitionId());
+			pstmt.setString(++idx, exhibitionDto.getExTitle());
+			pstmt.setString(++idx, exhibitionDto.getExDesc());
+			pstmt.setString(++idx, exhibitionDto.getExImage());
+			pstmt.setInt(++idx, exhibitionDto.getExOrder());
+			pstmt.setInt(++idx, exhibitionDto.getExVisiable());
 			cnt = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -107,8 +100,13 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			String columnBasic = "ex_order";
 
 			// System.out.println(1234234);
-			sql.append("select exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
-			sql.append("from exhibition \n");
+			sql.append("select b.* \n");
+			sql.append("from ( \n");
+			sql.append("   select rownum rn, a.* \n");
+			sql.append("   from ( \n");
+			sql.append("      select exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
+			sql.append("      from exhibition \n");
+
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("title")) {
 					sql.append("	  where ex_title like '%' ||?|| '%'\n");
@@ -126,11 +124,17 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			} else {
 				sql.append("order by ex_order");
 			}
+			sql.append("         ) a \n");
+			sql.append("      where rownum <=? \n");
+			sql.append("      ) b \n");
+			sql.append("   where b.rn>?");
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
 			if (!key.isEmpty() && !word.isEmpty()) {
 				pstmt.setString(++idx, map.get("word"));
 			}
+			pstmt.setString(++idx, map.get("end"));
+			pstmt.setString(++idx,map.get("start"));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				ExhibitionDto exhibitionDto = new ExhibitionDto();
@@ -169,7 +173,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			sql.append("and ex.exhibition_id = ?");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, seq);
-			// System.out.println(seq);
+			System.out.println("DB >>>>> " + seq);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				exhibitionDetailDto = new ExhibitionDetailDto();
@@ -249,34 +253,39 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		}
 		return list;
 	}
+
 	// 기획전 삭제하기
 	@Override
 	public int deleteExhibition(String[] exhibitions) {
 		int cnt = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
+		int size = 0;
 		try {
 			conn = DBConnection.getConnection();
 			conn.setAutoCommit(false);
-			
-			int size = exhibitions.length;
-			for (int i =0; i<size; i++) {
-			String sql = "delete exhibition_detail where exhibition_id = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, Integer.parseInt(exhibitions[i]));
-			pstmt.executeUpdate();
-			pstmt.close();
+			if (exhibitions != null) {
+				size = exhibitions.length;
+			} else {
+				size = 0;
+			}
 
-			String sql2 = "delete exhibition where exhibition_id = ?";
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setInt(1, Integer.parseInt(exhibitions[i]));
-			pstmt.executeUpdate();
-			pstmt.close();
+			for (int i = 0; i < size; i++) {
+				String sql = "delete exhibition_detail where exhibition_id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(exhibitions[i]));
+				pstmt.executeUpdate();
+				pstmt.close();
 
-			conn.commit();
-			cnt = 1;
-			} 
+				String sql2 = "delete exhibition where exhibition_id = ?";
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, Integer.parseInt(exhibitions[i]));
+				pstmt.executeUpdate();
+				pstmt.close();
+
+				conn.commit();
+				cnt = 1;
+			}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -295,57 +304,37 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		return cnt;
 	}
 	// 매장추가 (수정중)
-	/*
+
 	@Override
-	public int plusExhibition(String[] shops) {
+	public int plusExhibition(String[] shops, int seq) {
 		int cnt = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = DBConnection.getConnection();
-			conn.setAutoCommit(false);
 
-			int size = shops.length
-			String sql = "insert into exhibition_detail (exhibition_id, shop_id, exd_order, exd_desc) \n";
-			String sql = "						 values	(?, ?, exd_order + 1, '') \n";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, );
-			pstmt.setInt(2, seq);
-			pstmt.setInt(3, seq);
-			pstmt.setInt(4, seq);
-			pstmt.executeUpdate();
-			pstmt.close();
-
-			String sql2 = "delete exhibition where exhibition_id = ?";
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setInt(1, seq);
-			pstmt.executeUpdate();
-			pstmt.close();
-
-			conn.commit();
-			cnt = 1;
+			int size = shops.length;
+			for (int i = 0; i < size; i++) {
+				String sql = "insert into exhibition_detail (exhibition_id, shop_id, exd_order, exd_desc) \n";
+				sql += "						 values	(?, ?, ?, 'dsd') \n";
+				pstmt = conn.prepareStatement(sql);
+				System.out.println("plusshop seq" + seq);
+				System.out.println("shop id" + Integer.parseInt(shops[i]));
+				pstmt.setInt(1, seq);
+				pstmt.setInt(2, Integer.parseInt(shops[i]));
+				pstmt.setInt(3, 8); // 8번이라고 가정
+				cnt = pstmt.executeUpdate();
+				pstmt.close();
+			}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-
-				e1.printStackTrace();
-			}
-			cnt = 0;
 		} finally {
 			DBClose.close(conn, pstmt);
 		}
 
 		return cnt;
-	}*/
-
-	@Override
-	public int plusExhibition(String[] shops) {
-		return 0;
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public class ExhibitionDeleteAction implements Action{
 //		int seq = Integer.parseInt(request.getParameter("seq"));
 		int cnt = ExhibitionServiceImpl.getExhibitionService().deleteExhibition(exhibitions);
 		if (cnt!=0) {
-			path = "/page/adminpage/expage/writeOk.jsp";
+			path = "/page/adminpage/expage/exhibition.jsp";
 		} else 
 			path = "/page/adminpage/expage/writeFail.jsp";
 		
