@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.secondproject.factory.AdminFactory;
-import com.secondproject.util.*;
+import com.secondproject.util.Encoding;
+import com.secondproject.util.NumberCheck;
+import com.secondproject.util.PageMove;
 
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
@@ -25,7 +28,7 @@ public class AdminController extends HttpServlet {
 		String word = request.getParameter("word");
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String queryString = "?pg=" + pg + "&key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
+		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
 //		System.out.println(order);
 //		System.out.println(column);
 		if ("mvexhibition".equals(act)) {

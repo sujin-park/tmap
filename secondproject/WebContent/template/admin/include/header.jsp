@@ -26,7 +26,7 @@
 			    </li>
 				<li><a href="#">概厘包府</a></li>
 				<li><a href="#">烹拌包府</a></li>
-				<li><a href="#">饶扁包府</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&pg=1&key=word=">饶扁包府</a></li>
 				<li class="dropdown">
 					<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">扁裙傈包府
 	        			<span class="caret"></span></a>

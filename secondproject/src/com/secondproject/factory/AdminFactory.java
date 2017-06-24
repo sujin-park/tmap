@@ -1,6 +1,7 @@
 package com.secondproject.factory;
 
 import com.secondproject.admin.action.*;
+import com.secondproject.admin.review.action.*;
 
 public class AdminFactory {
 
@@ -11,7 +12,11 @@ public class AdminFactory {
 	private static ExhibitionDeleteAction exhibitionDeleteAction;
 	private static ExhibitionShopUpAction exhibitionShopUpAction;
 	private static ExhibitionModifyAction exhibitionModifyAction;
-
+	
+	private static ReviewListAction reviewListAction;
+	private static ReviewViewAction reviewViewAction;
+	private static ReviewBlindAction reviewBlindAction;
+	
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
 		exhibitionListAction = new ExhibitionListAction();
@@ -20,6 +25,10 @@ public class AdminFactory {
 		exhibitionDeleteAction = new ExhibitionDeleteAction();
 		exhibitionShopUpAction = new ExhibitionShopUpAction();
 		exhibitionModifyAction = new ExhibitionModifyAction();
+		reviewListAction = new ReviewListAction();
+		reviewViewAction = new ReviewViewAction();
+		reviewBlindAction = new ReviewBlindAction();
+		
 	}
 	
 	public static ExhibitionListAction getExhibitionListAction() {
@@ -48,5 +57,17 @@ public class AdminFactory {
 	
 	public static ExhibitionModifyAction getExhibitionModifyAction() {
 		return exhibitionModifyAction;
+	}
+	public static ReviewListAction getReviewListAction() {
+		return reviewListAction;
+	}
+	
+	
+	public static ReviewViewAction getReviewViewAction() {
+		return reviewViewAction;
+	}
+
+	public static ReviewBlindAction getReviewBlindAction() {
+		return reviewBlindAction;
 	}
 }
