@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.util.*;
 import com.secondproject.admin.action.ExhibitionWriteAction;
-import com.secondproject.controller.PageMove;
 import com.secondproject.factory.AdminFactory;
 
 @WebServlet("/exhibition")

@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.secondproject.controller.PageMove;
+
 import com.secondproject.factory.AdminFactory;
 import com.secondproject.util.Encoding;
+import com.secondproject.util.PageMove;
 
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
