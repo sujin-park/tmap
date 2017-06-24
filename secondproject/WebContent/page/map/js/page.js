@@ -1,5 +1,5 @@
 var mapSlick = $('.search-list-container-mobile .search-list').slick({'arrows' : false});
-var addShopMap;
+var addShopMap = new addShopMap();
 
 // 모바일버전 search-list 스와이프
 $(document).on('swipe', '.search-list-container-mobile .search-list', function(event, slick, direction){
@@ -37,7 +37,10 @@ $(document).on('click', '#search-detail-controll-submit', function() {
 // 매장추가 ㄱㄱ
 $(document).on('click', '#modal_add_shop_btn', function() {
 	$('#modal_addshopForm').modal('show').on('shown.bs.modal', function() {
-		addShopMap = new addShopMap().init();
+		addShopMap.init();
 	});
 });
 
+$(document).on('click', '#addShopSubmit', function() {
+	pageFunc.addShop();
+});

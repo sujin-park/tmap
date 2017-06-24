@@ -155,7 +155,10 @@
 	height: 300px
 }
 
-
 .map-search .input-group{
 	margin-top: 15px;
+}
+
+#addShopAddress1{
+	margin-bottom: 5px;
 }

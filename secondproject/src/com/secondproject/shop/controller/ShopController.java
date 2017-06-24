@@ -23,10 +23,11 @@ public class ShopController extends HttpServlet {
 		
 		if (act == null) {
 			
-		} else if ("addShopForm".equals(act)) {
-			path = "/page/shop/addshopform.jsp";
-		} else if ("addShop".equals(act)) {
-			path = ShopFactory.getShopAddAction().execute(request, response);
+		} else if ("addShopAjax".equals(act)) {
+			isAjax = true;
+			String jsonData = ShopFactory.getShopAddAction().execute(request, response);
+			response.setContentType("text/html; charset=EUC-KR");
+			response.getWriter().print(jsonData);
 		}
 		
 		if (isAjax == false) {
@@ -36,7 +37,7 @@ public class ShopController extends HttpServlet {
 			request.setAttribute("addBottomPath", "/page/shop/include/bottom.jsp");
 			RequestDispatcher dist = request.getRequestDispatcher("/template/default/default.jsp");
 			dist.forward(request, response);
-		}		
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
