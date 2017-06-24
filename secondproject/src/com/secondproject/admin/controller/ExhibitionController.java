@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.util.*;
-import com.secondproject.admin.action.ExhibitionWriteAction;
-import com.secondproject.constant.ContextPath;
 import com.secondproject.factory.AdminFactory;
 
 @WebServlet("/exhibition")
