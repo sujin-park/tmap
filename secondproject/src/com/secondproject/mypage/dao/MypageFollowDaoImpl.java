@@ -39,17 +39,24 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
+			
 			sql.append("insert into follow_category \n");
 			sql.append("(follow_category_id,user_id,category_name,category_order) \n");
-			sql.append("	values (follow_category_seq.nextval,?,?,(select max(category_order) from follow_category \n");
-			sql.append("	where user_id=?)+1)");
+			sql.append("	values (follow_category_seq.nextval,?,?, \n");
+			int size =followCategoryListView(followCategoryDto.getUserId()).size();
+			if(size==0) {
+				sql.append("1)");
+			} else {
+				sql.append("(select max(category_order) from follow_category where user_id=?)+1)");
+			}
+			
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
-
 			pstmt.setInt(++idx, followCategoryDto.getUserId());
 			pstmt.setString(++idx, followCategoryDto.getCategoryName());
-			pstmt.setInt(++idx, followCategoryDto.getUserId());
-		
+			if(size!=0) {
+				pstmt.setInt(++idx, followCategoryDto.getUserId());
+			}
 
 			cnt = pstmt.executeUpdate();
 
@@ -69,9 +76,9 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("update favorite_categoty \n");
-			sql.append("set category_name=? \n");
-			sql.append("where favorite_category_id=?");
+			sql.append("update follow_category \n");
+			sql.append("set follow_name=? \n");
+			sql.append("where follow_category_id=?");
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, followCategoryDto.getCategoryName());
@@ -94,26 +101,48 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt=0;
+		FollowCategoryDto fcdto =getFollowCategory(followCategoryId);
 		try {
 			conn = DBConnection.getConnection();
-			StringBuffer sql = new StringBuffer();
-			sql.append("delete from favorite_categoty \n");
-			sql.append("where favorite_category_id=?");
-			pstmt = conn.prepareStatement(sql.toString());
+            conn.setAutoCommit(false);
+            
+            StringBuffer delete = new StringBuffer();
+            delete.append("delete from follow_category \n");
+            delete.append("where follow_category_id=?");
+            pstmt = conn.prepareStatement(delete.toString());
+            pstmt.setInt(1, followCategoryId);
+            pstmt.executeUpdate();
+            pstmt.close();
+            
+            StringBuffer update = new StringBuffer();
+            update.append("update follow_category \n");
+            update.append("set category_order=category_order-1 \n");
+            update.append("where category_order>? and user_id=?");
+            pstmt = conn.prepareStatement(update.toString());
+            pstmt.setInt(1, fcdto.getCategoryOrder());
+            pstmt.setInt(2, fcdto.getUserId());
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.commit();
+           
 
-			pstmt.setInt(1, followCategoryId);
-			
-			cnt=pstmt.executeUpdate();
+            cnt = 1;
+         } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+               conn.rollback();
+               cnt = 0;
+            } catch (SQLException e1) {
+               e1.printStackTrace();
+            }
+         } finally {
+            DBClose.close(conn, pstmt);
+         }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBClose.close(conn, pstmt);
-		}
 		return cnt;
-
-
 	}
+
+
 
 
 	@Override
@@ -204,7 +233,6 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("join follow_category fc ON fu.follow_category_id = fc.follow_category_id \n");
 			sql.append("join users u ON fu.reg_user_id = u.user_id \n");
 			sql.append("where fu.user_id = ?");
-			
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, userId);
 			rs = pstmt.executeQuery();
@@ -431,6 +459,31 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		}
 
 		return fcdto;
+	}
+
+
+	@Override
+	public int followdelete(int followUserId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt=0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("delete from follow_user \n");
+			sql.append("where follow_user_id=?");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setInt(1, followUserId);
+			
+			cnt=pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+		return cnt;
 	}
 
 }
