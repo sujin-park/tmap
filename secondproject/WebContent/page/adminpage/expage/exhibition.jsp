@@ -77,7 +77,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=exhibitionDto.getExDesc() %></span>
+											<div class="media-detail"><%=exhibitionDto.getExDesc() %></div>
 										</div>
 									</div>
 								</td>

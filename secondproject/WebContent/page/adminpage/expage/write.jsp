@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
-
+<!-- include summernote css/js-->
+<link href="D:\dist/summernote.css" rel="stylesheet">
+<script src="D:\dist/summernote.js"></script>
 <section class="content page-top clearfix">
 		<div class="col-md-offset-1 col-md-10 ">
 			<div class="panel panel-default">

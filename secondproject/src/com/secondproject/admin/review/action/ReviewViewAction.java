@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
-import com.secondproject.admin.model.ExhibitionDetailDto;
-import com.secondproject.admin.service.ExhibitionServiceImpl;
+import com.secondproject.admin.service.AdminReviewServiceImpl;
+import com.secondproject.review.model.AdminReviewDto;
 import com.secondproject.util.NumberCheck;
 
 public class ReviewViewAction implements Action{
@@ -19,11 +19,10 @@ public class ReviewViewAction implements Action{
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		String path = "/adminIndex.jsp";
 		
-		ExhibitionDetailDto exhibitionDetailDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
-//		System.out.println(">>>>>" + exhibitionDetailDto.getExhibitionId());
-		if (exhibitionDetailDto != null) {
-			request.setAttribute("exhibitionAllInfo", exhibitionDetailDto);
-			path = "/page/adminpage/expage/viewall.jsp";
+		AdminReviewDto adminReviewDto = AdminReviewServiceImpl.getAdminReviewService().viewReview(seq);
+		if (adminReviewDto != null) {
+			request.setAttribute("reviewInfo", adminReviewDto);
+			path = "/page/adminpage/include/modal.jsp";
 		}
 		return path;
 	}

@@ -28,15 +28,19 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public PageNavigation makePageNavigation(int pg, String key, String word) {
+	public PageNavigation makePageNavigation(int pg, String key, String word, String board) {
 		// 주 목적은 네비게이션 만드는것
 		PageNavigation pageNavigation = new PageNavigation();
-		
+		int totalArticleCount = 0;
 		 // root는 서비스에서 완성할 수 없음
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key", key);
 		map.put("word", word); // 전체 글 수 는 나중에 key와 word가 필요하다
-		int totalArticleCount = CommonDaoImpl.getCommonDao().totalArticleCount(map); // db
+		if (board.equals("review")) {
+			totalArticleCount = CommonDaoImpl.getCommonDao().totalReviewCount(map);
+		} else {
+			totalArticleCount = CommonDaoImpl.getCommonDao().totalArticleCount(map); // db
+		}
 		pageNavigation.setTotalArticleCount(totalArticleCount);
 		int totalPageCount = (totalArticleCount - 1) / 5 + 1;
 		pageNavigation.setTotalPageCount(totalPageCount);
