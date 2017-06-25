@@ -38,16 +38,6 @@ public class ReviewController extends HttpServlet {
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 
 			PageMove.forward(path, request, response);
-		} else if ("mvshoplist".equals(act)) {
-			String seq = request.getParameter("seq");
-			contentPath = AdminFactory.getExhibitionShopAction().execute(request, response);
-			path = "/template/admin/admin.jsp";
-			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
-			request.setAttribute("contentPath", contentPath + queryString + "&seq=" + seq);
-			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
-			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
-
-			PageMove.forward(path, request, response);
 		} else if ("blind".equals(act)) {
 			contentPath = AdminFactory.getReviewBlindAction().execute(request, response);
 			String url = "/admin?act=mvreview";

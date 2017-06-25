@@ -24,7 +24,9 @@ public class ExhibitionModifyAction implements Action{
 		exhibitionDto.setExhibitionId(seq);
 		exhibitionDto.setExTitle(request.getParameter("subject"));
 		exhibitionDto.setExDesc(request.getParameter("content"));
-		exhibitionDto.setExVisiable(NumberCheck.nullToZero(request.getParameter("checkbox1")));
+		exhibitionDto.setExVisiable(NumberCheck.nullToZero(request.getParameter("isvisiable")));
+		System.out.println("123123123" + request.getParameter("isvisiable"));
+		System.out.println(NumberCheck.nullToZero(request.getParameter("isvisiable")));
 		exhibitionDto.setExImage("asdfa");
 		exhibitionDto.setExOrder(7);
 		

@@ -10,7 +10,7 @@ import com.secondproject.shop.model.ShopDto;
 public interface ExhibitionDao {
 
 	int getNextSeq();
-	int writeExhibition(ExhibitionDto exhibitionDto);
+	int writeExhibition(ExhibitionDetailDto exhibitionDetailDto);
 	
 	List<ExhibitionDto> listExhibition(Map<String, String> map);
 	ExhibitionDetailDto viewExhibition(int seq);

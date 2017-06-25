@@ -58,10 +58,5 @@ function moveList() {
 	document.location.href = "<%=ContextPath.root%>/admin?act=mvexhibition";	
 }
 
-
-
-$(document).ready(function() {
-    $('#summernote').summernote();
-});
 </script>
 </script>

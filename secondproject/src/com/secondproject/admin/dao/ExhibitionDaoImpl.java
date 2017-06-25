@@ -5,7 +5,6 @@ import java.util.*;
 
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.model.ExhibitionDto;
-import com.secondproject.admin.service.ExhibitionServiceImpl;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
@@ -27,7 +26,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 	// 새 기획전 등록
 	@Override
-	public int writeExhibition(ExhibitionDto exhibitionDto) {
+	public int writeExhibition(ExhibitionDetailDto exhibitionDetailDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -40,12 +39,12 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
-			pstmt.setInt(++idx, exhibitionDto.getExhibitionId());
-			pstmt.setString(++idx, exhibitionDto.getExTitle());
-			pstmt.setString(++idx, exhibitionDto.getExDesc());
-			pstmt.setString(++idx, exhibitionDto.getExImage());
-			pstmt.setInt(++idx, exhibitionDto.getExOrder());
-			pstmt.setInt(++idx, exhibitionDto.getExVisiable());
+			pstmt.setInt(++idx, exhibitionDetailDto.getExhibitionId());
+			pstmt.setString(++idx, exhibitionDetailDto.getExTitle());
+			pstmt.setString(++idx, exhibitionDetailDto.getExDesc());
+			pstmt.setString(++idx, exhibitionDetailDto.getExImage());
+			pstmt.setInt(++idx, exhibitionDetailDto.getExOrder());
+			pstmt.setInt(++idx, exhibitionDetailDto.getExVisiable());
 			cnt = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -105,7 +104,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
 			sql.append("      select exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
-			sql.append("      from exhibition \n");
+			sql.append("      from exhibition e\n");
 
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("title")) {

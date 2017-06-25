@@ -19,22 +19,22 @@
 									<div class="form-group">
 										<label for="inputName">매장명</label> <input type="text"
 											class="form-control" name="subject" id="modalshop"
-											value="">
+											value="" readonly="readonly">
 									</div>
 									<label for="inputStore">작성자</label>
 									<div class="input-group">
 										<input type="text" class="form-control" id="modalemail"
-											name="store" value="">
+											name="store" value="" readonly="readonly">
 									</div>
 									<div class="form-group">
 										<label for="inputName">신뢰점수</label> <input type="text"
 											class="form-control" name="subject" id="modalscore"
-											value="">
+											value="" readonly="readonly">
 									</div>
 									<div class="form-group">
 										<label for="inputContent">작성 내용</label>
 										<textarea class="form-control" id="modalcontent" name="content"
-											rows="15" cols="15">
+											rows="15" cols="15" readonly="readonly">
 </textarea>
 									</div>
 							</div>
@@ -43,7 +43,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning"
-					onclick="javascript:blindReview();">Blind</button>
+					onclick="javascript:blindReviewOne();">Blind</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>

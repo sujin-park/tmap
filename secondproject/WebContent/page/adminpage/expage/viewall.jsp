@@ -20,11 +20,11 @@
 						<%
 						if (exhibitionDetailDto.getExVisiable() != 0) {
 						%>
-							<input type="checkbox" id="checkbox1" name="checkbox1" checked="checked" value="1"><label for="checkbox1"></label>
+							<input type="checkbox" id="checkbox1" name="isvisiable" checked="checked" value="1"><label for="checkbox1"></label>
 						<%
 						} else {
 						%>
-						<input type="checkbox" id="checkbox1" name="checkbox1"><label for="checkbox1"></label>
+						<input type="checkbox" id="checkbox1" name="isvisiable"><label for="checkbox1"></label>
 						<%	
 						}
 						%>

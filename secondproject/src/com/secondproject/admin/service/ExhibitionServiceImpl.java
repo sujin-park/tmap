@@ -22,8 +22,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		exhibitionService = new ExhibitionServiceImpl();
 	}
 	@Override
-	public int writeExhibition(ExhibitionDto exhibitionDto) {
-		return ExhibitionDaoImpl.getExhibitionDao().writeExhibition(exhibitionDto);
+	public int writeExhibition(ExhibitionDetailDto exhibitionDetailDto) {
+		return ExhibitionDaoImpl.getExhibitionDao().writeExhibition(exhibitionDetailDto);
 	}
 	@Override
 	public List<ExhibitionDto> listExhibition(String key, String word, String order, String column, int pg) {

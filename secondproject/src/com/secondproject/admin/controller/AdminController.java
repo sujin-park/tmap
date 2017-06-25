@@ -18,6 +18,7 @@ public class AdminController extends HttpServlet {
 		String act = request.getParameter("act");
 		String path = "/index.jsp";
 		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
+		System.out.println(request.getParameter("pg"));
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = request.getParameter("word");
 		String order = Encoding.nullToBlank(request.getParameter("order"));

@@ -36,18 +36,18 @@ public class CommonServiceImpl implements CommonService {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key", key);
 		map.put("word", word); // 전체 글 수 는 나중에 key와 word가 필요하다
+		System.out.println("CommonServiceImpl" + board);
 		if (board.equals("review")) {
 			totalArticleCount = CommonDaoImpl.getCommonDao().totalReviewCount(map);
 		} else {
 			totalArticleCount = CommonDaoImpl.getCommonDao().totalArticleCount(map); // db
 		}
 		pageNavigation.setTotalArticleCount(totalArticleCount);
-		int totalPageCount = (totalArticleCount - 1) / 5 + 1;
+		int totalPageCount = (totalArticleCount - 1) / BoardConstance.LIST_SIZE + 1;
 		pageNavigation.setTotalPageCount(totalPageCount);
 		pageNavigation.setNowFirst(pg <= BoardConstance.PAGE_SIZE);
 		pageNavigation.setNowEnd((totalPageCount-1) / BoardConstance.PAGE_SIZE * BoardConstance.PAGE_SIZE < pg ); // 0으로 나누어 떨어지는 것은 1로 빼주면 됨
 		pageNavigation.setPageNo(pg);
-		System.out.println("commonservice end" + pg);
 		return pageNavigation;
 	}
 }

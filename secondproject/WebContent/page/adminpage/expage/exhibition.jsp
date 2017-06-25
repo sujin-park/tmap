@@ -1,7 +1,7 @@
 <%@page import="com.secondproject.util.PageNavigation"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"%>
-
+<%@ include file="/page/adminpage/include/public.jsp"%>
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
 String order = (String) request.getAttribute("order");
@@ -12,8 +12,8 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
-					<div class="pull-right col-md-offset-2">
 					<form name="exhibitionForm" method="post" action="">
+					<div class="pull-right col-md-offset-2">
 					<input type="hidden" name="act" value="delete">
 						<div class="btn-group">
 							<button type="button" class="btn btn-default btn-filter" onclick="javascript:moveWrite();">기획전 등록</button>

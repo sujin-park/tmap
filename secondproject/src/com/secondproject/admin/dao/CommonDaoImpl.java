@@ -64,7 +64,6 @@ public class CommonDaoImpl implements CommonDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();

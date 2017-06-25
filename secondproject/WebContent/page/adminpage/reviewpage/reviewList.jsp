@@ -1,10 +1,11 @@
 <%@page import="com.secondproject.util.PageNavigation"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.review.model.*"%>
-
+<%@ include file="/page/adminpage/include/public.jsp"%>
 <%
 List<AdminReviewDto> list = (List<AdminReviewDto>) request.getAttribute("reviewList");
 String order = (String) request.getAttribute("order");
+String column = (String) request.getAttribute("column");
 PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
 %>
 <section class="content page-top row">
@@ -142,7 +143,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 		</div>
 	</div>
 </section>
-	<jsp:include page="/page/adminpage/include/modal.jsp"></jsp:include>
+<jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>
 <script>
 function blindReview() {
 	if (confirm("블라인드 처리하시겠습니까?")) {
