@@ -20,20 +20,18 @@ public class MypageFollowCategoryMakeAction implements Action{
 			throws ServletException, IOException {
 //		int id = Integer.parseInt(request.getParameter("id"));
 		String name = new String(request.getParameter("catename").getBytes("ISO-8859-1"),"UTF-8");
+		String path = "index.jsp";
 		int id = 2;
 		
 		FollowCategoryDto fcdto = new FollowCategoryDto();
 		fcdto.setCategoryName(name);
 		fcdto.setUserId(id);
 		int cnt = MypageServiceImpl.getMypageService().followCategoryMake(fcdto);
-		List<FollowCategoryDto> fclist = MypageServiceImpl.getMypageService().followCategoryListView(id);
-//		request.setAttribute("favoriteCategoryList", fclist);
-//		request.setAttribute("list", list);
-//		return "/page/mypage/mypage.jsp";
-		int size = fclist.size();
-		FollowCategoryDto fc = fclist.get(size-1);
-		request.setAttribute("favoriteCategory", fc);
-		return "/page/mypage/followdata.jsp";
+		int userId=2;
+		List<FollowCategoryDto> list = MypageServiceImpl.getMypageService().followCategoryListView(userId);
+		request.setAttribute("favoriteCategoryList", list);
+		path = "/page/mypage/catelistview.jsp";
+		return path;
 	}
 
 }
