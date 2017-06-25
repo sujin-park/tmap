@@ -23,6 +23,8 @@ public interface MypageFollowDao {
 	 int followMove(Map<String,String> map);
 	 int followDelete(int favoriteUserId);
 	 int followModify(Map<String,String> map);
+	 int followdelete(int followUserId);
 
 	 
 }
+

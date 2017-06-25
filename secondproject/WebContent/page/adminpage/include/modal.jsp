@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" import="com.secondproject.review.model.AdminReviewDto"%>
+	pageEncoding="EUC-KR"%>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -17,23 +17,23 @@
 						<div class="panel panel-default">
 							<div class="panel-body">
 									<div class="form-group">
-										<label for="inputName">작성자</label> <input type="text"
-											class="form-control" name="subject" id="modalsubject"
+										<label for="inputName">매장명</label> <input type="text"
+											class="form-control" name="subject" id="modalshop"
 											value="">
 									</div>
-									<label for="inputStore"></label>
+									<label for="inputStore">작성자</label>
 									<div class="input-group">
-										<input type="text" class="form-control" id="store"
+										<input type="text" class="form-control" id="modalemail"
 											name="store" value="">
-										<span class="input-group-btn">
-											<button class="btn btn-warning" type="button"
-												onclick="">매장
-												추가</button>
-										</span>
 									</div>
 									<div class="form-group">
-										<label for="inputContent">기획전 설명</label>
-										<textarea class="form-control" id="content" name="content"
+										<label for="inputName">신뢰점수</label> <input type="text"
+											class="form-control" name="subject" id="modalscore"
+											value="">
+									</div>
+									<div class="form-group">
+										<label for="inputContent">작성 내용</label>
+										<textarea class="form-control" id="modalcontent" name="content"
 											rows="15" cols="15">
 </textarea>
 									</div>

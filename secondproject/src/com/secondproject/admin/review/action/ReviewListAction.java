@@ -24,6 +24,7 @@ public class ReviewListAction implements Action {
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
 		String board = "review";
+		
 		if (order.isEmpty() || order.equals("desc")) {
 			order = "asc";
 		} else if ("asc".equals(order)) {

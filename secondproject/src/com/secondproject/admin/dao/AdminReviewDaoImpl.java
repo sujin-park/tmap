@@ -164,12 +164,12 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 			}
 
 			for (int i = 0; i < size; i++) {
-				String sql = "update review set is_blind = 1 \n";
+				String sql = "update review set is_blind = (select decode(is_blind,1,0,1) from review where review_id = ?) \n";
 				sql += "where review_id = ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, Integer.parseInt(reviews[i]));
+				pstmt.setInt(2, Integer.parseInt(reviews[i]));
 				cnt = pstmt.executeUpdate();
-
 			}
 		} catch (SQLException e) {
 

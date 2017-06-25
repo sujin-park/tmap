@@ -73,7 +73,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								</td>
 								<td>
 									<div class="media">
-										<span class="media-meta" id="<%=adminReviewDto.getReviewId()%>"><%=adminReviewDto.getShopTitle()%></span>
+										<span class="media-meta" id="shop<%=adminReviewDto.getReviewId()%>"><%=adminReviewDto.getShopTitle()%></span>
 									</div>
 								</td>
 								<td>
@@ -86,21 +86,21 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=adminReviewDto.getEmail()%></span>
+											<span class="media-meta" id="email<%=adminReviewDto.getReviewId()%>"><%=adminReviewDto.getEmail()%></span>
 										</div>
 									</div>
 								</td>
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<div class="media-detail"><%=adminReviewDto.getContent()%></span>
+											<div class="media-detail" id="content<%=adminReviewDto.getReviewId()%>"><%=adminReviewDto.getContent()%></span>
 										</div>
 									</div>
 								</td>
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=adminReviewDto.getScore()%></span>
+											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>"><%=adminReviewDto.getScore()%></span>
 										</div>
 									</div>
 								</td>
@@ -162,7 +162,11 @@ function searchReview() {
 }
 
 function modal(seq) {
-	document.getElementById("modalsubject").value = document.getElementById(seq).textContent
+	
+	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
+	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent
+	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent
+	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent
 	$('#myModal').modal({show:true});
 	
 }
