@@ -166,7 +166,7 @@ function upOrder(order, id) {
 							} else {
 						%>
 						<tr >
-						<td colspan="6"><center>팔로우한사람이 없습니다.</center></tr>
+						<td colspan="6"><center>팔로우한사람이 없습니다. </center></tr>
 						<%
 							}
 						%>
