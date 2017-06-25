@@ -21,8 +21,8 @@ public class ShopController extends HttpServlet {
 		String path = "";
 		boolean isAjax = false;
 		
-		if (act == null) {
-			
+		if ("view".equals(act)) {
+			ShopFactory.getShopViewAction().execute(request, response);
 		} else if ("addShopAjax".equals(act)) {
 			isAjax = true;
 			String jsonData = ShopFactory.getShopAddAction().execute(request, response);

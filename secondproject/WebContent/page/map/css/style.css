@@ -152,7 +152,7 @@
 }
 
 #addShopMap{
-	height: 300px
+	height: 500px;
 }
 
 .map-search .input-group{
@@ -161,4 +161,8 @@
 
 #addShopAddress1{
 	margin-bottom: 5px;
+}
+
+#modal_addshopForm .modal-dialog{
+	width: 900px;
 }

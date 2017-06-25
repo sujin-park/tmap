@@ -40,4 +40,9 @@ public class ShopServiceImpl implements ShopService {
 		return new Gson().toJson(json);
 	}
 
+	@Override
+	public ShopDto getShop(int shopId) {
+		return null;
+	}
+
 }

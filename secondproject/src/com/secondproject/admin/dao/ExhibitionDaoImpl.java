@@ -233,9 +233,9 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 				shopDto.setShopId(rs.getInt("shop_id"));
 				shopDto.setCategoryTitle(rs.getString("category_title"));
 				shopDto.setTitle(rs.getString("title"));
-				shopDto.setLat(rs.getInt("lat"));
-				shopDto.setLng(rs.getInt("lng"));
-				shopDto.setScore(rs.getInt("score"));
+				shopDto.setLat(rs.getDouble("lat"));
+				shopDto.setLng(rs.getDouble("lng"));
+				shopDto.setScore(rs.getDouble("score"));
 				shopDto.setOwnerId(rs.getInt("owner_id"));
 				shopDto.setReserveUrl(rs.getString("reserve_url"));
 				shopDto.setAddress(rs.getString("address"));

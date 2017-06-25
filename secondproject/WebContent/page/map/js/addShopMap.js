@@ -12,8 +12,8 @@ function addShopMap () {
 	
 	function init() {
 		map = new naver.maps.Map('addShopMap', {
-			center : new naver.maps.LatLng(37.3595316, 127.1052133),
-			zoom : 10,
+			center : new naver.maps.LatLng(37.4853528, 126.9012227),
+			zoom : 12,
 		});
 		map.setCursor('pointer');
 		map.addListener('click', function(e) {
@@ -53,6 +53,8 @@ function addShopMap () {
 					currentPosition = latlng;
 					infoWindow.setContent('<div style="padding:10px 15px; text-align:center;">' + htmlAddresses + '<button type="button" class="btn btn-default" style="margin-top:10px;" onclick="pageFunc.insertAddShopSearchValue()">입력!!</button></div>');
 					infoWindow.open(map, latlng);
+					infoWindow.open(map, currentPosition);
+					map.panTo(currentPosition, 10);
 					break;
 				}
 			}
@@ -79,7 +81,7 @@ function addShopMap () {
 						currentPosition = new naver.maps.Point(item.point.x, item.point.y);
 						infoWindow.setContent('<div style="padding:10px 15px; text-align:center;">' + htmlAddresses + '<button type="button" class="btn btn-default" style="margin-top:10px;" onclick="pageFunc.insertAddShopSearchValue()">입력!!</button></div>');
 						infoWindow.open(map, currentPosition);
-						map.setCenter(currentPosition);
+						map.panTo(currentPosition, 10);
 						break;
 					}
 				}

@@ -1,6 +1,6 @@
 package com.secondproject.shop.model;
 
-public class ShopDto {
+public class ShopDto extends ShopCategoryDto{
 	private int shopId;
 	private int categoryId;
 	private String title;

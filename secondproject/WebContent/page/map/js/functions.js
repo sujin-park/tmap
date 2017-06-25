@@ -33,7 +33,7 @@ var pageFunc = (function(){
 					data.forEach(function (shop) {
 						var tag = '<div class="panel panel-default shop">'
 							tag += '	<div class="panel-body">';
-							tag += '		<a href="' + CONTEXT_PATH + '/shop?shop_id=' + shop.shopId + '" target="_blank">';
+							tag += '		<a href="' + CONTEXT_PATH + '/shop?act=view&shopId=' + shop.shopId + '" target="_blank">';
 							tag += '			<span class="rank">' + i + '위</span>';
 							tag += '			<span class="title">' + shop.title + '</span>';
 							tag += '			<span class="category">[' + shop.categoryId + ']</span>';
