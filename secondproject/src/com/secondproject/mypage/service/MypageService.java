@@ -11,5 +11,7 @@ public interface MypageService {
 	 int upOrder(int followCategoryId);
 	 int downOrder(int followCategoryId);
 	 int followCategoryMake(FollowCategoryDto followCategoryDto);
+	 int followdelete(int followUserId);
+	 int followCategoryDelete(int followCategoryId);
 	 
 }

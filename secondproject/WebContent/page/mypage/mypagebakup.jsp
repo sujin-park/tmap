@@ -27,45 +27,10 @@
 			document.orderForm.submit();
 		}
 	}
-	/////////////////////////////
-	function catedelete(id) {
-		var catename = $("#text").val();
-		if(confirm("정말삭제하시겠습니까?")) {
-		var id = "act=catedelete&cateid=" +id;
-		sendRequest("/secondproject/mypage", id, receiveDelete, "GET");
-		}
-	
-	}
-
-	function receiveDelete() {
-		if (httpRequest.readyState == 4) {
-			if (httpRequest.status == 200) {
-				var txt = httpRequest.responseText;
-				
-			 
-			} else {
-				alert("문제발생 : " + httpRequest.status);
-			}
-		}
-	}
-	function view(category) {
-
+	function catedelete(id){
+		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	///////////////////////////
 	function modal() {
 		$('#modal').modal({
 			show : true
@@ -88,16 +53,16 @@
 			return alert("카테고리 이름을 입력하세요");
 		} else {
 		var name = "act=catemake&catename=" + encodeURI(catename);
-		sendRequest("/secondproject/mypage", name, cateMake, "GET");
+		sendRequest("/secondproject/mypage", name, receiveBookData, "GET");
 		}
 		$("#text").val('');
 	}
 
-	function cateMake() {
+	function receiveBookData() {
 		if (httpRequest.readyState == 4) {
 			if (httpRequest.status == 200) {
-				var catexml = httpRequest.responseXML;
-				viewData(catexml); 
+				var bookxml = httpRequest.responseXML;
+				viewData(bookxml); //<book><title>제목</title><price>1000</price></book>
 			} else {
 				alert("문제발생 : " + httpRequest.status);
 			}
@@ -121,11 +86,6 @@
 		a2.setAttribute("href", "javascript:upOrder('" + order + "','" + cateid + "');");
 		a2.setAttribute("role", "button");
 		a2.appendChild(document.createTextNode("▲"));
-		var a3 = document.createElement("a");
-		a3.setAttribute("class", "btn btn-default");
-		a3.setAttribute("href", "javascript:catedelete('"+cateid+"');");
-		a3.setAttribute("role", "button");
-		a3.appendChild(document.createTextNode("삭제"));
 		var a4 = document.createElement("a");
 		a4.setAttribute("class", "btn btn-default");
 		a4.setAttribute("href", "javascript:downOrder('" + order + "','" + cateid + "');");
@@ -134,18 +94,13 @@
 		div.appendChild(a2);
 		div.appendChild(document.createTextNode(" "));
 		div.appendChild(a4);
-		div.appendChild(document.createTextNode(" "));
-		div.appendChild(a3);
 		td2.appendChild(div);
 		tr.setAttribute("name", "trtr");
 		tr.appendChild(td);
 		tr.appendChild(td2);
 		var tt = document.getElementById("tt");
 		tt.appendChild(tr);
-		$("#hh").remove();
-		
-	
-	
+
 	}
 	function followdelete() {
 		var valueArr = new Array();
@@ -214,7 +169,7 @@
 					<tbody>
 						<%
 							List<FollowUserDto> fulist = (List<FollowUserDto>) request.getAttribute("list");
-						if (fulist != null &&fulist.size()!=0) {
+							if (fulist != null &&fulist.size()!=0) {
 								int size = fulist.size();
 								for (int i = 0; i < size; i++) {
 									FollowUserDto fudto = fulist.get(i);
@@ -315,7 +270,7 @@
 									}
 									} else {
 								%>
-								<tr id="hh" name="hh">
+								<tr id="hh">
 								<td colspan="2">
 								<center>
 									등록한 카테고리가 없습니다.

@@ -40,3 +40,8 @@ body {
 	text-align: center;
 }
 	
+.test {
+	width: 1100px;
+	height : 300px;
+	background-color: #4f9e77;
+}
