@@ -61,7 +61,7 @@ var map = (function() {
 	}
 	
 	function addMarkers(items, clickFunc) {
-		SYSOUT('addMarkers markers.length start = ' + markers.length);
+		//SYSOUT('addMarkers markers.length start = ' + markers.length);
 		if (items) {
 			items.forEach(function(item) {
 				addMarker(item, clickFunc);
@@ -69,7 +69,7 @@ var map = (function() {
 		} else {
 			SYSOUT('map.addMarkers(items) :: items 인자 값이 비어있음');
 		}
-		SYSOUT('addMarkers markers.length end = ' + markers.length);
+		//SYSOUT('addMarkers markers.length end = ' + markers.length);
 	}
 	
 	function addMarker(data, clickFunc) {
@@ -90,14 +90,14 @@ var map = (function() {
 	}
 	
 	function clearMarkers() {
-		SYSOUT('clearMarkers markers.length start = ' + markers.length);
+		//SYSOUT('clearMarkers markers.length start = ' + markers.length);
 		if (markers.length > 0) {
 			markers.forEach(function (marker) {
 				clearMarker(marker);
 			});
 			markers = [];
 		}
-		SYSOUT('clearMarkers markers.length end = ' + markers.length);
+		//SYSOUT('clearMarkers markers.length end = ' + markers.length);
 	}
 	
 	function clearMarker(marker) {

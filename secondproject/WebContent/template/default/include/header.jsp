@@ -35,7 +35,7 @@
 							<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">내가쓴후기</a></li>
+						<li><a href="<%=ContextPath.root%>/myreview">내가쓴후기</a></li>
 						<li><a href="#">평가한후기</a></li>
 						<li><a href="<%=ContextPath.root%>/mypage">팔로우관리</a></li>
 						<li><a href="#">매장관리</a></li>

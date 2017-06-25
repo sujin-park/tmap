@@ -25,10 +25,12 @@ public class MapController extends HttpServlet {
 			String jsonData = MapFactory.shopListAction().execute(request, response);
 			response.setContentType("text/html; charset=EUC-KR");
 			response.getWriter().print(jsonData);
+		} else if ("addShopPage".equals(act)) {
+			
 		}
 		
 		if (isAjax == false) {
-			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
+			request.setAttribute("titleTagValue", "TMAP");
 			request.setAttribute("contentPath", "/page/map/map.jsp");
 			request.setAttribute("addHeadPath", "/page/map/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/map/include/bottom.jsp");

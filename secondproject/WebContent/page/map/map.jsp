@@ -101,7 +101,8 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="search-controll">
-					<button class="btn btn-sm btn-primary" type="button" id="modal_add_shop_btn">매장을 등록해주시면 푸짐한 상품을..</button>
+					<!-- href="<%=ContextPath.root%>/shop?act=addShopForm" target="_blank" -->
+					<button class="btn btn-sm btn-primary" id="modal_add_shop_btn">매장등록</button>
 					<button class="btn btn-sm btn-primary" type="button" id="search_detail_controll_btn">검색</button>
 					<span class="label label-danger">현재 검색조건</span> [전체메뉴] [전체유저]
 				</div>
@@ -125,4 +126,4 @@
 	</div>
 </div>
 
-<jsp:include page="/page/map/modal_add_shop.jsp"></jsp:include>
+<jsp:include page="addShopForm.jsp"></jsp:include>

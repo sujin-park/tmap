@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
-import com.secondproject.admin.model.ExhibitionDetailDto;
-import com.secondproject.admin.model.ExhibitionDto;
-import com.secondproject.admin.service.CommonServiceImpl;
-import com.secondproject.admin.service.ExhibitionServiceImpl;
+import com.secondproject.admin.service.*;
+import com.secondproject.review.model.AdminReviewDto;
 import com.secondproject.util.*;
 
 public class ReviewListAction implements Action {
@@ -32,17 +30,16 @@ public class ReviewListAction implements Action {
 			order = "desc";
 		}
 
-		List<ExhibitionDto> list = ExhibitionServiceImpl.getExhibitionService().listExhibition(key, word, order,
-				column, pg);
+		List<AdminReviewDto> list = AdminReviewServiceImpl.getAdminReviewService().listReview(key, word, order, column, pg);
 		request.setAttribute("order", order);
-		request.setAttribute("exhibitionList", list);
-		
+		request.setAttribute("reviewList", list);
+//		
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
 		pageNavigation.setNavigator();
 		request.setAttribute("navigator", pageNavigation);
-		path = "/page/adminpage/expage/exhibition.jsp";
+		path = "/page/adminpage/reviewpage/reviewList.jsp";
 		return path;
 	}
 
