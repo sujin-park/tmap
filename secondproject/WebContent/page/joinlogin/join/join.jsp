@@ -20,46 +20,40 @@
 					<div class="form-group">
 						<label for="inputEmail" class="col-lg-2 control-label">Email</label>
 						<input type="text" class="form-control" id="joinEmail"
-							placeholder="Email" name="email">
+							placeholder="Email" name="email" onkeyup="">
 					</div>
 					<div class="form-group">
 						<label for="inputPassword" class="col-lg-2 control-label">Password</label>
 						<input type="password" class="form-control" id="joinPassword"
 							name="password" placeholder="Password">
-						<!-- <div class="col-lg-10">
-							</div>  -->
 					</div>
 					<div class="form-group">
 						<label for="inputPassword" class="col-lg-2 control-label">Password
 							Check</label> <input type="password" class="form-control"
 							id="password_check" placeholder="Password check">
+						<div id="pw_check"></div>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail" class="col-lg-2 control-label">Age</label>
 						<div class="col-xs-3">
-							<input type="text" class="form-control" placeholder="Age">
+							<input type="text" class="form-control" placeholder="Age"
+								id="age" name="age">
 						</div>
 						<label for="inputEmail" class="col-lg-2 control-label">Gender</label>
 						<div class="btn-group">
-							<button type="button" class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false">
-								gender <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a href="#">Male</a></li>
-								<li><a href="#">Female</a></li>
-							</ul>
+							<select class="form-control" id="gender" name="gender">
+								<option>Gender</option>
+								<option value="1">Male</option>
+								<option value="2">Female</option>
+							</select>
 						</div>
 					</div>
-					<!-- <div class="form-group">
-					</div>  -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal"
 						onclick="javascript:join();">Join</button>
 					<button type="button" class="btn btn-default"
-						onclick="javascript:cancel();">Cencel</button>
+						onclick="javascript:cancel();">Cancel</button>
 				</div>
 			</div>
 		</div>
@@ -72,8 +66,7 @@
 		} else if (document.getElementById("joinPassword").value == "") {
 			alert("비밀번호를 입력해주세요.");
 			return;
-		} else if (document.getElementById("joinPassword").value != document
-				.getElementById("password_check").value) {
+		} else if (document.getElementById("joinPassword").value != document.getElementById("password_check").value) {
 			alert("비밀번호를 확인해주세요.");
 			return;
 		} else if (document.getElementById("gender").value == "") {
@@ -87,7 +80,7 @@
 			document.joinform.submit();
 		}
 	}
-	function cancel() {
-		self.close();
-	}
+	//	function cancel() {
+	//		self.close();
+	//	}
 </script>

@@ -30,12 +30,11 @@ public class LoginDaoImpl implements LoginDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;	
 		ResultSet rs = null;
-		
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("select user_id, email, type, gender, age, status_msg, reg_ip, update_date \n");
-			sql.append("from user \n");
+			sql.append("from users \n");
 			sql.append("where email = ? and password = ? \n");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, map.get("useremail"));
@@ -52,7 +51,6 @@ public class LoginDaoImpl implements LoginDao {
 				userDto.setReg_ip(rs.getString("reg_ip"));
 				userDto.setUpdate_date(rs.getString("update_date"));
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

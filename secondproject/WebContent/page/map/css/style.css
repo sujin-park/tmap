@@ -118,9 +118,6 @@
 	display: block;
 }
 
-
-
-
 .search-list-container-mobile{
 	position: absolute;
 	left: 0;
@@ -149,4 +146,23 @@
 #map_add_shop{
 	height: 300px;
 	margin-bottom: 15px;
+}
+
+.map2-container{
+}
+
+#addShopMap{
+	height: 500px;
+}
+
+.map-search .input-group{
+	margin-top: 15px;
+}
+
+#addShopAddress1{
+	margin-bottom: 5px;
+}
+
+#modal_addshopForm .modal-dialog{
+	width: 900px;
 }

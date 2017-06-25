@@ -32,7 +32,7 @@ public class JoinDaoImpl implements JoinDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("insert into garauser \n");
+			sql.append("insert into users \n");
 			sql.append("(user_id, email, password, type, gender, age, status_msg, reg_date, reg_ip) \n");
 			sql.append("values (1, ?, ?, 1, ?, ?, '¾î¼­¿É¼î', sysdate, 'localhost')");
 			pstmt = conn.prepareStatement(sql.toString());

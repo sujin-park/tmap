@@ -6,7 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.secondproject.constant.ContextPath;
 import com.secondproject.factory.JoinLoginFactory;
 import com.secondproject.util.PageMove;
 
@@ -15,15 +17,20 @@ public class JoinLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.print("1");
 		String act = request.getParameter("act");
 		String path ="/index.jsp";
-//		String queryString = ""; 
-		//System.out.print("2");
-		if("login".equals(act)){
+		if("login".equals(act)){ //로그인
 			path = JoinLoginFactory.getLoginAction().execute(request, response);
 			PageMove.forward(path, request, response);
-		} else if ("join".equals(act)){
+		} else if ("logout".equals(act)) { //로그아웃
+			HttpSession session = request.getSession();
+			session.removeAttribute("logininfo"); //세션 삭제
+			path ="/index.jsp";
+			PageMove.redirect(path, request, response);
+		} else if ("join".equals(act)){ //회원가입
+			path = JoinLoginFactory.getJoinAction().execute(request, response);
+			PageMove.forward(path, request, response);
+		} else if ("withdraw".equals(act)){ //탈퇴 시
 			path = JoinLoginFactory.getJoinAction().execute(request, response);
 			PageMove.forward(path, request, response);
 		}

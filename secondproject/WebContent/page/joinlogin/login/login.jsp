@@ -14,22 +14,18 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="inputEmail" class="col-lg-2 control-label">Email</label>
-								<input type="text" class="form-control" id="email"
+								<input type="text" class="form-control" id="email" name="email"
 									placeholder="Email">
-							<!-- <div class="col-lg-10">
-							</div> -->
 						</div>
 						<div class="form-group">
 							<label for="inputPassword" class="col-lg-2 control-label">Password</label>
-								<input type="password" class="form-control" id="password"
+							<input type="password" class="form-control" id="password" name="password"
 									placeholder="Password">
-							<!-- <div class="col-lg-10">
-							</div>  -->
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="javascript:joinmove();" align="left">Join</button>
-						<button type="button" class="btn btn-primary">Login</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="javascript:joinmove();" align="left">Go Join</button>
+						<button type="button" class="btn btn-primary" onclick="javascript:logincheck();">Login</button>
 					</div>
 				</div>
 			</div>
@@ -52,7 +48,5 @@ function logincheck(){
 		document.loginform.submit();
 	}
 }
-//function joinmove() {
-//	document.location.href = "";
-//}
+
 </script>
