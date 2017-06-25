@@ -18,17 +18,22 @@ public class JoinAction implements Action {
 			throws ServletException, IOException {
 		String path = "/index.jsp";
 		UserDto userDto = new UserDto();
-		//System.out.println(request.getParameter("gender"));
+//		System.out.println(request.getParameter("email"));
+//		System.out.println(request.getParameter("password"));
+//		System.out.println(request.getParameter("age"));
+//		System.out.println(request.getParameter("gender"));
+		
 		userDto.setEmail(request.getParameter("email"));
 		userDto.setPassword(request.getParameter("password"));
-		userDto.setGender(Integer.parseInt(request.getParameter("gender")));
 		userDto.setAge(Integer.parseInt(request.getParameter("age")));
+		userDto.setGender(Integer.parseInt(request.getParameter("gender")));
 		
 		int cnt = JoinServiceImpl.getJoinService().join(userDto);
 		if(cnt != 0){
-			path = "/join/joinok.jsp";
+			path = "/page/joinlogin/join/joinok.jsp";
+			request.setAttribute("userinfo", userDto);
 		} else {
-			path = "/join/joinfail.jsp";
+			path = "/page/joinlogin/join/joinfail.jsp";
 		}
 		return path;
 	}
