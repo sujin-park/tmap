@@ -1,0 +1,24 @@
+@CHARSET "EUC-KR";
+
+.page-container{
+	padding-top: 65px;
+}
+
+.map-container{
+	position: relative;
+	height: 300px;
+	margin-bottom: 15px;
+}
+
+#map{
+	height: 100%;
+}
+
+.map-search{
+	position: absolute;
+	left: 0%;
+	bottom: 0px;
+	width: 100%;
+	padding: 8px 10px;
+	z-index: 100;
+}

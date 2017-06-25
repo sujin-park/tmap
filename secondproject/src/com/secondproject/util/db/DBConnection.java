@@ -9,8 +9,8 @@ import javax.sql.DataSource;
 
 public class DBConnection {
 	public static Connection getConnection() {
-		 Connection conn = null;
-		 try {
+		Connection conn = null;
+		try {
 			Context ctx = new InitialContext();
 			Context ictx = (Context) ctx.lookup("java:comp/env");
 			DataSource ds = (DataSource) ictx.lookup("jdbc/map");

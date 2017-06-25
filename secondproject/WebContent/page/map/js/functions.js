@@ -33,7 +33,7 @@ var pageFunc = (function(){
 					data.forEach(function (shop) {
 						var tag = '<div class="panel panel-default shop">'
 							tag += '	<div class="panel-body">';
-							tag += '		<a href="' + CONTEXT_PATH + '/shop?shop_id=' + shop.shopId + '" target="_blank">';
+							tag += '		<a href="' + CONTEXT_PATH + '/shop?act=view&shopId=' + shop.shopId + '" target="_blank">';
 							tag += '			<span class="rank">' + i + '위</span>';
 							tag += '			<span class="title">' + shop.title + '</span>';
 							tag += '			<span class="category">[' + shop.categoryId + ']</span>';
@@ -72,9 +72,48 @@ var pageFunc = (function(){
 		})
 	}
 	
+	function insertAddShopSearchValue() {
+		var address = addShopMap.getCurrentAddress();
+		var latlng = addShopMap.getCurrentPosition();
+		$('#addShopAddress1').val(address);
+		$('#addShopAddress2').focus();
+		$('#addShopLat').val(latlng._lat);
+		$('#addShopLng').val(latlng._lng);
+	}
+	
+	function addShopFormReset() {
+		$('#addShopForm')[0].reset();
+	}
+	
+	function addShop() {
+		var data = $('#addShopForm').serialize();
+		$.ajax({
+			method: 'post',
+			url: CONTEXT_PATH + '/shop',
+			data: data,
+			dataType: 'json',
+			success: function(data) {
+				if (data.isSuccess === 'success') {
+					alert('등록되었습니다.');
+					addShopFormReset();
+					$('#modal_addshopForm .close').click();
+				} else if (data.isSuccess === 'fail') {
+					alert('등록에 실패했습니다..');
+				}
+			},
+			error: function(error) {
+				alert('등록에 실패했습니다.');
+				SYSOUT(error);
+			}
+		})
+	}
+	
 	return {
 		'showSearchDetail': showSearchDetail,
 		'getShopList': getShopList,
+		'insertAddShopSearchValue' : insertAddShopSearchValue,
+		'addShopFormReset' : addShopFormReset,
+		'addShop' : addShop
 	}
 	
 })();

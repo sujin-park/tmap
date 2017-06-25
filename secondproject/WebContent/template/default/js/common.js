@@ -18,9 +18,6 @@ function parseQueryString ( query ) {
 	return Params;
 }
 
-
-
-
 var CONTEXT_PATH = params.root;
 var MODE = 'DEBUG';
 
