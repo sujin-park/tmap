@@ -11,6 +11,13 @@ public class AdminReviewDto {
 	private String regDate;
 	private String updateDate;
 	private String img;
+	private int isBlind;
+	public int getIsBlind() {
+		return isBlind;
+	}
+	public void setIsBlind(int isBlind) {
+		this.isBlind = isBlind;
+	}
 	public int getReviewId() {
 		return reviewId;
 	}

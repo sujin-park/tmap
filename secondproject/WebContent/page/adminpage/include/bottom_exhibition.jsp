@@ -17,22 +17,15 @@ function searchExhibition() {
 		
 }
 
-function firstArticle(){
-	document.location.href="<%=ContextPath.root%>/admin?act=mvexhibition&pg=1&key=word=";
-}
-
-function listArticle(mpg){
-	document.location.href="<%=ContextPath.root%>/admin?act=mvexhibition&pg=" + mpg + "&key=word=";
-}
-
 function mvshoplist(seq) {
 	document.location.href ="<%=ContextPath.root%>/exhibition?act=mvshoplist&seq=" + seq;
+	$('#shopModal').modal({show:true});
 }
 
 function deleteExhibition() {
 	if (confirm("삭제하시겠습니까?")) {
-	document.exhibitionForm.action = "<%=ContextPath.root%>/exhibition";
-	document.exhibitionForm.submit();
+		document.exhibitionForm.action = "<%=ContextPath.root%>/exhibition";
+		document.exhibitionForm.submit();
 	}
 }
 

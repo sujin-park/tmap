@@ -1,14 +1,15 @@
 package com.secondproject.factory;
 
+import com.secondproject.action.Action;
 import com.secondproject.map.action.ShopListAction;
 import com.secondproject.shop.action.ShopAddAction;
 import com.secondproject.shop.action.ShopViewAction;
 
 public class ShopFactory {
 	
-	private static ShopListAction shopListAction;
-	private static ShopAddAction shopAddAction;
-	private static ShopViewAction shopViewAction;
+	private static Action shopListAction;
+	private static Action shopAddAction;
+	private static Action shopViewAction;
 	
 	static {
 		shopListAction = new ShopListAction();
@@ -16,15 +17,15 @@ public class ShopFactory {
 		shopViewAction = new ShopViewAction();
 	}
 
-	public static final ShopAddAction getShopAddAction() {
+	public static final Action getShopAddAction() {
 		return shopAddAction;
 	}
 
-	public static final ShopListAction getShopListAction() {
+	public static final Action getShopListAction() {
 		return shopListAction;
 	}
 
-	public static final ShopViewAction getShopViewAction() {
+	public static final Action getShopViewAction() {
 		return shopViewAction;
 	}
 

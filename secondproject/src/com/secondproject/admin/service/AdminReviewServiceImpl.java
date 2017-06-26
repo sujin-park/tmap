@@ -40,12 +40,12 @@ public class AdminReviewServiceImpl implements AdminReviewService {
 
 	@Override
 	public AdminReviewDto viewReview(int seq) {
-		return null;
+		return AdminReviewDaoImpl.getAdminReviewDao().viewReview(seq);
 	}
 
 	@Override
 	public int blindExhibition(String[] reviews) {
-		return 0;
+		return AdminReviewDaoImpl.getAdminReviewDao().blindExhibition(reviews);
 	}
 
 

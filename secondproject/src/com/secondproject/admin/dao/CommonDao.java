@@ -5,4 +5,6 @@ import java.util.Map;
 public interface CommonDao {
 	int totalArticleCount(Map<String, String> map);
 	
+	int totalReviewCount(Map<String, String> map);
+	
 }

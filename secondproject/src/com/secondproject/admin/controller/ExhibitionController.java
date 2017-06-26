@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.secondproject.util.*;
 import com.secondproject.factory.AdminFactory;
-import com.secondproject.util.Encoding;
-import com.secondproject.util.PageMove;
 
 @WebServlet("/exhibition")
 public class ExhibitionController extends HttpServlet {
@@ -27,6 +25,7 @@ public class ExhibitionController extends HttpServlet {
 		String column = Encoding.nullToBlank(request.getParameter("column"));
 		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column="
 				+ column;
+		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		if ("mvwrite".equals(act)) {
 			path = "/template/admin/admin.jsp";
 			request.setAttribute("titleTagValue", "타이틀");
@@ -55,7 +54,7 @@ public class ExhibitionController extends HttpServlet {
 
 			PageMove.forward(path, request, response);
 		} else if ("mvshoplist".equals(act)) {
-			String seq = request.getParameter("seq");
+			
 			contentPath = AdminFactory.getExhibitionShopAction().execute(request, response);
 			path = "/template/admin/admin.jsp";
 			request.setAttribute("titleTagValue", "타이틀");

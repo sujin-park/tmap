@@ -8,7 +8,7 @@ import com.secondproject.shop.model.ShopDto;
 
 public interface ExhibitionService {
 
-	int writeExhibition(ExhibitionDto exhibitionDto);
+	int writeExhibition(ExhibitionDetailDto exhibitionDetailDto);
 	List<ExhibitionDto> listExhibition(String key, String word, String order, String column, int pg);
 	ExhibitionDetailDto viewExhibition(int seq);
 	List<ShopDto> shopExhibition(String key, String word, String order, String column);
@@ -16,4 +16,6 @@ public interface ExhibitionService {
 	
 	int plusExhibition(String[] shops, int seq);
 	int modifyExhibition(ExhibitionDto exhibitionDto);
+	
+	List<ShopDto> shopUpdated(int seq);
 }

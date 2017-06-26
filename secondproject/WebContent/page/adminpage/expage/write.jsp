@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
-
+<!-- include summernote css/js-->
+<link href="D:\dist/summernote.css" rel="stylesheet">
+<script src="D:\dist/summernote.js"></script>
 <section class="content page-top clearfix">
 		<div class="col-md-offset-1 col-md-10 ">
 			<div class="panel panel-default">
@@ -24,7 +26,7 @@
 						</div>
 						<div class="form-group">
 							<label for="inputContent">기획전 설명</label>
-							<textarea class="form-control" id="content" name="content" rows="15" cols="15" placeholder="기획전 내용을 입력해주세요"></textarea>
+							<textarea class="form-control" id="content" name="content" rows="10" cols="10" placeholder="기획전 내용을 입력해주세요"></textarea>
 						</div>
 						<div class="btn-group pull-right">
 							<button type="button" class="btn btn-warning" onclick="javascript:writeArticle();">등록</button>
@@ -56,10 +58,5 @@ function moveList() {
 	document.location.href = "<%=ContextPath.root%>/admin?act=mvexhibition";	
 }
 
-
-
-$(document).ready(function() {
-    $('#summernote').summernote();
-});
 </script>
 </script>

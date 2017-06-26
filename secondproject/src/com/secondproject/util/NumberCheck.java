@@ -1,6 +1,15 @@
 package com.secondproject.util;
 
 public class NumberCheck {
+	
+	public static int nullToMinusOne(String tmp) {
+		int num = -1;
+		if (isNumber(tmp)) {
+			num = Integer.parseInt(tmp);
+		}
+		return num;
+	}
+	
 	public static int nullToZero(String tmp) {
 		int num = 0;
 		if (isNumber(tmp)) {

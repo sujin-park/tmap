@@ -115,7 +115,7 @@ public class PageNavigation {
 	         tmpNavigator.append(" 		</a></li>\n");
 	      } else {
 	 		 int nextPage = prePage + BoardConstance.PAGE_SIZE + 1; // 40 + 페이지사이즈에 1 하면 그 다음 페이지사이즈에서 첫번째인 51
-	         tmpNavigator.append("		<li><a href='javascript:listArticle("+ nextPage +")' aria-label=\"Next\"> <span aria-hidden=\"true\"> \n");
+	 		 tmpNavigator.append("		<li><a href='javascript:listArticle("+ nextPage +")' aria-label=\"Next\"> <span aria-hidden=\"true\"> \n");
 	         tmpNavigator.append("   	<font color=\"#ec9a25\">&raquo;</font></span> \n");
 	         tmpNavigator.append(" 		</a></li> \n");
 	         tmpNavigator.append("   	<li><a href='javascript:listArticle("+ totalPageCount +")' aria-label=\"Next\"> \n");

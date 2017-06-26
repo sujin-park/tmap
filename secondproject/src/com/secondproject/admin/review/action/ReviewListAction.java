@@ -23,18 +23,23 @@ public class ReviewListAction implements Action {
 		String word = Encoding.isoToEuc(request.getParameter("word"));
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-
-		if (order.isEmpty() || order.equals("desc")) {
-			order = "asc";
-		} else if ("asc".equals(order)) {
+		String board = "review";
+		
+		if (order.isEmpty() || order.equals("asc")) {
 			order = "desc";
+		} else if ("desc".equals(order)) {
+			order = "asc";
 		}
 
+		if (column.isEmpty()) {
+			column = "orderby";
+		}
 		List<AdminReviewDto> list = AdminReviewServiceImpl.getAdminReviewService().listReview(key, word, order, column, pg);
 		request.setAttribute("order", order);
+		request.setAttribute("column", column);
 		request.setAttribute("reviewList", list);
-//		
-		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word);
+		
+		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
 		pageNavigation.setNavigator();

@@ -5,7 +5,6 @@ import java.util.*;
 
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.model.ExhibitionDto;
-import com.secondproject.admin.service.ExhibitionServiceImpl;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
@@ -27,7 +26,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 	// 새 기획전 등록
 	@Override
-	public int writeExhibition(ExhibitionDto exhibitionDto) {
+	public int writeExhibition(ExhibitionDetailDto exhibitionDetailDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -40,12 +39,12 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
-			pstmt.setInt(++idx, exhibitionDto.getExhibitionId());
-			pstmt.setString(++idx, exhibitionDto.getExTitle());
-			pstmt.setString(++idx, exhibitionDto.getExDesc());
-			pstmt.setString(++idx, exhibitionDto.getExImage());
-			pstmt.setInt(++idx, exhibitionDto.getExOrder());
-			pstmt.setInt(++idx, exhibitionDto.getExVisiable());
+			pstmt.setInt(++idx, exhibitionDetailDto.getExhibitionId());
+			pstmt.setString(++idx, exhibitionDetailDto.getExTitle());
+			pstmt.setString(++idx, exhibitionDetailDto.getExDesc());
+			pstmt.setString(++idx, exhibitionDetailDto.getExImage());
+			pstmt.setInt(++idx, exhibitionDetailDto.getExOrder());
+			pstmt.setInt(++idx, exhibitionDetailDto.getExVisiable());
 			cnt = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -105,7 +104,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
 			sql.append("      select exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
-			sql.append("      from exhibition \n");
+			sql.append("      from exhibition e\n");
 
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("title")) {
@@ -368,4 +367,49 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		return cnt;
 	}
 
+	// 추가 되어있는 매장 리스트 가져오기
+	@Override
+	public List<ShopDto> shopUpdated(int seq) {
+		List<ShopDto> list = new ArrayList<ShopDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select shop_id, category_title, title, lat, lng, score, nvl(owner_id,0) owner_id, \n");
+			sql.append("	   reserve_url, address, tel, business_time, detail \n");
+			sql.append("from shop s, shop_category sc, exhibition_detail ed \n");
+			sql.append("where s.category_id = sc.category_id \n");
+			sql.append("and s.shop_id = ed.shop_id \n");
+			sql.append("and ed.exhibition_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ShopDto shopDto = new ShopDto();
+				shopDto.setShopId(rs.getInt("shop_id"));
+				shopDto.setCategoryTitle(rs.getString("category_title"));
+				shopDto.setTitle(rs.getString("title"));
+				shopDto.setLat(rs.getDouble("lat"));
+				shopDto.setLng(rs.getDouble("lng"));
+				shopDto.setScore(rs.getDouble("score"));
+				shopDto.setOwnerId(rs.getInt("owner_id"));
+				shopDto.setReserveUrl(rs.getString("reserve_url"));
+				shopDto.setAddress(rs.getString("address"));
+				shopDto.setTel(rs.getString("tel"));
+				shopDto.setBusinessTime(rs.getString("business_time"));
+				shopDto.setDetail(rs.getString("detail"));
+
+				list.add(shopDto);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return list;
+	}
 }

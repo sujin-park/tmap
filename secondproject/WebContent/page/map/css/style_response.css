@@ -1,24 +1,20 @@
 @CHARSET "EUC-KR";
 
 @media screen and (min-width : 768px) {
-	.map-container{
+	.map-container {
 		padding-right: 300px;
 	}
-
-	.search-controll-container{
+	.search-controll-container {
 		padding-right: 300px;
 	}
-	
-	.search-detail-controll-container{
+	.search-detail-controll-container {
 		left: -300px;
 		max-width: 300px;
 	}
-	
-	.search-list-container-mobile{
+	.search-list-container-mobile {
 		display: none;
 	}
-	
-	.search-list-container{
+	.search-list-container {
 		display: block;
 		position: fixed;
 		right: 0;
@@ -29,17 +25,14 @@
 		background-color: transparent;
 		z-index: 100;
 	}
-	
-	.search-list-container .search-list{
+	.search-list-container .search-list {
 		padding: 12px;
 		background-color: #fff;
 	}
-	
-	.search-list-container h3{
+	.search-list-container h3 {
 		text-align: center;
 	}
-	
-	.search-list-container .search-list .shop{
+	.search-list-container .search-list .shop {
 		margin-bottom: 13px;
 		cursor: pointer;
 		-webkit-transition: all 0.45s ease;
@@ -48,32 +41,33 @@
 		-o-transition: all 0.45s ease;
 		transition: all 0.45s ease;
 	}
-	
-	.search-list-container .search-list .shop.on{
+	.search-list-container .search-list .shop.on {
 		color: #fff;
 		background-color: #ff8d00;
 	}
-	
-	.search-list-container .search-list .shop a{
+	.search-list-container .search-list .shop a {
 		display: block;
 		width: 100%;
 		height: 100%;
 		text-decoration: none;
 		color: #666;
 	}
-	
-	.search-list-container .search-list .shop.on a{
+	.search-list-container .search-list .shop.on a {
 		color: #fff;
 	}
-	
-	.search-list-container .search-list .shop .rank{
+	.search-list-container .search-list .shop .rank {
 		font-size: 2rem;
 		font-weight: bold;
 	}
-
-	.search-list-container .search-list .shop .title{
+	.search-list-container .search-list .shop .title {
 		font-size: 2rem;
 		font-weight: bold;
 	}
-
+	#modal_addshopForm .modal-dialog {
+		width: 80%;
+		max-width: 900px;
+	}
+	#addShopMap {
+		height: 500px;
+	}
 }

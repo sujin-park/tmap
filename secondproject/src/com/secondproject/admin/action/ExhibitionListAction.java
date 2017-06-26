@@ -20,14 +20,13 @@ public class ExhibitionListAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp";
-		int pg = NumberCheck.nullToOne(request.getParameter("pg")); 
+		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
+		System.out.println("PG >>>>> " + pg);
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = Encoding.isoToEuc(request.getParameter("word"));
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-		System.out.println(order);
-		System.out.println(column);
-
+		String board = "exhibition";
 		if (order.isEmpty() || order.equals("desc")) {
 			order = "asc";
 		} else if ("asc".equals(order)) {
@@ -39,7 +38,7 @@ public class ExhibitionListAction implements Action {
 		request.setAttribute("order", order);
 		request.setAttribute("exhibitionList", list);
 		
-		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word);
+		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
 		pageNavigation.setNavigator();
