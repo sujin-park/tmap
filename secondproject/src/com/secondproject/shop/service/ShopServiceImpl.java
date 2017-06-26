@@ -42,7 +42,7 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public ShopDto getShop(int shopId) {
-		return null;
+		return ShopDaoImpl.getShopDao().getShop(shopId);
 	}
 
 }
