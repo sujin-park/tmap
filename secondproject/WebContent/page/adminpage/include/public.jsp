@@ -15,7 +15,6 @@ var key = "<%=key%>";
 var word = "<%=word%>";
 
 </script>
-<script type="text/javascript" src="<%=root%>/js/paging.js"></script>
 <form name="commonForm" method="get" action="">
 <input type="hidden" name="act" value=""> <!-- 값들이 항상 바뀌니까 value="" -->
 <input type="hidden" name="board" value="">
@@ -23,3 +22,4 @@ var word = "<%=word%>";
 <input type="hidden" name="key" value="">
 <input type="hidden" name="word" value="">
 </form>
+<script type="text/javascript" src="<%=root%>/page/adminpage/js/paging.js"></script>

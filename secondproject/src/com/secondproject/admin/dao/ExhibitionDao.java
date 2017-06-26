@@ -20,4 +20,6 @@ public interface ExhibitionDao {
 	int plusExhibition(String[] shops, int seq);
 	
 	int modifyExhibition(ExhibitionDto exhibitionDto);
+	
+	List<ShopDto> shopUpdated(int seq);
 }

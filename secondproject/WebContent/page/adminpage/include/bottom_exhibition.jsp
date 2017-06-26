@@ -19,6 +19,7 @@ function searchExhibition() {
 
 function mvshoplist(seq) {
 	document.location.href ="<%=ContextPath.root%>/exhibition?act=mvshoplist&seq=" + seq;
+	$('#shopModal').modal({show:true});
 }
 
 function deleteExhibition() {

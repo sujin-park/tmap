@@ -18,7 +18,7 @@ public class ExhibitionViewAction implements Action{
 			throws ServletException, IOException {
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		String path = "/adminIndex.jsp";
-		
+		System.out.println("ViewAction  " + seq);
 		ExhibitionDetailDto exhibitionDetailDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
 //		System.out.println(">>>>>" + exhibitionDetailDto.getExhibitionId());
 		if (exhibitionDetailDto != null) {

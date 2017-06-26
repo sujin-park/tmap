@@ -72,7 +72,7 @@ public class CommonDaoImpl implements CommonDao {
 			String key = map.get("key");
 			String word = map.get("word");
 	         if (!key.isEmpty() && !word.isEmpty()) {
-	        	 if (key.equals("title")) {
+	        	 if (key.equals("emailname")) {
 	        		 sql.append("	  where ex_title like '%' ||?|| '%'\n");
 	        	 }
 	         }

@@ -12,7 +12,7 @@ function firstArticle(){
 function listArticle(pg){
 	document.commonForm.act.value = act;
 	document.commonForm.board.value = board;
-	document.commonForm.pg.value = pg;
+	document.commonForm.pg.value = "2";
 	document.commonForm.key.value = key;
 	document.commonForm.word.value = word;
 	

@@ -20,7 +20,8 @@ public class ExhibitionListAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp";
-		int pg = NumberCheck.nullToOne(request.getParameter("pg")); 
+		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
+		System.out.println("PG >>>>> " + pg);
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = Encoding.isoToEuc(request.getParameter("word"));
 		String order = Encoding.nullToBlank(request.getParameter("order"));

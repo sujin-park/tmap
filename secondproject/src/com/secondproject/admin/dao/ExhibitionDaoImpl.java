@@ -367,4 +367,49 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		return cnt;
 	}
 
+	// 추가 되어있는 매장 리스트 가져오기
+	@Override
+	public List<ShopDto> shopUpdated(int seq) {
+		List<ShopDto> list = new ArrayList<ShopDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select shop_id, category_title, title, lat, lng, score, nvl(owner_id,0) owner_id, \n");
+			sql.append("	   reserve_url, address, tel, business_time, detail \n");
+			sql.append("from shop s, shop_category sc, exhibition_detail ed \n");
+			sql.append("where s.category_id = sc.category_id \n");
+			sql.append("and s.shop_id = ed.shop_id \n");
+			sql.append("and ed.exhibition_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ShopDto shopDto = new ShopDto();
+				shopDto.setShopId(rs.getInt("shop_id"));
+				shopDto.setCategoryTitle(rs.getString("category_title"));
+				shopDto.setTitle(rs.getString("title"));
+				shopDto.setLat(rs.getDouble("lat"));
+				shopDto.setLng(rs.getDouble("lng"));
+				shopDto.setScore(rs.getDouble("score"));
+				shopDto.setOwnerId(rs.getInt("owner_id"));
+				shopDto.setReserveUrl(rs.getString("reserve_url"));
+				shopDto.setAddress(rs.getString("address"));
+				shopDto.setTel(rs.getString("tel"));
+				shopDto.setBusinessTime(rs.getString("business_time"));
+				shopDto.setDetail(rs.getString("detail"));
+
+				list.add(shopDto);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return list;
+	}
 }

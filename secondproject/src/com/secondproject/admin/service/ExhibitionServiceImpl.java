@@ -64,6 +64,10 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Override
 	public int modifyExhibition(ExhibitionDto exhibitionDto) {
 		return ExhibitionDaoImpl.getExhibitionDao().modifyExhibition(exhibitionDto);
+	}
+	@Override
+	public List<ShopDto> shopUpdated(int seq) {
+		return ExhibitionServiceImpl.getExhibitionService().shopUpdated(seq);
 	};
 
 }

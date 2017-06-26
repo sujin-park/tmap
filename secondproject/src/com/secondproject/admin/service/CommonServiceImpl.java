@@ -47,6 +47,7 @@ public class CommonServiceImpl implements CommonService {
 		pageNavigation.setTotalPageCount(totalPageCount);
 		pageNavigation.setNowFirst(pg <= BoardConstance.PAGE_SIZE);
 		pageNavigation.setNowEnd((totalPageCount-1) / BoardConstance.PAGE_SIZE * BoardConstance.PAGE_SIZE < pg ); // 0À¸·Î ³ª´©¾î ¶³¾îÁö´Â °ÍÀº 1·Î »©ÁÖ¸é µÊ
+		System.out.println("PG >>>>>> " + pg);
 		pageNavigation.setPageNo(pg);
 		return pageNavigation;
 	}

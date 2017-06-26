@@ -108,7 +108,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
 										<button type="button" class="btn btn-warning btn-xs" 
-							    		onclick="javascript:viewExhibition('<%=adminReviewDto.getReviewId()%>');"><span class="glyphicon glyphicon-pencil"></span>
+							    		onclick="javascript:blindReview();"><span class="glyphicon glyphicon-pencil"></span>
 							    		</button>
 							    	</p>
 							    </td>
