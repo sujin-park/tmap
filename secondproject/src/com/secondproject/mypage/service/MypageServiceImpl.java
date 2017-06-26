@@ -59,4 +59,10 @@ public class MypageServiceImpl implements MypageService {
 		return MypageFollowDaoImpl.getMypageFollowDao().followCategoryDelete(followCategoryId);
 	}
 
+	@Override
+	public int followModify(FollowUserDto fudto) {
+		
+		return MypageFollowDaoImpl.getMypageFollowDao().followModify(fudto);
+	}
+
 }

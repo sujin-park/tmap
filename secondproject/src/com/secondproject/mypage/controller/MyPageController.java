@@ -23,7 +23,7 @@ public class MyPageController extends HttpServlet {
 			path = MypageFactory.getMypageFollowCategoryListView().execute(request, response);
 		} else if("upOrder".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryUpOrderAction().execute(request, response);
-		} else if("downOrder".equals(act)) {
+		} else if("downOrder".equals(act)) {	
 			path = MypageFactory.getMypageFollowCategoryDownOrderAction().execute(request, response);
 		} else if("catemake".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryMakeAction().execute(request, response);
@@ -31,6 +31,10 @@ public class MyPageController extends HttpServlet {
 			path = MypageFactory.getMypageFollowDeleteAction().execute(request, response);
 		} else if("catedelete".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryDeleteAction().execute(request, response);
+		} else if ("followUser".equals(act)) {
+			path = MypageFactory.getMypageFollowUserViewAction().execute(request, response);
+		} else if ("followmodify".equals(act)) {
+			path = MypageFactory.getMypageFollowModifyAction().execute(request, response);
 		}
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
@@ -39,6 +43,8 @@ public class MyPageController extends HttpServlet {
 		RequestDispatcher dist=null;
 		if(path.equals("/page/mypage/catelistview.jsp")){
 			dist = request.getRequestDispatcher("/page/mypage/catelistview.jsp");
+		} else if(path.equals("/page/mypage/followUserData.jsp")) {
+			dist = request.getRequestDispatcher("/page/mypage/followUserData.jsp");
 		} else {
 			dist = request.getRequestDispatcher("/template/default/default.jsp");
 		}dist.forward(request, response);
