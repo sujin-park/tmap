@@ -37,12 +37,11 @@ public class MyPageController extends HttpServlet {
 		request.setAttribute("addHeadPath", "/page/mypage/include/head.jsp");
 //		request.setAttribute("addBottomPath", "/page/mypage/include/bottom.jsp");
 		RequestDispatcher dist=null;
-		if(path.equals("/page/mypage/followdata.jsp")){
-		dist = request.getRequestDispatcher("/page/mypage/followdata.jsp");
+		if(path.equals("/page/mypage/catelistview.jsp")){
+			dist = request.getRequestDispatcher("/page/mypage/catelistview.jsp");
 		} else {
 			dist = request.getRequestDispatcher("/template/default/default.jsp");
-		}
-		dist.forward(request, response);
+		}dist.forward(request, response);
 		
 	}
 

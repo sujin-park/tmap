@@ -6,66 +6,40 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">
-	function upOrder(order, id) {
-		if (order == 1) {
-			return alert("첫번째 순서입니다.");
-		} else {
-			document.orderForm.act.value = "upOrder";
-			document.orderForm.id.value = id;
-			document.orderForm.action = "<%=ContextPath.root%>/mypage";
-			document.orderForm.submit();
-		}
+function upOrder(order, id) {
+	if (order == 1) {
+		return alert("첫번째 순서입니다.");
+	} else {
+		$.get("/secondproject/mypage?act=upOrder&id="+id, function(data, status){
+			var tt = document.getElementById("tt");
+			tt.innerHTML=data;
+		});
 	}
+}
+
+
 
 	function downOrder(order, id) {
 		if (document.getElementsByName("trtr").length == order) {
 			return alert("마지막 순서입니다.");
 		} else {
-			document.orderForm.act.value = "downOrder";
-			document.orderForm.id.value = id;
-			document.orderForm.action = "<%=ContextPath.root%>/mypage";
-			document.orderForm.submit();
+			$.get("/secondproject/mypage?act=downOrder&id="+id, function(data, status){
+				var tt = document.getElementById("tt");
+				tt.innerHTML=data;
+			});
 		}
 	}
-	/////////////////////////////
 	function catedelete(id) {
 		var catename = $("#text").val();
 		if(confirm("정말삭제하시겠습니까?")) {
-		var id = "act=catedelete&cateid=" +id;
-		sendRequest("/secondproject/mypage", id, receiveDelete, "GET");
+			$.get("/secondproject/mypage?act=catedelete&cateid="+id, function(data, status){
+				var tt = document.getElementById("tt");
+				tt.innerHTML=data;
+	        });
+			
 		}
 	
 	}
-
-	function receiveDelete() {
-		if (httpRequest.readyState == 4) {
-			if (httpRequest.status == 200) {
-				var txt = httpRequest.responseText;
-				
-			 
-			} else {
-				alert("문제발생 : " + httpRequest.status);
-			}
-		}
-	}
-	function view(category) {
-
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	///////////////////////////
 	function modal() {
 		$('#modal').modal({
 			show : true
@@ -81,72 +55,19 @@
 			cbox.checked = input_form.all.checked;
 		}
 	}
-
 	function getData() {
 		var catename = $("#text").val();
 		if(catename.trim()=="") {
 			return alert("카테고리 이름을 입력하세요");
 		} else {
-		var name = "act=catemake&catename=" + encodeURI(catename);
-		sendRequest("/secondproject/mypage", name, cateMake, "GET");
+		$.get("/secondproject/mypage?act=catemake&catename="+ encodeURI(catename), function(data, status){
+			var tt = document.getElementById("tt");
+			tt.innerHTML=data;
+		});
 		}
 		$("#text").val('');
 	}
 
-	function cateMake() {
-		if (httpRequest.readyState == 4) {
-			if (httpRequest.status == 200) {
-				var catexml = httpRequest.responseXML;
-				viewData(catexml); 
-			} else {
-				alert("문제발생 : " + httpRequest.status);
-			}
-		}
-	}
-	function viewData(category) {
-		var cateid = category.getElementsByTagName("cateid")[0].firstChild.data;
-		var order = category.getElementsByTagName("order")[0].firstChild.data;
-		var name = category.getElementsByTagName("name")[0].firstChild.data;
-		var tr = document.createElement("tr");
-		var td = document.createElement("td");
-		var txtorder = document.createTextNode(order);
-		td.appendChild(txtorder);
-		var td2 = document.createElement("td");
-		var txtname = document.createTextNode(name);
-		td2.appendChild(txtname);
-		var div = document.createElement("div");
-		div.setAttribute("class", "pull-right");
-		var a2 = document.createElement("a");
-		a2.setAttribute("class", "btn btn-default");
-		a2.setAttribute("href", "javascript:upOrder('" + order + "','" + cateid + "');");
-		a2.setAttribute("role", "button");
-		a2.appendChild(document.createTextNode("▲"));
-		var a3 = document.createElement("a");
-		a3.setAttribute("class", "btn btn-default");
-		a3.setAttribute("href", "javascript:catedelete('"+cateid+"');");
-		a3.setAttribute("role", "button");
-		a3.appendChild(document.createTextNode("삭제"));
-		var a4 = document.createElement("a");
-		a4.setAttribute("class", "btn btn-default");
-		a4.setAttribute("href", "javascript:downOrder('" + order + "','" + cateid + "');");
-		a4.setAttribute("role", "button");
-		a4.appendChild(document.createTextNode("▼"));
-		div.appendChild(a2);
-		div.appendChild(document.createTextNode(" "));
-		div.appendChild(a4);
-		div.appendChild(document.createTextNode(" "));
-		div.appendChild(a3);
-		td2.appendChild(div);
-		tr.setAttribute("name", "trtr");
-		tr.appendChild(td);
-		tr.appendChild(td2);
-		var tt = document.getElementById("tt");
-		tt.appendChild(tr);
-		$("#hh").remove();
-		
-	
-	
-	}
 	function followdelete() {
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
@@ -170,7 +91,7 @@
 				document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&id=" + valueArr;
 			}
 		});
-	
+		
 	});
 </script>
 <div class="col-xs-9 col-md-9 col-xs-offset-1 a">
@@ -245,7 +166,7 @@
 							} else {
 						%>
 						<tr >
-						<td colspan="6"><center>팔로우한사람이 없습니다.</center></tr>
+						<td colspan="6"><center>팔로우한사람이 없습니다. </center></tr>
 						<%
 							}
 						%>
@@ -282,8 +203,7 @@
 
 								</tr>
 							</thead>
-							<tbody id="tt" name="tt">
-
+								<tbody id="tt" name="tt">
 
 								<%
 									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
@@ -292,7 +212,7 @@
 										for (int i = 0; i < size; i++) {
 											FollowCategoryDto fcdto = list.get(i);
 								%>
-								<tr name="trtr">
+								<tr id="tr<%=fcdto.getFollowCategoryId()%>" name="trtr">
 									<td id="<%=fcdto.getCategoryOrder()%>"><%=fcdto.getCategoryOrder()%></td>
 									<td id="nana"><%=fcdto.getCategoryName()%>
 										<div id="divv" class="pull-right">
@@ -302,7 +222,7 @@
 												role="button">▲</a> <a class="btn btn-default"
 												href="javascript:downOrder('<%=i + 1%>','<%=fcdto.getFollowCategoryId()%>');"
 												role="button">▼</a>
-												<a id="" class="btn btn-default"
+												<a id="dd" class="btn btn-default"
 												href="javascript:catedelete('<%=fcdto.getFollowCategoryId()%>');"
 												role="button">삭제</a>
 
@@ -325,8 +245,8 @@
 								<%
 									}
 								%>
-
 							</tbody>
+							
 						</table>
 					</form>
 				</div>

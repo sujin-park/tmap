@@ -92,8 +92,6 @@ public class ShopDaoImpl implements ShopDao {
 		} finally {
 			DBClose.close(conn, pstmt, rs);
 		}
-
 		return shopDto;
 	}
-
 }
