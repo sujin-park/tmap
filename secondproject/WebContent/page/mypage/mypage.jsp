@@ -16,7 +16,19 @@ function upOrder(order, id) {
 		});
 	}
 }
+var userid;
 
+	function modifymake(){
+		var alias = $("#alias").val();
+		var memo = $("#memo").val();
+		<%-- document.cateForm.act = "followmodify";
+		document.cateForm.alias = alias;
+		document.cateForm.memo = memo;
+		document.cateForm.userid = userid;
+		document.cateForm.action = "<%=ContextPath.root %>/mypage";
+		document.cateForm.submit(); --%>
+		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&userid=" + userid+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
+	}
 
 
 	function downOrder(order, id) {
@@ -45,6 +57,11 @@ function upOrder(order, id) {
 			show : true
 		});
 	}
+	function modalmemo() {
+		$('#modalmemo').modal({
+			show : true
+		});
+	}
 	function check() {
 		cbox = input_form.chk;
 		if (cbox.length) { // 여러 개일 경우
@@ -57,7 +74,9 @@ function upOrder(order, id) {
 	}
 	function getData() {
 		var catename = $("#text").val();
-		if(catename.trim()=="") {
+		if(catename.length>100){
+			return alert("카테고리 이름이 너무 길어요");
+		} else if(catename.trim()=="") {
 			return alert("카테고리 이름을 입력하세요");
 		} else {
 		$.get("/secondproject/mypage?act=catemake&catename="+ encodeURI(catename), function(data, status){
@@ -67,6 +86,16 @@ function upOrder(order, id) {
 		}
 		$("#text").val('');
 	}
+	function getMemoData(id) {
+		$.get("/secondproject/mypage?act=followUser&id="+id, function(data, status){
+			var form = document.getElementById("cateForm");
+			form.innerHTML=data;
+		});
+		modalmemo();
+		userid=id;
+	}
+	
+	
 
 	function followdelete() {
 		var valueArr = new Array();
@@ -152,11 +181,11 @@ function upOrder(order, id) {
 										if (a == null) {
 											a = "없음";
 							%>
-							<td><%=a%></td>
+							<td><%=a%>&nbsp;&nbsp;<a href="javascript:getMemoData('<%=fudto.getFavoriteUserId()%>');"><img src="<%=ContextPath.root%>/page/mypage/img/memo.png" width="20" height="20" border="0"></a></td>
 							<%
 								} else {
 							%>
-							<td><%=fudto.getAlias()%></td>
+							<td><%=fudto.getAlias()%>&nbsp;&nbsp;<a href="javascript:getMemoData('<%=fudto.getFavoriteUserId()%>');"><img src="<%=ContextPath.root%>/page/mypage/img/memo.png" width="20" height="20" border="0"></a></td>
 							<%
 								}
 							%>
@@ -214,7 +243,7 @@ function upOrder(order, id) {
 								%>
 								<tr id="tr<%=fcdto.getFollowCategoryId()%>" name="trtr">
 									<td id="<%=fcdto.getCategoryOrder()%>"><%=fcdto.getCategoryOrder()%></td>
-									<td id="nana"><%=fcdto.getCategoryName()%>
+									<td id="<%=fcdto.getCategoryName()%>" name="<%=fcdto.getCategoryName()%>"><%=fcdto.getCategoryName()%>
 										<div id="divv" class="pull-right">
 
 											<a id="aa" class="btn btn-default"
@@ -253,10 +282,52 @@ function upOrder(order, id) {
 			</div>
 			<div class="modal-footer">
 				<form name=catemake method="post">
-					<input type="hidden" name="act"> <input type="text"
-						id="text" name="catename" class="marright">
+					<input type="hidden" name="act"> <input type="text" class="marright" id="text" name="text"
+									placeholder="Category Name">
 					<button id="btn" class="btn btn-primary" type="button"
 						onclick="getData();" name="make">추가</button>
+					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--      modallllllllllllllllllllllllllllll-->
+<div class="modal fade" id="modalmemo" role="dialog" aria-hidden="true"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<button class="close" aria-hidden="true" type="button"
+					data-dismiss="modal">×</button>
+				<h4 class="modal-title" id="myModalLabel">별칭수정</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row table-responsive">
+					<form id="cateForm" name="cateForm" method="post" action="">
+						<input type="hidden" name="act" value=""> 
+						<input type="hidden" name="userid" value="">
+						<input type="hidden" name="alias" value="">
+						<input type="hidden" name="memo" value="">
+
+						<div class="form-group">
+							<label for="alias" class="col-lg-2 control-label">alias</label>
+								<input type="text" class="form-control" id="alias" name="alias"
+									placeholder="alias">
+						</div>
+						<div class="form-group">
+							<label for="memo" class="col-lg-2 control-label">memo</label>
+								<textarea rows="" cols="" class="form-control" id="memo" name="memo"></textarea>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<form name="aliasmodify" method="post">
+					<input type="hidden" name="act"> 
+					<button id="btn" class="btn btn-primary" type="button"
+						onclick="modifymake();" name="make">저장</button>
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
 				</form>
 			</div>
