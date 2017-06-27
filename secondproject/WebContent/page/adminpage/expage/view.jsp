@@ -3,7 +3,7 @@
     pageEncoding="EUC-KR" import="com.secondproject.constant.*" import="com.secondproject.shop.model.*, java.util.*"%>
 <%
 	ExhibitionDetailDto exhibitionDetailDto = (ExhibitionDetailDto) request.getAttribute("exhibitionInfo");
-	List<ShopDto> shopList =(List<ShopDto>) request.getAttribute("shopList");
+	List<ShopDto> list = (List<ShopDto>) request.getAttribute("shopList");
 %>
 <section class="content page-top">
 	<div class="title"><h3>Detail</h3></div>
@@ -53,7 +53,73 @@
 								<td>매장 주소</td>
 								<td>영업시간</td>
 								<td>상세 설명</td>
+								<td>Delete</td>
 							</tr>
+							</tr>
+							<%
+							if (list != null) {
+								int size = list.size();
+								for (int i = 0; i < size; i++) {
+									ShopDto shopDto = list.get(i);
+									String checkbox = "checkbox" + i;
+							%>
+							<tr>
+								<td>
+									<div class="ckbox">
+										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="checkbox" value="<%=shopDto.getShopId()%>"> <label
+											for="<%=checkbox%>"></label>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<span class="media-meta"><%=shopDto.getTitle() %></span>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<div class="media-body">
+											<p class="media-meta"><%=shopDto.getCategoryTitle() %></p>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<div class="media-body">
+											<span class="media-meta"><%=shopDto.getAddress()%></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<div class="media-body">
+											<span class="media-meta"><%=shopDto.getBusinessTime() %></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<div class="media-body">
+											<span class="media-meta"><%=shopDto.getScore()%></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<div class="media-body">
+											<span class="media-meta"><%=shopDto.getDetail() %></span>
+										</div>
+									</div>
+								</td>
+								<td>
+								<p data-placement="top" data-toggle="tooltip" title="Delete">
+								<button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p>
+								</td>
+							</tr>
+							    
+							<%
+								}
+								}
+							%>
 						</tbody>
 					</table>
 				</div>

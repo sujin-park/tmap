@@ -26,12 +26,12 @@
 			    </li>
 				<li><a href="#">매장관리</a></li>
 				<li><a href="#">통계관리</a></li>
-				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&pg=1&key=word=">후기관리</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=">후기관리</a></li>
 				<li class="dropdown">
 					<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">기획전관리
 	        			<span class="caret"></span></a>
 				        	<ul class="dropdown-menu">
-					          <li><a href="<%=ContextPath.root%>/admin?act=mvexhibition&pg=1&key=word=">기획전 리스트</a></li>
+					          <li><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&pg=1&key=&word=">기획전 리스트</a></li>
 					          <li><a href="#">기획전 배치도</a></li>
 				        	</ul>
 				</li>

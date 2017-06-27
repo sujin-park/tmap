@@ -1,8 +1,9 @@
 <%@page import="com.secondproject.admin.model.ExhibitionDetailDto"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
+    pageEncoding="EUC-KR" import="com.secondproject.constant.*" import="com.secondproject.shop.model.*, java.util.*"%>
 <%
-	ExhibitionDetailDto exhibitionDetailDto = (ExhibitionDetailDto) request.getAttribute("exhibitionAllInfo");
+	ExhibitionDetailDto exhibitionDetailDto = (ExhibitionDetailDto) request.getAttribute("exhibitionInfo");
+	List<ShopDto> shopList =(List<ShopDto>) request.getAttribute("shopList");
 %>
 <section class="content page-top">
 	<div class="title"><h3>Detail</h3></div>
@@ -24,21 +25,41 @@
 						<%
 						} else {
 						%>
-						<input type="checkbox" id="checkbox1" name="isvisiable"><label for="checkbox1"></label>
+						<input type="checkbox" id="checkbox1" name="isvisiable" value="1"><label for="checkbox1"></label>
 						<%	
 						}
 						%>
 						</div>
 						<label for="inputStore"></label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="store" name="store" value="<%=exhibitionDetailDto.getExImage()%>">
+							<input type="text" class="form-control" id="store" name="store" placeholder="버튼을 눌러 매장을 추가해주세요" readonly="readonly">
 								<span class="input-group-btn">
 									<button class="btn btn-warning" type="button" onclick="javascript:mvshoplist('<%=exhibitionDetailDto.getExhibitionId()%>');">매장 추가</button>
 								</span>
 						</div>
+										<div class="table-container table-responsive">
+					<table class="table table-filter" id="extable">
+						<tbody>
+							<tr class="warning" align="center">
+								<td>
+									<div class="ckbox">
+										<input type="checkbox" id="checkedAll"><label
+											for="checkedAll"></label>
+									</div>
+								</td>
+								<td>매장명</td>
+								<td>음식종류</td>
+								<td>평점</td>
+								<td>매장 주소</td>
+								<td>영업시간</td>
+								<td>상세 설명</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 						<div class="form-group">
 							<label for="inputContent">기획전 설명</label>
-							<textarea class="form-control" id="content" name="content" rows="15" cols="15">
+							<textarea class="form-control" id="content" name="content" rows="10" cols="10">
 <%=exhibitionDetailDto.getExDesc()%>							
 </textarea>
 						</div>
@@ -53,8 +74,11 @@
 </section>
 <script>
 function modifyArticle() {
-	document.writeForm.action = "<%=ContextPath.root%>/exhibition";
-	document.writeForm.submit();
+	if (confirm("수정하시겠습니까?")) {
+		document.writeForm.action = "<%=ContextPath.root%>/exhibition";
+		document.writeForm.submit();
+	}
+	
 }
 function moveList() {
 	document.location.href = "<%=ContextPath.root%>/admin?act=mvexhibition";	
