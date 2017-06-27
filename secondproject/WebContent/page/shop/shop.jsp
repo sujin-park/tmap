@@ -8,20 +8,36 @@
 
 <div class="page-container">
 	<div class="container">
+	
 		<div class="row">
-			<%=shopDto.getCategoryTitle()%>
-			<%=shopDto.getTitle()%>
-			<%=shopDto.getTel()%>
-			<%=shopDto.getScore()%>
-			<%=shopDto.getBusinessTime()%>
-			<%=shopDto.getDetail()%>
-			<%=shopDto.getAddress()%>
-			
-			<ul>
-				<li><button class="btn btn-default">器判府轰</button></li>
-				<li><button class="btn btn-default">TMAP 府轰</button></li>
-				<li><a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>">府轰累己</a></li>
-			</ul>
+			<div class="col-xs-12 col-md-3">
+				<img src="<%=ContextPath.root%>/upload/test/test.png" class="img-responsive" />
+			</div>
+			<div class="col-md-9">
+				<span class="label label-default"><%=shopDto.getCategoryTitle()%></span>
+				<h3><%=shopDto.getTitle()%> <span class="badge"><%=shopDto.getScore()%></span></h3>
+				<ul class="list-group">
+					<li class="list-group-item">林家 : <%=shopDto.getAddress()%></li>
+					<li class="list-group-item">傈拳锅龋 : <%=shopDto.getTel()%></li>
+					<% if (shopDto.getBusinessTime() != null) { %>
+						<li class="list-group-item">康诀矫埃 : <%=shopDto.getBusinessTime()%></li>
+					<% } %>
+					<% if (shopDto.getDetail() != null) { %>
+						<li class="list-group-item">沥焊 : <%=shopDto.getDetail()%></li>
+					<% } %>
+				</ul>
+				
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<ul>
+					<li><button class="btn btn-default">器判府轰</button></li>
+					<li><button class="btn btn-default">TMAP 府轰</button></li>
+					<li><a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>">府轰累己</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

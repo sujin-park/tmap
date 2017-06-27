@@ -24,6 +24,7 @@
 		padding-top: 50px;
 		background-color: transparent;
 		z-index: 100;
+		overflow-y: auto;
 	}
 	.search-list-container .search-list {
 		padding: 12px;

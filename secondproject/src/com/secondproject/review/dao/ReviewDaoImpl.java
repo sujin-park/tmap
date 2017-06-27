@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.secondproject.map.model.ShopDto;
 import com.secondproject.review.model.ReviewDto;
+import com.secondproject.util.PagenationParameter;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
@@ -51,6 +54,35 @@ public class ReviewDaoImpl implements ReviewDao {
 		}
 
 		return count;
+	}
+
+	@Override
+	public List<ReviewDto> getReviewList(PagenationParameter pagenationParameter) {
+		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT * \n");
+			sql.append("FROM review \n");
+			sql.append("WHERE shop_id = ? and is_blind = 0");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, 1);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ReviewDto reviewDto = new ReviewDto();
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		
+		return list;
 	}
 
 }

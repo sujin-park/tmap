@@ -35,14 +35,12 @@ public class ReviewController extends HttpServlet {
 		} else if ("write".equals(act)) {
 			ReviewFactory.getReviewWriteAction().execute(request, response);
 		} else if ("view".equals(act)) {
-
 			contentPath = AdminFactory.getReviewViewAction().execute(request, response);
 			path = "/template/admin/admin.jsp";
 			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
 			request.setAttribute("contentPath", contentPath);
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
-
 			PageMove.forward(path, request, response);
 		} else if ("blind".equals(act)) {
 			contentPath = AdminFactory.getReviewBlindAction().execute(request, response);
