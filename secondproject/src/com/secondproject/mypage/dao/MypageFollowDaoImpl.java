@@ -253,12 +253,20 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select fu.follow_user_id,nvl((select category_name from follow_category f where follow_category_id=fu.follow_category_id),'없음') category_name, \n");
-			sql.append("	u.email,u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date,  \n");
-			sql.append("	to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
-			sql.append("from follow_user fu  \n");
-			sql.append("join users u ON fu.reg_user_id = u.user_id  \n");
-			sql.append("where fu.user_id = ?");
+//			sql.append("select fu.follow_user_id,nvl((select category_name from follow_category f where follow_category_id=fu.follow_category_id),'없음') category_name, \n");
+//			sql.append("	u.email,u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date,  \n");
+//			sql.append("	to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
+//			sql.append("from follow_user fu  \n");
+//			sql.append("join users u ON fu.reg_user_id = u.user_id  \n");
+//			sql.append("where fu.user_id = ?");
+			sql.append("	select fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
+			sql.append("			u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
+			sql.append("		to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
+			sql.append("	from follow_user fu \n");
+			sql.append("	LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
+			sql.append("	join users u ON fu.reg_user_id = u.user_id  \n");
+			sql.append("	where fu.user_id=? \n");
+			sql.append("	ORDER BY fc.category_order ASC \n");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, userId);
 			rs = pstmt.executeQuery();
