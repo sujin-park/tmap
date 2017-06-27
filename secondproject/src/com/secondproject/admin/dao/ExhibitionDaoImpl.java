@@ -318,8 +318,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 				String sql = "insert into exhibition_detail (exhibition_id, shop_id, exd_order, exd_desc) \n";
 				sql += "						 values	(?, ?, ?, 'dsd') \n";
 				pstmt = conn.prepareStatement(sql);
-				System.out.println("plusshop seq" + seq);
-				System.out.println("shop id" + Integer.parseInt(shops[i]));
 				pstmt.setInt(1, seq);
 				pstmt.setInt(2, Integer.parseInt(shops[i]));
 				pstmt.setInt(3, 8); // 8번이라고 가정
@@ -378,7 +376,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select shop_id, category_title, title, lat, lng, score, nvl(owner_id,0) owner_id, \n");
+			sql.append("select s.shop_id, category_title, s.title, lat, lng, score, nvl(owner_id,0) owner_id, \n");
 			sql.append("	   reserve_url, address, tel, business_time, detail \n");
 			sql.append("from shop s, shop_category sc, exhibition_detail ed \n");
 			sql.append("where s.category_id = sc.category_id \n");

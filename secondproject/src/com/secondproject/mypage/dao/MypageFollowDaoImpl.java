@@ -42,7 +42,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			
 			sql.append("insert into follow_category \n");
 			sql.append("(follow_category_id,user_id,category_name,category_order) \n");
-			sql.append("	values (follow_category_seq.nextval,?,?, \n");
+			sql.append("	values (seq_follow_category_id.nextval,?,?, \n");
 			int size =followCategoryListView(followCategoryDto.getUserId()).size();
 			if(size==0) {
 				sql.append("1)");

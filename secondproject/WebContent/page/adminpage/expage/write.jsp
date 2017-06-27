@@ -15,11 +15,16 @@
 							<input type="text" class="form-control" name="subject" placeholder="기획전 제목을 입력해주세요"/>
 						</div>
 						<div class="ckbox">
-							<input type="checkbox" id="checkbox1" name="checkbox1" value="1"> 노출 여부 <label for="checkbox1"></label>
+							<input type="checkbox" id="isvisiable" name="isvisiable" value="1"> 노출 여부 <label for="isvisiable"></label>
 						</div>
+						<div class="input-group">
+								<label for="inputName">배치 순서</label>
+								<input type="text" class="form-control" name="changeroot" placeholder="배치 순서를 입력해주세요">
+							</div>
+					
 						<label for="inputStore">매장명</label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="store" name="store" placeholder="추가할 매장명을 입력해주세요">
+							<input type="text" class="form-control" id="store" name="store" placeholder="버튼을 눌러 매장을 추가해주세요" readonly="readonly">
 								<span class="input-group-btn">
 									<button class="btn btn-warning" type="button" onclick="javascript:mvshoplist();">Search</button>
 								</span>
@@ -42,8 +47,8 @@
 function writeArticle() {
 	if(document.writeForm.subject.value == "") {
 		alert("기획전 제목을 입력해주세요");
-	} else if (document.writeForm.store.value == "") {
-		alert("매장명을 추가해주세요");
+	} else if (document.writeForm.changeroot.value == "") {
+		alert("배치순서를 입력해주세요");
 	} else if (document.writeForm.content.value =="") {
 		alert("기획전 내용을 입력해주세요");
 	} else {
@@ -58,5 +63,4 @@ function moveList() {
 	document.location.href = "<%=ContextPath.root%>/admin?act=mvexhibition";	
 }
 
-</script>
 </script>
