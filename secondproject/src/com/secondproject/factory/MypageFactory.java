@@ -10,6 +10,7 @@ import com.secondproject.mypage.action.MypageFollowCategoryModifyAction;
 import com.secondproject.mypage.action.MypageFollowCategoryUpOrderAction;
 import com.secondproject.mypage.action.MypageFollowDeleteAction;
 import com.secondproject.mypage.action.MypageFollowModifyAction;
+import com.secondproject.mypage.action.MypageFollowUserViewAction;
 import com.secondproject.mypage.action.MypageFollowViewAction;
 import com.secondproject.mypage.action.MypageReviewDeleteAction;
 import com.secondproject.mypage.action.MypageReviewViewAction;
@@ -27,6 +28,7 @@ public class MypageFactory {
 	private static Action mypageFollowDeleteAction;
 	private static Action mypageReviewViewAction;
 	private static Action mypageReviewDeleteAction;
+	private static Action mypageFollowUserViewAction;
 
 	public static Action getMypageFollowCategoryUpOrderAction() {
 		return mypageFollowCategoryUpOrderAction;
@@ -49,7 +51,13 @@ public class MypageFactory {
 		mypageFollowDeleteAction = new MypageFollowDeleteAction();
 		mypageReviewViewAction = new MypageReviewViewAction();
 		mypageReviewDeleteAction = new MypageReviewDeleteAction();
+		mypageFollowUserViewAction = new MypageFollowUserViewAction();
 
+	}
+
+	
+	public static Action getMypageFollowUserViewAction() {
+		return mypageFollowUserViewAction;
 	}
 
 	public static Action getMypageFollowCategoryListView() {

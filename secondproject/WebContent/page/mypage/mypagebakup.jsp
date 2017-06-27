@@ -214,7 +214,7 @@
 </div>
 
 
-<div class="modal fade" id="modal" role="dialog" aria-hidden="true"
+<div class="modal fade" id="modalmemo" role="dialog" aria-hidden="true"
 	aria-labelledby="myModalLabel">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -237,50 +237,10 @@
 
 								</tr>
 							</thead>
-							<tbody id="tt" name="tt">
-
-
-								<%
-									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
-									if (list != null && list.size()!=0) {
-										int size = list.size();
-										for (int i = 0; i < size; i++) {
-											FollowCategoryDto fcdto = list.get(i);
-								%>
-								<tr name="trtr">
-									<td id="<%=fcdto.getCategoryOrder()%>"><%=fcdto.getCategoryOrder()%></td>
-									<td id="nana"><%=fcdto.getCategoryName()%>
-										<div id="divv" class="pull-right">
-
-											<a id="aa" class="btn btn-default"
-												href="javascript:upOrder('<%=i + 1%>','<%=fcdto.getFollowCategoryId()%>');"
-												role="button">▲</a> <a class="btn btn-default"
-												href="javascript:downOrder('<%=i + 1%>','<%=fcdto.getFollowCategoryId()%>');"
-												role="button">▼</a>
-												<a id="" class="btn btn-default"
-												href="javascript:catedelete('<%=fcdto.getFollowCategoryId()%>');"
-												role="button">삭제</a>
-
-
-										</div></td>
+							<tbody id="">
+								<tr>
+						
 								</tr>
-
-
-								<%
-									}
-									} else {
-								%>
-								<tr id="hh">
-								<td colspan="2">
-								<center>
-									등록한 카테고리가 없습니다.
-								</center>
-								</td>
-								</tr>
-								<%
-									}
-								%>
-
 							</tbody>
 						</table>
 					</form>
