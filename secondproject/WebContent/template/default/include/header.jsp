@@ -22,9 +22,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="<%=ContextPath.root%>/map">Map</a></li>
 				<li><a href="javascript:joinmove();">Join</a></li>
-				<%
-				if (userDto == null){
-				%>
+				<% if (userDto == null){ %>
 				<li><a href="javascript:loginmove();">Login</a></li>
 				<% } else { %>
 				<li><a href="javascript:logoutmove();">Logout</a></li>
@@ -39,10 +37,11 @@
 						<li><a href="#">평가한후기</a></li>
 						<li><a href="<%=ContextPath.root%>/mypage">팔로우관리</a></li>
 						<li><a href="#">매장관리</a></li>
-
 					</ul>
 				</li>
-
+						<%if (userDto != null && userDto.getType() == 1) {%>
+						<li><a href="/secondproject/adminIndex.jsp">관리자</a></li>
+						<% } %>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">
@@ -83,6 +82,6 @@ function joinmove() {
 	$("#joinmodal").modal("show");
 }
 function logoutmove() {
-	document.location.href = "/secondproject/joinlogin?act=logout";
+	document.location.href = "<%=ContextPath.root%>/joinlogin?act=logout";
 }
 </script>
