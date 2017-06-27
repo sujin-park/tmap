@@ -13,5 +13,5 @@ public interface MypageService {
 	 int followCategoryMake(FollowCategoryDto followCategoryDto);
 	 int followdelete(int followUserId);
 	 int followCategoryDelete(int followCategoryId);
-	 
+	 int followModify(FollowUserDto fudto);
 }

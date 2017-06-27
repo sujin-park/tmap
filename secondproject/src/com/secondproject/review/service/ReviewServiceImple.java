@@ -1,7 +1,10 @@
 package com.secondproject.review.service;
 
+import java.util.List;
+
 import com.secondproject.review.dao.ReviewDaoImpl;
 import com.secondproject.review.model.ReviewDto;
+import com.secondproject.util.PagenationParameter;
 
 public class ReviewServiceImple implements ReviewService {
 
@@ -20,6 +23,11 @@ public class ReviewServiceImple implements ReviewService {
 	@Override
 	public int addReview(ReviewDto reviewDto) {
 		return ReviewDaoImpl.getReviewDao().addReview(reviewDto);
+	}
+
+	@Override
+	public List<ReviewDto> getReviewList(PagenationParameter pagenationParameter) {
+		return ReviewDaoImpl.getReviewDao().getReviewList(pagenationParameter);
 	}
 
 }

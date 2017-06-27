@@ -11,7 +11,7 @@ import com.secondproject.review.model.ReviewDto;
 import com.secondproject.review.service.ReviewServiceImple;
 import com.secondproject.util.NumberCheck;
 
-public class ReviewWriteAction implements Action {
+public class ReviewListAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

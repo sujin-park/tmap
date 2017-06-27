@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Context>
 	<Resource name="jdbc/map" auth="Container"
       type="javax.sql.DataSource"
@@ -8,7 +9,6 @@
       password="map" maxActive="20" maxIdle="10" maxWait="-1"
       removeAbandoned="true" removeAbandonedTimeout="60"
       logAbandoned="true" />
-
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
 
 </Context>

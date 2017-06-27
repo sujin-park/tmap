@@ -22,7 +22,7 @@ public interface MypageFollowDao {
 	 List<FollowUserDto> followListView(int userId);
 	 int followMove(Map<String,String> map);
 	 int followDelete(int favoriteUserId);
-	 int followModify(Map<String,String> map);
+	 int followModify(FollowUserDto fudto);
 	 int followdelete(int followUserId);
 
 	 

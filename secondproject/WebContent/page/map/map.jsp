@@ -120,7 +120,6 @@
 </div>
 
 <div class="search-list-container">
-	<h3>List...디자이너가피료..</h3>
 	<div class="search-list">
 		<span>로오딩..</span>
 	</div>
