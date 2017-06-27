@@ -29,7 +29,7 @@
 					
 					<div class="form-group">
 						<label for="title">Á¦¸ñ</label>
-						<input type="text" class="form-control" id="title">
+						<input type="text" name="title" class="form-control" id="title">
 					</div>
 					
 					<div class="form-group">
