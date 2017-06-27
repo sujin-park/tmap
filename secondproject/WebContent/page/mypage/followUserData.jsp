@@ -18,5 +18,5 @@ FollowUserDto udto = (FollowUserDto)request.getAttribute("fudata");
 						</div>
 						<div class="form-group">
 							<label for="memo" class="col-lg-2 control-label">memo</label>
-								<textarea rows="" cols="" class="form-control" id="memo" name="memo"><%=udto.getMemo() %></textarea>
+								<textarea rows="10" cols="10" class="form-control" id="memo" name="memo"><%=udto.getMemo() %></textarea>
 						</div>
