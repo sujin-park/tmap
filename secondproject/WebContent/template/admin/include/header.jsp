@@ -15,7 +15,7 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<%=ContextPath.root%>/admin?act=mvmember">雀盔包府</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=userview">雀盔包府</a></li>
 				<li class="dropdown">
         			<a class="dropdown-toggle" data-toggle="dropdown" href="#">荤厘包府
         			<span class="caret"></span></a>
