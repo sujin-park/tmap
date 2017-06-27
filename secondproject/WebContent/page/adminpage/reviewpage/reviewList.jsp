@@ -1,7 +1,7 @@
 <%@page import="com.secondproject.util.PageNavigation"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.review.model.*"%>
-<%@ include file="/page/adminpage/include/public.jsp"%>
+
 <%
 List<AdminReviewDto> list = (List<AdminReviewDto>) request.getAttribute("reviewList");
 String order = (String) request.getAttribute("order");
@@ -17,7 +17,6 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 					<form name="reviewForm" method="post" action="">
 					<input type="hidden" name="act" value="blind">
 						<div class="btn-group col-md-offset-2">
-						<button type="button" class="btn btn-default btn-filter" onclick="javascript:moveWrite();">All</button>
 							<button type="button" class="btn btn-warning btn-filter" onclick="javascript:blindReview();">Blind</button>
 						</div>
 					</div>
@@ -68,8 +67,8 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 							%>
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="checkbox" value="<%=adminReviewDto.getReviewId()%>"> <label
-											for="<%=checkbox%>"></label>
+										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="checkbox" value="<%=adminReviewDto.getReviewId()%>"> 
+										<label for="<%=checkbox%>"></label>
 									</div>
 								</td>
 								<td>
@@ -164,7 +163,7 @@ function searchReview() {
 
 function modal(seq) {
 	
-	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
+	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textCo3errntent
 	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent
 	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent
 	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent

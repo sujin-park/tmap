@@ -15,19 +15,23 @@ public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String act = request.getParameter("act");
 		String path = "/index.jsp";
+		String contentPath = "";
+		
+		String act = request.getParameter("act");
+		String board = request.getParameter("board");
 		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
-		System.out.println(request.getParameter("pg"));
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = request.getParameter("word");
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String queryString = "?pg=" + pg + "&key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
-		String contentPath = "";
+		
+		String queryString = "?pg=" + pg + "&board=" + board + "&key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
+		
 		if ("mvexhibition".equals(act)) {
 			path ="/template/admin/admin.jsp";
 			contentPath = AdminFactory.getExhibitionListAction().execute(request, response);
+	
 			request.setAttribute("titleTagValue", "타이틀");
 			request.setAttribute("contentPath", contentPath + queryString);
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
@@ -44,9 +48,14 @@ public class AdminController extends HttpServlet {
 			// 수정아직 안된부분
 		} else if ("mvreview".equals(act)) {
 			path ="/template/admin/admin.jsp";
+			request.setAttribute("pg", pg + "");
+			request.setAttribute("key", key);
+			request.setAttribute("word", word);
+			request.setAttribute("order", order);
+			request.setAttribute("column", column);
 			contentPath = AdminFactory.getReviewListAction().execute(request, response);
 			request.setAttribute("titleTagValue", "타이틀");
-			request.setAttribute("contentPath", contentPath + queryString);
+			request.setAttribute("contentPath", contentPath);
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			

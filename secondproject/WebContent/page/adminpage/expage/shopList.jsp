@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"
 	import="com.secondproject.shop.model.*"%>
-
 <%
 List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
@@ -143,8 +142,6 @@ function plusShop() {
 	document.updateForm.action = "<%=ContextPath.root%>/exhibition";
 	document.updateForm.submit();
 	}
-	
 	}
-
 
 </script>

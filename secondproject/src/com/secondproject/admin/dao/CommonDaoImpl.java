@@ -30,12 +30,14 @@ public class CommonDaoImpl implements CommonDao {
 		ResultSet rs = null;
 
 		try {
+			String key = map.get("key");
+			String word = map.get("word");
+			String board = map.get("board");
+			
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("select count(exhibition_id) \n");
-			sql.append("			from exhibition \n");
-			String key = map.get("key");
-			String word = map.get("word");
+			sql.append("			from exhibition  \n");
 	         if (!key.isEmpty() && !word.isEmpty()) {
 	        	 if (key.equals("title")) {
 	        		 sql.append("	  where ex_title like '%' ||?|| '%'\n");
@@ -57,7 +59,7 @@ public class CommonDaoImpl implements CommonDao {
 
 		return count;
 	}
-
+/*
 	@Override
 	public int totalReviewCount(Map<String, String> map) {
 		int count = 0;
@@ -91,5 +93,12 @@ public class CommonDaoImpl implements CommonDao {
 		}
 
 		return count;
+	}
+	*/
+
+	@Override
+	public int totalReviewCount(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

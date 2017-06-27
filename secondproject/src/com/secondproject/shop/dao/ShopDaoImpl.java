@@ -35,7 +35,7 @@ public class ShopDaoImpl implements ShopDao {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("INSERT INTO SHOP (shop_id, category_id, title, lat, lng, owner_id, reserve_url, address, tel, business_time, detail) VALUES \n");
-			sql.append("(shop_id_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			sql.append("(seq_shop_id.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			pstmt = conn.prepareStatement(sql.toString());
 			int i = 0;
 			pstmt.setInt(++i, shopDto.getCategoryId());
@@ -74,6 +74,7 @@ public class ShopDaoImpl implements ShopDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				shopDto = new ShopDto();
+				shopDto.setCategoryTitle(rs.getString("category_title"));
 				shopDto.setShopId(rs.getInt("shop_id"));
 				shopDto.setCategoryId(rs.getInt("category_id"));
 				shopDto.setTitle(rs.getString("title"));

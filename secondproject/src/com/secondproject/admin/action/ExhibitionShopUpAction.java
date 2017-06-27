@@ -25,10 +25,12 @@ public class ExhibitionShopUpAction implements Action {
 		String[] shops = request.getParameterValues("checkbox");
 		int size = shops.length;
 		int cnt = ExhibitionServiceImpl.getExhibitionService().plusExhibition(shops, seq);
-		
-		//List<ShopDto> shopList = ExhibitionServiceImpl.getExhibitionService().shopUpdated(seq);
+		ExhibitionDetailDto exhibitionDetailDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
+		System.out.println(seq + "ExhibitionShopUpAction");
+		List<ShopDto> shoplist = ExhibitionServiceImpl.getExhibitionService().shopUpdated(seq);
 		if (cnt !=0) {
-			//request.setAttribute("shopList", shopList);
+			request.setAttribute("exhibitionInfo", exhibitionDetailDto);
+			request.setAttribute("shopList", shoplist);
 			path = "/page/adminpage/expage/view.jsp";
 		} else {
 			path = "/page/adminpage/expage/writeFail.jsp";
