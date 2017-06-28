@@ -81,7 +81,7 @@ int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=shopDto.getScore()%></span>
+											<span class="media-meta"></span>
 										</div>
 									</div>
 								</td>

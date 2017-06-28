@@ -1,7 +1,6 @@
 package com.secondproject.factory;
 
 import com.secondproject.admin.action.*;
-import com.secondproject.admin.review.action.*;
 
 public class AdminFactory {
 
@@ -14,13 +13,11 @@ public class AdminFactory {
 	private static ExhibitionModifyAction exhibitionModifyAction;
 	private static ExhibitionDeleteShopAction exhibitionDeleteShopAction;
 
-
-
-	
 	private static ReviewListAction reviewListAction;
 	private static ReviewViewAction reviewViewAction;
 	private static ReviewBlindAction reviewBlindAction;
-	
+	private static ReviewBlindOneAction reviewBlindOneAction;
+
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
 		exhibitionListAction = new ExhibitionListAction();
@@ -30,14 +27,13 @@ public class AdminFactory {
 		exhibitionShopUpAction = new ExhibitionShopUpAction();
 		exhibitionModifyAction = new ExhibitionModifyAction();
 		exhibitionDeleteShopAction = new ExhibitionDeleteShopAction();
-		
-		
+
 		reviewListAction = new ReviewListAction();
 		reviewViewAction = new ReviewViewAction();
 		reviewBlindAction = new ReviewBlindAction();
-		
+		reviewBlindOneAction = new ReviewBlindOneAction();
 	}
-	
+
 	public static ExhibitionDeleteShopAction getExhibitionDeleteShopAction() {
 		return exhibitionDeleteShopAction;
 	}
@@ -45,15 +41,15 @@ public class AdminFactory {
 	public static ExhibitionListAction getExhibitionListAction() {
 		return exhibitionListAction;
 	}
-	
+
 	public static ExhibitionWriteAction getExhibitionWriteAction() {
 		return exhibitionWriteAction;
 	}
-	
+
 	public static ExhibitionViewAction getExhibitionViewAction() {
 		return exhibitionViewAction;
 	}
-	
+
 	public static ExhibitionShopUpAction getExhibitionShopUpAction() {
 		return exhibitionShopUpAction;
 	}
@@ -65,20 +61,24 @@ public class AdminFactory {
 	public static ExhibitionShopAction getExhibitionShopAction() {
 		return exhibitionShopAction;
 	}
-	
+
 	public static ExhibitionModifyAction getExhibitionModifyAction() {
 		return exhibitionModifyAction;
 	}
+
 	public static ReviewListAction getReviewListAction() {
 		return reviewListAction;
 	}
-	
-	
+
 	public static ReviewViewAction getReviewViewAction() {
 		return reviewViewAction;
 	}
 
 	public static ReviewBlindAction getReviewBlindAction() {
 		return reviewBlindAction;
+	}
+
+	public static ReviewBlindOneAction getReviewBlindOneAction() {
+		return reviewBlindOneAction;
 	}
 }

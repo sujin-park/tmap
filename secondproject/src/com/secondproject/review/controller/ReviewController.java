@@ -39,11 +39,7 @@ public class ReviewController extends HttpServlet {
 			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
 			request.setAttribute("contentPath", contentPath);
 			PageMove.forward("/template/default/default.jsp", request, response);
-		} else if ("blind".equals(act)) {
-			contentPath = AdminFactory.getReviewBlindAction().execute(request, response);
-			String url = "/admin?act=mvreview";
-			PageMove.redirect(url, request, response);
-		}
+		} 
 	}
 
 
