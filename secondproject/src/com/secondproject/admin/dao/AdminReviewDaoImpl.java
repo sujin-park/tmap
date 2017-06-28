@@ -44,7 +44,7 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
 			sql.append(
-					"select r.review_id, s.title shoptitle, u.email, r.title, r.content, r.score, r.reg_date, r.update_date, ri.img, \n");
+					"select r.review_id, s.title shoptitle, u.email, r.title, r.content, r.score, to_char(r.reg_date,'yyyy.mm.dd') reg_date, r.update_date, ri.img, \n");
 			sql.append(" r.is_blind \n");
 			sql.append(" from review r, shop s, review_img ri, users u \n");
 			sql.append("  where r.user_id = u.user_id and \n");

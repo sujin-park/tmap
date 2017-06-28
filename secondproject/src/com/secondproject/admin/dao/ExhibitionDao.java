@@ -13,7 +13,7 @@ public interface ExhibitionDao {
 	int writeExhibition(ExhibitionDetailDto exhibitionDetailDto);
 	
 	List<ExhibitionDto> listExhibition(Map<String, String> map);
-	ExhibitionDetailDto viewExhibition(int seq);
+	ExhibitionDto viewExhibition(int seq);
 	List<ShopDto> shopExhibition(Map<String, String> map);
 	
 	int deleteExhibition(String[] exhibitions);
@@ -22,4 +22,5 @@ public interface ExhibitionDao {
 	int modifyExhibition(ExhibitionDto exhibitionDto);
 	
 	List<ShopDto> shopUpdated(int seq);
+	int deleteShopList(int exseq, int shopseq);
 }

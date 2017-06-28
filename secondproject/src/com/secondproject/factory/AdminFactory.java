@@ -12,7 +12,9 @@ public class AdminFactory {
 	private static ExhibitionDeleteAction exhibitionDeleteAction;
 	private static ExhibitionShopUpAction exhibitionShopUpAction;
 	private static ExhibitionModifyAction exhibitionModifyAction;
+	private static ExhibitionDeleteShopAction exhibitionDeleteShopAction;
 	
+
 	private static ReviewListAction reviewListAction;
 	private static ReviewViewAction reviewViewAction;
 	private static ReviewBlindAction reviewBlindAction;
@@ -25,12 +27,19 @@ public class AdminFactory {
 		exhibitionDeleteAction = new ExhibitionDeleteAction();
 		exhibitionShopUpAction = new ExhibitionShopUpAction();
 		exhibitionModifyAction = new ExhibitionModifyAction();
+		exhibitionDeleteShopAction = new ExhibitionDeleteShopAction();
+		
+		
 		reviewListAction = new ReviewListAction();
 		reviewViewAction = new ReviewViewAction();
 		reviewBlindAction = new ReviewBlindAction();
 		
 	}
 	
+	public static ExhibitionDeleteShopAction getExhibitionDeleteShopAction() {
+		return exhibitionDeleteShopAction;
+	}
+
 	public static ExhibitionListAction getExhibitionListAction() {
 		return exhibitionListAction;
 	}
