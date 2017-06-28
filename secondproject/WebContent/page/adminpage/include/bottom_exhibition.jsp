@@ -32,9 +32,10 @@ function mvshoplist(seq) {
 function deleteExhibition() {
 	if (confirm("삭제하시겠습니까?")) {
 		document.exhibitionForm.action = "<%=ContextPath.root%>/exhibition";
-			document.exhibitionForm.submit();
-		}
+		document.exhibitionForm.submit();
 	}
+	
+}
 </script>
 <script type="text/javascript"
 	src="<%=ContextPath.root%>/page/adminpage/js/checkbox.js"></script>

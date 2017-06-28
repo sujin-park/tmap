@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
 	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath "%>
-<script type="text/javascript"
-	src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
+<script type="text/javascript" src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">

@@ -46,7 +46,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=orderby"  style="text-decoration:none; color:red">작성일</a></td>
 								<td>작성자</td>
 								<td>작성내용</td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=trustby" style="text-decoration:none; color:red">신뢰점수</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=trustby" style="text-decoration:none; color:red">매장 평점</a></td>
 								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=blindby" style="text-decoration:none; color:red">Blind</a></td>
 							</tr>
 							<%
@@ -57,11 +57,11 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 									int blind = adminReviewDto.getIsBlind();
 									if (blind == 1) {
 							%>
-							<tr style="background-color: #eee;" onclick="javascript:modal(<%=adminReviewDto.getReviewId()%>);">
+							<tr style="background-color: #eee;">
 							<%
 									} else {
 							%>
-							<tr onclick="javascript:modal(<%=adminReviewDto.getReviewId()%>);">
+							<tr>
 							<%
 									}
 							%>
@@ -107,7 +107,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
 										<button type="button" class="btn btn-warning btn-xs" 
-							    		onclick="javascript:blindReview();"><span class="glyphicon glyphicon-pencil"></span>
+							    		 onclick="javascript:modal(<%=adminReviewDto.getReviewId()%>);"><span class="glyphicon glyphicon-pencil"></span>
 							    		</button>
 							    	</p>
 							    </td>
@@ -163,7 +163,7 @@ function searchReview() {
 
 function modal(seq) {
 	
-	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textCo3errntent
+	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
 	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent
 	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent
 	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent
@@ -172,3 +172,4 @@ function modal(seq) {
 }
 </script>
 <%=pageNavigation.getNavigator()%>
+

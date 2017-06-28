@@ -19,14 +19,11 @@ public class ExhibitionModifyAction implements Action{
 		
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		String path = "/adminIndex.jsp";
-		System.out.println("modify >>>>>>" + seq);
 		ExhibitionDto exhibitionDto = new ExhibitionDto();
 		exhibitionDto.setExhibitionId(seq);
 		exhibitionDto.setExTitle(request.getParameter("subject"));
 		exhibitionDto.setExDesc(request.getParameter("content"));
 		exhibitionDto.setExVisiable(NumberCheck.nullToZero(request.getParameter("isvisiable")));
-		System.out.println("123123123" + request.getParameter("isvisiable"));
-		System.out.println(NumberCheck.nullToZero(request.getParameter("isvisiable")));
 		exhibitionDto.setExImage("asdfa");
 		exhibitionDto.setExOrder(7);
 		

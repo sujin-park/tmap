@@ -9,4 +9,5 @@ import com.secondproject.util.PagenationParameter;
 public interface ReviewService {
 	int addReview(ReviewDto reviewDto);
 	List<ReviewDto> getReviewList(PagenationParameter pagenationParameter);
+	ReviewDto getReview(int reviewId);
 }

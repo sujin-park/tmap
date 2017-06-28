@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
 import com.secondproject.admin.model.ExhibitionDetailDto;
+import com.secondproject.admin.model.ExhibitionDto;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.util.NumberCheck;
@@ -22,14 +23,15 @@ public class ExhibitionShopUpAction implements Action {
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp"; 
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
-		String[] shops = request.getParameterValues("checkbox");
+		String[] shops = request.getParameterValues("shoplist");
 		int size = shops.length;
 		int cnt = ExhibitionServiceImpl.getExhibitionService().plusExhibition(shops, seq);
-		ExhibitionDetailDto exhibitionDetailDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
-		System.out.println(seq + "ExhibitionShopUpAction");
+		//System.out.println("EXHIBITION SHOPUP ACTION " + size);
+		ExhibitionDto exhibitionDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
+		//System.out.println(seq + "ExhibitionShopUpAction");
 		List<ShopDto> shoplist = ExhibitionServiceImpl.getExhibitionService().shopUpdated(seq);
 		if (cnt !=0) {
-			request.setAttribute("exhibitionInfo", exhibitionDetailDto);
+			request.setAttribute("exhibitionInfo", exhibitionDto);
 			request.setAttribute("shopList", shoplist);
 			path = "/page/adminpage/expage/view.jsp";
 		} else {

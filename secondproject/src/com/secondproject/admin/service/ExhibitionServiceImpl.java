@@ -40,7 +40,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		
 	}
 	@Override
-	public ExhibitionDetailDto viewExhibition(int seq) {
+	public ExhibitionDto viewExhibition(int seq) {
 		return ExhibitionDaoImpl.getExhibitionDao().viewExhibition(seq);
 	}
 	@Override
@@ -68,6 +68,10 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Override
 	public List<ShopDto> shopUpdated(int seq) {
 		return ExhibitionDaoImpl.getExhibitionDao().shopUpdated(seq);
+	}
+	@Override
+	public int deleteShopList(int exseq, int shopseq) {
+		return ExhibitionDaoImpl.getExhibitionDao().deleteShopList(exseq, shopseq);
 	};
 
 }

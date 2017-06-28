@@ -62,7 +62,7 @@ int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
 							<tr>
 								<td>
 									<div class="ckbox">
-										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="checkbox" value="<%=shopDto.getShopId()%>"> <label
+										<input type="checkbox" class="checkthis" id="<%=checkbox%>" name ="shoplist" value="<%=shopDto.getShopId()%>"> <label
 											for="<%=checkbox%>"></label>
 									</div>
 								</td>
@@ -81,7 +81,14 @@ int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=shopDto.getAddress()%></span>
+											<span class="media-meta"><%=shopDto.getScore()%></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										<div class="media-body">
+											<span class="media-meta"><%=shopDto.getAddress() %></span>
 										</div>
 									</div>
 								</td>
@@ -89,13 +96,6 @@ int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
 									<div class="media">
 										<div class="media-body">
 											<span class="media-meta"><%=shopDto.getBusinessTime() %></span>
-										</div>
-									</div>
-								</td>
-								<td>
-									<div class="media">
-										<div class="media-body">
-											<span class="media-meta"><%=shopDto.getScore()%></span>
 										</div>
 									</div>
 								</td>
