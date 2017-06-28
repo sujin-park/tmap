@@ -19,11 +19,12 @@ public interface MypageFollowDao {
 	 List<FollowCategoryDto> followCategoryListView(int userId);
 	 //favorite_user
 	 FollowUserDto getFollow(int favoriteUserId);
-	 List<FollowUserDto> followListView(int userId);
+	 List<FollowUserDto> followListView(Map<String,String> map);
 	 int followMove(Map<String,String> map);
 	 int followDelete(int favoriteUserId);
 	 int followModify(FollowUserDto fudto);
 	 int followdelete(int followUserId);
+	 int totalArticleCount(Map<String,String> map);
 
 	 
 }

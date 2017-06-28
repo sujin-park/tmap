@@ -11,13 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.factory.MypageFactory;
 import com.secondproject.mypage.action.MypageFollowAddAction;
+import com.secondproject.util.Encoding;
 
 @WebServlet("/mypage")
 public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = MypageFactory.getMypageFollowViewAction().execute(request, response);
+		String path = "index.jsp"; 		
+		
+		String key = Encoding.nullToBlank(request.getParameter("key"));
+		String word = request.getParameter("word");
+		String board = Encoding.nullToBlank(request.getParameter("board"));
+		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&board="
+				+ board;
+		
 		String act = request.getParameter("act");
 		if("followCategoryListView".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryListView().execute(request, response);
@@ -35,7 +43,11 @@ public class MyPageController extends HttpServlet {
 			path = MypageFactory.getMypageFollowUserViewAction().execute(request, response);
 		} else if ("followmodify".equals(act)) {
 			path = MypageFactory.getMypageFollowModifyAction().execute(request, response);
+		} else if ("followView".equals(act)) {
+			path = MypageFactory.getMypageFollowViewAction().execute(request, response);
+			
 		}
+//		path += queryString;
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
 		request.setAttribute("addHeadPath", "/page/mypage/include/head.jsp");

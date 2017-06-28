@@ -2,9 +2,12 @@
    pageEncoding="EUC-KR"
    import="java.util.*, com.secondproject.userdto.*,com.secondproject.constant.*"%>
 <%String root = request.getContextPath();
-ArrayList<UserDto> list = (ArrayList<UserDto>) request.getAttribute("list");
-String userOrder = (String) request.getAttribute("userOrder"); %>
-
+ArrayList<UserDto> list = (ArrayList<UserDto>) request.getAttribute("list"); 
+String userOrder = (String) request.getAttribute("userOrder");
+if (userOrder == null) {
+	userOrder = "desc";
+}
+%>
 <script>
 function searchUser() {
    if (document.searchForm.keyword.value == "") {
@@ -16,9 +19,10 @@ function searchUser() {
 }
 
 function column(){
-    document.searchForm.action = "<%=ContextPath.root%>/admin";
-    document.searchForm.submit();
+	    document.searchForm.action = "<%=ContextPath.root%>/admin";
+	    document.searchForm.submit();
 }
+
 
 </script>
   
@@ -51,20 +55,20 @@ function column(){
                         <button class="btn btn-warning" type="button" onclick="javascript:searchUser();">Search</button>
                   </div>
                   </div>
-         </form>
-            </div>
-            <form name="orderncolumn" method="get" action="">
-           <input type="hidden" name="act" value="userview">
-            <div class="table-container">
-               <table class="table table-filter">
-                  <tbody>
-                     <tr class="warning" align="center">
-                        <td>Check</td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview%userorder=<%=userOrder%>&column=id" style="text-decoration:none" color="red" onclick="javascript:column();" name="id">아이디</a></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview%userorder=<%=userOrder%>&column=type" style="text-decoration:none" color="red" onclick="javascript:column();" name="type">회원타입</a></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview%userorder=<%=userOrder%>&column=reg_date" style="text-decoration:none" color="red" onclick="javascript:column();" name="reg_date">가입일</a></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview%userorder=<%=userOrder%>&column=gender" style="text-decoration:none" color="red" onclick="javascript:column();" name="gender">성별</a></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview%userorder=<%=userOrder%>&column=age" style="text-decoration:none" color="red" onclick="javascript:column();" name="age">나이</a></td>
+            </form>
+             </div>
+             <form name="orderncolumn" method="get" action="">
+            <input type="hidden" name="act" value="userview">
+             <div class="table-container">
+                <table class="table table-filter">
+                   <tbody>
+                      <tr class="warning" align="center">
+                       <td>Check</td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=user_id" style="text-decoration:none">아이디</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=type" style="text-decoration:none">회원타입</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=reg_date" style="text-decoration:none">가입일</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=gender" style="text-decoration:none">성별</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=age" style="text-decoration:none">나이</a></td>
                      </tr>
                      
                      
@@ -119,10 +123,12 @@ function column(){
                      </tr>
                      
                      <%} %>
+                     </input>
+                     </form>
+                     
                   </tbody>
                </table>
             </div>
-            </form>
             <!-- <div class="btn-group pull-right">
                <button type="button" class="btn btn-warning">가나다순</button>
                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
