@@ -23,8 +23,7 @@ public class ReviewController extends HttpServlet {
 		String word = request.getParameter("word");
 		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column="
-				+ column;
+		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
 		if ("writeForm".equals(act)) {
 			contentPath = "/page/review/write.jsp";
 			request.setAttribute("titleTagValue", "TMAP - 리뷰작성");
@@ -33,19 +32,16 @@ public class ReviewController extends HttpServlet {
 			request.setAttribute("addBottomPath", "/page/review/include/bottom.jsp");
 			PageMove.forward("/template/default/default.jsp", request, response);
 		} else if ("write".equals(act)) {
-			ReviewFactory.getReviewWriteAction().execute(request, response);
+			path = ReviewFactory.getReviewWriteAction().execute(request, response);
+			PageMove.redirect(path, request, response);
 		} else if ("view".equals(act)) {
-			contentPath = AdminFactory.getReviewViewAction().execute(request, response);
-			path = "/template/admin/admin.jsp";
+			contentPath = ReviewFactory.getReviewViewAction().execute(request, response);
 			request.setAttribute("titleTagValue", "타이틀");
 			request.setAttribute("contentPath", contentPath);
-			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
-			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
-			PageMove.forward(path, request, response);
+			PageMove.forward("/template/default/default.jsp", request, response);
 		} else if ("blind".equals(act)) {
 			contentPath = AdminFactory.getReviewBlindAction().execute(request, response);
 			String url = "/admin?act=mvreview";
-
 			PageMove.redirect(url, request, response);
 		}
 	}
