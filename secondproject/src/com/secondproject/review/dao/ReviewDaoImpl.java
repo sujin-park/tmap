@@ -38,7 +38,7 @@ public class ReviewDaoImpl implements ReviewDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("INSERT INTO review \n");
 			sql.append("(review_id, shop_id, user_id, title, content, score, img, is_blind, reg_date, update_date) \n");
-			sql.append("VALUES (?, ?, ?, ?, ?, ?, sysdate, sysdate)");
+			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, sysdate, sysdate)");
 			pstmt = conn.prepareStatement(sql.toString());
 			int i = 0;
 			pstmt.setInt(++i, reviewDto.getReviewId());
