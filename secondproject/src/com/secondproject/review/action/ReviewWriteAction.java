@@ -19,6 +19,7 @@ public class ReviewWriteAction implements Action {
 		String path = "";
 		int seq = Sequence.getSequenceNextVal("SEQ_REVIEW_ID");
 		int shopId = NumberCheck.nullToZero(request.getParameter("shopId"));
+		System.out.println("shopId == " + shopId);
 		//int userId = NumberCheck.nullToZero(request.getParameter("userId"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
