@@ -46,7 +46,10 @@ public class UserViewDaoImpl implements UserViewDao {
 			System.out.println(userOrder + " aa " + column);
 			if (userOrder != null && column != null) {
 				sql.append("order by " + column + " " + userOrder);
-				System.out.println("¾È³ç");
+				System.out.println(sql.toString());
+			} else {
+				sql.append("order by reg_date desc"
+						+ "");
 			}
 			
 			pstmt = conn.prepareStatement(sql.toString());
