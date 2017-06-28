@@ -43,19 +43,16 @@ public class UserViewDaoImpl implements UserViewDao {
 			if (keyword != null && type != null) {
 				sql.append("where "+ type +" like '%' || ? || '%' \n");
 			}
-			System.out.println(userOrder + " aa " + column);
 			if (userOrder != null && column != null) {
 				sql.append("order by " + column + " " + userOrder);
-				System.out.println(sql.toString());
 			} else {
-				sql.append("order by reg_date desc"
-						+ "");
+				sql.append("order by reg_date desc");
 			}
-			
 			pstmt = conn.prepareStatement(sql.toString());
 			if (keyword != null && type != null){
 				pstmt.setString(1, keyword);
 			}
+			
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) { // 있으면 true 없으면 false return

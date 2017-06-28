@@ -61,13 +61,21 @@ public class AdminController extends HttpServlet {
 			
 			PageMove.forward(path, request, response);
 		}else if ("userview".equals(act)){
-			 			path ="/template/admin/admin.jsp";
-			 			contentPath = AdminFactory.getUserViewAction().execute(request, response);
-						request.setAttribute("titleTagValue", "타이틀");
-			 			request.setAttribute("contentPath", contentPath);
-			 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
-						request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
-			 			PageMove.forward(path, request, response);
+			path ="/template/admin/admin.jsp";
+			contentPath = AdminFactory.getUserViewAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
+		} else if("userdelete".equals(act)) {
+			path ="/admin?act=userview";
+			contentPath = AdminFactory.getUserDeleteAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

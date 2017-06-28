@@ -21,6 +21,7 @@ public class UserViewAction implements Action{
 		String type = request.getParameter("key_type");
 		String userOrder = Encoding.nullToBlank(request.getParameter("userorder"));
 		String column = request.getParameter("column");
+		
 		System.out.println("column == " + column);
 		System.out.println("userOrder == " + userOrder);
 		if (userOrder.isEmpty()) {
