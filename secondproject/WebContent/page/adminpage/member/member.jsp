@@ -5,7 +5,7 @@
 ArrayList<UserDto> list = (ArrayList<UserDto>) request.getAttribute("list"); 
 String userOrder = (String) request.getAttribute("userOrder");
 if (userOrder == null) {
-	userOrder = "desc";
+   userOrder = "desc";
 }
 %>
 <script>
@@ -19,10 +19,24 @@ function searchUser() {
 }
 
 function column(){
-	    document.searchForm.action = "<%=ContextPath.root%>/admin";
-	    document.searchForm.submit();
+       document.searchForm.action = "<%=ContextPath.root%>/admin";
+       document.searchForm.submit();
 }
 
+function checkAll(){
+    if( $("#th_checkAll").is(':checked') ){
+      $("input[name=checkRow]").prop("checked", true);
+    }else{
+      $("input[name=checkRow]").prop("checked", false);
+    }
+}
+
+function deleteUser() {
+	if (confirm("삭제하시겠습니까?")) {
+		document.orderncolumn.action = "<%=ContextPath.root%>/admin";
+		document.orderncolumn.submit();
+	}
+}
 
 </script>
   
@@ -33,8 +47,11 @@ function column(){
             <div class="row">
                <div class="pull-left col-md-7">
                   <div class="btn-group">
-                     <button type="button" class="btn btn-default btn-filter">All</button>
-                     <button type="button" class="btn btn-warning btn-filter">DELETE</button>
+                    <div class="btn-group">
+                    
+							<button type="button" class="btn btn-warning btn-filter" onclick="deleteUser();">회원 삭제</button>
+						</div>
+       
                   </div>
                </div>
          <form name="searchForm" method="get" action="">
@@ -52,18 +69,18 @@ function column(){
                         </select>
                      </div>
                      <input type="text" class="form-control" name = "keyword" placeholder="검색어 입력" size="3">
-                        <button class="btn btn-warning" type="button" onclick="javascript:searchUser();">Search</button>
+                        <button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
                   </div>
                   </div>
             </form>
              </div>
-             <form name="orderncolumn" method="get" action="">
-            <input type="hidden" name="act" value="userview">
+             <form name="orderncolumn" method="post" action="">
+            <input type="hidden" name="act" value="userdelete">
              <div class="table-container">
                 <table class="table table-filter">
                    <tbody>
                       <tr class="warning" align="center">
-                       <td>Check</td>
+                       <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=user_id" style="text-decoration:none">아이디</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=type" style="text-decoration:none">회원타입</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=reg_date" style="text-decoration:none">가입일</a></td>
@@ -78,10 +95,11 @@ function column(){
                   
                      for (int i = 0; i<size; i++) {
                         UserDto userDto = list.get(i);
+                        String checkbox = "checkbox" + i;
                      %>
                         <td>
                            <div class="ckbox">
-                              <input type="checkbox" id="checkbox1"> <label for="checkbox1"></label>
+                              <input type="checkbox" id="<%=checkbox%>" name="checkRow" value="<%=userDto.getUser_id()%>"> <label for="<%=checkbox%>"></label>
                            </div>
                         </td>
                      
