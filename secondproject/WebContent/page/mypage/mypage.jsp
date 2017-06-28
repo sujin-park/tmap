@@ -3,8 +3,7 @@
 	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath "%>
 <script type="text/javascript"
 	src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+
 <script type="text/javascript">
 function upOrder(order, id) {
 	if (order == 1) {
@@ -29,7 +28,6 @@ var userid;
 		document.cateForm.submit(); --%>
 		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&userid=" + userid+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
 	}
-
 
 	function downOrder(order, id) {
 		if (document.getElementsByName("trtr").length == order) {

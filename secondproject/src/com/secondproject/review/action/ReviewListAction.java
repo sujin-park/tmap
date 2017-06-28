@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
 import com.secondproject.review.model.ReviewDto;
-import com.secondproject.review.service.ReviewServiceImple;
+import com.secondproject.review.service.ReviewServiceImpl;
 import com.secondproject.util.NumberCheck;
 
 public class ReviewListAction implements Action {
@@ -28,7 +28,7 @@ public class ReviewListAction implements Action {
 		reviewDto.setTitle(title);
 		reviewDto.setContent(content);
 		reviewDto.setScore(score);
-		int isSuccess = ReviewServiceImple.getReviewService().addReview(reviewDto);
+		int isSuccess = ReviewServiceImpl.getReviewService().addReview(reviewDto);
 		if (isSuccess == 1) {
 			path = "/review?act=view&reviewId=" + 1;
 		} else {

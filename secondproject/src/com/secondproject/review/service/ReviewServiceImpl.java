@@ -6,15 +6,15 @@ import com.secondproject.review.dao.ReviewDaoImpl;
 import com.secondproject.review.model.ReviewDto;
 import com.secondproject.util.PagenationParameter;
 
-public class ReviewServiceImple implements ReviewService {
+public class ReviewServiceImpl implements ReviewService {
 
 	private static ReviewService reviewService;
 
 	static {
-		reviewService = new ReviewServiceImple();
+		reviewService = new ReviewServiceImpl();
 	}
 
-	private ReviewServiceImple() {}
+	private ReviewServiceImpl() {}
 
 	public static final ReviewService getReviewService() {
 		return reviewService;
@@ -28,6 +28,11 @@ public class ReviewServiceImple implements ReviewService {
 	@Override
 	public List<ReviewDto> getReviewList(PagenationParameter pagenationParameter) {
 		return ReviewDaoImpl.getReviewDao().getReviewList(pagenationParameter);
+	}
+
+	@Override
+	public ReviewDto getReview(int reviewId) {
+		return ReviewDaoImpl.getReviewDao().getReview(reviewId);
 	}
 
 }

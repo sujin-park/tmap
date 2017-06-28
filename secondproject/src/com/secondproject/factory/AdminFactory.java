@@ -13,8 +13,10 @@ public class AdminFactory {
 	private static ExhibitionShopUpAction exhibitionShopUpAction;
 	private static ExhibitionModifyAction exhibitionModifyAction;
 	private static ExhibitionDeleteShopAction exhibitionDeleteShopAction;
-	
 
+
+
+	
 	private static ReviewListAction reviewListAction;
 	private static ReviewViewAction reviewViewAction;
 	private static ReviewBlindAction reviewBlindAction;
