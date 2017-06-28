@@ -17,6 +17,10 @@ public class AdminFactory {
 	private static ReviewViewAction reviewViewAction;
 	private static ReviewBlindAction reviewBlindAction;
 	private static ReviewBlindOneAction reviewBlindOneAction;
+	private static UserViewAction userViewAction;
+	public static UserViewAction getUserViewAction() {
+		return userViewAction;
+	}
 
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
@@ -32,6 +36,8 @@ public class AdminFactory {
 		reviewViewAction = new ReviewViewAction();
 		reviewBlindAction = new ReviewBlindAction();
 		reviewBlindOneAction = new ReviewBlindOneAction();
+		
+		userViewAction = new UserViewAction();
 	}
 
 	public static ExhibitionDeleteShopAction getExhibitionDeleteShopAction() {

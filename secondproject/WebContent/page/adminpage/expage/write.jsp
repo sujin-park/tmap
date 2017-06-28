@@ -8,7 +8,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 				<div class="row">
-					<form id="writeForm" name="writeForm" method="post" action="">
+					<form id="writeForm" name="writeForm" method="post" action="" enctype= "multipart/form-data">
 						<div class="form-group">
 							<input type="hidden" name="act" value="write">
 							<label for="inputName">기획전 이름</label>
@@ -33,6 +33,18 @@
 							<label for="inputContent">기획전 설명</label>
 							<textarea class="form-control" id="content" name="content" rows="10" cols="10" placeholder="기획전 내용을 입력해주세요"></textarea>
 						</div>
+						<tr valign="top">
+							<td width="95" nowrap style="padding-left: 8px; padding-top: 10px"><img src="" width="4" height="4" border="0"
+								align="absmiddle"> 
+								<b>사진첨부</b>
+							</td>
+							<td colspan="5"><input name="picturename" id="picturename" type="file"
+								size="76" maxlength="150" class="inp_02" style="width: 300px"
+								value=""><img src="" width="12"
+								height="11" border="0" align="absmiddle" vspace="8" style="margin: 3 3 0 6">
+							</td>
+							<br>
+							</tr>
 						<div class="btn-group pull-right">
 							<button type="button" class="btn btn-warning" onclick="javascript:writeArticle();">등록</button>
 							<button type="button" class="btn btn-default" onclick="javascript:moveList();">취소</button>

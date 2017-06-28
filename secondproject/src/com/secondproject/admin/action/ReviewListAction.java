@@ -42,6 +42,8 @@ public class ReviewListAction implements Action {
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
+		pageNavigation.setListSize(BoardConstance.LIST_SIZE);
+		pageNavigation.setPageSize(BoardConstance.PAGE_SIZE);
 		pageNavigation.setNavigator();
 		request.setAttribute("navigator", pageNavigation);
 		return "/page/adminpage/reviewpage/reviewList.jsp";
