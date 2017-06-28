@@ -10,7 +10,7 @@ public interface ExhibitionService {
 
 	int writeExhibition(ExhibitionDetailDto exhibitionDetailDto);
 	List<ExhibitionDto> listExhibition(String key, String word, String order, String column, int pg);
-	ExhibitionDetailDto viewExhibition(int seq);
+	ExhibitionDto viewExhibition(int seq);
 	List<ShopDto> shopExhibition(String key, String word, String order, String column);
 	int deleteExhibition(String[] exhibitions);
 	
@@ -18,4 +18,6 @@ public interface ExhibitionService {
 	int modifyExhibition(ExhibitionDto exhibitionDto);
 	
 	List<ShopDto> shopUpdated(int seq);
+	
+	int deleteShopList(int exseq,int shopseq);
 }
