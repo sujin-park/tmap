@@ -19,16 +19,21 @@ public class UserViewAction implements Action{
 			throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
 		String type = request.getParameter("key_type");
-		String userOrder = Encoding.nullToBlank(request.getParameter("userOrder"));
+		String userOrder = Encoding.nullToBlank(request.getParameter("userorder"));
 		String column = request.getParameter("column");
-		System.out.println(column + "aaaaaaaa");
-		if (userOrder.isEmpty() || userOrder.equals("desc")) {
+		System.out.println("column == " + column);
+		System.out.println("userOrder == " + userOrder);
+		if (userOrder.isEmpty()) {
 			userOrder = "asc";
-		} else if ("asc".equals(userOrder)) {
-			userOrder = "desc";
 		}
 		ArrayList<UserDto> list= UserViewServiceImpl.getUserViewService().getArticles(keyword,type,userOrder,column);
-
+		
+		if (userOrder.equals("asc")) {
+			userOrder = "desc";
+		} else {
+			userOrder = "asc";
+		}
+		request.setAttribute("userOrder", userOrder);
 		request.setAttribute("list", list);
 		return "/page/adminpage/member/member.jsp";
 		

@@ -60,6 +60,14 @@ public class AdminController extends HttpServlet {
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			
 			PageMove.forward(path, request, response);
+		}else if ("userview".equals(act)){
+			 			path ="/template/admin/admin.jsp";
+			 			contentPath = AdminFactory.getUserViewAction().execute(request, response);
+						request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
+			 			request.setAttribute("contentPath", contentPath);
+			 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+						request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			 			PageMove.forward(path, request, response);
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

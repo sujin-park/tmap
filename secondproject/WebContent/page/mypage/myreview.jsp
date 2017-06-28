@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
 	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath"%>
-<script type="text/javascript"> 
 
-</script>
+
 
 
 <div class="col-xs-9 col-md-9 col-xs-offset-1 a">
@@ -11,9 +10,7 @@
 	
 	
 	<div class="map-container">
-		<div id="map" class="test">
-		<font size="20px" >맵넣을곳..</font>
-		</div>
+		<div id="map" style="width:100%;height:400px;"></div>
 	</div>
 	<h2 class="sub-header">내가 쓴 후기</h2>
  	<% 
