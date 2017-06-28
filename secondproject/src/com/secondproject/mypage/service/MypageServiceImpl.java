@@ -1,6 +1,7 @@
 package com.secondproject.mypage.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.secondproject.mypage.dao.MypageFollowDaoImpl;
 import com.secondproject.mypage.model.FollowCategoryDto;
@@ -43,9 +44,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<FollowUserDto> followListView(int userId) {
+	public List<FollowUserDto> followListView(Map<String,String> map) {
 		
-		return MypageFollowDaoImpl.getMypageFollowDao().followListView(userId);
+		return MypageFollowDaoImpl.getMypageFollowDao().followListView(map);
 	}
 
 	@Override
@@ -64,5 +65,7 @@ public class MypageServiceImpl implements MypageService {
 		
 		return MypageFollowDaoImpl.getMypageFollowDao().followModify(fudto);
 	}
+
+	
 
 }

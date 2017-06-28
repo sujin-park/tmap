@@ -243,7 +243,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 
 	@Override
-	public List<FollowUserDto> followListView(int userId) {
+	public List<FollowUserDto> followListView(Map<String,String> map) {
 		List<FollowUserDto> list = new ArrayList<FollowUserDto>();
 		FollowUserDto fudto = null;
 		Connection conn = null;
@@ -253,22 +253,24 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-//			sql.append("select fu.follow_user_id,nvl((select category_name from follow_category f where follow_category_id=fu.follow_category_id),'없음') category_name, \n");
-//			sql.append("	u.email,u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date,  \n");
-//			sql.append("	to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
-//			sql.append("from follow_user fu  \n");
-//			sql.append("join users u ON fu.reg_user_id = u.user_id  \n");
-//			sql.append("where fu.user_id = ?");
-			sql.append("	select fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
-			sql.append("			u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
-			sql.append("		to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
-			sql.append("	from follow_user fu \n");
-			sql.append("	LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
-			sql.append("	join users u ON fu.reg_user_id = u.user_id  \n");
-			sql.append("	where fu.user_id=? \n");
-			sql.append("	ORDER BY fc.category_order ASC \n");
+			sql.append("	select b.* \n");
+			sql.append("	from (select rownum rn,a.* \n");
+			sql.append("		from (select fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
+			sql.append("					u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
+			sql.append("				to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
+			sql.append("			from follow_user fu \n");
+			sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
+			sql.append("			join users u ON fu.reg_user_id = u.user_id  \n");
+			sql.append("			where fu.user_id=? \n");
+			sql.append("			ORDER BY fc.category_order ASC) a \n");
+			sql.append("	where rownum<=? \n");
+			sql.append("		)b \n");
+			sql.append("where b.rn>? \n");
+			
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, userId);
+			pstmt.setString(1, map.get("id"));
+			pstmt.setString(2, map.get("end"));
+			pstmt.setString(3, map.get("start"));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				fudto=new FollowUserDto();
@@ -543,6 +545,38 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			DBClose.close(conn, pstmt);
 		}
 		return cnt;
+	}
+
+
+	@Override
+	public int totalArticleCount(Map<String, String> map) {
+		int cnt = 0;
+	      Connection conn=null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs =null;
+	      
+	      try {
+	         conn=DBConnection.getConnection();
+	         StringBuffer sql = new StringBuffer();
+
+	         sql.append(" select count(*) \n");
+	         sql.append("	from follow_user fu \n");
+	         sql.append(" 	LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
+	         sql.append(" 	join users u ON fu.reg_user_id = u.user_id  \n");
+	         sql.append(" 	where fu.user_id=? \n");
+	         pstmt=conn.prepareStatement(sql.toString());
+	         pstmt.setString(1, map.get("id"));
+	         rs=pstmt.executeQuery();
+	         rs.next();
+	         cnt=rs.getInt(1);
+	            
+	      } catch (SQLException e) {
+	         
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(conn, pstmt, rs);
+	      }
+	      return cnt;
 	}
 
 }

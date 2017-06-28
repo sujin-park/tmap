@@ -35,7 +35,7 @@ public class MyreviewController extends HttpServlet {
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
 		request.setAttribute("addHeadPath", "/page/mypage/include/head.jsp");
-//		request.setAttribute("addBottomPath", "/page/mypage/include/bottom.jsp");
+		request.setAttribute("addBottomPath", "/page/mypage/include/bottom.jsp");
 		RequestDispatcher dist = request.getRequestDispatcher("/template/default/default.jsp");
 		dist.forward(request, response);
 		

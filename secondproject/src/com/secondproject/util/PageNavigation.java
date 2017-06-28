@@ -9,6 +9,26 @@ public class PageNavigation {
 	private int totalPageCount; // 전체페이지수
 	private int pageNo; // 현재페이지
 	private String navigator; // 페이징
+	private int listSize;
+	private int pageSize;
+	
+	
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getListSize() {
+		return listSize;
+	}
+
+	public void setListSize(int listSize) {
+		this.listSize = listSize;
+	}
 
 	public String getRoot() {
 		return root;
@@ -73,7 +93,7 @@ public class PageNavigation {
 	public void setNavigator() {
 		 StringBuffer tmpNavigator = new StringBuffer();
 		 
-		 int prePage = (pageNo -1) / BoardConstance.PAGE_SIZE * BoardConstance.PAGE_SIZE; // 마지막페이지가 40이었을때
+		 int prePage = (pageNo -1) / pageSize * pageSize; // 마지막페이지가 40이었을때
 
 	      tmpNavigator.append("<div class=\"pgnav\"> \n");
 	      tmpNavigator.append(" <ul class=\"pagination\"> \n");
@@ -94,7 +114,7 @@ public class PageNavigation {
 	      }
 	      
 	      int startPage = prePage + 1;
-	      int endPage = startPage + (BoardConstance.PAGE_SIZE - 1) ;
+	      int endPage = startPage + (pageSize - 1) ;
 	      if (endPage > totalPageCount) {
 	    	  endPage = totalPageCount; // 총 페이지의 마지막보다 위에 endPage가 더 크면 총 페이지의 마지막이 endPage가 된다. totalPage : 37 / endPage : 40
 	      }
@@ -114,7 +134,7 @@ public class PageNavigation {
 	         tmpNavigator.append(" 		<span aria-hidden=\"true\"><font color=\"#ec9a25\">끝</font></span>\n");
 	         tmpNavigator.append(" 		</a></li>\n");
 	      } else {
-	 		 int nextPage = prePage + BoardConstance.PAGE_SIZE + 1; // 40 + 페이지사이즈에 1 하면 그 다음 페이지사이즈에서 첫번째인 51
+	 		 int nextPage = prePage + pageSize + 1; // 40 + 페이지사이즈에 1 하면 그 다음 페이지사이즈에서 첫번째인 51
 	 		 tmpNavigator.append("		<li><a href='javascript:listArticle("+ nextPage +")' aria-label=\"Next\"> <span aria-hidden=\"true\"> \n");
 	         tmpNavigator.append("   	<font color=\"#ec9a25\">&raquo;</font></span> \n");
 	         tmpNavigator.append(" 		</a></li> \n");
