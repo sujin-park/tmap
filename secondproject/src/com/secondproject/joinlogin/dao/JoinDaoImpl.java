@@ -34,8 +34,8 @@ public class JoinDaoImpl implements JoinDao {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("insert into users \n");
-			sql.append("(user_id, email, password, type, gender, age, status_msg, reg_date, reg_ip) \n");
-			sql.append("values (SEQ_USERS_ID.nextval, ?, ?, 1, ?, ?, '¾î¼­¿É¼î', sysdate, 'localhost')");
+			sql.append("(user_id, email, password, type, gender, age, status_msg, reg_date, reg_ip, update_date) \n");
+			sql.append("values (SEQ_USERS_ID.nextval, ?, ?, 1, ?, ?, '¾î¼­¿É¼î', sysdate, 'localhost', sysdate)");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, userDto.getEmail());
 			pstmt.setString(2, userDto.getPassword());

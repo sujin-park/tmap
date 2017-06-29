@@ -39,7 +39,7 @@
 						<li><a href="#">概厘包府</a></li>
 					</ul>
 				</li>
-						<%if (userDto != null && userDto.getType() == 1) {%>
+						<%if (userDto != null && userDto.getType() == 0) {%>
 						<li><a href="/secondproject/adminIndex.jsp">包府磊</a></li>
 						<% } %>
 			</ul>

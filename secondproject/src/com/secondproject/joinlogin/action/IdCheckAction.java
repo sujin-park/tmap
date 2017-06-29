@@ -19,7 +19,7 @@ public class IdCheckAction implements Action{
 		
 		int count = JoinServiceImpl.getJoinService().idCheck(sid);
 //		request.setAttribute("count", count);
-		String path = "/secondproejct/page/joinlogin/join/idcheck.jsp?sid=" + sid + "&count=" + count;
+		String path = "/page/joinlogin/join/idcheck.jsp?sid=" + sid + "&count=" + count;
 		return path;
 	}
 	
