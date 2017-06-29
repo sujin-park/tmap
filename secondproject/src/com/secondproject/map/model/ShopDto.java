@@ -6,7 +6,6 @@ public class ShopDto {
 	private String title;
 	private Double lat;
 	private Double lng;
-	private Double score;
 	private int ownerId;
 	private String reserveUrl;
 	private String address;
@@ -52,14 +51,6 @@ public class ShopDto {
 
 	public void setLng(Double lng) {
 		this.lng = lng;
-	}
-
-	public Double getScore() {
-		return score;
-	}
-
-	public void setScore(Double score) {
-		this.score = score;
 	}
 
 	public int getOwnerId() {

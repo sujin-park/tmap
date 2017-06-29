@@ -1,3 +1,4 @@
+<%@page import="com.secondproject.review.model.ReviewListDto"%>
 <%@page import="com.secondproject.review.model.ReviewDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.secondproject.constant.ContextPath"%>
@@ -6,7 +7,7 @@
 
 <%
 	ShopDto shopDto = (ShopDto) request.getAttribute("shopDto");
-	ArrayList<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
+	ArrayList<ReviewListDto> reviewList = (ArrayList<ReviewListDto>) request.getAttribute("reviewList");
 %>
 
 <div class="page-container">
@@ -41,8 +42,8 @@
 					<li><a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>">∏Æ∫‰¿€º∫</a></li>
 				</ul>
 				<ul>
-					<% for (ReviewDto reviewDto :reviewList) { %>
-						<li><%=reviewDto.getTitle() %></li>
+					<% for (ReviewListDto reviewListDto :reviewList) { %>
+						<li><%=reviewListDto.getTitle() %></li>
 					<% } %>
 				</ul>
 			</div>

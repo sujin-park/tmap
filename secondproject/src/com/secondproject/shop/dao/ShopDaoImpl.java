@@ -80,7 +80,6 @@ public class ShopDaoImpl implements ShopDao {
 				shopDto.setTitle(rs.getString("title"));
 				shopDto.setLat(rs.getDouble("lat"));
 				shopDto.setLng(rs.getDouble("lng"));
-				shopDto.setScore(rs.getDouble("score"));
 				shopDto.setOwnerId(rs.getInt("owner_id"));
 				shopDto.setReserveUrl(rs.getString("reserve_url"));
 				shopDto.setAddress(rs.getString("address"));
