@@ -1,4 +1,4 @@
-package com.secondproject.admin.review.action;
+package com.secondproject.admin.action;
 
 import java.io.IOException;
 

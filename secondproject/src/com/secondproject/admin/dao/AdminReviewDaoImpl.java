@@ -44,12 +44,11 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
 			sql.append(
-					"select r.review_id, s.title shoptitle, u.email, r.title, r.content, r.score, r.reg_date, r.update_date, ri.img, \n");
+					"select r.review_id, s.title shoptitle, u.email, r.title, r.content, r.score, to_char(r.reg_date,'yyyy.mm.dd') reg_date, r.update_date, r.img, \n");
 			sql.append(" r.is_blind \n");
-			sql.append(" from review r, shop s, review_img ri, users u \n");
+			sql.append(" from review r, shop s, users u \n");
 			sql.append("  where r.user_id = u.user_id and \n");
-			sql.append(" 	   r.shop_id = s.shop_id and \n");
-			sql.append("	   r.review_id = ri.review_id \n");
+			sql.append(" 	   r.shop_id = s.shop_id  \n");
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("emailname")) {
 					sql.append(" and u.email like '%' ||?|| '%'\n");

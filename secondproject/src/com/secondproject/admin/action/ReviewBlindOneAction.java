@@ -1,4 +1,4 @@
-package com.secondproject.admin.review.action;
+package com.secondproject.admin.action;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
-import com.secondproject.admin.service.*;
+import com.secondproject.admin.service.AdminReviewServiceImpl;
 import com.secondproject.review.model.AdminReviewDto;
-import com.secondproject.util.*;
+import com.secondproject.util.Encoding;
+import com.secondproject.util.NumberCheck;
 
-public class ReviewListAction implements Action {
+public class ReviewBlindOneAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String path = "/adminIndex.jsp";
 		int pg = NumberCheck.nullToOne(request.getParameter("pg")); 
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = Encoding.isoToEuc(request.getParameter("word"));
@@ -34,18 +34,15 @@ public class ReviewListAction implements Action {
 		if (column.isEmpty()) {
 			column = "orderby";
 		}
-		List<AdminReviewDto> list = AdminReviewServiceImpl.getAdminReviewService().listReview(key, word, order, column, pg);
-		request.setAttribute("order", order);
-		request.setAttribute("column", column);
-		request.setAttribute("reviewList", list);
 		
-		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
-		// root는 여기서 가져옴
-		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setNavigator();
-		request.setAttribute("navigator", pageNavigation);
-		path = "/page/adminpage/reviewpage/reviewList.jsp";
-		return path;
+		int reviewseq = Integer.parseInt(request.getParameter("reviewseq"));
+		String reviews[] = new String[1];
+		reviews[0] = reviewseq +"";
+		
+		int cnt = AdminReviewServiceImpl.getAdminReviewService().blindExhibition(reviews);
+		List<AdminReviewDto> list = AdminReviewServiceImpl.getAdminReviewService().listReview(key, word, order, column, pg);
+		request.setAttribute("reviewList", list);
+		return "/page/adminpage/reviewpage/reviewBlind.jsp";
 	}
 
 }

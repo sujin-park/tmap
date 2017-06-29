@@ -1,11 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath "%>
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.* "%>
+	<%PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator"); %>
 <script type="text/javascript"
 	src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+
 <script type="text/javascript">
+function firstArticle() {
+	
+	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=&board=";
+}
+
+function listArticle(mvpg) {
+	
+	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg="+mvpg+"&key=&word=&board=";
+	
+}
+
+
 function upOrder(order, id) {
 	if (order == 1) {
 		return alert("첫번째 순서입니다.");
@@ -29,7 +41,6 @@ var userid;
 		document.cateForm.submit(); --%>
 		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&userid=" + userid+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
 	}
-
 
 	function downOrder(order, id) {
 		if (document.getElementsByName("trtr").length == order) {
@@ -190,6 +201,7 @@ var userid;
 								}
 							%>
 						</tr>
+						
 						<%
 							}
 							} else {
@@ -199,8 +211,10 @@ var userid;
 						<%
 							}
 						%>
+						
 					</tbody>
 				</table>
+				<center><%=pageNavigation.getNavigator() %><center>
 			</form>
 		</div>
 

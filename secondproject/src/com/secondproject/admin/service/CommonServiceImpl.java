@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.secondproject.admin.dao.CommonDaoImpl;
+import com.secondproject.mypage.dao.MypageFollowDaoImpl;
 import com.secondproject.util.BoardConstance;
 import com.secondproject.util.PageNavigation;
 
@@ -41,6 +42,26 @@ public class CommonServiceImpl implements CommonService {
 		pageNavigation.setTotalPageCount(totalPageCount);
 		pageNavigation.setNowFirst(pg <= BoardConstance.PAGE_SIZE);
 		pageNavigation.setNowEnd((totalPageCount-1) / BoardConstance.PAGE_SIZE * BoardConstance.PAGE_SIZE < pg ); // 0À¸·Î ³ª´©¾î ¶³¾îÁö´Â °ÍÀº 1·Î »©ÁÖ¸é µÊ
+		pageNavigation.setPageNo(pg);
+		return pageNavigation;
+	}
+
+	@Override
+	public PageNavigation mypagePageNavigation(int pg, String key, String word, String board) {
+		PageNavigation pageNavigation = new PageNavigation();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", key);
+		map.put("word", word);
+		map.put("board", board);
+		map.put("id",2+"");
+		int totalArticleCount = MypageFollowDaoImpl.getMypageFollowDao().totalArticleCount(map);
+		
+		int totalPageCount = (totalArticleCount - 1) / BoardConstance.MYPAGE_LIST_SIZE + 1;
+		pageNavigation.setTotalArticleCount(totalArticleCount);
+		pageNavigation.setTotalPageCount(totalPageCount);
+		pageNavigation.setNowFirst(pg <= BoardConstance.MYPAGE_PAGE_SIZE);
+		pageNavigation.setNowEnd((totalPageCount-1)/BoardConstance.MYPAGE_PAGE_SIZE == (pg-1)/BoardConstance.MYPAGE_PAGE_SIZE);
 		pageNavigation.setPageNo(pg);
 		return pageNavigation;
 	}

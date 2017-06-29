@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
-import com.secondproject.admin.model.ExhibitionDto;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.util.Encoding;

@@ -1,9 +1,12 @@
+<%@page import="com.secondproject.review.model.ReviewDto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.secondproject.constant.ContextPath"%>
 <%@ page import="com.secondproject.shop.model.ShopDto"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 
 <%
 	ShopDto shopDto = (ShopDto) request.getAttribute("shopDto");
+	ArrayList<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
 %>
 
 <div class="page-container">
@@ -36,6 +39,11 @@
 					<li><button class="btn btn-default">器判府轰</button></li>
 					<li><button class="btn btn-default">TMAP 府轰</button></li>
 					<li><a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>">府轰累己</a></li>
+				</ul>
+				<ul>
+					<% for (ReviewDto reviewDto :reviewList) { %>
+						<li><%=reviewDto.getTitle() %></li>
+					<% } %>
 				</ul>
 			</div>
 		</div>

@@ -45,7 +45,7 @@ public class CommonDaoImpl implements CommonDao {
 	         }
 			pstmt = conn.prepareStatement(sql.toString());
 			if (!key.isEmpty() && !word.isEmpty()) {
-			pstmt.setString(1, word);
+				pstmt.setString(1, word);
 			 }
 			rs = pstmt.executeQuery();
 			rs.next();
