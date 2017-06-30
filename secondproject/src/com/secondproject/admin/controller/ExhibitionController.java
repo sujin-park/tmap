@@ -21,14 +21,15 @@ public class ExhibitionController extends HttpServlet {
 		String act = request.getParameter("act");
 		String path = "/index.jsp";
 		String contentPath = "";
-		/*
-		String key = Encoding.nullToBlank(request.getParameter("key"));
-		String word = request.getParameter("word");
-		String order = Encoding.nullToBlank(request.getParameter("order"));
-		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column="
-				+ column;
-		*/
+		String url ="";
+		/*SSS
+		 * String key = Encoding.nullToBlank(request.getParameter("key"));
+		 * String word = request.getParameter("word"); String order =
+		 * Encoding.nullToBlank(request.getParameter("order")); String column =
+		 * Encoding.nullToBlank(request.getParameter("column")); String
+		 * queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) +
+		 * "&order=" + order + "&column=" + column;
+		 */
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		if ("mvwrite".equals(act)) {
 			path = "/template/admin/admin.jsp";
@@ -41,7 +42,7 @@ public class ExhibitionController extends HttpServlet {
 			contentPath = AdminFactory.getExhibitionShopAction().execute(request, response);
 		} else if ("delete".equals(act)) {
 			contentPath = AdminFactory.getExhibitionDeleteAction().execute(request, response);
-			path = "/admin?act=mvexhibition";
+			url = "/admin?act=mvexhibition";
 		} else if ("plusshop".equals(act)) {
 			contentPath = AdminFactory.getExhibitionShopUpAction().execute(request, response);
 		} else if ("modify".equals(act)) {
@@ -50,15 +51,19 @@ public class ExhibitionController extends HttpServlet {
 			contentPath = AdminFactory.getExhibitionDeleteShopAction().execute(request, response);
 		}
 		path = "/template/admin/admin.jsp";
-		if (contentPath.equals("/page/adminpage/expage/shopview.jsp")) {
-			path = "/page/adminpage/expage/shopview.jsp";
-		}
-		request.setAttribute("titleTagValue", "타이틀");
-		request.setAttribute("contentPath", contentPath);
-		request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
-		request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
-		PageMove.forward(path, request, response);
 
+		if ("delete".equals(act)) { // redirect 
+			PageMove.redirect(url, request, response);
+		} else { // ajax 
+			if (contentPath.equals("/page/adminpage/expage/shopview.jsp")) {
+				path = "/page/adminpage/expage/shopview.jsp";
+			} // 기본
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

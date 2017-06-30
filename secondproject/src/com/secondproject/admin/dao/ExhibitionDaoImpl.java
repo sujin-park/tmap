@@ -202,7 +202,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select shop_id, category_title, title, lat, lng, score, nvl(owner_id,0) owner_id, \n");
+			sql.append("select shop_id, category_title, title, lat, lng, nvl(owner_id,0) owner_id, \n");
 			sql.append("	   reserve_url, address, tel, business_time, detail \n");
 			sql.append("from shop s, shop_category sc\n");
 			sql.append("where s.category_id = sc.category_id \n");
@@ -228,7 +228,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 				shopDto.setTitle(rs.getString("title"));
 				shopDto.setLat(rs.getDouble("lat"));
 				shopDto.setLng(rs.getDouble("lng"));
-				shopDto.setScore(rs.getDouble("score"));
 				shopDto.setOwnerId(rs.getInt("owner_id"));
 				shopDto.setReserveUrl(rs.getString("reserve_url"));
 				shopDto.setAddress(rs.getString("address"));
@@ -371,7 +370,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select s.shop_id, category_title, s.title, lat, lng, score, nvl(owner_id,0) owner_id, \n");
+			sql.append("select s.shop_id, category_title, s.title, lat, lng, nvl(owner_id,0) owner_id, \n");
 			sql.append("	   reserve_url, address, tel, business_time, detail \n");
 			sql.append("from shop s, shop_category sc, exhibition_detail ed \n");
 			sql.append("where s.category_id = sc.category_id \n");
@@ -387,7 +386,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 				shopDto.setTitle(rs.getString("title"));
 				shopDto.setLat(rs.getDouble("lat"));
 				shopDto.setLng(rs.getDouble("lng"));
-				shopDto.setScore(rs.getDouble("score"));
 				shopDto.setOwnerId(rs.getInt("owner_id"));
 				shopDto.setReserveUrl(rs.getString("reserve_url"));
 				shopDto.setAddress(rs.getString("address"));

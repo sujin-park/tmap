@@ -34,7 +34,6 @@ function sendRequest(url, param, callback, method) { //4개가 변수니 받는�
 		httpUrl = httpUrl + "?" + httpParam;
 	}
 	
-	
 	httpRequest.onreadystatechange = callback; 
 	httpRequest.open(httpMethod, httpUrl, "true"); // post가 아닌 경우 (이상하게 적는경우 포함) default는 get
 	httpRequest.send(httpMethod == "POST" ? httpParam : null); // post방식에선 send에서 param 그대로 보내고 get이면 null로

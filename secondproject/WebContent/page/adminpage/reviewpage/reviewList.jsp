@@ -8,6 +8,44 @@ String order = (String) request.getAttribute("order");
 String column = (String) request.getAttribute("column");
 PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
 %>
+<script>
+function blindReview() {
+	if (confirm("블라인드 처리하시겠습니까?")) {
+		document.reviewForm.action = "<%=ContextPath.root%>/adminreview";
+		document.reviewForm.submit();
+		}
+	
+}
+
+function blindReviewOne() {
+	var reviewseq = document.getElementById("reviewseq").value;
+	$.get("/secondproject/adminreview?act=blindOne&reviewseq="+ reviewseq, function(data, status){
+		var tt = document.getElementById("reviewList");
+		tt.innerHTML=data;
+		$('#myModal').modal('hide');
+	});
+
+}
+
+function searchReview() {
+		if (document.searchForm.word.value == "")	{
+			alert("검색어 입력!!!!!");
+		} else {
+			document.searchForm.action = "<%=ContextPath.root%>/admin";
+			document.searchForm.submit();
+		}
+}
+
+function modal(seq) {
+	document.getElementById("reviewseq").value = seq;
+	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
+	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent
+	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent
+	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent
+	$('#myModal').modal({show:true});
+	
+}
+</script>
 <section class="content page-top row">
 	<div class="col-md-10 col-md-push-1">
 		<div class="panel panel-default">
@@ -34,7 +72,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 				<div class="table-container table-responsive">
 					
 					<table class="table table-filter" id="extable">
-						<tbody>
+						<thead>
 							<tr class="warning" align="center">
 								<td>
 									<div class="ckbox">
@@ -49,6 +87,8 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=trustby" style="text-decoration:none; color:red">매장 평점</a></td>
 								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=blindby" style="text-decoration:none; color:red">Blind</a></td>
 							</tr>
+						</thead>
+						<tbody id="reviewList">
 							<%
 								int size = list.size();
 								for (int i = 0; i < size; i++) {
@@ -143,33 +183,6 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 	</div>
 </section>
 <jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>
-<script>
-function blindReview() {
-	if (confirm("블라인드 처리하시겠습니까?")) {
-		document.reviewForm.action = "<%=ContextPath.root%>/review";
-		document.reviewForm.submit();
-		}
-	
-}
 
-function searchReview() {
-		if (document.searchForm.word.value == "")	{
-			alert("검색어 입력!!!!!");
-		} else {
-			document.searchForm.action = "<%=ContextPath.root%>/admin";
-			document.searchForm.submit();
-		}
-}
-
-function modal(seq) {
-	
-	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
-	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent
-	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent
-	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent
-	$('#myModal').modal({show:true});
-	
-}
-</script>
 <%=pageNavigation.getNavigator()%>
 

@@ -1,6 +1,6 @@
 package com.secondproject.admin.service;
 
-import com.secondproject.admin.dao.UserDeleteDaoImpl;
+import com.secondproject.admin.dao.ShopInfoDeleteDaoImpl;
 
 public class UserDeleteServiceImpl implements UserDeleteService {
 
@@ -21,7 +21,7 @@ private static UserDeleteService userDeleteService;
 	@Override
 	public int deleteUsers(String[] users) {
 		// TODO Auto-generated method stub
-		return UserDeleteDaoImpl.getUserDeleteDao().deleteUsers(users);
+		return ShopInfoDeleteDaoImpl.getShopInfoDeleteDao().deleteUsers(users);
 	}
 	
 	

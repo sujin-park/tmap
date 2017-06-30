@@ -63,9 +63,13 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 									</div>
 								</td>
 								<td>
-									<div class="media">
-										<span class="media-meta"><%=exhibitionDto.getExImage() %></span>
-									</div>
+									<div class="thumbnail-item">
+										<a href="#"><img src="images/small1.jpg" class="thumbnail" /></a>
+										<div class="tooltip">
+										<img src="images/big1.jpg" alt="" width="330" height="185" />
+										<span class="overlay"></span>
+										</div> 
+									</div> 
 								</td>
 								<td>
 									<div class="media">

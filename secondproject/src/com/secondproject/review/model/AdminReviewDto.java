@@ -7,11 +7,17 @@ public class AdminReviewDto {
 	private String email;
 	private String title;
 	private String content;
-	private int score;
 	private String regDate;
 	private String updateDate;
 	private String img;
 	private int isBlind;
+	private int score;
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 	public int getIsBlind() {
 		return isBlind;
 	}
@@ -48,12 +54,7 @@ public class AdminReviewDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
-	}
+
 	public String getRegDate() {
 		return regDate;
 	}

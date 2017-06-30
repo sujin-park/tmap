@@ -24,7 +24,7 @@
 			          <li><a href="<%=ContextPath.root%>/admin?act=realownerview">사장 리스트</a></li>
 			        </ul>
 			    </li>
-				<li><a href="#">매장관리</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=shopinfo">매장관리</a></li>
 				<li><a href="#">통계관리</a></li>
 				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=">후기관리</a></li>
 				<li class="dropdown">

@@ -1,4 +1,4 @@
-package com.secondproject.admin.review.action;
+package com.secondproject.admin.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,8 +19,9 @@ public class ReviewBlindAction implements Action{
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp";
 		String[] reviews = request.getParameterValues("checkbox");
-//		int seq = Integer.parseInt(request.getParameter("seq"));
-		int cnt = AdminReviewServiceImpl.getAdminReviewService().blindExhibition(reviews);
+		int cnt = 0;
+		
+			cnt = AdminReviewServiceImpl.getAdminReviewService().blindExhibition(reviews);
 		if (cnt!=0) {
 			path = "/page/adminpage/reviewpage/reviewList.jsp";
 		} else 

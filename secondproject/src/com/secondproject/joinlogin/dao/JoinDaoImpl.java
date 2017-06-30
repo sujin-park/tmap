@@ -2,6 +2,7 @@ package com.secondproject.joinlogin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.secondproject.userdto.UserDto;
@@ -33,8 +34,8 @@ public class JoinDaoImpl implements JoinDao {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("insert into users \n");
-			sql.append("(user_id, email, password, type, gender, age, status_msg, reg_date, reg_ip) \n");
-			sql.append("values (1, ?, ?, 1, ?, ?, '어서옵쇼', sysdate, 'localhost')");
+			sql.append("(user_id, email, password, type, gender, age, status_msg, reg_date, reg_ip, update_date) \n");
+			sql.append("values (SEQ_USERS_ID.nextval, ?, ?, 1, ?, ?, '어서옵쇼', sysdate, 'localhost', sysdate)");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, userDto.getEmail());
 			pstmt.setString(2, userDto.getPassword());
@@ -50,6 +51,31 @@ public class JoinDaoImpl implements JoinDao {
 			DBClose.close(conn, pstmt);
 		}
 		return cnt;
+	}
+
+	@Override
+	public int idCheck(String sid) {
+		int count = 0; //count가 0이면 해당 id를 사용할수 있습니다.
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "select count(email) \n";
+			sql += "from users \n";
+			sql += "where email = ?"; 
+			pstmt = conn.prepareStatement(sql); 
+			pstmt.setString(1, sid);
+			rs = pstmt.executeQuery(); 
+			rs.next();
+			count = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			count= 1; //위에 0이라 설정해노면 이렇게 해야함
+		}finally{
+			DBClose.close(conn, pstmt, rs);
+		}
+		return count;
 	}
 
 }

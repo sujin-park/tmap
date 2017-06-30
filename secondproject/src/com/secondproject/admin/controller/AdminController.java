@@ -85,7 +85,9 @@ public class AdminController extends HttpServlet {
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			PageMove.forward(path, request, response);
 		} else if ("ownermodify".equals(act)){
-			path ="/admin?act=ownerview";
+			path ="/template/admin/admin.jsp";
+
+			//path ="/admin?act=ownerview";
 			contentPath = AdminFactory.getOwnerModifyAction().execute(request, response);
 			request.setAttribute("titleTagValue", "타이틀");
 			request.setAttribute("contentPath", contentPath);
@@ -100,7 +102,24 @@ public class AdminController extends HttpServlet {
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			PageMove.forward(path, request, response);
+		} else if ("shopinfo".equals(act)){
+			path ="/template/admin/admin.jsp";
+			contentPath = AdminFactory.getShopInfoAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
+		} else if("shopdelete".equals(act)) {
+			path ="/admin?act=shopinfo";
+			contentPath = AdminFactory.getUserDeleteAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
 		}
+		
 		
 		
 	}

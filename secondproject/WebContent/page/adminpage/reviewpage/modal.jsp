@@ -6,6 +6,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+			<input type="hidden" id="reviewseq" name="reviewseq" value="">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>

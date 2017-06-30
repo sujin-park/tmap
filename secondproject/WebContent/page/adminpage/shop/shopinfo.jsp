@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
    pageEncoding="EUC-KR"
-   import="java.util.*, com.secondproject.admin.model.*,com.secondproject.constant.*"%>
+   import="java.util.*, com.secondproject.admin.model.ShopInfoDto,com.secondproject.constant.*"%>
 <%String root = request.getContextPath();
-ArrayList<OwnerConfirmDto> list = (ArrayList<OwnerConfirmDto>) request.getAttribute("list"); 
-String userOrder = (String) request.getAttribute("userOrder");
-if (userOrder == null) {
-   userOrder = "desc";
+ArrayList<ShopInfoDto> list = (ArrayList<ShopInfoDto>) request.getAttribute("list"); 
+String shopInfoOrder = (String) request.getAttribute("shopInfoOrder");
+if (shopInfoOrder == null) {
+	shopInfoOrder = "desc";
 }
 %>
 <script>
@@ -31,14 +31,14 @@ function checkAll(){
     }
 }
 
-function modifyOwner() {
-	if (confirm("인증을 진행하시겠습니까??")) {
+function deleteUser() {
+	if (confirm("삭제하시겠습니까?")) {
 		document.orderncolumn.action = "<%=ContextPath.root%>/admin";
 		document.orderncolumn.submit();
 	}
 }
 
-</script>
+</script> 
   
 <section class="content page-top">
    <div class="col-md-10 col-md-push-1">
@@ -49,23 +49,23 @@ function modifyOwner() {
                   <div class="btn-group">
                     <div class="btn-group">
                     
-							<button type="button" class="btn btn-warning btn-filter" onclick="modifyOwner();">사장 인증</button>
+							<button type="button" class="btn btn-warning btn-filter" onclick="deleteUser();">매장 삭제</button>
 						</div>
        
                   </div>
                </div>
          <form name="searchForm" method="get" action="">
    
-               <input type="hidden" name="act" value="realownerview">
+               <input type="hidden" name="act" value="shopinfo">
                   <div class="pull-right col-md-5">
                      <div class="input-group">
                         <div class="input-group-btn">
                         <select class="form-control" name="key_type">
-                           <option value="email">사장아이디</option>
-                           <option value="reg_date">가입일</option>                           
                            <option value="title">가게이름</option>
-                           <option value="tel">전화번호</option>                           
-                           <option value="address">주소</option>
+                           <option value="category_title">가게타입</option>                           
+                           <option value="tel">전화번호</option>
+                           <option value="address">주소</option>                           
+                          <!--  <option value="shop_id">기획전</option> -->
                         </select>
                      </div>
                      <input type="text" class="form-control" name = "keyword" placeholder="검색어 입력" size="3">
@@ -75,17 +75,17 @@ function modifyOwner() {
             </form>
              </div>
              <form name="orderncolumn" method="post" action="">
-            <input type="hidden" name="act" value="ownermodify">
+            <input type="hidden" name="act" value="shopdelete">
              <div class="table-container">
                 <table class="table table-filter">
                    <tbody>
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=realownerview&userorder=<%=userOrder%>&column=email" style="text-decoration:none">사장아이디</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=realownerview&userorder=<%=userOrder%>&column=reg_date" style="text-decoration:none">가입일</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=realownerview&userorder=<%=userOrder%>&column=title" style="text-decoration:none">가게이름</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=realownerview&userorder=<%=userOrder%>&column=tel" style="text-decoration:none">전화번호</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=realownerview&userorder=<%=userOrder%>&column=address" style="text-decoration:none">주소</a></td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=title" style="text-decoration:none">가게이름</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=category_title" style="text-decoration:none">가게타입</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=tel" style="text-decoration:none">전화번호</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=address" style="text-decoration:none">주소</a></td>
+                <%--          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=shop_id" style="text-decoration:none">기획전여부</a></td> <!-- 기획전 있는지 없는지 여부 --> --%>
                      </tr>
                      
                      
@@ -94,52 +94,55 @@ function modifyOwner() {
                      <%int size = list.size();
                   
                      for (int i = 0; i<size; i++) {
-                    	 OwnerConfirmDto ownerConfirmDto = list.get(i);
-                        String checkbox = "checkbox" + i;
+                    	 ShopInfoDto shopInfoDto = list.get(i);
+                    	 String checkbox = "checkbox" + i;
                      %>
                         <td>
                            <div class="ckbox">
-                              <input type="checkbox" id="<%=checkbox%>" name="checkRow" value="<%=ownerConfirmDto.getUserEmail()%>"> <label for="<%=checkbox%>"></label>
+                              <input type="checkbox" id="<%=checkbox%>" name="checkRow" value="<%=shopInfoDto.getShopTitle()%>"> <label for="<%=checkbox%>"></label>
                            </div>
                         </td>
                      
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= ownerConfirmDto.getUserEmail()%></p>
+                                 <p class="media-meta"><%= shopInfoDto.getShopTitle()%></p>
                               </div>
                            </div>
                         </td>
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= ownerConfirmDto.getUserRegDate()%></p>
+                                 <span class="media-meta"> 
+                                 <%=shopInfoDto.getCategoryName()%>
+                                 	</span>
                               </div>
                            </div>
                         </td>
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= ownerConfirmDto.getShopTitle()%></p>
+                                 <span class="media-meta"> <%=shopInfoDto.getShopTel()%></span>
                               </div>
                            </div>
                         </td>
-                    
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <span class="media-meta"> <%=ownerConfirmDto.getShopTel()%></span>
+                                 <span class="media-meta"> 
+                                 <%=shopInfoDto.getShopAddress()%>
+                                 	
+                                 </span>
                               </div>
                            </div>
                         </td>
-                   
-                        <td>
+                        <%-- <td>
                            <div class="media">
                               <div class="media-body">
-                                 <span class="media-meta"> <%=ownerConfirmDto.getShopAddress()%></span>
+                                 <span class="media-meta"> <%=shopInfoDto.getExhibitionId()%></span>
                               </div>
                            </div>
-                        </td>
+                        </td> --%>
                      </tr>
                      
                      <%} %>

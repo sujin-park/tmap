@@ -19,8 +19,9 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="inputEmail" class="col-lg-2 control-label">Email</label>
-						<input type="text" class="form-control" id="joinEmail"
-							placeholder="Email" name="email" onkeyup="">
+						<input type="email" class="form-control" id="joinEmail"
+							placeholder="Email" name="email" onkeyup="javascript:idcheck();">
+						<div id="idresult"></div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword" class="col-lg-2 control-label">Password</label>
@@ -30,16 +31,16 @@
 					<div class="form-group">
 						<label for="inputPassword" class="col-lg-2 control-label">Password
 							Check</label> <input type="password" class="form-control"
-							id="password_check" placeholder="Password check">
+							id="password_check" placeholder="Password check" onkeyup="javascript:pwcheck();">
 						<div id="pw_check"></div>
 					</div>
 					<div class="form-group">
-						<label for="inputEmail" class="col-lg-2 control-label">Age</label>
+						<label for="inputEmail" class="col-lg-2 control-label"><h4>Age</h4></label>
 						<div class="col-xs-3">
 							<input type="text" class="form-control" placeholder="Age"
 								id="age" name="age">
 						</div>
-						<label for="inputEmail" class="col-lg-2 control-label">Gender</label>
+						<label for="inputEmail" class="col-lg-2 control-label"><h4>Gender</h4></label>
 						<div class="btn-group">
 							<select class="form-control" id="gender" name="gender">
 								<option>Gender</option>
@@ -59,6 +60,7 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript" src="/secondproject/page/joinlogin/js/joinajax.js"></script>
 <script>
 	function join() {
 		if (document.getElementById("joinEmail").value == "") {
@@ -80,7 +82,40 @@
 			document.joinform.submit();
 		}
 	}
-	//	function cancel() {
-	//		self.close();
-	//	}
+var view;
+
+function idcheck() {
+	view = document.getElementById("idresult");
+	var idck = document.getElementById("joinEmail").value;
+	console.log(idck.match("@"));
+	if(idck.match("@") == null){
+		view.innerHTML="<font color='RED'>이메일 형식을 갖추어야합니다.</font>"
+	} else {
+		var param ="act=idcheck&email=" + encodeURIComponent(idck);
+		sendRequest("/secondproject/joinlogin", param, idresult, "GET");
+	}
+}
+
+function idresult() {
+	if(httpRequest.readyState == 4){
+		if(httpRequest.status == 200){
+			var txt = httpRequest.responseText;
+			view.innerHTML = txt; 
+		} else {
+			alert("문제발생 : " + httpRequest.status);
+		}
+	}
+}
+
+function pwcheck() {
+	view = document.getElementById("pw_check");
+	var pw = document.getElementById("joinPassword").value;
+	var pwck = document.getElementById("password_check").value;
+	if(pw != pwck){
+		view.innerHTML="<font color='RED'>비밀번호가 일치하지 않습니다.</font>"
+	} else {
+		view.innerHTML="<font color='BLUE'>비밀번호가 일치합니다.</font>"
+	}
+}
+
 </script>

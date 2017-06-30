@@ -41,7 +41,7 @@ public class OwnerDaoImpl implements OwnerDao {
 			sql.append("where u.user_id = o.user_id and o.shop_id = s.shop_id \n");
 			sql.append("and confirm_ok = ? \n");
 			//			sql.append("where type != '0' \n");
-			
+			System.out.println(confirm_ok);
 			if (keyword != null && type != null) {
 				sql.append("and "+ type +" like '%' || ? || '%' \n");
 			}
@@ -53,14 +53,14 @@ public class OwnerDaoImpl implements OwnerDao {
 			}
 			pstmt = conn.prepareStatement(sql.toString());
 
-			
-			pstmt.setInt(1, confirm_ok);
+			int idx = 0;
+			pstmt.setInt(++idx, confirm_ok);
 			if (keyword != null && type != null){
-				pstmt.setString(2, keyword);
+				pstmt.setString(++idx, keyword);
 			}
+			System.out.println("keyword === " + keyword + " type === " + type);
 			System.out.println(sql.toString());
 			rs = pstmt.executeQuery();
-			
 			while (rs.next()) { // 있으면 true 없으면 false return
 				OwnerConfirmDto ownerConfirmDto = new OwnerConfirmDto();
 				ownerConfirmDto.setUserEmail(rs.getString("email"));
