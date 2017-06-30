@@ -22,7 +22,19 @@ public class Encoding {
 
 		
 	}
-	
+	public static String isoToUtf(String tmp) {
+		String utf = "";
+		try {
+			if (tmp != null) {
+				utf = new String(tmp.getBytes("ISO-8859-1"), "utf-8");
+			}
+		} catch (UnsupportedEncodingException e) {
+
+			e.printStackTrace();
+		} return utf;
+
+		
+	}
 	public static String urlFormat(String tmp) {
 		String url = "";
 		try {

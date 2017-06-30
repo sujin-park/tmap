@@ -13,6 +13,7 @@ import com.secondproject.mypage.action.MypageFollowModifyAction;
 import com.secondproject.mypage.action.MypageFollowUserViewAction;
 import com.secondproject.mypage.action.MypageFollowViewAction;
 import com.secondproject.mypage.action.MypageReviewDeleteAction;
+import com.secondproject.mypage.action.MypageReviewListViewAction;
 import com.secondproject.mypage.action.MypageReviewViewAction;
 
 public class MypageFactory {
@@ -26,9 +27,10 @@ public class MypageFactory {
 	private static Action mypageFollowAddAction;
 	private static Action mypageFollowModifyAction;
 	private static Action mypageFollowDeleteAction;
-	private static Action mypageReviewViewAction;
+	private static Action mypageReviewListViewAction;
 	private static Action mypageReviewDeleteAction;
 	private static Action mypageFollowUserViewAction;
+	private static Action mypageReviewViewAction;
 
 	public static Action getMypageFollowCategoryUpOrderAction() {
 		return mypageFollowCategoryUpOrderAction;
@@ -49,13 +51,18 @@ public class MypageFactory {
 		mypageFollowAddAction = new MypageFollowAddAction();
 		mypageFollowModifyAction= new MypageFollowModifyAction();
 		mypageFollowDeleteAction = new MypageFollowDeleteAction();
-		mypageReviewViewAction = new MypageReviewViewAction();
+		mypageReviewListViewAction = new MypageReviewListViewAction();
 		mypageReviewDeleteAction = new MypageReviewDeleteAction();
 		mypageFollowUserViewAction = new MypageFollowUserViewAction();
+		mypageReviewViewAction = new MypageReviewViewAction();
 
 	}
 
 	
+	public static Action getMypageReviewListViewAction() {
+		return mypageReviewListViewAction;
+	}
+
 	public static Action getMypageFollowUserViewAction() {
 		return mypageFollowUserViewAction;
 	}

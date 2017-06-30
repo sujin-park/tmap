@@ -21,9 +21,9 @@ public class MypageServiceImpl implements MypageService {
 	private MypageServiceImpl() {}
 	
 	@Override
-	public List<FollowCategoryDto> followCategoryListView(int userId) {
+	public List<FollowCategoryDto> followCategoryListView(Map<String,String> map) {
 		
-		return MypageFollowDaoImpl.getMypageFollowDao().followCategoryListView(userId);
+		return MypageFollowDaoImpl.getMypageFollowDao().followCategoryListView(map);
 	}
 
 	@Override
