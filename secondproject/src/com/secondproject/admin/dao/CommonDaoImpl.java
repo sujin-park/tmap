@@ -23,21 +23,18 @@ public class CommonDaoImpl implements CommonDao {
 	}
 
 	@Override
-	public int totalArticleCount(Map<String, String> map) {
+	public int totalExhibitionCount(Map<String, Object> params) {
 		int count = 0;
+		String key = (String) params.get("key");
+		String word = (String) params.get("word");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		try {
-			String key = map.get("key");
-			String word = map.get("word");
-			String board = map.get("board");
-			
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select count(exhibition_id) \n");
-			sql.append("			from exhibition  \n");
+			sql.append("select count(*) \n");
+			sql.append("			from exhibition \n");
 	         if (!key.isEmpty() && !word.isEmpty()) {
 	        	 if (key.equals("title")) {
 	        		 sql.append("	  where ex_title like '%' ||?|| '%'\n");

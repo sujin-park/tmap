@@ -12,7 +12,7 @@ public interface ExhibitionDao {
 //	int getNextSeq();
 	int writeExhibition(ExhibitionDto exhibitionDto);
 	
-	List<ExhibitionDto> listExhibition(Map<String, String> map);
+	List<ExhibitionDto> listExhibition(Map<String, Object> params);
 	ExhibitionDto viewExhibition(int seq);
 	List<ShopDto> shopExhibition(Map<String, String> map);
 	

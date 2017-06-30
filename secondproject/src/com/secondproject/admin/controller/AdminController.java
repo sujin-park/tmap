@@ -38,7 +38,7 @@ public class AdminController extends HttpServlet {
 //			request.setAttribute("column", column);
 //			request.setAttribute("board", board);
 			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
-			request.setAttribute("contentPath", contentPath + queryString);
+			request.setAttribute("contentPath", contentPath);
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			PageMove.forward(path, request, response);

@@ -31,8 +31,8 @@
 					<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">기획전관리
 	        			<span class="caret"></span></a>
 				        	<ul class="dropdown-menu">
-					          <li><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&pg=1&key=&word=">기획전 리스트</a></li>
-					          <li><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibitionPic&pg=1&key=&word=">기획전 배치도</a></li>
+					          <li><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&pg=1&key=&word=&orderValue=asc">기획전 리스트</a></li>
+					          <li><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibitionPic&pg=1&key=&word=&orderValue=asc">기획전 배치도</a></li>
 				        	</ul>
 				</li>
 			</ul>

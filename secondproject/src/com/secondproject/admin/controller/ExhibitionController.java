@@ -22,14 +22,7 @@ public class ExhibitionController extends HttpServlet {
 		String path = "/index.jsp";
 		String contentPath = "";
 		String url = "";
-		/*
-		 * String key = Encoding.nullToBlank(request.getParameter("key"));
-		 * String word = request.getParameter("word"); String order =
-		 * Encoding.nullToBlank(request.getParameter("order")); String column =
-		 * Encoding.nullToBlank(request.getParameter("column")); String
-		 * queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) +
-		 * "&order=" + order + "&column=" + column;
-		 */
+
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		if ("mvwrite".equals(act)) {
 			path = "/template/admin/admin.jsp";
@@ -42,7 +35,7 @@ public class ExhibitionController extends HttpServlet {
 			contentPath = AdminFactory.getExhibitionShopAction().execute(request, response);
 		} else if ("delete".equals(act)) {
 			contentPath = AdminFactory.getExhibitionDeleteAction().execute(request, response);
-			url = "/admin?act=mvexhibition";
+			url = "/admin?act=mvexhibition&board=exhibition";
 		} else if ("plusshop".equals(act)) {
 			contentPath = AdminFactory.getExhibitionShopUpAction().execute(request, response);
 		} else if ("modify".equals(act)) {

@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.model.ExhibitionDto;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
@@ -82,8 +83,16 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 	// 기획전 리스트
 	@Override
-	public List<ExhibitionDto> listExhibition(Map<String, String> map) {
+	public List<ExhibitionDto> listExhibition(Map<String, Object> params) {
 		List<ExhibitionDto> list = new ArrayList<ExhibitionDto>();
+		
+		String key = (String) params.get("key");
+		String word = (String) params.get("word");
+		String orderKey = (String) params.get("orderKey");
+		String orderValue = (String) params.get("orderValue");
+		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
+		int pageStart = pageEnd - BoardConstant.LIST_SIZE;
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -91,34 +100,29 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			String key = map.get("key");
-			String word = map.get("word");
-			String order = map.get("order");
-			String column = map.get("column");
-			String columnBasic = "ex_order";
 
-			// System.out.println(1234234);
 			sql.append("select b.* \n");
 			sql.append("from ( \n");
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
 			sql.append("      select exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
-			sql.append("      from exhibition e\n");
+			sql.append("      from exhibition e \n");
 
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("title")) {
 					sql.append("	  where ex_title like '%' ||?|| '%'\n");
 				}
 			}
-			if (!column.isEmpty()) {
-				if (column.equals("orderby")) {
-					columnBasic = "ex_order";
-				} else if (column.equals("nameby")) {
-					columnBasic = "ex_title";
+			System.out.println(word);
+			if (!orderKey.isEmpty()) {
+				if (orderKey.equals("orderby")) {
+					orderKey = "ex_order";
+				} else if (orderKey.equals("nameby")) {
+					orderKey = "ex_title";
 				} else {
-					columnBasic = "ex_visiable";
+					orderKey = "ex_visiable";
 				}
-				sql.append("order by " + columnBasic + " " + order);
+				sql.append("order by " + orderKey + " " + orderValue);
 			} else {
 				sql.append("order by ex_order");
 			}
@@ -126,13 +130,15 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			sql.append("      where rownum <=? \n");
 			sql.append("      ) b \n");
 			sql.append("   where b.rn>?");
+			
 			pstmt = conn.prepareStatement(sql.toString());
+			System.out.println(sql);
 			int idx = 0;
 			if (!key.isEmpty() && !word.isEmpty()) {
-				pstmt.setString(++idx, map.get("word"));
+				pstmt.setString(++idx, word);
 			}
-			pstmt.setString(++idx, map.get("end"));
-			pstmt.setString(++idx, map.get("start"));
+			pstmt.setInt(++idx, pageEnd);
+			pstmt.setInt(++idx, pageStart);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				ExhibitionDto exhibitionDto = new ExhibitionDto();

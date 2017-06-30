@@ -43,13 +43,13 @@ public class ReviewListAction implements Action {
 			AdminReviewDto adminReviewDto = list.get(i);
 			System.out.println(adminReviewDto.getImg());
 		}
-		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
-		// root는 여기서 가져옴
-		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
-		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
-		pageNavigation.setNavigator();
-		request.setAttribute("navigator", pageNavigation);
+//		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
+//		// root는 여기서 가져옴
+//		pageNavigation.setRoot(request.getContextPath());
+//		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
+//		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
+//		pageNavigation.setNavigator();
+//		request.setAttribute("navigator", pageNavigation);
 		return "/page/adminpage/reviewpage/reviewList.jsp";
 	}
 
