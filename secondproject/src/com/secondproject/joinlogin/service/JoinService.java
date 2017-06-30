@@ -4,4 +4,5 @@ import com.secondproject.userdto.UserDto;
 
 public interface JoinService {
 	int join(UserDto userDto);
+	int idCheck(String id);
 }

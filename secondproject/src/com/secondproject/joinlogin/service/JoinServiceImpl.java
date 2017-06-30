@@ -22,4 +22,9 @@ public class JoinServiceImpl implements JoinService {
 		return JoinDaoImpl.getJoinDao().join(userDto);
 	}
 
+	@Override
+	public int idCheck(String sid) {
+		return JoinDaoImpl.getJoinDao().idCheck(sid);
+	}
+
 }
