@@ -54,7 +54,7 @@
 					<button type="button" class="btn btn-primary" data-dismiss="modal"
 						onclick="javascript:join();">Join</button>
 					<button type="button" class="btn btn-default"
-						onclick="javascript:cancel();">Cancel</button>
+						onclick="">Cancel</button>
 				</div>
 			</div>
 		</div>

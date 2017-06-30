@@ -10,5 +10,5 @@
       removeAbandoned="true" removeAbandonedTimeout="60"
       logAbandoned="true" />
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-
+      
 </Context>
