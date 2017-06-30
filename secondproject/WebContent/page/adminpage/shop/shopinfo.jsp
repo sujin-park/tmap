@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
    pageEncoding="EUC-KR"
-   import="java.util.*, com.secondproject.userdto.*,com.secondproject.constant.*"%>
+   import="java.util.*, com.secondproject.admin.model.ShopInfoDto,com.secondproject.constant.*"%>
 <%String root = request.getContextPath();
-ArrayList<UserDto> list = (ArrayList<UserDto>) request.getAttribute("list"); 
-String userOrder = (String) request.getAttribute("userOrder");
-if (userOrder == null) {
-   userOrder = "desc";
+ArrayList<ShopInfoDto> list = (ArrayList<ShopInfoDto>) request.getAttribute("list"); 
+String shopInfoOrder = (String) request.getAttribute("shopInfoOrder");
+if (shopInfoOrder == null) {
+	shopInfoOrder = "desc";
 }
 %>
 <script>
@@ -38,7 +38,7 @@ function deleteUser() {
 	}
 }
 
-</script>
+</script> 
   
 <section class="content page-top">
    <div class="col-md-10 col-md-push-1">
@@ -49,23 +49,23 @@ function deleteUser() {
                   <div class="btn-group">
                     <div class="btn-group">
                     
-							<button type="button" class="btn btn-warning btn-filter" onclick="deleteUser();">회원 삭제</button>
+							<button type="button" class="btn btn-warning btn-filter" onclick="deleteUser();">매장 삭제</button>
 						</div>
        
                   </div>
                </div>
          <form name="searchForm" method="get" action="">
    
-               <input type="hidden" name="act" value="userview">
+               <input type="hidden" name="act" value="shopinfo">
                   <div class="pull-right col-md-5">
                      <div class="input-group">
                         <div class="input-group-btn">
                         <select class="form-control" name="key_type">
-                           <option value="user_id">아이디</option>
-                           <option value="type">회원타입</option>                           
-                           <option value="reg_date">가입일</option>
-                           <option value="gender">성별</option>                           
-                           <option value="age">나이</option>
+                           <option value="title">가게이름</option>
+                           <option value="category_title">가게타입</option>                           
+                           <option value="tel">전화번호</option>
+                           <option value="address">주소</option>                           
+                          <!--  <option value="shop_id">기획전</option> -->
                         </select>
                      </div>
                      <input type="text" class="form-control" name = "keyword" placeholder="검색어 입력" size="3">
@@ -75,17 +75,17 @@ function deleteUser() {
             </form>
              </div>
              <form name="orderncolumn" method="post" action="">
-            <input type="hidden" name="act" value="userdelete">
+            <input type="hidden" name="act" value="shopdelete">
              <div class="table-container">
                 <table class="table table-filter">
                    <tbody>
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=user_id" style="text-decoration:none">아이디</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=type" style="text-decoration:none">회원타입</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=reg_date" style="text-decoration:none">가입일</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=gender" style="text-decoration:none">성별</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=age" style="text-decoration:none">나이</a></td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=title" style="text-decoration:none">가게이름</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=category_title" style="text-decoration:none">가게타입</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=tel" style="text-decoration:none">전화번호</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=address" style="text-decoration:none">주소</a></td>
+                <%--          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=shop_id" style="text-decoration:none">기획전여부</a></td> <!-- 기획전 있는지 없는지 여부 --> --%>
                      </tr>
                      
                      
@@ -94,34 +94,27 @@ function deleteUser() {
                      <%int size = list.size();
                   
                      for (int i = 0; i<size; i++) {
-                        UserDto userDto = list.get(i);
-                        String checkbox = "checkbox" + i;
+                    	 ShopInfoDto shopInfoDto = list.get(i);
+                    	 String checkbox = "checkbox" + i;
                      %>
                         <td>
                            <div class="ckbox">
-                              <input type="checkbox" id="<%=checkbox%>" name="checkRow" value="<%=userDto.getUser_id()%>"> <label for="<%=checkbox%>"></label>
+                              <input type="checkbox" id="<%=checkbox%>" name="checkRow" value="<%=shopInfoDto.getShopTitle()%>"> <label for="<%=checkbox%>"></label>
                            </div>
                         </td>
                      
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= userDto.getUser_id()%></p>
+                                 <p class="media-meta"><%= shopInfoDto.getShopTitle()%></p>
                               </div>
                            </div>
                         </td>
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                <%--  <p class="media-meta"><%= userDto.getType()%></p> --%>
                                  <span class="media-meta"> 
-                                 <%if (userDto.getType() == 0) {%>
-                                 	
-                                 	<% } else if(userDto.getType() == 1) {%>
-                                 	회원
-                                 	<% } else {%>
-                                 	사장
-                                 	<% } %>
+                                 <%=shopInfoDto.getCategoryName()%>
                                  	</span>
                               </div>
                            </div>
@@ -129,7 +122,7 @@ function deleteUser() {
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <span class="media-meta"> <%=userDto.getReg_date()%></span>
+                                 <span class="media-meta"> <%=shopInfoDto.getShopTel()%></span>
                               </div>
                            </div>
                         </td>
@@ -137,22 +130,19 @@ function deleteUser() {
                            <div class="media">
                               <div class="media-body">
                                  <span class="media-meta"> 
-                                 <%if (userDto.getGender() == 1) {%>
-                                 	남성
-                                 	<% } else {%>
-                                 	여성
-                                 	<% } %>
+                                 <%=shopInfoDto.getShopAddress()%>
+                                 	
                                  </span>
                               </div>
                            </div>
                         </td>
-                        <td>
+                        <%-- <td>
                            <div class="media">
                               <div class="media-body">
-                                 <span class="media-meta"> <%=userDto.getAge()%></span>
+                                 <span class="media-meta"> <%=shopInfoDto.getExhibitionId()%></span>
                               </div>
                            </div>
-                        </td>
+                        </td> --%>
                      </tr>
                      
                      <%} %>
@@ -178,4 +168,3 @@ function deleteUser() {
       </div>
    </div>
 </section>
-

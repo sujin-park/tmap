@@ -8,54 +8,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
+import com.secondproject.admin.model.ShopInfoDto;
+import com.secondproject.admin.service.ShopInfoServiceImpl;
 import com.secondproject.admin.service.UserViewServiceImpl;
-import com.secondproject.userdto.UserDto;
 import com.secondproject.util.Encoding;
 
-public class UserViewAction implements Action{
+public class ShopInfoAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String keyword = Encoding.isoToEuc(request.getParameter("keyword"));
 		String type = request.getParameter("key_type");
-		String userOrder = Encoding.nullToBlank(request.getParameter("userorder"));
+		String shopInfoOrder = Encoding.nullToBlank(request.getParameter("shopInfoOrder"));
 		String column = request.getParameter("column");
 		
 		//System.out.println("column == " + column);
 		//System.out.println("userOrder == " + userOrder);
 
-		if (userOrder.isEmpty()) {
-			userOrder = "asc";
+		if (shopInfoOrder.isEmpty()) {
+			shopInfoOrder = "asc";
 		}
 		
-		
-		if ("type".equals(type) && "회원".equals(keyword)) {
-			keyword = "1";
-		} else if ("type".equals(type) && "사장".equals(keyword)) {
-			keyword = "2";
-		} else if ("gender".equals(type) && "남성".equals(keyword)) {
-			keyword = "1";
-		} else if ("gender".equals(type) && "여성".equals(keyword)) {
-			keyword = "2";
-		}
-
-			
-		
-		
-		
-		ArrayList<UserDto> list= UserViewServiceImpl.getUserViewService().getArticles(keyword,type,userOrder,column);
+		ArrayList<ShopInfoDto> list= ShopInfoServiceImpl.getShopInfoService().getArticles(keyword, type, shopInfoOrder, column);
 		
 	
-		if (userOrder.equals("asc")) {
-			userOrder = "desc";
+		if (shopInfoOrder.equals("asc")) {
+			shopInfoOrder = "desc";
 		} else {
-			userOrder = "asc";
+			shopInfoOrder = "asc";
 		}
-		request.setAttribute("userOrder", userOrder);
+		request.setAttribute("shopInfoOrder", shopInfoOrder);
 		request.setAttribute("list", list);
-		return "/page/adminpage/member/member.jsp";
-		
+		return "/page/adminpage/shop/shopinfo.jsp";
 	}
 
 }

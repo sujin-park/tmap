@@ -21,8 +21,8 @@ public class ExhibitionController extends HttpServlet {
 		String act = request.getParameter("act");
 		String path = "/index.jsp";
 		String contentPath = "";
-		String url = "";
-		/*
+		String url ="";
+		/*SSS
 		 * String key = Encoding.nullToBlank(request.getParameter("key"));
 		 * String word = request.getParameter("word"); String order =
 		 * Encoding.nullToBlank(request.getParameter("order")); String column =

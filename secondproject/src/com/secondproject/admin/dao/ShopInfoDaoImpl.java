@@ -6,41 +6,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.secondproject.userdto.UserDto;
+import com.secondproject.admin.model.ShopInfoDto;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
-
-public class UserViewDaoImpl implements UserViewDao {
-
-	private static UserViewDao userViewDao;
+public class ShopInfoDaoImpl implements ShopInfoDao {
+	private static ShopInfoDao shopInfoDao;
 	
 	static {
-		userViewDao = new UserViewDaoImpl();
+		shopInfoDao = new ShopInfoDaoImpl();
 	}
 	
-	private UserViewDaoImpl(){}
+	private ShopInfoDaoImpl(){}
 	
-	public static UserViewDao getUserViewDao() {
-		return userViewDao;
+	public static ShopInfoDao getShopInfoDao() {
+		return shopInfoDao;
 	}
-	
 	
 	@Override
-	public ArrayList<UserDto> getArticles(String keyword, String type, String userOrder, String column) {
+	public ArrayList<ShopInfoDto> getArticles(String keyword, String type, String userOrder, String column) {
 		// TODO Auto-generated method stub
-		ArrayList<UserDto> list = new ArrayList<UserDto>();
+		ArrayList<ShopInfoDto> list = new ArrayList<ShopInfoDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		
-		
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select * from users \n");
-			sql.append("where type != '0' \n");
+			sql.append("select s.title,c.category_title,s.tel,s.address,e.shop_id \n");
+			sql.append("from shop s, shop_category c, exhibition_detail e \n");
+			sql.append("where c.category_id = s.category_id and s.shop_id = e.shop_id \n");
 
 			if (keyword != null && type != null) {
 				sql.append("and "+ type +" like '%' || ? || '%' \n");
@@ -49,28 +45,24 @@ public class UserViewDaoImpl implements UserViewDao {
 			if (userOrder != null && column != null) {
 				sql.append("order by " + column + " " + userOrder);
 			} else {
-				sql.append("order by reg_date desc");
+				sql.append("order by s.category_id desc");
 			}
+
 			pstmt = conn.prepareStatement(sql.toString());
 			if (keyword != null && type != null){
 				pstmt.setString(1, keyword);
 			}
-			
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) { // 있으면 true 없으면 false return
-				UserDto userDto = new UserDto();
-				userDto.setUser_id(rs.getInt("user_id"));
-				userDto.setEmail(rs.getString("email"));
-				userDto.setPassword(rs.getString("password"));
-				userDto.setType(rs.getInt("type"));
-				userDto.setGender(rs.getInt("gender"));
-				userDto.setAge(rs.getInt("age"));
-				userDto.setStatus_msg(rs.getString("status_msg"));
-				userDto.setReg_date(rs.getString("reg_date"));
-				userDto.setReg_ip(rs.getString("reg_ip"));
-				userDto.setUpdate_date(rs.getString("update_date"));
-				list.add(userDto);
+				ShopInfoDto shopInfoDto = new ShopInfoDto();
+				shopInfoDto.setShopTitle(rs.getString("title"));
+				shopInfoDto.setCategoryName(rs.getString("category_title"));
+				shopInfoDto.setShopTel(rs.getString("tel"));
+				shopInfoDto.setShopAddress(rs.getString("address"));
+				shopInfoDto.setExhibitionId(rs.getInt("shop_id"));
+				
+				list.add(shopInfoDto);
 			}
 				
 		} catch (SQLException e) {
@@ -83,4 +75,10 @@ public class UserViewDaoImpl implements UserViewDao {
 	return list;
 		
 	}
+
+	
+	
+	
+	
+	
 }

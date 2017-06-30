@@ -5,10 +5,10 @@
       type="javax.sql.DataSource"
       factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
       driverClassName="oracle.jdbc.driver.OracleDriver"
-      url="jdbc:oracle:thin:@localhost:1521:orcl" username="map"
+      url="jdbc:oracle:thin:@localhost:1522:ocrl" username="map"
       password="map" maxActive="20" maxIdle="10" maxWait="-1"
       removeAbandoned="true" removeAbandonedTimeout="60"
       logAbandoned="true" />
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-      
+
 </Context>

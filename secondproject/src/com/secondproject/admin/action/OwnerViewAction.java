@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
-import com.secondproject.admin.service.UserViewServiceImpl;
-import com.secondproject.userdto.UserDto;
+import com.secondproject.admin.model.OwnerConfirmDto;
+import com.secondproject.admin.service.OwnerServiceImpl;
+
 import com.secondproject.util.Encoding;
 
-public class UserViewAction implements Action{
+public class OwnerViewAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -21,41 +22,49 @@ public class UserViewAction implements Action{
 		String type = request.getParameter("key_type");
 		String userOrder = Encoding.nullToBlank(request.getParameter("userorder"));
 		String column = request.getParameter("column");
-		
-		//System.out.println("column == " + column);
-		//System.out.println("userOrder == " + userOrder);
+		String act = request.getParameter("act");
+		int confirm_ok = 0;
+		String contentPath = "";
 
+		
 		if (userOrder.isEmpty()) {
 			userOrder = "asc";
 		}
-		
-		
-		if ("type".equals(type) && "회원".equals(keyword)) {
-			keyword = "1";
-		} else if ("type".equals(type) && "사장".equals(keyword)) {
-			keyword = "2";
-		} else if ("gender".equals(type) && "남성".equals(keyword)) {
-			keyword = "1";
-		} else if ("gender".equals(type) && "여성".equals(keyword)) {
-			keyword = "2";
-		}
+				
+		if (act.equals("ownerview")){
+			confirm_ok = 1;
+			contentPath = "owner.jsp";
+			System.out.println("confirm_ok ========== " + confirm_ok);
+		} else  {
+			confirm_ok = 2;
+			contentPath = "realowner.jsp";
+			System.out.println("confirm_ok ========== " + confirm_ok);
 
-			
+		}
 		
+//		System.out.println(act);
+//		System.out.println(confirm_ok);
+//		System.out.println("keyword=" + keyword + " type=" + type + " userOrder=" + userOrder + " column=" + column);
+
+
 		
+		ArrayList<OwnerConfirmDto> list = OwnerServiceImpl.getOwnerService().getArticles(keyword, type, userOrder, column, confirm_ok);
 		
-		ArrayList<UserDto> list= UserViewServiceImpl.getUserViewService().getArticles(keyword,type,userOrder,column);
-		
-	
 		if (userOrder.equals("asc")) {
 			userOrder = "desc";
 		} else {
 			userOrder = "asc";
 		}
+		
+
+		
+		
 		request.setAttribute("userOrder", userOrder);
 		request.setAttribute("list", list);
-		return "/page/adminpage/member/member.jsp";
-		
+		return "/page/adminpage/owner/" + contentPath;
+
+
+	
 	}
 
 }
