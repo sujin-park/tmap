@@ -8,7 +8,7 @@ public class Encoding {
 	public static String nullToBlank(String tmp) { // null포인터 없애려고 만든 메소드
 		return tmp == null ? "" : tmp;
 	}
-
+	
 	public static String isoToEuc(String tmp) {
 		String euc = "";
 		try {
@@ -22,6 +22,8 @@ public class Encoding {
 		return euc;
 	}
 
+		
+	
 	public static String isoToUtf(String tmp) {
 		String utf = "";
 		try {
@@ -35,18 +37,17 @@ public class Encoding {
 
 		
 	}
-
-
 	public static String urlFormat(String tmp) {
 		String url = "";
 		try {
-			if (tmp != null) {
-				url = URLEncoder.encode(tmp, "EUC-KR"); // %B4%EB%B8%B6
+			if (tmp!=null) {
+			url = URLEncoder.encode(tmp, "EUC-KR"); // %B4%EB%B8%B6
 			}
 		} catch (UnsupportedEncodingException e) {
-
+			
 			e.printStackTrace();
 		}
 		return url;
+		 
 	}
 }
