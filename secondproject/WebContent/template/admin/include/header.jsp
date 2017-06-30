@@ -20,8 +20,8 @@
         			<a class="dropdown-toggle" data-toggle="dropdown" href="#">사장관리
         			<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a href="#">인증 대기리스트</a></li>
-			          <li><a href="#">사장 리스트</a></li>
+			          <li><a href="<%=ContextPath.root%>/admin?act=ownerview">인증 대기리스트</a></li>
+			          <li><a href="<%=ContextPath.root%>/admin?act=realownerview">사장 리스트</a></li>
 			        </ul>
 			    </li>
 				<li><a href="#">매장관리</a></li>

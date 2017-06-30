@@ -76,7 +76,33 @@ public class AdminController extends HttpServlet {
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			PageMove.forward(path, request, response);
+		} else if ("ownerview".equals(act)){
+			path ="/template/admin/admin.jsp";
+			contentPath = AdminFactory.getOwnerViewAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
+		} else if ("ownermodify".equals(act)){
+			path ="/admin?act=ownerview";
+			contentPath = AdminFactory.getOwnerModifyAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
+		} else if ("realownerview".equals(act)){
+			path ="/template/admin/admin.jsp";
+			contentPath = AdminFactory.getOwnerViewAction().execute(request, response);
+			request.setAttribute("titleTagValue", "타이틀");
+			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+			PageMove.forward(path, request, response);
 		}
+		
+		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");

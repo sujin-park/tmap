@@ -13,17 +13,17 @@ public class AdminFactory {
 	private static ExhibitionShopUpAction exhibitionShopUpAction;
 	private static ExhibitionModifyAction exhibitionModifyAction;
 	private static ExhibitionDeleteShopAction exhibitionDeleteShopAction;
-
-
-
 	
 	private static ReviewListAction reviewListAction;
 	private static ReviewViewAction reviewViewAction;
 	private static ReviewBlindAction reviewBlindAction;
-	
+	private static ReviewBlindOneAction reviewBlindOneAction;
 	private static UserViewAction userViewAction;
 	private static UserDeleteAction userDeleteAction;
 	
+	private static OwnerViewAction ownerViewAction; 
+	private static OwnerModifyAction ownerModifyAction;
+
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
 		exhibitionListAction = new ExhibitionListAction();
@@ -38,10 +38,15 @@ public class AdminFactory {
 		reviewListAction = new ReviewListAction();
 		reviewViewAction = new ReviewViewAction();
 		reviewBlindAction = new ReviewBlindAction();
+		reviewBlindOneAction = new ReviewBlindOneAction();
 		
 		userViewAction = new UserViewAction();
 		userDeleteAction = new UserDeleteAction();
+		
+		ownerViewAction = new OwnerViewAction();
+		ownerModifyAction = new OwnerModifyAction();
 	}
+
 
 
 	public static ExhibitionDeleteShopAction getExhibitionDeleteShopAction() {
@@ -88,11 +93,23 @@ public class AdminFactory {
 		return reviewBlindAction;
 	}
 
+	public static ReviewBlindOneAction getReviewBlindOneAction() {
+		return reviewBlindOneAction;
+	}
+	
 	public static UserViewAction getUserViewAction() {
 		return userViewAction;
 	}
 	
 	public static UserDeleteAction getUserDeleteAction() {
 		return userDeleteAction;
+	}
+	
+	public static OwnerViewAction getOwnerViewAction() {
+		return ownerViewAction;
+	}
+	
+	public static OwnerModifyAction getOwnerModifyAction() {
+		return ownerModifyAction;
 	}
 }

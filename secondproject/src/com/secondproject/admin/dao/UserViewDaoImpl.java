@@ -40,9 +40,12 @@ public class UserViewDaoImpl implements UserViewDao {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("select * from users \n");
+			sql.append("where type != '0' \n");
+
 			if (keyword != null && type != null) {
-				sql.append("where "+ type +" like '%' || ? || '%' \n");
+				sql.append("and "+ type +" like '%' || ? || '%' \n");
 			}
+			
 			if (userOrder != null && column != null) {
 				sql.append("order by " + column + " " + userOrder);
 			} else {
