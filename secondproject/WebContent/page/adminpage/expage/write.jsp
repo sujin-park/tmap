@@ -19,7 +19,7 @@
 						</div>
 						<div class="input-group">
 								<label for="inputName">배치 순서</label>
-								<input type="text" class="form-control" name="changeroot" placeholder="배치 순서를 입력해주세요">
+								<input type="text" class="form-control" name="changeroot" id="changeroot" placeholder="배치 순서를 입력해주세요">
 							</div>
 					
 						<label for="inputStore">매장명</label>
@@ -65,7 +65,7 @@ function writeArticle() {
 		alert("기획전 내용을 입력해주세요");
 	} else {
 		if (confirm("등록하시겠습니까?")){
-		document.writeForm.action = "<%=ContextPath.root%>/exhibition";
+		document.writeForm.action = "<%=ContextPath.root%>/picture";
 		document.writeForm.submit();
 		}
 	}

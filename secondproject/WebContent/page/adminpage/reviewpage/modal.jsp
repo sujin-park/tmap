@@ -17,21 +17,28 @@
 					<div class="col-md-12">
 						<div class="panel panel-default">
 							<div class="panel-body">
-									<div class="form-group">
-										<label for="inputName">매장명</label> <input type="text"
-											class="form-control" name="subject" id="modalshop"
-											value="" readonly="readonly">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="inputName">매장명</label> <input type="text"
+												class="form-control" name="subject" id="modalshop"
+												value="" readonly="readonly">
+										</div>
+										<label for="inputStore">작성자</label>
+											<div class="input-group">
+												<input type="text" class="form-control" id="modalemail"
+													name="store" value="" readonly="readonly">
+											</div>
+										<div class="form-group">
+												<label for="inputName">신뢰점수</label> <input type="text"
+													class="form-control" name="subject" id="modalscore"
+													value="" readonly="readonly">
+										</div>
 									</div>
-									<label for="inputStore">작성자</label>
-									<div class="input-group">
-										<input type="text" class="form-control" id="modalemail"
-											name="store" value="" readonly="readonly">
+									<div class="col-md-6">
+										<img id="reimg" src="" width="200" style="margin-top:20px"/>
 									</div>
-									<div class="form-group">
-										<label for="inputName">신뢰점수</label> <input type="text"
-											class="form-control" name="subject" id="modalscore"
-											value="" readonly="readonly">
-									</div>
+								</div>
 									<div class="form-group">
 										<label for="inputContent">작성 내용</label>
 										<textarea class="form-control" id="modalcontent" name="content"

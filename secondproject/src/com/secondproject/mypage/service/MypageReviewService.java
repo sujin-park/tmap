@@ -9,6 +9,7 @@ import com.secondproject.mypage.model.MyReviewDto;
 
 public interface MypageReviewService {
 	 List<MyReviewDto> reviewListView(int userId);
+	 MyReviewDto reviewView(int reviewId);
 	
 	 
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.secondproject.factory.MypageFactory;
 import com.secondproject.mypage.action.MypageFollowAddAction;
 import com.secondproject.util.Encoding;
+import com.secondproject.util.NumberCheck;
 
 @WebServlet("/mypage")
 public class MyPageController extends HttpServlet {
@@ -19,13 +20,6 @@ public class MyPageController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "index.jsp"; 		
-		
-		String key = Encoding.nullToBlank(request.getParameter("key"));
-		String word = request.getParameter("word");
-		String board = Encoding.nullToBlank(request.getParameter("board"));
-		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&board="
-				+ board;
-		
 		String act = request.getParameter("act");
 		if("followCategoryListView".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryListView().execute(request, response);

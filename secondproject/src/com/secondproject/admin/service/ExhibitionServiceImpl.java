@@ -6,8 +6,8 @@ import com.secondproject.admin.action.ExhibitionShopUpAction;
 import com.secondproject.admin.dao.ExhibitionDaoImpl;
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.model.ExhibitionDto;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.shop.model.ShopDto;
-import com.secondproject.util.BoardConstance;
 
 public class ExhibitionServiceImpl implements ExhibitionService {
 
@@ -22,8 +22,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		exhibitionService = new ExhibitionServiceImpl();
 	}
 	@Override
-	public int writeExhibition(ExhibitionDetailDto exhibitionDetailDto) {
-		return ExhibitionDaoImpl.getExhibitionDao().writeExhibition(exhibitionDetailDto);
+	public int writeExhibition(ExhibitionDto exhibitionDto) {
+		return ExhibitionDaoImpl.getExhibitionDao().writeExhibition(exhibitionDto);
 	}
 	@Override
 	public List<ExhibitionDto> listExhibition(String key, String word, String order, String column, int pg) {
@@ -32,8 +32,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		map.put("word", word);
 		map.put("order", order);
 		map.put("column", column);
-		int end = pg * BoardConstance.LIST_SIZE;
-		int start = end - BoardConstance.LIST_SIZE; 
+		int end = pg * BoardConstant.LIST_SIZE;
+		int start = end - BoardConstant.LIST_SIZE; 
 		map.put("start", start +""); // 페이지 첫번호와 마지막번호를 계산하기 위해서 start와 end 만듦
 		map.put("end", end +"");
 		return ExhibitionDaoImpl.getExhibitionDao().listExhibition(map);

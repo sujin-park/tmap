@@ -12,7 +12,7 @@ function searchExhibition() {
 	if (document.searchForm.word.value == "")	{
 		alert("검색어 입력!!!!!");
 	} else {
-		document.searchForm.action = "<%=ContextPath.root%>/admin?act=mvshoplist";
+		document.searchForm.action = "<%=ContextPath.root%>/admin";
 		document.searchForm.submit();
 	}
 		
@@ -24,13 +24,20 @@ function firstArticle(){
 function listArticle(mpg){
 	 	document.location.href="<%=ContextPath.root%>/admin?act=mvexhibition&pg=" + mpg + "&key=word=";
 }
+
 function mvshoplist(seq) {
 	document.location.href ="<%=ContextPath.root%>/exhibition?act=mvshoplist&seq=" + seq;
 	$('#shopModal').modal({show:true});
 }
 
 function deleteExhibition() {
-	if (confirm("삭제하시겠습니까?")) {
+	var valueArr = new Array();
+	$("input[name=checkbox]:checked").each(function() {
+		valueArr.push($(this).val());
+	});
+	if (valueArr == "") {
+		alert("삭제할 기획전을 선택해주세요");
+	} else if (confirm("삭제하시겠습니까?")) {
 		document.exhibitionForm.action = "<%=ContextPath.root%>/exhibition";
 		document.exhibitionForm.submit();
 	}

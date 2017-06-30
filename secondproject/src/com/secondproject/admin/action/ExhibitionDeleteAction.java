@@ -18,7 +18,6 @@ public class ExhibitionDeleteAction implements Action{
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp";
 		String[] exhibitions = request.getParameterValues("checkbox");
-//		int seq = Integer.parseInt(request.getParameter("seq"));
 		int cnt = ExhibitionServiceImpl.getExhibitionService().deleteExhibition(exhibitions);
 		if (cnt!=0) {
 			path = "/page/adminpage/expage/exhibition.jsp";

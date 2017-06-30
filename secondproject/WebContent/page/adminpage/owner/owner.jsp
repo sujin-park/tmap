@@ -172,4 +172,3 @@ function modifyOwner(a) {
       </div>
    </div>
 </section>
-<%@ include file="/page/adminpage/include/pageNav.jsp"%>
