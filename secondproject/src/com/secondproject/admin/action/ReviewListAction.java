@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
 import com.secondproject.admin.service.*;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.review.model.AdminReviewDto;
 import com.secondproject.util.*;
 
@@ -38,12 +39,15 @@ public class ReviewListAction implements Action {
 		request.setAttribute("order", order);
 		request.setAttribute("column", column);
 		request.setAttribute("reviewList", list);
-
+		for (int i=0; i<list.size(); i++) { 
+			AdminReviewDto adminReviewDto = list.get(i);
+			System.out.println(adminReviewDto.getImg());
+		}
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setListSize(BoardConstance.LIST_SIZE);
-		pageNavigation.setPageSize(BoardConstance.PAGE_SIZE);
+		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
+		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
 		pageNavigation.setNavigator();
 		request.setAttribute("navigator", pageNavigation);
 		return "/page/adminpage/reviewpage/reviewList.jsp";

@@ -22,9 +22,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="<%=ContextPath.root%>/map">Map</a></li>
 				<li><a href="javascript:joinmove();">Join</a></li>
-				<%
-				if (userDto == null){
-				%>
+				<% if (userDto == null){ %>
 				<li><a href="javascript:loginmove();">Login</a></li>
 				<% } else { %>
 				<li><a href="javascript:logoutmove();">Logout</a></li>
@@ -41,7 +39,9 @@
 						<li><a href="#">概厘包府</a></li>
 					</ul>
 				</li>
-
+						<%if (userDto != null && userDto.getType() == 0) {%>
+						<li><a href="/secondproject/adminIndex.jsp">包府磊</a></li>
+						<% } %>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">
@@ -82,6 +82,6 @@ function joinmove() {
 	$("#joinmodal").modal("show");
 }
 function logoutmove() {
-	document.location.href = "/secondproject/joinlogin?act=logout";
+	document.location.href = "<%=ContextPath.root%>/joinlogin?act=logout";
 }
 </script>

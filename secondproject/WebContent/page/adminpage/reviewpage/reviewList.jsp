@@ -10,7 +10,13 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 %>
 <script>
 function blindReview() {
-	if (confirm("블라인드 처리하시겠습니까?")) {
+	var valueArr = new Array();
+	$("input[name=checkbox]:checked").each(function() {
+		valueArr.push($(this).val());
+	});
+	if (valueArr == "") {
+		alert("삭제할 기획전을 선택해주세요");
+	} else if (confirm("블라인드 처리하시겠습니까?")) {
 		document.reviewForm.action = "<%=ContextPath.root%>/adminreview";
 		document.reviewForm.submit();
 		}
@@ -36,12 +42,14 @@ function searchReview() {
 		}
 }
 
-function modal(seq) {
+function modal(reviewimg,seq) {
 	document.getElementById("reviewseq").value = seq;
 	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
 	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent
 	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent
 	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent
+	$('#reimg').attr("src", "<%=ContextPath.root%>/upload/" + reviewimg)
+	
 	$('#myModal').modal({show:true});
 	
 }
@@ -54,6 +62,7 @@ function modal(seq) {
 					<div class="pull-right">
 					<form name="reviewForm" method="post" action="">
 					<input type="hidden" name="act" value="blind">
+					
 						<div class="btn-group col-md-offset-2">
 							<button type="button" class="btn btn-warning btn-filter" onclick="javascript:blindReview();">Blind</button>
 						</div>
@@ -98,6 +107,7 @@ function modal(seq) {
 									if (blind == 1) {
 							%>
 							<tr style="background-color: #eee;">
+							
 							<%
 									} else {
 							%>
@@ -147,7 +157,7 @@ function modal(seq) {
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
 										<button type="button" class="btn btn-warning btn-xs" 
-							    		 onclick="javascript:modal(<%=adminReviewDto.getReviewId()%>);"><span class="glyphicon glyphicon-pencil"></span>
+							    		 onclick="javascript:modal('<%=adminReviewDto.getImg()%>',<%=adminReviewDto.getReviewId()%>);"><span class="glyphicon glyphicon-pencil"></span>
 							    		</button>
 							    	</p>
 							    </td>

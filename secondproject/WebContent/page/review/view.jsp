@@ -5,11 +5,11 @@
 ReviewDto reviewDto = (ReviewDto) request.getAttribute("reviewDto");
 if (reviewDto != null) {
 %>
-
+<div class="page-container">
 	<%=reviewDto.getTitle()%>
 	<%=reviewDto.getContent()%>
 	<%=reviewDto.getScore()%>
 	<%=reviewDto.getImg()%>
 	<%=reviewDto.getUpdateDate()%>
-
+</div>
 <% } %>

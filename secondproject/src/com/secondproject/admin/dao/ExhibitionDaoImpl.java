@@ -26,7 +26,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 	// 새 기획전 등록
 	@Override
-	public int writeExhibition(ExhibitionDetailDto exhibitionDetailDto) {
+	public int writeExhibition(ExhibitionDto exhibitionDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -35,16 +35,15 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("insert \n");
 			sql.append("	into exhibition (exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable) \n");
-			sql.append("	values (?, ?, ?, ?, ?, ?) \n");
-
+			sql.append("	values (?, ?, ?, ?, (select nvl(max(ex_order),0) from exhibition) + 1, ?) \n");
+			
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
-			pstmt.setInt(++idx, exhibitionDetailDto.getExhibitionId());
-			pstmt.setString(++idx, exhibitionDetailDto.getExTitle());
-			pstmt.setString(++idx, exhibitionDetailDto.getExDesc());
-			pstmt.setString(++idx, exhibitionDetailDto.getExImage());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExOrder());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExVisiable());
+			pstmt.setInt(++idx, exhibitionDto.getExhibitionId());
+			pstmt.setString(++idx, exhibitionDto.getExTitle());
+			pstmt.setString(++idx, exhibitionDto.getExDesc());
+			pstmt.setString(++idx, exhibitionDto.getExImage());
+			pstmt.setInt(++idx, exhibitionDto.getExVisiable());
 			cnt = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -57,29 +56,29 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 	}
 
 	// 기획전 글번호
-	@Override
-	public int getNextSeq() {
-		int seq = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBConnection.getConnection();
-			String sql = "select seq_exhibition_id.nextval from dual";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			rs.next();
-			seq = rs.getInt(1);
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-			DBClose.close(conn, pstmt, rs);
-		}
-
-		return seq;
-	}
+//	@Override
+//	public int getNextSeq() {
+//		int seq = 0;
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//
+//		try {
+//			conn = DBConnection.getConnection();
+//			String sql = "select seq_exhibition_id.nextval from dual";
+//			pstmt = conn.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+//			rs.next();
+//			seq = rs.getInt(1);
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		} finally {
+//			DBClose.close(conn, pstmt, rs);
+//		}
+//
+//		return seq;
+//	}
 
 	// 기획전 리스트
 	@Override

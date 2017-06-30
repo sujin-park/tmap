@@ -162,5 +162,4 @@ function deleteUser() {
          </div>
       </div>
    </div>
-</section>
-<%@ include file="/page/adminpage/include/pageNav.jsp"%>
+</section>S

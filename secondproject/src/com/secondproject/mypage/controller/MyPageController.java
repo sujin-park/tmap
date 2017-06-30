@@ -13,7 +13,6 @@ import com.secondproject.factory.MypageFactory;
 import com.secondproject.mypage.action.MypageFollowAddAction;
 import com.secondproject.util.Encoding;
 import com.secondproject.util.NumberCheck;
-import com.secondproject.util.PagenationParameter;
 
 @WebServlet("/mypage")
 public class MyPageController extends HttpServlet {
