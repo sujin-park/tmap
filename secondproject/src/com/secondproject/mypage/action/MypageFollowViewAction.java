@@ -35,8 +35,8 @@ public class MypageFollowViewAction implements Action{
 		map.put("word", word);
 		map.put("control", control);
 		map.put("userId", id+"");
-		int end = pg * BoardConstance.MYPAGE_LIST_SIZE;
-		int start = end -BoardConstance.MYPAGE_LIST_SIZE;
+		int end = pg * BoardConstant.MYPAGE_PAGE_SIZE;
+		int start = end -BoardConstant.MYPAGE_LIST_SIZE;
 		map.put("start", start+"");
 		map.put("end", end+"");
 		List<FollowUserDto> list= MypageServiceImpl.getMypageService().followListView(map);
