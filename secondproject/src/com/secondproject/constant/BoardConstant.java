@@ -6,9 +6,7 @@ public class BoardConstant {
 	
 	public static int LIST_SIZE = 5; // 기획전 페이지당 글의 갯수
 	public static int PAGE_SIZE = 10; // 기획전 페이지 네비게이션 사이즈 
-	public static int REVIEW_LIST_SIZE = 10; // 리뷰 페이지당 글의 갯수
-	public static int REVIEW_PAGE_SIZE = 10; // 리뷰 페이지 네비게이션 사이즈
-	public static int MYPAGE_LIST_SIZE = 3; // 페이지 네비게이션 사이즈
+	public static int MYPAGE_LIST_SIZE = 10; // 페이지 네비게이션 사이즈
 	public static int MYPAGE_PAGE_SIZE = 10; //  페이지당 글의 갯수
 	public static int SHOP_REVIEW_LIST_COUNT_PER_PAGE = 6;
 	public static int SHOP_REVIEW_PAGE_COUNT = 5;

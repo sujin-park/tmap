@@ -8,43 +8,58 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import com.secondproject.action.Action;
+import com.secondproject.admin.service.CommonServiceImpl;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.model.FollowCategoryDto;
 import com.secondproject.mypage.model.FollowUserDto;
 import com.secondproject.mypage.service.MypageServiceImpl;
 import com.secondproject.util.Encoding;
 import com.secondproject.util.NumberCheck;
+import com.secondproject.util.PageNavigation;
 
 public class MypageFollowModifyAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String alias = new String(request.getParameter("alias").getBytes("ISO-8859-1"),"utf-8");
-		String memo = new String(request.getParameter("memo").getBytes("ISO-8859-1"),"utf-8");
-		int userId = Integer.parseInt(request.getParameter("userid"));
+		String alias = Encoding.isoToUtf(request.getParameter("alias"));
+		String memo = Encoding.isoToUtf(request.getParameter("memo"));
+		int userId = Integer.parseInt(request.getParameter("userId"));
+//		String alias = request.getParameter("alias");
+//		String memo = request.getParameter("memo");
 		FollowUserDto fudto = new FollowUserDto();
 		fudto.setAlias(alias);
 		fudto.setMemo(memo);
 		fudto.setUserId(userId);
 		MypageServiceImpl.getMypageService().followModify(fudto);
-		int id = 2;
 		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
 		String key = Encoding.nullToBlank(request.getParameter("key"));
-		String word = request.getParameter("word");
-		String board = request.getParameter("board");
+		String word = Encoding.nullToBlank(request.getParameter("word"));
+		String control = request.getParameter("control");
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("pg", pg+"");
 		map.put("key", key);
 		map.put("word", word);
-		map.put("board", board);
-		map.put("id", id+"");
+		map.put("control", control);
+		map.put("userId", 2+"");
+		int end = pg * BoardConstant.MYPAGE_LIST_SIZE;
+		int start = end -BoardConstant.MYPAGE_LIST_SIZE;
+		map.put("start", start+"");
+		map.put("end", end+"");
 		List<FollowUserDto> list= MypageServiceImpl.getMypageService().followListView(map);
-		List<FollowCategoryDto> fclist = MypageServiceImpl.getMypageService().followCategoryListView(id);
+		List<FollowCategoryDto> fclist = MypageServiceImpl.getMypageService().followCategoryListView(map);
 		request.setAttribute("favoriteCategoryList", fclist);
 		request.setAttribute("list", list);
+		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().mypagePageNavigation(pg, key, word, control);
+		pageNavigation.setRoot(request.getContextPath());
+		pageNavigation.setListSize(BoardConstant.MYPAGE_LIST_SIZE);
+		pageNavigation.setPageSize(BoardConstant.MYPAGE_PAGE_SIZE);
 		
+		pageNavigation.setNavigator();
+		request.setAttribute("navigator", pageNavigation);
 		return "/page/mypage/mypage.jsp";
 	}
 

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,11 +40,12 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("userId", followCategoryDto.getUserId()+"");
 			sql.append("insert into follow_category \n");
 			sql.append("(follow_category_id,user_id,category_name,category_order) \n");
 			sql.append("	values (seq_follow_category_id.nextval,?,?, \n");
-			int size =followCategoryListView(followCategoryDto.getUserId()).size();
+			int size =followCategoryListView(map).size();
 			if(size==0) {
 				sql.append("1)");
 			} else {
@@ -255,22 +257,29 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("	select b.* \n");
 			sql.append("	from (select rownum rn,a.* \n");
-			sql.append("		from (select fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
+			sql.append("		from (select fc.follow_category_id,fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
 			sql.append("					u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
 			sql.append("				to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
 			sql.append("			from follow_user fu \n");
 			sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
 			sql.append("			join users u ON fu.reg_user_id = u.user_id  \n");
 			sql.append("			where fu.user_id=? \n");
+			if(!map.get("word").equals("")) {
+				sql.append(" and fc.follow_category_id=? \n");
+			}
 			sql.append("			ORDER BY fc.category_order ASC) a \n");
 			sql.append("	where rownum<=? \n");
 			sql.append("		)b \n");
 			sql.append("where b.rn>? \n");
-			
+			//TODO 검색조건설정
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, map.get("id"));
-			pstmt.setString(2, map.get("end"));
-			pstmt.setString(3, map.get("start"));
+			int idx=0;
+			pstmt.setString(++idx, map.get("userId"));
+			if(!map.get("word").equals("")) {
+			pstmt.setString(++idx, map.get("word"));
+			}
+			pstmt.setString(++idx, map.get("end"));
+			pstmt.setString(++idx, map.get("start"));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				fudto=new FollowUserDto();
@@ -295,25 +304,11 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	}
 
 
-	@Override
-	public int followMove(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int followDelete(int favoriteUserId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
 
 
 
 	@Override
-	public List<FollowCategoryDto> followCategoryListView(int userId) {
+	public List<FollowCategoryDto> followCategoryListView(Map<String,String> map) {
 		List<FollowCategoryDto> list = new ArrayList<FollowCategoryDto>();
 		FollowCategoryDto fcdto = null;
 		Connection conn = null;
@@ -326,9 +321,8 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("select * from follow_category \n");
 			sql.append("where user_id=? \n");
 			sql.append("order by category_order");
-
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, userId);
+			pstmt.setString(1, map.get("userId"));
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -506,7 +500,6 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setInt(1, followUserId);
-			
 			cnt=pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -565,7 +558,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	         sql.append(" 	join users u ON fu.reg_user_id = u.user_id  \n");
 	         sql.append(" 	where fu.user_id=? \n");
 	         pstmt=conn.prepareStatement(sql.toString());
-	         pstmt.setString(1, map.get("id"));
+	         pstmt.setString(1, map.get("userId"));
 	         rs=pstmt.executeQuery();
 	         rs.next();
 	         cnt=rs.getInt(1);
@@ -578,5 +571,46 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	      }
 	      return cnt;
 	}
+
+	@Override
+	public int followMove(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+
+	@Override
+	public int followDelete(int favoriteUserId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int followCategoryModify(int cateId, int seq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("update follow_user \n");
+			sql.append("	set follow_category_id=? \n");
+			sql.append("	where follow_user_id=?");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setInt(1, cateId);
+			pstmt.setInt(2, seq);			
+
+			cnt = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+		return cnt;
+	}
+
 
 }

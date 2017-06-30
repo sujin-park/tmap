@@ -16,7 +16,7 @@ public interface MypageFollowDao {
 	 FollowCategoryDto getCategoryId(int userId,int category_order);
 	 int upOrder(int followCategoryId);
 	 int downOrder(int followCategoryId);
-	 List<FollowCategoryDto> followCategoryListView(int userId);
+	 List<FollowCategoryDto> followCategoryListView(Map<String,String> map);
 	 //favorite_user
 	 FollowUserDto getFollow(int favoriteUserId);
 	 List<FollowUserDto> followListView(Map<String,String> map);
@@ -25,7 +25,7 @@ public interface MypageFollowDao {
 	 int followModify(FollowUserDto fudto);
 	 int followdelete(int followUserId);
 	 int totalArticleCount(Map<String,String> map);
-
+	 int followCategoryModify(int cateId,int seq);
 	 
 }
 

@@ -22,8 +22,7 @@ public class UserViewServiceImpl implements UserViewService {
 	
 	@Override
 	public ArrayList<UserDto> getArticles(String keyword, String type, String userOrder, String column) {
-		// TODO Auto-generated method stub
 		return UserViewDaoImpl.getUserViewDao().getArticles(keyword,type,userOrder,column);
-				}
+	}
 
 }

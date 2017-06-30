@@ -113,7 +113,16 @@ function deleteUser() {
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= userDto.getType()%></p>
+                                <%--  <p class="media-meta"><%= userDto.getType()%></p> --%>
+                                 <span class="media-meta"> 
+                                 <%if (userDto.getType() == 0) {%>
+                                 	
+                                 	<% } else if(userDto.getType() == 1) {%>
+                                 	회원
+                                 	<% } else {%>
+                                 	사장
+                                 	<% } %>
+                                 	</span>
                               </div>
                            </div>
                         </td>
@@ -127,7 +136,13 @@ function deleteUser() {
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <span class="media-meta"> <%=userDto.getGender()%></span>
+                                 <span class="media-meta"> 
+                                 <%if (userDto.getGender() == 1) {%>
+                                 	남성
+                                 	<% } else {%>
+                                 	여성
+                                 	<% } %>
+                                 </span>
                               </div>
                            </div>
                         </td>
@@ -162,4 +177,5 @@ function deleteUser() {
          </div>
       </div>
    </div>
-</section>S
+</section>
+
