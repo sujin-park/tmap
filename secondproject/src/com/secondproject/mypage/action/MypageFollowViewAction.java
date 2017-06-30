@@ -11,13 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
 import com.secondproject.admin.service.CommonServiceImpl;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.model.FollowCategoryDto;
 import com.secondproject.mypage.model.FollowUserDto;
 import com.secondproject.mypage.service.MypageServiceImpl;
-import com.secondproject.util.BoardConstance;
-import com.secondproject.util.Encoding;
-import com.secondproject.util.NumberCheck;
-import com.secondproject.util.PageNavigation;
+import com.secondproject.util.*;
 
 public class MypageFollowViewAction implements Action{
 
@@ -36,8 +34,8 @@ public class MypageFollowViewAction implements Action{
 		map.put("word", word);
 		map.put("board", board);
 		map.put("id", id+"");
-		int end = pg * BoardConstance.MYPAGE_LIST_SIZE;
-		int start = end -BoardConstance.MYPAGE_LIST_SIZE;
+		int end = pg * BoardConstant.MYPAGE_LIST_SIZE;
+		int start = end -BoardConstant.MYPAGE_LIST_SIZE;
 		map.put("start", start+"");
 		map.put("end", end+"");
 		List<FollowUserDto> list= MypageServiceImpl.getMypageService().followListView(map);
@@ -46,8 +44,8 @@ public class MypageFollowViewAction implements Action{
 		request.setAttribute("list", list);
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().mypagePageNavigation(pg, key, word, board);
 		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setListSize(BoardConstance.MYPAGE_LIST_SIZE);
-		pageNavigation.setPageSize(BoardConstance.MYPAGE_PAGE_SIZE);
+		pageNavigation.setListSize(BoardConstant.MYPAGE_LIST_SIZE);
+		pageNavigation.setPageSize(BoardConstant.MYPAGE_PAGE_SIZE);
 		
 		pageNavigation.setNavigator();
 		request.setAttribute("navigator", pageNavigation);

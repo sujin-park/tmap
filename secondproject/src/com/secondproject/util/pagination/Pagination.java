@@ -1,7 +1,7 @@
 package com.secondproject.util.pagination;
 
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.constant.ContextPath;
-import com.secondproject.util.BoardConstance;
 import com.secondproject.util.QueryString;
 
 public class Pagination {
@@ -74,10 +74,10 @@ public class Pagination {
 	public void setHtml() {
 		
 		if (listCountPerPage == 0) {
-			listCountPerPage = BoardConstance.LIST_SIZE;
+			listCountPerPage = BoardConstant.LIST_SIZE;
 		}
 		if (pageCount == 0) {
-			pageCount = BoardConstance.PAGE_SIZE;
+			pageCount = BoardConstant.PAGE_SIZE;
 		}
 		
 		totalPageCount = totalCount / listCountPerPage + 1;

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.review.model.ReviewDto;
 import com.secondproject.review.model.ReviewListDto;
-import com.secondproject.util.BoardConstance;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
@@ -222,8 +222,8 @@ public class ReviewDaoImpl implements ReviewDao {
 		String word = (String) params.get("word");
 		String orderKey = (String) params.get("orderKey");
 		String orderValue = (String) params.get("orderValue");
-		int pageEnd = (int) params.get("pg") * BoardConstance.SHOP_REVIEW_LIST_COUNT_PER_PAGE;
-		int pageStart = pageEnd - BoardConstance.SHOP_REVIEW_LIST_COUNT_PER_PAGE + 1;
+		int pageEnd = (int) params.get("pg") * BoardConstant.SHOP_REVIEW_LIST_COUNT_PER_PAGE;
+		int pageStart = pageEnd - BoardConstant.SHOP_REVIEW_LIST_COUNT_PER_PAGE + 1;
 
 		// TODO 유효성 검사 해야되는데...너 무 귀 찮 다.
 		if (orderKey.isEmpty()) {

@@ -11,14 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
 import com.secondproject.action.BoardCommonAction;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.review.model.ReviewListDto;
 import com.secondproject.review.service.ReviewServiceImpl;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.shop.service.ShopServiceImpl;
-import com.secondproject.util.BoardConstance;
-import com.secondproject.util.NumberCheck;
-import com.secondproject.util.PageNavigation;
-import com.secondproject.util.QueryString;
+import com.secondproject.util.*;
 import com.secondproject.util.pagination.Pagination;
 
 public class ShopViewAction extends BoardCommonAction implements Action {
@@ -38,8 +36,8 @@ public class ShopViewAction extends BoardCommonAction implements Action {
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(reviewListTotalCount);
 		pagination.setCurrentPageNum((int) params.get("pg"));
-		pagination.setListCountPerPage(BoardConstance.SHOP_REVIEW_LIST_COUNT_PER_PAGE);
-		pagination.setPageCount(BoardConstance.SHOP_REVIEW_PAGE_COUNT);
+		pagination.setListCountPerPage(BoardConstant.SHOP_REVIEW_LIST_COUNT_PER_PAGE);
+		pagination.setPageCount(BoardConstant.SHOP_REVIEW_PAGE_COUNT);
 		pagination.setStartQueryString("/shop?act=view&shopId=" + shopId);
 		
 		ArrayList<String> filter = new ArrayList<String>();

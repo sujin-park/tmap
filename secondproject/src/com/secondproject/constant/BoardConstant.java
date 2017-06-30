@@ -1,6 +1,6 @@
-package com.secondproject.util;
+package com.secondproject.constant;
 
-public class BoardConstance {
+public class BoardConstant {
 
 	public final static String DEFAULT_CHAR_SET = "EUC-KR";
 	

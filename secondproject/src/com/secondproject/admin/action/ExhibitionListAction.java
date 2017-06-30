@@ -1,6 +1,7 @@
 package com.secondproject.admin.action;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,17 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
+import com.secondproject.action.BoardCommonAction;
 import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.model.ExhibitionDto;
 import com.secondproject.admin.service.CommonServiceImpl;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.util.*;
 
-public class ExhibitionListAction implements Action {
+public class ExhibitionListAction extends BoardCommonAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		setBoardParameter(request);
+		HashMap<String, Object> params = getParameterMap();
+		
 		String path = "/adminIndex.jsp";
 		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
 		String key = Encoding.nullToBlank(request.getParameter("key"));
@@ -41,8 +48,8 @@ public class ExhibitionListAction implements Action {
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setPageSize(BoardConstance.PAGE_SIZE);
-		pageNavigation.setListSize(BoardConstance.LIST_SIZE);
+		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
+		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
 		pageNavigation.setNavigator();
 		request.setAttribute("navigator", pageNavigation);
 		if(board.equals("exhibition")) {

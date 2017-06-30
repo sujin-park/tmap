@@ -21,7 +21,7 @@
         			<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
 			          <li><a href="#">인증 대기리스트</a></li>
-			          <li><a href="#">사장 리스트</a></li>
+			          <li><a href="#">사장 리스트</a></li> 
 			        </ul>
 			    </li>
 				<li><a href="#">매장관리</a></li>

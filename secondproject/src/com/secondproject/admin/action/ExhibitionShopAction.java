@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.secondproject.action.Action;
 import com.secondproject.admin.service.CommonServiceImpl;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.util.*;
 
@@ -33,8 +34,8 @@ public class ExhibitionShopAction implements Action {
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setPageSize(BoardConstance.PAGE_SIZE);
-		pageNavigation.setListSize(BoardConstance.LIST_SIZE);
+		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
+		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
 		pageNavigation.setNavigator();
 		request.setAttribute("navigator", pageNavigation);
 		if (size != 0) {
