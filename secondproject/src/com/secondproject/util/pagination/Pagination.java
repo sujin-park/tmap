@@ -1,15 +1,17 @@
 package com.secondproject.util.pagination;
 
 import com.secondproject.constant.ContextPath;
-import com.secondproject.util.Params;
+import com.secondproject.util.BoardConstance;
+import com.secondproject.util.QueryString;
 
 public class Pagination {
 
 	private int currentPageNum;
 	private int listCountPerPage;
-	private int pageButtonCount;
+	private int pageCount;
 	private int totalCount;
 	private int totalPageCount;
+	private String startQueryString;
 	private String queryString;
 	private String html;
 
@@ -29,12 +31,12 @@ public class Pagination {
 		this.listCountPerPage = listCountPerPage;
 	}
 
-	public int getPageButtonCount() {
-		return pageButtonCount;
+	public int getPageCount() {
+		return pageCount;
 	}
 
-	public void setPageButtonCount(int pageButtonCount) {
-		this.pageButtonCount = pageButtonCount;
+	public void setPageCount(int pageButtonCount) {
+		this.pageCount = pageButtonCount;
 	}
 
 	public int getTotalCount() {
@@ -43,6 +45,14 @@ public class Pagination {
 
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
+	}
+
+	public String getStartQueryString() {
+		return startQueryString;
+	}
+
+	public void setStartQueryString(String startQueryString) {
+		this.startQueryString = startQueryString;
 	}
 
 	public String getQueryString() {
@@ -57,32 +67,73 @@ public class Pagination {
 		return html;
 	}
 
+	private String getPageHref(int pageNum) {
+		return ContextPath.root + startQueryString + "&pg=" + pageNum + queryString;
+	} 
+	
 	public void setHtml() {
+		
+		if (listCountPerPage == 0) {
+			listCountPerPage = BoardConstance.LIST_SIZE;
+		}
+		if (pageCount == 0) {
+			pageCount = BoardConstance.PAGE_SIZE;
+		}
+		
 		totalPageCount = totalCount / listCountPerPage + 1;
 		
-		int startPageNum = ((currentPageNum - 1) / pageButtonCount * pageButtonCount) + 1;
-		int endPageNum = startPageNum - 1 + pageButtonCount;
-		
-		int prevPageNum = 0;
-		int nextPageNum = 0;
+		int startPoint = (currentPageNum - 1) / pageCount * pageCount;
+		int startPageNum = startPoint + 1;
+		int endPageNum = startPageNum - 1 + pageCount;
+		int prevPageNum = (startPageNum - 1 > 0) ? startPageNum - 1 : 0;
+		int nextPageNum = (endPageNum + 1 <= totalPageCount) ? endPageNum + 1 : 0;
 		int lastPageNum = totalPageCount;
+		
+		String firstPageHref = "javascript:;";
+		String prevPageHref = "javascript:;";
+		String nextPageHref = "javascript:;";
+		String lastPageHref = "javascript:;";
+		String isFirstPageActive =  "class=\"disabled\"";
+		String isPrevPageActive =  "class=\"disabled\"";
+		String isNextPageActive =  "class=\"disabled\"";
+		String isLastPageActive =  "class=\"disabled\"";
+		
+		if (currentPageNum != 1) {
+			firstPageHref = getPageHref(1);
+			isFirstPageActive = "";
+		}
+		
+		if (prevPageNum != 0) {
+			prevPageHref = getPageHref(prevPageNum);
+			isPrevPageActive = "";
+		}
+		
+		if (nextPageNum != 0) {
+			nextPageHref = getPageHref(nextPageNum);
+			isNextPageActive = "";
+		}
+		
+		if (currentPageNum != totalPageCount) {
+			lastPageHref = getPageHref(lastPageNum);
+			isLastPageActive = "";
+		}
 		
 		StringBuffer html = new StringBuffer();
 		html.append("<nav aria-label=\"Page navigation\">\n");
 		html.append("	<ul class=\"pagination\">\n");
-		html.append("		<li><a href=\"#\">처음</a></li>\n");
-		html.append("		<li><a href=\"#\" aria-label=\"Previous\"> <span aria-hidden=\"true\">이전</span></a></li>\n");
+		html.append("		<li " + isFirstPageActive + "><a href=\"" + firstPageHref + "\">처음</a></li>\n");
+		html.append("		<li " + isPrevPageActive + "><a href=\"" + prevPageHref + "\" aria-label=\"Previous\"> <span aria-hidden=\"true\">이전</span></a></li>\n");
 		
 		for (int i = startPageNum; i <= endPageNum; i++) {
-			html.append("		<li><a href=\"#\">" + i + "</a></li>\n");
+			if (i > lastPageNum) {
+				break;
+			}
+			String isActive = (currentPageNum == i) ? "class=\"active\"" : "";
+			html.append("		<li " + isActive + "><a href=\"" + getPageHref(i) + "\">" + i + "</a></li>\n");
 		}
 		
-		html.append("		<li><a href=\"#\">2</a></li>\n");
-		html.append("		<li><a href=\"#\">3</a></li>\n");
-		html.append("		<li><a href=\"#\">4</a></li>\n");
-		html.append("		<li><a href=\"#\">5</a></li>\n");
-		html.append("		<li><a href=\"#\" aria-label=\"Next\"> <span aria-hidden=\"true\">다음</span></a></li>\n");
-		html.append("		<li><a href=\"#\">끝</a></li>\n");
+		html.append("		<li " + isNextPageActive + "><a href=\"" + nextPageHref + "\" aria-label=\"Next\"> <span aria-hidden=\"true\">다음</span></a></li>\n");
+		html.append("		<li " + isLastPageActive + "><a href=\"" + lastPageHref + "\">끝</a></li>\n");
 		html.append("	</ul>\n");
 		html.append("</nav>\n");
 		this.html = html.toString();

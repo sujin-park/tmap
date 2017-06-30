@@ -1,11 +1,13 @@
 <%@page import="com.secondproject.util.PageNavigation"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"%>
-
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
 String order = (String) request.getAttribute("order");
 PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
+if (order == null) {
+	order = "asc";
+	}
 %>
 <section class="content page-top row">
 	<div class="col-md-10 col-md-push-1">
@@ -20,16 +22,6 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 							<button type="button" class="btn btn-warning btn-filter" onclick="javascript:deleteExhibition();">기획전 삭제</button>
 						</div>
 					</div>
-					
-					<!-- <div class="pull-right col-md-5">
-						<div class="btn-group pull-right">
-							<select class="form-control" name="key">
-									  	<option value="orderby">배치순</option>
-									  	<option value="nameby">가나다순</option>
-									  	<option value="visiableby">노출여부순</option>
-									</select>
-						</div>
-					</div> -->
 				</div>
 				<div class="table-container table-responsive">
 					
@@ -43,10 +35,10 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 									</div>
 								</td>
 								<td>사진</td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=nameby"  style="text-decoration:none; color:red">기획전명</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&order=<%=order%>&column=nameby"  style="text-decoration:none; color:red">기획전명</a></td>
 								<td>내용</td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=visiableby" style="text-decoration:none; color:red">노출여부</a></td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&order=<%=order%>&column=orderby" style="text-decoration:none; color:red">배치순서</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&order=<%=order%>&column=visiableby" style="text-decoration:none; color:red">노출여부</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&order=<%=order%>&column=orderby" style="text-decoration:none; color:red">배치순서</a></td>
 								<td>Edit</td>
 							</tr>
 							<%
@@ -64,9 +56,9 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 								</td>
 								<td>
 									<div class="thumbnail-item">
-										<a href="#"><img src="images/small1.jpg" class="thumbnail" /></a>
+										<a href="<%=ContextPath.root%>/<%=exhibitionDto.getExImage()%>"><img src="<%=ContextPath.root%>/upload/<%=exhibitionDto.getExhibitionId()%>/thumb_<%=exhibitionDto.getExImage()%>" class="thumbnail" /></a>
 										<div class="tooltip">
-										<img src="images/big1.jpg" alt="" width="330" height="185" />
+										<img src="<%=ContextPath.root%>/<%=exhibitionDto.getExImage()%>" alt="" width="150" height="150" />
 										<span class="overlay"></span>
 										</div> 
 									</div> 
@@ -117,6 +109,7 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 				</div>
 				<form name="searchForm" method="get" action="">
 					<input type="hidden" name="act" value="mvexhibition"> 
+					<input type="hidden" name="board" value="exhibition"> 
 						<div class="pull-right col-md-5">
 							<div class="input-group">
 								<div class="input-group-btn">

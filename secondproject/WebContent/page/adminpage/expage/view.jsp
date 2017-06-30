@@ -7,7 +7,8 @@
 %>
 <script>
 function deleteShoplist(exseq ,shopseq) {
-			$.get("/secondproject/exhibition?act=deleteShop&exseq="+exseq +"&shopseq=" + shopseq, function(data, status){
+			$.get("/secondproject/exhibition?act=deleteShop&exseq="+exseq +"&shopseq=" + shopseq, 
+				function(data, status){
 				var tt = document.getElementById("exShoplist");
 				tt.innerHTML=data;
 			});
@@ -33,6 +34,7 @@ function moveList() {
 						<div class="form-group">
 							<input type="hidden" name="act" value="modify">
 							<input type="hidden" name="seq" value="<%=exhibitionDto.getExhibitionId()%>">
+							<input type="hidden" name="eximage" value="<%=exhibitionDto.getExImage()%>">
 							<label for="inputName">기획전 이름</label>
 							<input type="text" class="form-control" name="subject" value="<%=exhibitionDto.getExTitle()%>">
 						</div>
@@ -56,15 +58,15 @@ function moveList() {
 									<button class="btn btn-warning" type="button" onclick="javascript:mvshoplist('<%=exhibitionDto.getExhibitionId()%>');">매장 추가</button>
 								</span>
 						</div>
-						<div class="table-container table-responsive">
+					<div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
 						<thead>
 							<tr class="warning" align="center">
 								<td>매장명</td>
 								<td>음식종류</td>
-								<td>평점</td>
 								<td>매장 주소</td>
 								<td>영업시간</td>
+								<td>평점</td>
 								<td>상세 설명</td>
 								<td>Delete</td>
 							</tr>
@@ -131,11 +133,16 @@ function moveList() {
 						</tbody>
 					</table>
 				</div>
+				<div class="col-md-6">
+					<img src="<%=ContextPath.root%>/upload/<%=exhibitionDto.getExhibitionId()%>/<%=exhibitionDto.getExImage()%>" width="500" padding="0px"/>
+				</div>
+				<div class="col-md-6">
 						<div class="form-group">
 							<label for="inputContent">기획전 설명</label>
 							<textarea class="form-control" id="content" name="content" rows="10" cols="10">
 <%=exhibitionDto.getExDesc()%>							
 </textarea>
+						</div>
 						</div>
 						<div class="btn-group pull-right">
 							<button type="button" class="btn btn-warning" onclick="javascript:modifyArticle();">수정</button>

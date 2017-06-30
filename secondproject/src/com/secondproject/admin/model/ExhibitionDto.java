@@ -7,6 +7,13 @@ public class ExhibitionDto{
 	private String exImage;
 	private int exOrder;
 	private int exVisiable;
+	private String exSaveFolder;
+	public String getExSaveFolder() {
+		return exSaveFolder;
+	}
+	public void setExSaveFolder(String exSaveFolder) {
+		this.exSaveFolder = exSaveFolder;
+	}
 	public int getExhibitionId() {
 		return exhibitionId;
 	}

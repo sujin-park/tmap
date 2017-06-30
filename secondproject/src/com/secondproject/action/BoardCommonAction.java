@@ -1,58 +1,45 @@
-package com.secondproject.util;
+package com.secondproject.action;
 
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Params {
+import com.secondproject.util.Encoding;
+import com.secondproject.util.NumberCheck;
 
+public class BoardCommonAction {
+	
 	private HttpServletRequest request;
 	private int pg;
 	private String key;
 	private String word;
 	private String orderKey;
 	private String orderValue;
-	private HashMap<String, Object> optionParams;
-
-	public Params(HttpServletRequest request) {
-		this(request, null);
-	}
+	HashMap<String, Object> parameterMap;
 	
-	public Params(HttpServletRequest request, HashMap<String, Object> optionParams) {
+	protected void setBoardParameter(HttpServletRequest request) {
 		this.request = request;
-		this.optionParams = optionParams;
 		pg = NumberCheck.nullToOne(getParameterAfterCheck("pg"));
 		key = Encoding.nullToBlank(getParameterAfterCheck("key"));
 		word = Encoding.nullToBlank(getParameterAfterCheck("word"));
 		orderKey = Encoding.nullToBlank(getParameterAfterCheck("orderKey"));
 		orderValue = Encoding.nullToBlank(getParameterAfterCheck("orderValue"));
-	}
-
-	public Object getOptionValue(String key) {
-		return optionParams.get(key);
+		parameterMap = new HashMap<String, Object>();
+		parameterMap.put("pg", pg);
+		parameterMap.put("key", key);
+		parameterMap.put("word", word);
+		parameterMap.put("orderKey", orderKey);
+		parameterMap.put("orderValue", orderValue);
 	}
 	
 	private String getParameterAfterCheck(String key) {
 		return whiteSpaceToBlank(request.getParameter(key));
 	}
-
+	
 	private String whiteSpaceToBlank(String tmp) {
 		return tmp == null ? tmp : tmp.trim();
 	}
 
-	public String getQueryString() {
-		return "&pg=" + pg + "&key=" + key + "&word=" + word + "&orderKey=" + orderKey + "&orderValue=" + orderValue;
-	}
-
-	public String getStartQueryString() {
-		String queryString = getQueryString();
-		return "?" + queryString.substring(1, queryString.length());
-	}
-
-	public String getQueryStringWithoutPg() {
-		return "&key=" + key + "&word=" + word + "&orderKey=" + orderKey + "&orderValue=" + orderValue;
-	}
-	
 	public int getPg() {
 		return pg;
 	}
@@ -93,4 +80,13 @@ public class Params {
 		this.orderValue = orderValue;
 	}
 
+	public HashMap<String, Object> getParameterMap() {
+		return parameterMap;
+	}
+
+	public void setParameterMap(HashMap<String, Object> parameterMap) {
+		this.parameterMap = parameterMap;
+	}
+	
+	
 }

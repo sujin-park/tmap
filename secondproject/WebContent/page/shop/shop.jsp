@@ -1,5 +1,4 @@
 <%@page import="com.secondproject.util.pagination.Pagination"%>
-<%@page import="com.secondproject.util.Params"%>
 <%@page import="com.secondproject.review.model.ReviewListDto"%>
 <%@page import="com.secondproject.review.model.ReviewDto"%>
 <%@page import="java.util.ArrayList"%>
@@ -10,12 +9,13 @@
 
 <%
 	Pagination pagination = (Pagination) request.getAttribute("pagination");
-	Params params = (Params) request.getAttribute("params");
 	ShopDto shopDto = (ShopDto) request.getAttribute("shopDto");
 	ArrayList<ReviewListDto> reviewList = (ArrayList<ReviewListDto>) request.getAttribute("reviewList");
 %>
 
 <div class="page-container">
+	<button id="test">TEST</button>
+	<button id="test2">TEST2</button>
 	<div class="container">
 
 		<div class="row">
@@ -89,4 +89,38 @@
 		</div>
 	</div>
 </div>
-
+<script>
+$("#test").on('click', function() {
+	$.ajax({
+		method: 'post',
+		url: CONTEXT_PATH + '/shop',
+		data: {
+			'act': 'test',
+			'key' : 'isChange'
+		},
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(error) {
+			alert('검색오류');
+			SYSOUT(error);
+		}
+	})
+});
+$("#test2").on('click', function() {
+	$.ajax({
+		method: 'post',
+		url: CONTEXT_PATH + '/shop',
+		data: {
+			'act': 'test2'
+		},
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(error) {
+			alert('검색오류');
+			SYSOUT(error);
+		}
+	})
+});
+</script>

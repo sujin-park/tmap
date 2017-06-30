@@ -31,9 +31,14 @@ public class AdminController extends HttpServlet {
 		if ("mvexhibition".equals(act)) {
 			path ="/template/admin/admin.jsp";
 			contentPath = AdminFactory.getExhibitionListAction().execute(request, response);
-	
+//			request.setAttribute("pg", pg + "");
+//			request.setAttribute("key", key);
+//			request.setAttribute("word", word);
+//			request.setAttribute("order", order);
+//			request.setAttribute("column", column);
+//			request.setAttribute("board", board);
 			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
-			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("contentPath", contentPath + queryString);
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			PageMove.forward(path, request, response);
@@ -76,7 +81,7 @@ public class AdminController extends HttpServlet {
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
 			PageMove.forward(path, request, response);
-		}
+		} 
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");

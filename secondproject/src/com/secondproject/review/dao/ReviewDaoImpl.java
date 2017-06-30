@@ -6,10 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.secondproject.review.model.ReviewDto;
 import com.secondproject.review.model.ReviewListDto;
-import com.secondproject.util.Params;
+import com.secondproject.util.BoardConstance;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
@@ -96,40 +97,40 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public int getTotalCountByShopNotBlind(Params params) {
+	public int getTotalCountByShopNotBlind(Map<String, Object> params) {
 		return getTotalCount("shop", "notBlind", params);
 	}
 
 	@Override
-	public int getTotalCountByShopJustBlind(Params params) {
+	public int getTotalCountByShopJustBlind(Map<String, Object> params) {
 		return getTotalCount("shop", "justBlind", params);
 	}
 
 	@Override
-	public int getTotalCountByShopAll(Params params) {
+	public int getTotalCountByShopAll(Map<String, Object> params) {
 		return getTotalCount("shop", null, params);
 	}
 
 	@Override
-	public int getTotalCountByUserNotBlind(Params params) {
+	public int getTotalCountByUserNotBlind(Map<String, Object> params) {
 		return getTotalCount("user", "notBlind", params);
 	}
 
 	@Override
-	public int getTotalCountByUserJustBlind(Params params) {
+	public int getTotalCountByUserJustBlind(Map<String, Object> params) {
 		return getTotalCount("user", "justBlind", params);
 	}
 
 	@Override
-	public int getTotalCountByUserAll(Params params) {
+	public int getTotalCountByUserAll(Map<String, Object> params) {
 		return getTotalCount("user", null, params);
 	}
 
 	@Override
-	public int getTotalCount(String filterShopOrUser, String filterBlind, Params params) {
+	public int getTotalCount(String filterShopOrUser, String filterBlind, Map<String, Object> params) {
 		int totalCount = 0;
-		String key = params.getKey();
-		String word = params.getWord();
+		String key = (String) params.get("key");
+		String word = (String) params.get("word");
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -159,9 +160,9 @@ public class ReviewDaoImpl implements ReviewDao {
 
 			int parameterIndex = 0;
 			if (filterShopOrUser.equals("shop")) {
-				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("shopId")); // shopId
+				pstmt.setInt(++parameterIndex, (int) params.get("shopId")); // shopId
 			} else {
-				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("userId")); // userId
+				pstmt.setInt(++parameterIndex, (int) params.get("userId")); // userId
 			}
 
 			if (key.isEmpty() == false && word.isEmpty() == false) {
@@ -184,45 +185,45 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewListByShopNotBlind(Params params) {
+	public List<ReviewListDto> getReviewListByShopNotBlind(Map<String, Object> params) {
 		return getReviewList("shop", "notBlind", params);
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewListByShopJustBlind(Params params) {
+	public List<ReviewListDto> getReviewListByShopJustBlind(Map<String, Object> params) {
 		return getReviewList("shop", "justBlind", params);
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewListByShopAll(Params params) {
+	public List<ReviewListDto> getReviewListByShopAll(Map<String, Object> params) {
 		return getReviewList("shop", null, params);
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewListByUserNotBlind(Params params) {
+	public List<ReviewListDto> getReviewListByUserNotBlind(Map<String, Object> params) {
 		return getReviewList("user", "notBlind", params);
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewListByUserJustBlind(Params params) {
+	public List<ReviewListDto> getReviewListByUserJustBlind(Map<String, Object> params) {
 		return getReviewList("user", "justBlind", params);
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewListByUserAll(Params params) {
+	public List<ReviewListDto> getReviewListByUserAll(Map<String, Object> params) {
 		return getReviewList("user", null, params);
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewList(String filterShopOrUser, String filterBlind, Params params) {
+	public List<ReviewListDto> getReviewList(String filterShopOrUser, String filterBlind, Map<String, Object> params) {
 		ArrayList<ReviewListDto> list = new ArrayList<ReviewListDto>();
 
-		String key = params.getKey();
-		String word = params.getWord();
-		String orderKey = params.getOrderKey();
-		String orderValue = params.getOrderValue();
-		int pageEnd = params.getPg() * 6;
-		int pageStart = pageEnd - 5;
+		String key = (String) params.get("key");
+		String word = (String) params.get("word");
+		String orderKey = (String) params.get("orderKey");
+		String orderValue = (String) params.get("orderValue");
+		int pageEnd = (int) params.get("pg") * BoardConstance.SHOP_REVIEW_LIST_COUNT_PER_PAGE;
+		int pageStart = pageEnd - BoardConstance.SHOP_REVIEW_LIST_COUNT_PER_PAGE + 1;
 
 		// TODO 유효성 검사 해야되는데...너 무 귀 찮 다.
 		if (orderKey.isEmpty()) {
@@ -250,11 +251,21 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("                    review.review_id, review.user_id, user_email, review.title, review.score, review.img, review.reg_date,  \n");
 			sql.append("                    NVL(gbc.good_count, 0) good_count, \n");
 			sql.append("                    NVL(gbc.bad_count, 0) bad_count \n");
+			
+			if (filterShopOrUser.equals("user")) {
+				sql.append("                    ,shop.title, shop.lat, shop.lng, shop.address \n");
+			}
+			
 			sql.append("                FROM \n");
 			sql.append("                    ( \n");
 			sql.append("                        SELECT  \n");
 			sql.append("                            review_id, user_id, title, score, img, reg_date, \n");
 			sql.append("                            (SELECT email FROM users where user_id = review.user_id) user_email \n");
+			
+			if (filterShopOrUser.equals("user")) {
+				sql.append("                            ,shop.title as shop_title, lat, lng, address \n");
+			}
+			
 			sql.append("                        FROM review \n");
 			sql.append("                        WHERE \n");
 			sql.append("                            " + (filterShopOrUser.equals("shop") ? "shop_id" : "user_id") + " = ? \n");
@@ -281,21 +292,25 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("                        SELECT review_id, SUM(good) good_count, SUM(bad) bad_count  \n");
 			sql.append("                        FROM review_good_bad GROUP BY review_id \n");
 			sql.append("                    ) gbc \n");
-
 			sql.append("                    ON gbc.review_id = review.review_id \n");
+			
+			if (filterShopOrUser.equals("user")) {
+				sql.append("                    JOIN shop ON review.shop_id = shop.shop_id \n");
+			}
+			
 			sql.append("                ORDER BY " + orderKey + " " + orderValue + " \n");
 			sql.append("            ) A \n");
 			sql.append("        WHERE rownum <= ? \n");
 			sql.append("    ) B \n");
 			sql.append("WHERE B.num >= ? \n");
-			// System.out.println(sql.toString());
+			//System.out.println(sql.toString());
 			pstmt = conn.prepareStatement(sql.toString());
 
 			int parameterIndex = 0;
 			if (filterShopOrUser.equals("shop")) {
-				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("shopId")); // shopid
+				pstmt.setInt(++parameterIndex, (int) params.get("shopId")); // shopid
 			} else {
-				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("userId")); // userid
+				pstmt.setInt(++parameterIndex, (int) params.get("userId")); // userid
 			}
 
 			if (key.isEmpty() == false && word.isEmpty() == false) {

@@ -26,7 +26,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 	// 새 기획전 등록
 	@Override
-	public int writeExhibition(ExhibitionDetailDto exhibitionDetailDto) {
+	public int writeExhibition(ExhibitionDto exhibitionDto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int cnt = 0;
@@ -35,16 +35,16 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("insert \n");
 			sql.append("	into exhibition (exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable) \n");
-			sql.append("	values (?, ?, ?, ?, ?, ?) \n");
-
+			sql.append("	values (?, ?, ?, ?, (select nvl(max(ex_order),0) from exhibition) + 1, ?) \n");
+			
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
-			pstmt.setInt(++idx, exhibitionDetailDto.getExhibitionId());
-			pstmt.setString(++idx, exhibitionDetailDto.getExTitle());
-			pstmt.setString(++idx, exhibitionDetailDto.getExDesc());
-			pstmt.setString(++idx, exhibitionDetailDto.getExImage());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExOrder());
-			pstmt.setInt(++idx, exhibitionDetailDto.getExVisiable());
+			System.out.println(exhibitionDto.getExImage() + "exhibitionDao");
+			pstmt.setInt(++idx, exhibitionDto.getExhibitionId());
+			pstmt.setString(++idx, exhibitionDto.getExTitle());
+			pstmt.setString(++idx, exhibitionDto.getExDesc());
+			pstmt.setString(++idx, exhibitionDto.getExImage());
+			pstmt.setInt(++idx, exhibitionDto.getExVisiable());
 			cnt = pstmt.executeUpdate();
 
 		} catch (SQLException e) {

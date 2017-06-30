@@ -38,7 +38,10 @@ public class ReviewListAction implements Action {
 		request.setAttribute("order", order);
 		request.setAttribute("column", column);
 		request.setAttribute("reviewList", list);
-
+		for (int i=0; i<list.size(); i++) { 
+			AdminReviewDto adminReviewDto = list.get(i);
+			System.out.println(adminReviewDto.getImg());
+		}
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());

@@ -1,10 +1,11 @@
 package com.secondproject.review.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.secondproject.review.model.ReviewDto;
 import com.secondproject.review.model.ReviewListDto;
-import com.secondproject.util.Params;
+import com.secondproject.util.QueryString;
 
 public interface ReviewDao {
 
@@ -12,32 +13,32 @@ public interface ReviewDao {
 
 	ReviewDto getReview(int reviewId);
 
-	int getTotalCountByShopNotBlind(Params params);
+	int getTotalCountByShopNotBlind(Map<String, Object> params);
 
-	int getTotalCountByShopJustBlind(Params params);
+	int getTotalCountByShopJustBlind(Map<String, Object> params);
 
-	int getTotalCountByShopAll(Params params);
+	int getTotalCountByShopAll(Map<String, Object> params);
 
-	int getTotalCountByUserNotBlind(Params params);
+	int getTotalCountByUserNotBlind(Map<String, Object> params);
 
-	int getTotalCountByUserJustBlind(Params params);
+	int getTotalCountByUserJustBlind(Map<String, Object> params);
 
-	int getTotalCountByUserAll(Params params);
+	int getTotalCountByUserAll(Map<String, Object> params);
 
-	int getTotalCount(String filterShopOrUser, String filterBlind, Params params);
+	int getTotalCount(String filterShopOrUser, String filterBlind, Map<String, Object> params);
 
-	List<ReviewListDto> getReviewListByShopNotBlind(Params params);
+	List<ReviewListDto> getReviewListByShopNotBlind(Map<String, Object> params);
 
-	List<ReviewListDto> getReviewListByShopJustBlind(Params params);
+	List<ReviewListDto> getReviewListByShopJustBlind(Map<String, Object> params);
 
-	List<ReviewListDto> getReviewListByShopAll(Params params);
+	List<ReviewListDto> getReviewListByShopAll(Map<String, Object> params);
 
-	List<ReviewListDto> getReviewListByUserNotBlind(Params params);
+	List<ReviewListDto> getReviewListByUserNotBlind(Map<String, Object> params);
 
-	List<ReviewListDto> getReviewListByUserJustBlind(Params params);
+	List<ReviewListDto> getReviewListByUserJustBlind(Map<String, Object> params);
 
-	List<ReviewListDto> getReviewListByUserAll(Params params);
+	List<ReviewListDto> getReviewListByUserAll(Map<String, Object> params);
 
-	List<ReviewListDto> getReviewList(String filterShopOrUser, String filterBlind, Params params);
+	List<ReviewListDto> getReviewList(String filterShopOrUser, String filterBlind, Map<String, Object> params);
 
 }
