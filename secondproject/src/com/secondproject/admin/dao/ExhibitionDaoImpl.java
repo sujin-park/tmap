@@ -39,7 +39,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
-			System.out.println(exhibitionDto.getExImage() + "exhibitionDao");
 			pstmt.setInt(++idx, exhibitionDto.getExhibitionId());
 			pstmt.setString(++idx, exhibitionDto.getExTitle());
 			pstmt.setString(++idx, exhibitionDto.getExDesc());
@@ -57,29 +56,29 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 	}
 
 	// 기획전 글번호
-	@Override
-	public int getNextSeq() {
-		int seq = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBConnection.getConnection();
-			String sql = "select seq_exhibition_id.nextval from dual";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			rs.next();
-			seq = rs.getInt(1);
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-			DBClose.close(conn, pstmt, rs);
-		}
-
-		return seq;
-	}
+//	@Override
+//	public int getNextSeq() {
+//		int seq = 0;
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//
+//		try {
+//			conn = DBConnection.getConnection();
+//			String sql = "select seq_exhibition_id.nextval from dual";
+//			pstmt = conn.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+//			rs.next();
+//			seq = rs.getInt(1);
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		} finally {
+//			DBClose.close(conn, pstmt, rs);
+//		}
+//
+//		return seq;
+//	}
 
 	// 기획전 리스트
 	@Override
