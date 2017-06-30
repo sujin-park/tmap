@@ -55,6 +55,6 @@ public class MypageFollowViewAction implements Action{
 		
 		return path;
 	}
-
+ 
 }
 

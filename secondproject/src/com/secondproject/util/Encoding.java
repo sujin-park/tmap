@@ -46,6 +46,6 @@ public class Encoding {
 			e.printStackTrace();
 		}
 		return url;
-		
+		 
 	}
 }
