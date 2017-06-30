@@ -29,7 +29,7 @@ public class LoginAction implements Action{
 			session.setAttribute("logininfo", userDto);
 			path = "/page/joinlogin/login/loginok.jsp";
 			System.out.println("dto있냐??");
-		} else {
+		} else { 
 			System.out.println("dto 없냐?");
 			path = "/page/joinlogin/login/loginfail.jsp";
 		}
