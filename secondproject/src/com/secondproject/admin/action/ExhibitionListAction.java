@@ -21,23 +21,23 @@ public class ExhibitionListAction implements Action {
 			throws ServletException, IOException {
 		String path = "/adminIndex.jsp";
 		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
-		System.out.println("PG >>>>> " + pg);
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = Encoding.isoToEuc(request.getParameter("word"));
-		String order = Encoding.nullToBlank(request.getParameter("order"));
+		String order = Encoding.nullToBlank(request.getParameter("order"));                                
 		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String board = "exhibition";
+		String board = request.getParameter("board");
+		System.out.println(board);
 		if (order.isEmpty() || order.equals("desc")) {
 			order = "asc";
 		} else if ("asc".equals(order)) {
 			order = "desc";
 		}
 
-		List<ExhibitionDto> list = ExhibitionServiceImpl.getExhibitionService().listExhibition(key, word, order,
-				column, pg);
+		List<ExhibitionDto> list = ExhibitionServiceImpl.getExhibitionService().listExhibition(key, word, order, column,
+				pg);
 		request.setAttribute("order", order);
 		request.setAttribute("exhibitionList", list);
-		
+
 		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
 		// root는 여기서 가져옴
 		pageNavigation.setRoot(request.getContextPath());
@@ -45,8 +45,11 @@ public class ExhibitionListAction implements Action {
 		pageNavigation.setListSize(BoardConstance.LIST_SIZE);
 		pageNavigation.setNavigator();
 		request.setAttribute("navigator", pageNavigation);
-		
-		path = "/page/adminpage/expage/exhibition.jsp";
+		if(board.equals("exhibition")) {
+			path = "/page/adminpage/expage/exhibition.jsp";
+		} else {
+			path ="/page/adminpage/expage/exhibitionPic.jsp";
+		}
 		return path;
 	}
 

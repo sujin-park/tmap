@@ -9,10 +9,10 @@ function firstArticle(){
 	document.commonForm.submit();
 }
 
-function listArticle(pg){
+function listArticle(mpg){
 	document.commonForm.act.value = act;
 	document.commonForm.board.value = board;
-	document.commonForm.pg.value = pg;
+	document.commonForm.pg.value = mpg;
 	document.commonForm.key.value = key;
 	document.commonForm.word.value = word;
 	

@@ -1,10 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"
-	import="com.secondproject.shop.model.*"%>
+	import="com.secondproject.shop.model.*, com.secondproject.util.*"%>
 <%
 List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
+PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
 %>
+<script>
+
+function searchShop() {
+	if (document.searchForm.word.value == "")	{
+		alert("검색어 입력!!!!!");
+	} else {
+		document.searchForm.action = "<%=ContextPath.root%>/exhibition";
+		document.searchForm.submit();
+	}
+}
+
+function plusShop() {
+	if (confirm("매장을 등록하시겠습니까?")) {
+	document.updateForm.action = "<%=ContextPath.root%>/exhibition";
+	document.updateForm.submit();
+	}
+	}
+
+</script>
 <section class="content page-top">
 	<div class="col-md-10 col-md-push-1">
 		<div class="panel panel-default">
@@ -125,23 +145,4 @@ int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
 			</div>
 		</div>
 </section>
-	<%@ include file="/page/adminpage/include/pageNav.jsp"%>
-<script>
-
-function searchShop() {
-	if (document.searchForm.word.value == "")	{
-		alert("검색어 입력!!!!!");
-	} else {
-		document.searchForm.action = "<%=ContextPath.root%>/exhibition";
-		document.searchForm.submit();
-	}
-}
-
-function plusShop() {
-	if (confirm("매장을 등록하시겠습니까?")) {
-	document.updateForm.action = "<%=ContextPath.root%>/exhibition";
-	document.updateForm.submit();
-	}
-	}
-
-</script>
+<%=pageNavigation.getNavigator()%>
