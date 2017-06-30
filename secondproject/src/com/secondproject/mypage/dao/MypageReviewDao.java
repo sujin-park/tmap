@@ -11,5 +11,6 @@ public interface MypageReviewDao {
 	 List<MyReviewDto> reviewListView(int userId);
 	 MyReviewDto reviewView(int reviewId);
 	 
+	 
 }
 

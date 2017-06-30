@@ -25,7 +25,7 @@ public interface MypageFollowDao {
 	 int followModify(FollowUserDto fudto);
 	 int followdelete(int followUserId);
 	 int totalArticleCount(Map<String,String> map);
-
+	 int followCategoryModify(int cateId,int seq);
 	 
 }
 

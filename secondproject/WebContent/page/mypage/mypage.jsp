@@ -87,6 +87,11 @@ var userId;
 			show : true
 		});
 	}
+	function modalcate() {
+		$('#modalcate').modal({
+			show : true
+		});
+	}
 	function check() {
 		cbox = input_form.chk;
 		if (cbox.length) { // 여러 개일 경우
@@ -153,6 +158,25 @@ var userId;
 				   document.commonForm.submit();
 			}
 		});
+		 $("#catemodify").click(function() {
+			valueArr = new Array();
+			$("input[name=chk]:checked").each(function() {
+				valueArr.push($(this).val());
+			});
+			if (valueArr == "") {
+				alert("선택하세요");
+			} else {
+				modalcate();	
+				/* document.commonForm.act.value="catemodify";
+				   document.commonForm.pg.value="1";
+				   document.commonForm.key.value="";
+				   document.commonForm.word.value="";
+				   document.commonForm.control.value=control;
+				   document.commonForm.seq.value=valueArr;
+				   document.commonForm.action=root+control;
+				   document.commonForm.submit(); */
+			}
+		}); 
 		
 	});
 	function select() {
@@ -168,7 +192,16 @@ var userId;
 		   document.commonForm.submit();
 		
 	}
-
+	function modicate() {
+		var cateid =$("select[name=modicate]").val();
+		/* alert("seq : "+valueArr+"cateid : "+cateid) */
+		   document.commonForm.act.value="catemodify";
+		   document.commonForm.control.value=control;
+		   document.commonForm.seq.value=valueArr;
+		   document.commonForm.id.value=cateid;
+		   document.commonForm.action=root+control;
+		   document.commonForm.submit(); 
+	}
 </script>
 <div class="col-xs-9 col-md-9 col-xs-offset-1 a">
 
@@ -196,7 +229,7 @@ var userId;
 			<div class="col-xs-6">
 				<div class="pull-right">
 					<a class="btn btn-default" href="javascript:modal();" role="button">그룹관리</a>
-					<a class="btn btn-default" href="#" role="button">그룹이동</a> <a
+					<a class="btn btn-default" id="catemodify" role="button">그룹이동</a> <a
 						class="btn btn-default" role="button" id="getCheckedAll">삭제</a>
 				</div>
 			</div>
@@ -387,6 +420,51 @@ var userId;
 						onclick="modifymake();" name="make">저장</button>
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--      modallllllllllllllllllllllllllllll-->
+<div class="modal fade" id="modalcate" role="dialog" aria-hidden="true"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<button class="close" aria-hidden="true" type="button"
+					data-dismiss="modal">×</button>
+				<h4 class="modal-title" id="myModalLabel">그룹이동</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row table-responsive">
+					
+
+						<select id="modicate" name="modicate" onchange="modicate()" class="form-control">
+					<option value="">선택</option>
+				<%
+									List<FollowCategoryDto> catelist = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
+									if (list != null && list.size()!=0) {
+										int size = list.size();
+										for (int i = 0; i < size; i++) {
+											FollowCategoryDto fcdto = list.get(i);
+								%>
+					<option value="<%=fcdto.getFollowCategoryId()%>"><%=fcdto.getCategoryName()%></option>
+					<%}
+										
+					}%>
+				</select>
+				<form id="catemodifyForm" name="catemodifyForm" method="post" action="">
+						<input type="hidden" name="act" value=""> 
+						<input type="hidden" name="userId" value="">
+						<input type="hidden" name="categoryId" value="">
+						<input type="hidden" name="" value="">
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
+				
 			</div>
 		</div>
 	</div>

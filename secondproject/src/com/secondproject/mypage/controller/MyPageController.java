@@ -40,6 +40,8 @@ public class MyPageController extends HttpServlet {
 		} else if ("followView".equals(act)) {
 			path = MypageFactory.getMypageFollowViewAction().execute(request, response);
 			
+		} else if ("catemodify".equals(act)) {
+			path = MypageFactory.getMypageFollowCategoryModifyAction().execute(request, response);
 		}
 //		path += queryString;
 		request.setAttribute("titleTagValue", "마이페이지");

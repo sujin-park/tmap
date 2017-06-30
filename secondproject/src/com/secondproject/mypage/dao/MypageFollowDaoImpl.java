@@ -586,4 +586,31 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	}
 
 
+	@Override
+	public int followCategoryModify(int cateId, int seq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("update follow_user \n");
+			sql.append("	set follow_category_id=? \n");
+			sql.append("	where follow_user_id=?");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setInt(1, cateId);
+			pstmt.setInt(2, seq);			
+
+			cnt = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+		return cnt;
+	}
+
+
 }
