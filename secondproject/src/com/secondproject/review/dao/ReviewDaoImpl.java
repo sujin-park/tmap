@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.secondproject.map.model.ShopDto;
 import com.secondproject.review.model.ReviewDto;
 import com.secondproject.review.model.ReviewListDto;
 import com.secondproject.util.Params;
@@ -95,47 +94,145 @@ public class ReviewDaoImpl implements ReviewDao {
 		}
 		return reviewDto;
 	}
-	
+
+	@Override
+	public int getTotalCountByShopNotBlind(Params params) {
+		return getTotalCount("shop", "notBlind", params);
+	}
+
+	@Override
+	public int getTotalCountByShopJustBlind(Params params) {
+		return getTotalCount("shop", "justBlind", params);
+	}
+
+	@Override
+	public int getTotalCountByShopAll(Params params) {
+		return getTotalCount("shop", null, params);
+	}
+
+	@Override
+	public int getTotalCountByUserNotBlind(Params params) {
+		return getTotalCount("user", "notBlind", params);
+	}
+
+	@Override
+	public int getTotalCountByUserJustBlind(Params params) {
+		return getTotalCount("user", "justBlind", params);
+	}
+
+	@Override
+	public int getTotalCountByUserAll(Params params) {
+		return getTotalCount("user", null, params);
+	}
+
+	@Override
+	public int getTotalCount(String filterShopOrUser, String filterBlind, Params params) {
+		int totalCount = 0;
+		String key = params.getKey();
+		String word = params.getWord();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT count(review_id) as total_count \n");
+			sql.append("FROM review \n");
+			sql.append("WHERE " + (filterShopOrUser.equals("shop") ? "shop_id" : "user_id") + " = ? \n");
+			
+			if (filterBlind == null || filterBlind.isEmpty() == false) {
+				String blindSql = "";
+				if (filterBlind.equals("justBlind")) {
+					blindSql = "AND is_blind = 1 \n";
+				} else if (filterBlind.equals("notBlind")) {
+					blindSql = "AND is_blind = 0 \n";
+				}
+				sql.append(blindSql);
+			}
+
+			if (key.isEmpty() == false && word.isEmpty() == false) {
+				sql.append("AND " + key + " like '%' || ? || '%' \n");
+			}
+			
+			pstmt = conn.prepareStatement(sql.toString());
+
+			int parameterIndex = 0;
+			if (filterShopOrUser.equals("shop")) {
+				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("shopId")); // shopId
+			} else {
+				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("userId")); // userId
+			}
+
+			if (key.isEmpty() == false && word.isEmpty() == false) {
+				pstmt.setString(++parameterIndex, word); // 검색어
+			}
+			
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				totalCount = rs.getInt("total_count");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return totalCount;
+	}
+
 	@Override
 	public List<ReviewListDto> getReviewListByShopNotBlind(Params params) {
-		return getReviewListCommon("shop", "notBlind", params);
+		return getReviewList("shop", "notBlind", params);
 	}
 
 	@Override
 	public List<ReviewListDto> getReviewListByShopJustBlind(Params params) {
-		return getReviewListCommon("shop", "justBlind", params);
+		return getReviewList("shop", "justBlind", params);
 	}
 
 	@Override
 	public List<ReviewListDto> getReviewListByShopAll(Params params) {
-		return getReviewListCommon("shop", "", params);
+		return getReviewList("shop", null, params);
 	}
 
 	@Override
 	public List<ReviewListDto> getReviewListByUserNotBlind(Params params) {
-		return getReviewListCommon("user", "notBlind", params);
+		return getReviewList("user", "notBlind", params);
 	}
 
 	@Override
 	public List<ReviewListDto> getReviewListByUserJustBlind(Params params) {
-		return getReviewListCommon("user", "justBlind", params);
+		return getReviewList("user", "justBlind", params);
 	}
 
 	@Override
 	public List<ReviewListDto> getReviewListByUserAll(Params params) {
-		return getReviewListCommon("user", "", params);
+		return getReviewList("user", null, params);
 	}
 
 	@Override
-	public List<ReviewListDto> getReviewListCommon(String filterShopOrUser, String filterBlind, Params params) {
+	public List<ReviewListDto> getReviewList(String filterShopOrUser, String filterBlind, Params params) {
 		ArrayList<ReviewListDto> list = new ArrayList<ReviewListDto>();
 
 		String key = params.getKey();
 		String word = params.getWord();
 		String orderKey = params.getOrderKey();
 		String orderValue = params.getOrderValue();
-		int pageStart = 1;
-		int pageEnd = 10;
+		int pageEnd = params.getPg() * 6;
+		int pageStart = pageEnd - 5;
+
+		// TODO 유효성 검사 해야되는데...너 무 귀 찮 다.
+		if (orderKey.isEmpty()) {
+			orderKey = "reg_date";
+		}
+
+		if (orderValue.isEmpty()
+				|| (orderKey.toUpperCase().equals("DESC") == false && orderKey.toUpperCase().equals("ASC") == false)) {
+			orderValue = "DESC";
+		}
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -150,28 +247,19 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("        FROM \n");
 			sql.append("            ( \n");
 			sql.append("                SELECT \n");
-			sql.append(
-					"                    review.review_id, review.user_id, user_email, review.title, review.score, review.img, review.reg_date,  \n");
+			sql.append("                    review.review_id, review.user_id, user_email, review.title, review.score, review.img, review.reg_date,  \n");
 			sql.append("                    NVL(gbc.good_count, 0) good_count, \n");
 			sql.append("                    NVL(gbc.bad_count, 0) bad_count \n");
 			sql.append("                FROM \n");
 			sql.append("                    ( \n");
 			sql.append("                        SELECT  \n");
 			sql.append("                            review_id, user_id, title, score, img, reg_date, \n");
-			sql.append(
-					"                            (SELECT email FROM users where user_id = review.user_id) user_email \n");
+			sql.append("                            (SELECT email FROM users where user_id = review.user_id) user_email \n");
 			sql.append("                        FROM review \n");
 			sql.append("                        WHERE \n");
+			sql.append("                            " + (filterShopOrUser.equals("shop") ? "shop_id" : "user_id") + " = ? \n");
 
-			// 매장 기준 or 특정회원 기준
-			if (filterShopOrUser.equals("shop")) {
-				sql.append("                            shop_id = ? \n");
-			} else {
-				sql.append("                            user_id = ? \n");
-			}
-
-			// 관리자는 필요없는 부분
-			if (filterBlind.isEmpty() == false) {
+			if (filterBlind == null || filterBlind.isEmpty() == false) {
 				String blindSql = "";
 				if (filterBlind.equals("justBlind")) {
 					blindSql = "                            and is_blind = 1 \n";
@@ -193,19 +281,21 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("                        SELECT review_id, SUM(good) good_count, SUM(bad) bad_count  \n");
 			sql.append("                        FROM review_good_bad GROUP BY review_id \n");
 			sql.append("                    ) gbc \n");
+
 			sql.append("                    ON gbc.review_id = review.review_id \n");
 			sql.append("                ORDER BY " + orderKey + " " + orderValue + " \n");
 			sql.append("            ) A \n");
 			sql.append("        WHERE rownum <= ? \n");
 			sql.append("    ) B \n");
 			sql.append("WHERE B.num >= ? \n");
+			// System.out.println(sql.toString());
 			pstmt = conn.prepareStatement(sql.toString());
 
 			int parameterIndex = 0;
 			if (filterShopOrUser.equals("shop")) {
-				pstmt.setInt(++parameterIndex, 1); // shopid
+				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("shopId")); // shopid
 			} else {
-				pstmt.setInt(++parameterIndex, 1); // userid
+				pstmt.setInt(++parameterIndex, (int) params.getOptionValue("userId")); // userid
 			}
 
 			if (key.isEmpty() == false && word.isEmpty() == false) {
@@ -238,7 +328,5 @@ public class ReviewDaoImpl implements ReviewDao {
 
 		return list;
 	}
-
-	
 
 }

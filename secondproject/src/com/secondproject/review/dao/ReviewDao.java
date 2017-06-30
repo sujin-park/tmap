@@ -12,6 +12,20 @@ public interface ReviewDao {
 
 	ReviewDto getReview(int reviewId);
 
+	int getTotalCountByShopNotBlind(Params params);
+
+	int getTotalCountByShopJustBlind(Params params);
+
+	int getTotalCountByShopAll(Params params);
+
+	int getTotalCountByUserNotBlind(Params params);
+
+	int getTotalCountByUserJustBlind(Params params);
+
+	int getTotalCountByUserAll(Params params);
+
+	int getTotalCount(String filterShopOrUser, String filterBlind, Params params);
+
 	List<ReviewListDto> getReviewListByShopNotBlind(Params params);
 
 	List<ReviewListDto> getReviewListByShopJustBlind(Params params);
@@ -24,6 +38,6 @@ public interface ReviewDao {
 
 	List<ReviewListDto> getReviewListByUserAll(Params params);
 
-	List<ReviewListDto> getReviewListCommon(String filterShopOrUser, String filterBlind, Params params);
+	List<ReviewListDto> getReviewList(String filterShopOrUser, String filterBlind, Params params);
 
 }

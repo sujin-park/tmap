@@ -30,7 +30,37 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewDto getReview(int reviewId) {
 		return ReviewDaoImpl.getReviewDao().getReview(reviewId);
 	}
+	
+	@Override
+	public int getTotalCountByShopNotBlind(Params params) {
+		return ReviewDaoImpl.getReviewDao().getTotalCountByShopNotBlind(params);
+	}
 
+	@Override
+	public int getTotalCountByShopJustBlind(Params params) {
+		return ReviewDaoImpl.getReviewDao().getTotalCountByShopJustBlind(params);
+	}
+
+	@Override
+	public int getTotalCountByShopAll(Params params) {
+		return ReviewDaoImpl.getReviewDao().getTotalCountByShopAll(params);
+	}
+
+	@Override
+	public int getTotalCountByUserNotBlind(Params params) {
+		return ReviewDaoImpl.getReviewDao().getTotalCountByUserNotBlind(params);
+	}
+
+	@Override
+	public int getTotalCountByUserJustBlind(Params params) {
+		return ReviewDaoImpl.getReviewDao().getTotalCountByShopJustBlind(params);
+	}
+
+	@Override
+	public int getTotalCountByUserAll(Params params) {
+		return ReviewDaoImpl.getReviewDao().getTotalCountByUserAll(params);
+	}
+	
 	@Override
 	public List<ReviewListDto> getReviewListByShopNotBlind(Params params) {
 		return ReviewDaoImpl.getReviewDao().getReviewListByShopNotBlind(params);

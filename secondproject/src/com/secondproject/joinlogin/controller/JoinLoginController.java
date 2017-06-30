@@ -30,8 +30,8 @@ public class JoinLoginController extends HttpServlet {
 		} else if ("join".equals(act)){ //회원가입
 			path = JoinLoginFactory.getJoinAction().execute(request, response);
 			PageMove.forward(path, request, response);
-		} else if ("withdraw".equals(act)){ //탈퇴 시
-			path = JoinLoginFactory.getJoinAction().execute(request, response);
+		} else if ("idcheck".equals(act)){ // 아디 중복확인검사 ajax 용
+			path = JoinLoginFactory.getIdCheckAction().execute(request, response);
 			PageMove.forward(path, request, response);
 		}
 	}

@@ -13,6 +13,18 @@ public interface ReviewService {
 
 	ReviewDto getReview(int reviewId);
 
+	int getTotalCountByShopNotBlind(Params params);
+
+	int getTotalCountByShopJustBlind(Params params);
+
+	int getTotalCountByShopAll(Params params);
+
+	int getTotalCountByUserNotBlind(Params params);
+
+	int getTotalCountByUserJustBlind(Params params);
+
+	int getTotalCountByUserAll(Params params);
+
 	List<ReviewListDto> getReviewListByShopNotBlind(Params params);
 
 	List<ReviewListDto> getReviewListByShopJustBlind(Params params);
