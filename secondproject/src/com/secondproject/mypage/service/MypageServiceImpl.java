@@ -21,7 +21,7 @@ public class MypageServiceImpl implements MypageService {
 	private MypageServiceImpl() {}
 	
 	@Override
-	public List<FollowCategoryDto> followCategoryListView(Map<String,String> map) {
+	public List<FollowCategoryDto> followCategoryListView(Map<String, Object> map) {
 		
 		return MypageFollowDaoImpl.getMypageFollowDao().followCategoryListView(map);
 	}
@@ -44,8 +44,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<FollowUserDto> followListView(Map<String,String> map) {
-		
+	public List<FollowUserDto> followListView(Map<String, Object> map) {
 		return MypageFollowDaoImpl.getMypageFollowDao().followListView(map);
 	}
 
@@ -70,6 +69,12 @@ public class MypageServiceImpl implements MypageService {
 	public int followCategoryModify(int cateId,int seq) {
 		
 		return MypageFollowDaoImpl.getMypageFollowDao().followCategoryModify(cateId, seq);
+	}
+
+	@Override
+	public int totalFollowUserCount(Map<String, Object> params) {
+		
+		return MypageFollowDaoImpl.getMypageFollowDao().totalFollowUserCount(params);
 	}
 
 	

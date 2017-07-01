@@ -33,9 +33,9 @@
 							<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=ContextPath.root%>/myreview">내가쓴후기</a></li>
+						<li><a href="<%=ContextPath.root%>/myreview?act=myreviewView&pg=1">내가쓴후기</a></li>
 						<li><a href="#">평가한후기</a></li>
-				 		<li><a href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=&control=">팔로우관리</a></li>
+				 		<li><a href="<%=ContextPath.root%>/mypage?act=followView&pg=1">팔로우관리</a></li>
 						<li><a href="#">매장관리</a></li>
 					</ul>
 				</li>

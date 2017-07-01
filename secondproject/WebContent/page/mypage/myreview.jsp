@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath"%>
-
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*"%>
+	<%
+	Pagination pagination = (Pagination) request.getAttribute("pagination");
+	
+	%>
 <script type="text/javascript">
 function viewreview(reviewId) {
 	document.location.href="<%=ContextPath.root%>/myreview?act=viewreview&reviewId="+reviewId;
@@ -94,5 +97,6 @@ function viewreview(reviewId) {
 								
 						</tbody>
 					</table>
+					<center><%=pagination.getHtml() %><center>
 				</div>
  
