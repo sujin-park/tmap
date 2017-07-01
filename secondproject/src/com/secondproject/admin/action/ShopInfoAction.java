@@ -2,44 +2,59 @@ package com.secondproject.admin.action;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
+import com.secondproject.action.BoardCommonAction;
 import com.secondproject.admin.model.ShopInfoDto;
-import com.secondproject.admin.service.ShopInfoServiceImpl;
-import com.secondproject.admin.service.UserViewServiceImpl;
+import com.secondproject.admin.service.*;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.util.Encoding;
+import com.secondproject.util.QueryString;
+import com.secondproject.util.pagination.Pagination;
 
-public class ShopInfoAction implements Action {
+public class ShopInfoAction extends BoardCommonAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String keyword = Encoding.isoToEuc(request.getParameter("keyword"));
-		String type = request.getParameter("key_type");
-		String shopInfoOrder = Encoding.nullToBlank(request.getParameter("shopInfoOrder"));
-		String column = request.getParameter("column");
+		setBoardParameter(request);
+		HashMap<String, Object> params = getParameterMap();
 		
-		//System.out.println("column == " + column);
-		//System.out.println("userOrder == " + userOrder);
-
-		if (shopInfoOrder.isEmpty()) {
-			shopInfoOrder = "asc";
+		String orderValue = (String) params.get("orderValue");
+		if (orderValue.isEmpty()) {
+			orderValue = "asc";
 		}
+		ArrayList<ShopInfoDto> shoplist= ShopInfoServiceImpl.getShopInfoService().getArticles(params);
 		
-		ArrayList<ShopInfoDto> list= ShopInfoServiceImpl.getShopInfoService().getArticles(keyword, type, shopInfoOrder, column);
-		
-	
-		if (shopInfoOrder.equals("asc")) {
-			shopInfoOrder = "desc";
+		if (orderValue.equals("asc")) {
+			orderValue = "desc";
 		} else {
-			shopInfoOrder = "asc";
+			orderValue = "asc";
 		}
-		request.setAttribute("shopInfoOrder", shopInfoOrder);
-		request.setAttribute("list", list);
+		
+		int totalUserCount = CommonServiceImpl.getCommonService().totalShopCount(params);
+		Pagination pagination = new Pagination();
+		pagination.setTotalCount(totalUserCount);
+		pagination.setCurrentPageNum((int) params.get("pg"));
+		pagination.setListCountPerPage(BoardConstant.SHOP_REVIEW_LIST_COUNT_PER_PAGE);
+		pagination.setPageCount(BoardConstant.SHOP_REVIEW_PAGE_COUNT);
+		pagination.setStartQueryString("/admin?act=shopinfo");
+		
+		ArrayList<String> filter = new ArrayList<String>();
+		filter.add("pg");
+		String queryString = QueryString.getQueryString(params, filter);
+		
+		pagination.setQueryString(queryString);
+		pagination.setHtml();
+		
+		request.setAttribute("pagination", pagination);
+		request.setAttribute("orderValue", orderValue);
+		request.setAttribute("list", shoplist);
 		return "/page/adminpage/shop/shopinfo.jsp";
 	}
 

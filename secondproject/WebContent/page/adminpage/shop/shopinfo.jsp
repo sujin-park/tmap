@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
    pageEncoding="EUC-KR"
-   import="java.util.*, com.secondproject.admin.model.ShopInfoDto,com.secondproject.constant.*"%>
+   import="java.util.*, com.secondproject.admin.model.ShopInfoDto,com.secondproject.constant.*"
+   import="com.secondproject.util.pagination.*"%>
 <%String root = request.getContextPath();
 ArrayList<ShopInfoDto> list = (ArrayList<ShopInfoDto>) request.getAttribute("list"); 
-String shopInfoOrder = (String) request.getAttribute("shopInfoOrder");
-if (shopInfoOrder == null) {
-	shopInfoOrder = "desc";
-}
+String orderValue = (String) request.getAttribute("orderValue");
+Pagination pagination = (Pagination) request.getAttribute("pagination");
+if (orderValue == null) {
+	orderValue = "asc";
+	}
 %>
 <script>
 function searchUser() {
@@ -40,7 +42,7 @@ function deleteUser() {
 
 </script> 
   
-<section class="content page-top">
+<section class="content page-top row">
    <div class="col-md-10 col-md-push-1">
       <div class="panel panel-default">
          <div class="panel-body">
@@ -54,25 +56,6 @@ function deleteUser() {
        
                   </div>
                </div>
-         <form name="searchForm" method="get" action="">
-   
-               <input type="hidden" name="act" value="shopinfo">
-                  <div class="pull-right col-md-5">
-                     <div class="input-group">
-                        <div class="input-group-btn">
-                        <select class="form-control" name="key_type">
-                           <option value="title">가게이름</option>
-                           <option value="category_title">가게타입</option>                           
-                           <option value="tel">전화번호</option>
-                           <option value="address">주소</option>                           
-                          <!--  <option value="shop_id">기획전</option> -->
-                        </select>
-                     </div>
-                     <input type="text" class="form-control" name = "keyword" placeholder="검색어 입력" size="3">
-                        <button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
-                  </div>
-                  </div>
-            </form>
              </div>
              <form name="orderncolumn" method="post" action="">
             <input type="hidden" name="act" value="shopdelete">
@@ -81,10 +64,10 @@ function deleteUser() {
                    <tbody>
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=title" style="text-decoration:none">가게이름</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=category_title" style="text-decoration:none">가게타입</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=tel" style="text-decoration:none">전화번호</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=address" style="text-decoration:none">주소</a></td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=title" style="text-decoration:none">가게이름</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=category_title" style="text-decoration:none">가게타입</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=tel" style="text-decoration:none">전화번호</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=address" style="text-decoration:none">주소</a></td>
                 <%--          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=shop_id" style="text-decoration:none">기획전여부</a></td> <!-- 기획전 있는지 없는지 여부 --> --%>
                      </tr>
                      
@@ -136,35 +119,36 @@ function deleteUser() {
                               </div>
                            </div>
                         </td>
-                        <%-- <td>
-                           <div class="media">
-                              <div class="media-body">
-                                 <span class="media-meta"> <%=shopInfoDto.getExhibitionId()%></span>
-                              </div>
-                           </div>
-                        </td> --%>
                      </tr>
                      
                      <%} %>
                      </input>
                      </form>
-                     
                   </tbody>
                </table>
             </div>
-            <!-- <div class="btn-group pull-right">
-               <button type="button" class="btn btn-warning">가나다순</button>
-               <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <span class="caret"></span> 
-                  <span class="sr-only">Toggle Dropdown</span>
-               </button>
-               <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">가나다순</a></li>
-                  <li><a href="#">가입일순</a></li>
-                  <li><a href="#">신뢰도순</a></li>
-               </ul>
-            </div> -->
+               <form name="searchForm" method="get" action="">
+               <input type="hidden" name="act" value="shopinfo">
+                  <div class="pull-right col-md-5">
+                     <div class="input-group">
+                        <div class="input-group-btn">
+                        <select class="form-control" name="key">
+                           <option value="title">가게이름</option>
+                           <option value="category_title">가게타입</option>                           
+                           <option value="tel">전화번호</option>
+                           <option value="address">주소</option>                           
+                          <!--  <option value="shop_id">기획전</option> -->
+                        </select>
+                     </div>
+                     <input type="text" class="form-control" name = "word" placeholder="검색어 입력" size="3">
+                        <span class="input-group-btn">
+                        	<button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
+                  		</span>
+                  </div>
+                  </div>
+            </form>
          </div>
       </div>
    </div>
 </section>
+<%=pagination.getHtml()%>

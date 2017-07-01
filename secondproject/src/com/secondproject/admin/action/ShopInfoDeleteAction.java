@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
-import com.secondproject.admin.service.ShopInfoDeleteServiceImpl;
+import com.secondproject.admin.service.ShopInfoServiceImpl;
 
 public class ShopInfoDeleteAction implements Action {
 
@@ -16,7 +16,7 @@ public class ShopInfoDeleteAction implements Action {
 			throws ServletException, IOException {
 		String path = "/admin?act=shopinfo";
 		String[] users = request.getParameterValues("checkRow");
-		int cnt = ShopInfoDeleteServiceImpl.getShopInfoDeleteService().deleteUsers(users);
+		int cnt = ShopInfoServiceImpl.getShopInfoService().deleteUsers(users);
 		return path;
 	}
 

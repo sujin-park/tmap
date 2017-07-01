@@ -42,7 +42,7 @@ function modifyOwner(a) {
 
 </script>
   
-<section class="content page-top">
+<section class="content page-top row">
    <div class="col-md-10 col-md-push-1">
       <div class="panel panel-default">
          <div class="panel-body">

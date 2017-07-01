@@ -1,6 +1,7 @@
 package com.secondproject.admin.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.secondproject.admin.dao.UserViewDaoImpl;
 import com.secondproject.userdto.UserDto;
@@ -21,8 +22,8 @@ public class UserViewServiceImpl implements UserViewService {
 	
 	
 	@Override
-	public ArrayList<UserDto> getArticles(String keyword, String type, String userOrder, String column) {
-		return UserViewDaoImpl.getUserViewDao().getArticles(keyword,type,userOrder,column);
+	public ArrayList<UserDto> getArticles(Map<String, Object> params) {
+		return UserViewDaoImpl.getUserViewDao().getArticles(params);
 	}
 
 }

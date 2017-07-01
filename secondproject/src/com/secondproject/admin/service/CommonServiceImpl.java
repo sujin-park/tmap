@@ -8,10 +8,6 @@ import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.dao.MypageFollowDaoImpl;
 import com.secondproject.util.PageNavigation;
 
-// 1. private 생성자
-// 2. static 변수 선언
-// 3. static{} 객체 생성
-// 4. 자신을 리턴하는 get method 생성
 public class CommonServiceImpl implements CommonService {
 
 	private static CommonService commonService; // interface 타입으로 잡기
@@ -34,6 +30,8 @@ public class CommonServiceImpl implements CommonService {
 	public int totalExhibitionCount(Map<String, Object> params) {
 		return CommonDaoImpl.getCommonDao().totalExhibitionCount(params);
 	}
+	
+	
 	public PageNavigation mypagePageNavigation(int pg, String key, String word, String control) {
 		PageNavigation pageNavigation = new PageNavigation();
 		
@@ -51,5 +49,26 @@ public class CommonServiceImpl implements CommonService {
 		pageNavigation.setNowEnd((totalPageCount-1)/BoardConstant.MYPAGE_PAGE_SIZE == (pg-1)/BoardConstant.MYPAGE_PAGE_SIZE);
 		pageNavigation.setPageNo(pg);
 		return pageNavigation;
+	}
+
+
+
+	@Override
+	public int totalReviewCount(Map<String, Object> params) {
+		return CommonDaoImpl.getCommonDao().totalReviewCount(params);
+	}
+
+
+
+	@Override
+	public int totalUserCount(Map<String, Object> params) {
+		return CommonDaoImpl.getCommonDao().totalUserCount(params);
+	}
+
+
+
+	@Override
+	public int totalShopCount(Map<String, Object> params) {
+		return CommonDaoImpl.getCommonDao().totalShopCount(params);
 	}
 }

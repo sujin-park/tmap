@@ -7,6 +7,7 @@ import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.admin.model.ExhibitionDto;
 import com.secondproject.constant.BoardConstant;
 import com.secondproject.shop.model.ShopDto;
+import com.secondproject.util.Encoding;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
@@ -56,38 +57,13 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		return cnt;
 	}
 
-	// 기획전 글번호
-//	@Override
-//	public int getNextSeq() {
-//		int seq = 0;
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//
-//		try {
-//			conn = DBConnection.getConnection();
-//			String sql = "select seq_exhibition_id.nextval from dual";
-//			pstmt = conn.prepareStatement(sql);
-//			rs = pstmt.executeQuery();
-//			rs.next();
-//			seq = rs.getInt(1);
-//		} catch (SQLException e) {
-//
-//			e.printStackTrace();
-//		} finally {
-//			DBClose.close(conn, pstmt, rs);
-//		}
-//
-//		return seq;
-//	}
-
 	// 기획전 리스트
 	@Override
 	public List<ExhibitionDto> listExhibition(Map<String, Object> params) {
 		List<ExhibitionDto> list = new ArrayList<ExhibitionDto>();
 		
 		String key = (String) params.get("key");
-		String word = (String) params.get("word");
+		String word = Encoding.isoToEuc((String) params.get("word"));
 		String orderKey = (String) params.get("orderKey");
 		String orderValue = (String) params.get("orderValue");
 		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
@@ -113,7 +89,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 					sql.append("	  where ex_title like '%' ||?|| '%'\n");
 				}
 			}
-			System.out.println(word);
 			if (!orderKey.isEmpty()) {
 				if (orderKey.equals("orderby")) {
 					orderKey = "ex_order";
@@ -132,7 +107,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			sql.append("   where b.rn>?");
 			
 			pstmt = conn.prepareStatement(sql.toString());
-			System.out.println(sql);
 			int idx = 0;
 			if (!key.isEmpty() && !word.isEmpty()) {
 				pstmt.setString(++idx, word);

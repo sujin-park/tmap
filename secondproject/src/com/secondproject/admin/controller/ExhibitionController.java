@@ -23,14 +23,6 @@ public class ExhibitionController extends HttpServlet {
 		String contentPath = "";
 		String url = "";
 
-		/*SSS
-		 * String key = Encoding.nullToBlank(request.getParameter("key"));
-		 * String word = request.getParameter("word"); String order =
-		 * Encoding.nullToBlank(request.getParameter("order")); String column =
-		 * Encoding.nullToBlank(request.getParameter("column")); String
-		 * queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) +
-		 * "&order=" + order + "&column=" + column;
-		 */
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		if ("mvwrite".equals(act)) {
 			path = "/template/admin/admin.jsp";

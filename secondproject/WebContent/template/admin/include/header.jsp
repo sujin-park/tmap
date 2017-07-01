@@ -15,18 +15,18 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<%=ContextPath.root%>/admin?act=userview">회원관리</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=userview&pg=1&key=&word=&orderValue=asc">회원관리</a></li>
 				<li class="dropdown">
         			<a class="dropdown-toggle" data-toggle="dropdown" href="#">사장관리
         			<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a href="<%=ContextPath.root%>/admin?act=ownerview">인증 대기리스트</a></li>
-			          <li><a href="<%=ContextPath.root%>/admin?act=realownerview">사장 리스트</a></li>
+			          <li><a href="<%=ContextPath.root%>/admin?act=ownerview&pg=1&key=&word=&orderValue=">인증 대기리스트</a></li>
+			          <li><a href="<%=ContextPath.root%>/admin?act=realownerview&pg=1&key=&word=&orderValue=">사장 리스트</a></li>
 			        </ul>
 			    </li>
-				<li><a href="<%=ContextPath.root%>/admin?act=shopinfo">매장관리</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=shopinfo&pg=1&key=&word=&orderValue=">매장관리</a></li>
 				<li><a href="#">통계관리</a></li>
-				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=">후기관리</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=&orderValue=asc">후기관리</a></li>
 				<li class="dropdown">
 					<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">기획전관리
 	        			<span class="caret"></span></a>

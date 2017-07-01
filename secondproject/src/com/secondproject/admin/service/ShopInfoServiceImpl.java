@@ -1,6 +1,7 @@
 package com.secondproject.admin.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.secondproject.admin.dao.ShopInfoDaoImpl;
 import com.secondproject.admin.model.ShopInfoDto;
@@ -12,19 +13,23 @@ public class ShopInfoServiceImpl implements ShopInfoService {
 	static {
 		shopInfoService = new ShopInfoServiceImpl();
 	}
-	
-	private ShopInfoServiceImpl(){}
-		
+
+	private ShopInfoServiceImpl() {
+	}
+
 	public static ShopInfoService getShopInfoService() {
 		return shopInfoService;
 	}
 
-	
-	
-	
 	@Override
-	public ArrayList<ShopInfoDto> getArticles(String keyword, String type, String userOrder, String column) {
-		return ShopInfoDaoImpl.getShopInfoDao().getArticles(keyword,type,userOrder,column);
+	public ArrayList<ShopInfoDto> getArticles(Map<String,Object> params) {
+		return ShopInfoDaoImpl.getShopInfoDao().getArticles(params);
+	}
+
+	@Override
+	public int deleteUsers(String[] users) {
+		return ShopInfoDaoImpl.getShopInfoDao().deleteUsers(users);
+
 	}
 
 }

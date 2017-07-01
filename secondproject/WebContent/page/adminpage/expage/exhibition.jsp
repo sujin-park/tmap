@@ -4,7 +4,6 @@
 	import="com.secondproject.util.pagination.*"%>
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
-//String orderKey = (String) request.getAttribute("orderKey");
 String orderValue = (String) request.getAttribute("orderValue");
 Pagination pagination = (Pagination) request.getAttribute("pagination");
 if (orderValue == null) {

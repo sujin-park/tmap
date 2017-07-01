@@ -34,9 +34,9 @@ public class ExhibitionListAction extends BoardCommonAction implements Action {
 			orderValue = "asc";
 		}
 		params.put("orderValue", orderValue);
-		
+
 		List<ExhibitionDto> list = ExhibitionServiceImpl.getExhibitionService().listExhibition(params);
-		
+
 		int totalArticleCount = CommonServiceImpl.getCommonService().totalExhibitionCount(params);
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalArticleCount);
@@ -44,19 +44,18 @@ public class ExhibitionListAction extends BoardCommonAction implements Action {
 		pagination.setListCountPerPage(BoardConstant.LIST_SIZE);
 		pagination.setPageCount(BoardConstant.PAGE_SIZE);
 		pagination.setStartQueryString("/admin?act=mvexhibition&board=" + board);
-		
+
 		ArrayList<String> filter = new ArrayList<String>();
 		filter.add("pg");
 		filter.add("board");
 		String queryString = QueryString.getQueryString(params, filter);
-		
+
 		pagination.setQueryString(queryString);
 		pagination.setHtml();
 
 		request.setAttribute("exhibitionList", list);
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("orderValue", (String) params.get("orderValue"));
-		System.out.println((String) params.get("orderValue"));
 		if (board.equals("exhibition")) {
 			path = "/page/adminpage/expage/exhibition.jsp";
 		} else {
