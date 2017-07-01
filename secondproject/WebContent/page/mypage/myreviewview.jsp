@@ -28,21 +28,26 @@
 					<div class="row">
 						<div class="col-md-12 mar">
 							<div class="pull-right">
-								내가한평점:<%
-								if (mrdto.getMyScore() != null) {
-
-										for (int i = 0; i < Integer.parseInt(mrdto.getMyScore()); i++) {
-							%>★<%
-								}
-									}
-							%>
-								등록일 :<%=mrdto.getUpdate_date()%></div>
+								<%if(mrdto.getMyScore()!=null){ 
+										int cnt = Integer.parseInt(mrdto.getMyScore());
+										int star = cnt/2;
+										int halfstar=cnt%2;
+										for(int i=0;i<star; i++) {
+											%><img src="<%=ContextPath.root %>/page/mypage/img/star.png" width="35px"><%
+ 										}
+										if(halfstar==1) {
+											%>
+											<img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="35px">
+											<% 
+										}
+									}%>
+								<%=mrdto.getUpdate_date()%></div>
 						</div>
 						<div class="col-md-12 mar">
 							<div class="pull-right">
-								up:
+								<img src="<%=ContextPath.root %>/page/mypage/img/like.png">
 								<%=mrdto.getGood()%>
-								/down:
+								<img src="<%=ContextPath.root %>/page/mypage/img/hate.png">
 								<%=mrdto.getBad()%></div>
 						</div>
 
@@ -52,7 +57,7 @@
 		</div>
 		<div class="container" style="background-color: #dbdbdb;">
 			<div class="row">
-				<div class="col-md-12 h-75">
+				<div class="col-md-12 h-75 mar">
 					<p class="" align="center"><%=mrdto.getContent()%>
 
 					</p>
@@ -61,7 +66,7 @@
 		</div>
 		<div class="row">
 			<div class="container" style="background-color: #dbdbdb;">
-				<div class="col-md-6 " style="text-align: right;">
+				<div class="col-md-12 " style="text-align: center;">
 					<%=mrdto.getShopName()%>&nbsp;
 					<a href="<%=mrdto.getReserveUrl()%>">예약하기</a>
 					<br>
@@ -70,13 +75,15 @@
 					<%=mrdto.getBusinessTime()%><br>
 					<%=mrdto.getDetail()%>
 					</div>
-					<div class="map-container" align="">
-						<div id="map" style="width: 40%; height: 200px;"></div>
+					</div>
+					<div class="container mar" style="background-color: #dbdbdb;">
+					<div class="map-container mar" align="">
+						<div class="col-md-offset-3" id="map" style="width: 50%; height: 400px;"></div>
 					</div>
 
 					<%
 						}
 					%>
-				</div>
 			</div>
 		</div>
+</div>

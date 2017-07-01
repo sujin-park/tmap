@@ -24,10 +24,10 @@ function viewreview(reviewId) {
 					<table class="table table-filter" id="extable">
 						<thead>
 							<tr class="warning" align="center">
+								<td>가게정보</td>
 								<td>리뷰제목</td>
 								<td>별점</td>
 								<td>등록일</td>
-								<td>가게정보</td>
 							</tr>
 						</thead>
 						<tbody id="exShoplist">
@@ -39,7 +39,14 @@ function viewreview(reviewId) {
  	%>
 						
 							<tr align="center">
-								
+								<td>
+									<div class="media">
+										
+										<%=mrdto.getShopName() %><br>
+										<%=mrdto.getAddress() %>
+										
+									</div>
+								</td>
 								<td>
 									<div class="media">
 									<a href="javascript:viewreview('<%=mrdto.getReviewId()%>');">
@@ -51,10 +58,17 @@ function viewreview(reviewId) {
 									<div class="media">
 										
 									<%if(mrdto.getMyScore()!=null){ 
-										
-										for(int i=0;i<Integer.parseInt(mrdto.getMyScore()); i++) {
-											%>★<%
+										int cnt = Integer.parseInt(mrdto.getMyScore());
+										int star = cnt/2;
+										int halfstar=cnt%2;
+										for(int i=0;i<star; i++) {
+											%><img src="<%=ContextPath.root %>/page/mypage/img/star.png" width="35px"><%
  										}
+										if(halfstar==1) {
+											%>
+											<img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="35px">
+											<% 
+										}
 									}%>
  	
 
@@ -68,14 +82,7 @@ function viewreview(reviewId) {
 										
 									</div>
 								</td>
-								<td>
-									<div class="media">
-										
-										<%=mrdto.getShopName() %><br>
-										<%=mrdto.getAddress() %>
-										
-									</div>
-								</td>
+								
 								
 							
 							</tr>

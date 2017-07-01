@@ -36,11 +36,14 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select r.review_id,s.title shop_name,s.address,u.email,r.score myscore,r.title subject,r.content,to_char(r.update_date,'yyyy.mm.dd') update_date \n");
+			sql.append("select r.review_id,s.title shop_name,s.address,u.email,r.score myscore,r.title subject, \n");
+			sql.append("		r.content,decode(to_char(sysdate,'yyyy.mm.dd'), to_char(r.update_date, 'yyyy.mm.dd'), \n");
+			sql.append("		to_char(r.update_date, 'hh24:mi:ss'), to_char(r.update_date, 'yy.mm.dd')) update_date \n");
 			sql.append("from review r \n");
 			sql.append("		join shop s on s.shop_id=r.shop_id \n");
 			sql.append("		join users u on u.user_id=r.user_id \n");
 			sql.append("		where u.user_id=?");
+			sql.append("		order by update_date desc");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, userId);
 			rs = pstmt.executeQuery();
@@ -76,7 +79,10 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select u.email,a.good,a.bad,a.title subject,a.score,a.update_date,a.content,a.img reviewImg, \n");
+			sql.append("select u.email,a.good,a.bad,a.title subject,a.score, \n");
+			sql.append("	   decode(to_char(sysdate,'yyyy.mm.dd'), to_char(a.update_date, 'yyyy.mm.dd'), \n");
+			sql.append("       to_char(a.update_date, 'hh24:mi:ss'), to_char(a.update_date, 'yyyy.mm.dd')) update_date, \n");
+			sql.append("       a.content,a.img reviewImg, \n");
 			sql.append("		s.title shop_name,s.address,s.lat,s.lng,s.reserve_url,s.tel,s.business_time,s.detail \n");
 			sql.append("from (select * from review r,(select nvl(sum(good),0) good from review_good_bad  \n");
 			sql.append("		where review_id=?),(select nvl(sum(bad),0) bad from review_good_bad where review_id=?)) a \n");
