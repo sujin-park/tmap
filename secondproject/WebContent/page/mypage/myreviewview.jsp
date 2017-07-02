@@ -14,8 +14,8 @@
 		MyReviewDto mrdto = (MyReviewDto) request.getAttribute("myreview");
 		if (mrdto != null) {
 	%>
-	<div class="section py-5" id="features">
 		<div class="container" style="background-color: #dbdbdb;">
+	<div class="section py-5" id="features">
 			<div class="row">
 				<div class="col-md-12 marr">
 					<h1 class="pb-4 text-primary" align="center"><%=mrdto.getSubject()%>

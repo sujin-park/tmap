@@ -25,7 +25,7 @@ public class AdminFactory {
 
 	private static ShopInfoAction shopInfoAction;
 	private static ShopInfoDeleteAction shopInfoDeleteAction;
-
+	private static ShopInfoViewAction shopInfoViewAction;
 
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
@@ -49,6 +49,7 @@ public class AdminFactory {
 		ownerModifyAction = new OwnerModifyAction();
 		
 		shopInfoAction = new ShopInfoAction();
+		shopInfoViewAction = new ShopInfoViewAction();
 		shopInfoDeleteAction = new ShopInfoDeleteAction();
 	}
 
@@ -126,6 +127,10 @@ public class AdminFactory {
 
 	public static ShopInfoDeleteAction getShopInfoDeleteAction() {
 		return shopInfoDeleteAction;
+	}
+	
+	public static ShopInfoViewAction getShopInfoViewAction() {
+		return shopInfoViewAction;
 	}
 
 }

@@ -1,12 +1,20 @@
 package com.secondproject.admin.model;
 
-public class ShopInfoDto {
+import com.secondproject.map.model.ShopDto;
+
+public class ShopInfoDto extends ShopDto{
 	private String categoryName;
 	private String shopTitle;
 	private String shopTel;
 	private String shopAddress;
-	private int exhibitionId;
-	
+	private int shopId;
+
+	public int getShopId() {
+		return shopId;
+	}
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
+	}
 	public String getCategoryName() {
 		return categoryName;
 	}
@@ -31,10 +39,5 @@ public class ShopInfoDto {
 	public void setShopAddress(String shopAddress) {
 		this.shopAddress = shopAddress;
 	}
-	public int getExhibitionId() {
-		return exhibitionId;
-	}
-	public void setExhibitionId(int exhibitionId) {
-		this.exhibitionId = exhibitionId;
-	}
+
 }

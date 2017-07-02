@@ -17,13 +17,6 @@ function searchExhibition() {
 	}
 		
 }
-function firstArticle(){
-	 	document.location.href="<%=ContextPath.root%>/admin?act=mvexhibition&pg=1&key=word=";
-	 }
-	 
-function listArticle(mpg){
-	 	document.location.href="<%=ContextPath.root%>/admin?act=mvexhibition&pg=" + mpg + "&key=word=";
-}
 
 function mvshoplist(seq) {
 	document.location.href ="<%=ContextPath.root%>/exhibition?act=mvshoplist&seq=" + seq;
@@ -44,5 +37,4 @@ function deleteExhibition() {
 	
 }
 </script>
-<script type="text/javascript"
-	src="<%=ContextPath.root%>/page/adminpage/js/checkbox.js"></script>
+<script type="text/javascript" src="<%=ContextPath.root%>/page/adminpage/js/checkbox.js"></script>

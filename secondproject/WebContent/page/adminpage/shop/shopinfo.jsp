@@ -2,10 +2,10 @@
    pageEncoding="EUC-KR"
    import="java.util.*, com.secondproject.admin.model.ShopInfoDto,com.secondproject.constant.*"
    import="com.secondproject.util.pagination.*"%>
-<%String root = request.getContextPath();
-ArrayList<ShopInfoDto> list = (ArrayList<ShopInfoDto>) request.getAttribute("list"); 
-String orderValue = (String) request.getAttribute("orderValue");
-Pagination pagination = (Pagination) request.getAttribute("pagination");
+<%
+	ArrayList<ShopInfoDto> list = (ArrayList<ShopInfoDto>) request.getAttribute("list"); 
+	String orderValue = (String) request.getAttribute("orderValue");
+	Pagination pagination = (Pagination) request.getAttribute("pagination");
 if (orderValue == null) {
 	orderValue = "asc";
 	}
@@ -40,8 +40,16 @@ function deleteUser() {
 	}
 }
 
+function shopmodal(seq) {
+	$.get("/secondproject/adminshop?act=showShopInfo&shopseq="+ seq, function(data, status){
+		var tt = document.getElementById("shopInfoOne");
+		tt.innerHTML=data;
+		$('#shopModal').modal({show:true});
+		initMap();
+	});
+}
+
 </script> 
-  
 <section class="content page-top row">
    <div class="col-md-10 col-md-push-1">
       <div class="panel panel-default">
@@ -53,7 +61,6 @@ function deleteUser() {
                     
 							<button type="button" class="btn btn-warning btn-filter" onclick="deleteUser();">매장 삭제</button>
 						</div>
-       
                   </div>
                </div>
              </div>
@@ -64,15 +71,13 @@ function deleteUser() {
                    <tbody>
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=title" style="text-decoration:none">가게이름</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=category_title" style="text-decoration:none">가게타입</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=tel" style="text-decoration:none">전화번호</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=category_title" style="text-decoration:none">카테고리</a></td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=title" style="text-decoration:none">매장명</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=tel" style="text-decoration:none">매장 번호</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=address" style="text-decoration:none">주소</a></td>
                 <%--          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=shop_id" style="text-decoration:none">기획전여부</a></td> <!-- 기획전 있는지 없는지 여부 --> --%>
+                     	 <td>EDIT</td>
                      </tr>
-                     
-                     
-                     
                      <tr>
                      <%int size = list.size();
                   
@@ -89,16 +94,16 @@ function deleteUser() {
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= shopInfoDto.getShopTitle()%></p>
+                                 <span class="media-meta"> 
+                                 <%=shopInfoDto.getCategoryName()%>
+                                 	</span>
                               </div>
                            </div>
                         </td>
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <span class="media-meta"> 
-                                 <%=shopInfoDto.getCategoryName()%>
-                                 	</span>
+                                 <p class="media-meta"><%= shopInfoDto.getShopTitle()%></p>
                               </div>
                            </div>
                         </td>
@@ -119,10 +124,16 @@ function deleteUser() {
                               </div>
                            </div>
                         </td>
+                        <td>
+							<p data-placement="top" data-toggle="tooltip" title="Edit">
+								<button type="button" class="btn btn-warning btn-xs" 
+							     onclick="javascript:shopmodal(<%=shopInfoDto.getShopId()%>);"><span class="glyphicon glyphicon-pencil"></span>
+								</button>
+							</p>
+						</td>
                      </tr>
                      
                      <%} %>
-                     </input>
                      </form>
                   </tbody>
                </table>
@@ -151,4 +162,8 @@ function deleteUser() {
       </div>
    </div>
 </section>
+<%@include file="/page/adminpage/shop/shopInfoModal.jsp"%>
+<div class="col-md-12 col-md-push-4">
 <%=pagination.getHtml()%>
+</div>
+<div class="col-md-6"></div>

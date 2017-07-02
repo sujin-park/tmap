@@ -45,6 +45,7 @@ function searchReview() {
 }
 
 function modal(reviewimg,seq) {
+	
 	document.getElementById("reviewseq").value = seq;
 	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
 	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent

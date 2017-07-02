@@ -25,7 +25,7 @@
 			        </ul>
 			    </li>
 				<li><a href="<%=ContextPath.root%>/admin?act=shopinfo&pg=1&key=&word=&orderValue=">概厘包府</a></li>
-				<li><a href="#">烹拌包府</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=mvstats">烹拌包府</a></li>
 				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=&orderValue=asc">饶扁包府</a></li>
 				<li class="dropdown">
 					<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">扁裙傈包府

@@ -21,7 +21,7 @@ public class AdminController extends HttpServlet {
 
 		String act = request.getParameter("act");
 		String board = request.getParameter("board");
-
+		String addBottomPath = "/page/adminpage/include/bottom_exhibition.jsp";
 		if ("mvexhibition".equals(act)) {
 			path = "/template/admin/admin.jsp";
 			contentPath = AdminFactory.getExhibitionListAction().execute(request, response);
@@ -48,15 +48,19 @@ public class AdminController extends HttpServlet {
 			contentPath = AdminFactory.getOwnerViewAction().execute(request, response);
 		} else if ("shopinfo".equals(act)) {
 			path = "/template/admin/admin.jsp";
+			addBottomPath = "/page/adminpage/include/adminmap.jsp";
 			contentPath = AdminFactory.getShopInfoAction().execute(request, response);
 		} else if ("shopdelete".equals(act)) {
 			path = "/admin?act=shopinfo";
 			contentPath = AdminFactory.getUserDeleteAction().execute(request, response);
+		} else if ("mvstats".equals(act)) {
+			path = "/template/admin/admin.jsp";
+			contentPath = "/page/adminpage/statistics/ageStats.jsp";
 		}
 		request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
 		request.setAttribute("contentPath", contentPath);
 		request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
-		request.setAttribute("addBottomPath", "/page/adminpage/include/bottom_exhibition.jsp");
+		request.setAttribute("addBottomPath", addBottomPath);
 		PageMove.forward(path, request, response);
 	}
 
