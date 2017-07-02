@@ -1,4 +1,4 @@
-package com.secondproject.controller;
+package com.secondproject.main;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("titleTagValue", "임시이름티맵");
+		request.setAttribute("titleTagValue", "Tmap");
 		request.setAttribute("contentPath", "/page/main/main.jsp");
 		request.setAttribute("addHeadPath", "/page/main/include/head.jsp");
 		request.setAttribute("addBottomPath", "/page/main/include/bottom.jsp");
