@@ -34,18 +34,18 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int pageEnd = (Integer)params.get("pg") * BoardConstant.MYPAGE_LIST_SIZE;
-		int pageStart = pageEnd - BoardConstant.MYPAGE_LIST_SIZE;
+		int pageEnd = (Integer)params.get("pg") * BoardConstant.MYREVIEW_PAGE_SIZE;
+		int pageStart = pageEnd - BoardConstant.MYREVIEW_PAGE_SIZE;
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("select b.* \n");
 			sql.append("from (select rownum rn,a.* \n");
-			sql.append("	from (select r.review_id,s.title shop_name,s.address,u.email,r.score myscore,r.title subject, \n");
+			sql.append("	from (select r.review_id,nvl(s.title,'¾øÀ½') shop_name,nvl(s.address,'') address,u.email,r.score myscore,r.title subject, \n");
 			sql.append("				r.content,decode(to_char(sysdate,'yyyy.mm.dd'), to_char(r.update_date, 'yyyy.mm.dd'), \n");
 			sql.append("				to_char(r.update_date, 'hh24:mi:ss'), to_char(r.update_date, 'yy.mm.dd')) update_date \n");
 			sql.append("		from review r \n");
-			sql.append("		join shop s on s.shop_id=r.shop_id \n");
+			sql.append("		left outer join shop s on s.shop_id=r.shop_id \n");
 			sql.append("		join users u on u.user_id=r.user_id \n");
 			sql.append("		where u.user_id=? \n");
 			sql.append("		order by update_date desc ) a \n");

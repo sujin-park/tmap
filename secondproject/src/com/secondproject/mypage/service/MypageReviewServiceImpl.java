@@ -42,7 +42,7 @@ public class MypageReviewServiceImpl implements MypageReviewService{
 	@Override
 	public int totalReviewCount(Map<String, Object> params) {
 	
-		return MypageServiceImpl.getMypageService().totalFollowUserCount(params);
+		return MypageReviewDaoImpl.getMypageReviewDao().totalReviewCount(params);
 	}
 
 

@@ -26,11 +26,11 @@ function viewreview(reviewId) {
  <div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
 						<thead>
-							<tr class="warning" align="center">
-								<td>가게정보</td>
-								<td>리뷰제목</td>
-								<td>별점</td>
-								<td>등록일</td>
+							<tr class="warning">
+								<td width="30%">가게정보</td>
+								<td width="40%">리뷰제목</td>
+								<td width="20%">별점</td>
+								<td width="10%">등록일</td>
 							</tr>
 						</thead>
 						<tbody id="exShoplist">
@@ -41,13 +41,16 @@ function viewreview(reviewId) {
  	 
  	%>
 						
-							<tr align="center">
+							<tr>
 								<td>
 									<div class="media">
 										
-										<%=mrdto.getShopName() %><br>
-										<%=mrdto.getAddress() %>
+										<%=mrdto.getShopName() %>
+										<%if(mrdto.getAddress()!=null) {
+											%>
 										
+										<br><%=mrdto.getAddress() %>
+										<%} %>
 									</div>
 								</td>
 								<td>

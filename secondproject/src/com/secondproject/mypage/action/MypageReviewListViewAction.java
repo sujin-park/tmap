@@ -14,7 +14,6 @@ import com.secondproject.action.BoardCommonAction;
 import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.model.MyReviewDto;
 import com.secondproject.mypage.service.MypageReviewServiceImpl;
-import com.secondproject.mypage.service.MypageServiceImpl;
 import com.secondproject.util.QueryString;
 import com.secondproject.util.pagination.Pagination;
 
@@ -34,13 +33,13 @@ public class MypageReviewListViewAction extends BoardCommonAction implements Act
 		setBoardParameter(request);
 		HashMap<String, Object> params = getParameterMap();
 		params.put("userId", userId);
-		int totalReviewCount = MypageServiceImpl.getMypageService().totalFollowUserCount(params);	
+		int totalReviewCount =  MypageReviewServiceImpl.getMypageReviewService().totalReviewCount(params);
 		List<MyReviewDto> list = MypageReviewServiceImpl.getMypageReviewService().reviewListView(params);
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalReviewCount);
 		pagination.setCurrentPageNum((int) params.get("pg"));
-		pagination.setListCountPerPage(BoardConstant.MYPAGE_PAGE_SIZE);
-		pagination.setPageCount(BoardConstant.MYPAGE_LIST_SIZE);
+		pagination.setListCountPerPage(BoardConstant.MYREVIEW_PAGE_SIZE);
+		pagination.setPageCount(BoardConstant.MYREVIEW_PAGE_SIZE);
 		pagination.setStartQueryString("/myreview?act=myreviewView");
 		
 		ArrayList<String> filter = new ArrayList<String>();

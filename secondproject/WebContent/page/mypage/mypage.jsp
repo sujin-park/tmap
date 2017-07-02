@@ -237,16 +237,16 @@ var followUserId;
 		</div>
 		<div class="row table-responsive">
 			<form name="input_form">
-				<table class="table table-bordered">
+				<table class="table table-filter">
 					<thead>
-						<tr>
+						<tr class="warning">
 							<th class="center"><input type="checkbox" class="lar"
-								name="all" onclick="javascript:check();"></th>
-							<th>카테고리</th>
-							<th>id | 상태메세지</th>
-							<th>최근후기등록일</th>
-							<th>팔로우한날짜</th>
-							<th>별칭</th>
+								name="all" onclick="javascript:check();" width="5%"></th>
+							<th width="10%">카테고리</th>
+							<th width="40%">id | 상태메세지</th>
+							<th width="15%">최근후기등록일</th>
+							<th width="15%">팔로우한날짜</th>
+							<th width="15%">별칭</th>
 						</tr>
 					</thead>
 					<tbody>

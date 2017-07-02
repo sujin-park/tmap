@@ -3,7 +3,7 @@
 	import="com.secondproject.mypage.model.*,java.util.*"%>
 
 <%
-	List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("followCategoryList");
+	List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
 	if (list != null && list.size() != 0) {
 		int size = list.size();
 		for (int i = 0; i < size; i++) {

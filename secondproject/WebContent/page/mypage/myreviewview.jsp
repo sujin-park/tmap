@@ -5,6 +5,8 @@
 <script type="text/javascript">
 	function viewreview(reviewId) {
 	}
+	
+
 </script>
 
 
@@ -26,6 +28,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">
+					<div class="col-md-12" align="right">수정 &nbsp;삭제</div>
 						<div class="col-md-12 mar">
 							<div class="pull-right">
 								<%if(mrdto.getMyScore()!=null){ 
@@ -86,4 +89,11 @@
 					%>
 			</div>
 		</div>
+		<div class="row">
+			<div class="container" style="background-color: #dbdbdb;">
+			댓글
+			</div>
+		</div>
 </div>
+
+
