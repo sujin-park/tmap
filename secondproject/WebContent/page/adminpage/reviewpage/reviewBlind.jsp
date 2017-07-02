@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="com.secondproject.review.model.*, java.util.*"%>
+    pageEncoding="EUC-KR" import="com.secondproject.review.model.*, java.util.*"
+    import="com.secondproject.util.pagination.*"%>
 <%
 List<AdminReviewDto> list = (List<AdminReviewDto>) request.getAttribute("reviewList");
+String orderValue = (String) request.getAttribute("orderValue");
+Pagination pagination = (Pagination) request.getAttribute("pagination");
+if (orderValue == null) {
+	orderValue = "asc";
+	}
 %>
 <%
 								int size = list.size();
@@ -61,7 +67,7 @@ List<AdminReviewDto> list = (List<AdminReviewDto>) request.getAttribute("reviewL
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
 										<button type="button" class="btn btn-warning btn-xs" 
-							    		 onclick="javascript:modal(<%=adminReviewDto.getReviewId()%>);"><span class="glyphicon glyphicon-pencil"></span>
+							    		 onclick="javascript:modal('<%=adminReviewDto.getImg()%>',<%=adminReviewDto.getReviewId()%>);"><span class="glyphicon glyphicon-pencil"></span>
 							    		</button>
 							    	</p>
 							    </td>
@@ -71,3 +77,30 @@ List<AdminReviewDto> list = (List<AdminReviewDto>) request.getAttribute("reviewL
 									}
 								
 							%>
+							</tbody>
+					</table>
+					</form>
+				</div>
+				<form name="searchForm" method="get" action="">
+					<input type="hidden" name="act" value="mvreview"> 
+						<div class="pull-right col-md-5">
+							<div class="input-group">
+								<div class="input-group-btn">
+									<select class="form-control" name="key">
+									  	<option value="emailname">작성자명</option>
+									  	<option value="shopname">매장명</option>
+									</select>
+								</div>
+									<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="3">
+									<span class="input-group-btn">
+										<button class="btn btn-warning" type="button" onclick="javascript:searchReview();">Search</button>
+									</span>
+							</div>
+						</div>
+					</form>
+			</div>
+		</div>
+	</div>
+</section>
+<jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>
+<%=pagination.getHtml()%>

@@ -20,7 +20,6 @@ private static UserDeleteService userDeleteService;
 	
 	@Override
 	public int deleteUsers(String[] users) {
-		// TODO Auto-generated method stub
 		return UserDeleteDaoImpl.getUserDeleteDao().deleteUsers(users);
 	}
 	

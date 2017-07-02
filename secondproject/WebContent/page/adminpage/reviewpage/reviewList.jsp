@@ -1,12 +1,14 @@
 <%@page import="com.secondproject.util.PageNavigation"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.review.model.*"%>
-
+	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.review.model.*"
+	import="com.secondproject.util.pagination.*"%>
 <%
 List<AdminReviewDto> list = (List<AdminReviewDto>) request.getAttribute("reviewList");
-String order = (String) request.getAttribute("order");
-String column = (String) request.getAttribute("column");
-PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
+String orderValue = (String) request.getAttribute("orderValue");
+Pagination pagination = (Pagination) request.getAttribute("pagination");
+if (orderValue == null) {
+	orderValue = "asc";
+	}
 %>
 <script>
 function blindReview() {
@@ -90,11 +92,11 @@ function modal(reviewimg,seq) {
 									</div>
 								</td>
 								<td>매장명</td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=orderby"  style="text-decoration:none; color:red">작성일</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&orderKey=orderby&orderValue=<%=orderValue%>"  style="text-decoration:none; color:red">작성일</a></td>
 								<td>작성자</td>
 								<td>작성내용</td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=trustby" style="text-decoration:none; color:red">매장 평점</a></td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&order=<%=order%>&column=blindby" style="text-decoration:none; color:red">Blind</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&orderKey=trustby&orderValue=<%=orderValue%>" style="text-decoration:none; color:red">매장 평점</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&orderKey=blindby&orderValue=<%=orderValue%>" style="text-decoration:none; color:red">Blind</a></td>
 							</tr>
 						</thead>
 						<tbody id="reviewList">
@@ -193,6 +195,4 @@ function modal(reviewimg,seq) {
 	</div>
 </section>
 <jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>
-
-<%=pageNavigation.getNavigator()%>
-
+<%=pagination.getHtml()%>

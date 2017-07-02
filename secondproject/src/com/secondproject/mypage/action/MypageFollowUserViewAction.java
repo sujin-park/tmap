@@ -19,7 +19,7 @@ public class MypageFollowUserViewAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path="/page/mypage/followUserData.jsp";
-		int followuserid = Integer.parseInt(request.getParameter("id"));
+		int followuserid = Integer.parseInt(request.getParameter("followuserid"));
 		FollowUserDto udto = MypageFollowDaoImpl.getMypageFollowDao().getFollow(followuserid);
 			request.setAttribute("fudata", udto);
 		return path;

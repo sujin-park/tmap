@@ -1,19 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.* "%>
-	<%PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator"); %>
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*,com.secondproject.userdto.*"%>
+	<%@ include file="/page/mypage/js/public.jsp" %>
+	<%
+	Pagination pagination = (Pagination) request.getAttribute("pagination");
+	
+	%>
 <script type="text/javascript"
 	src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
 
 <script type="text/javascript">
-function firstArticle() {
+control = "/mypage";
 	
-	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=&board=";
-}
+<%-- 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=&control=";
+	 --%>
+	 function firstArticle() {
+		   
+		   document.commonForm.act.value="followView";
+		   document.commonForm.pg.value="1";
+		   document.commonForm.key.value="";
+		   document.commonForm.word.value="";
+		   document.commonForm.action=root+control;
+		   document.commonForm.submit();
+		   
+		}
 
 function listArticle(mvpg) {
 	
-	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg="+mvpg+"&key=&word=&board=";
+	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg="+mvpg+"&key=&word=&control=";
 	
 }
 
@@ -28,18 +42,18 @@ function upOrder(order, id) {
 		});
 	}
 }
-var userid;
+var followUserId;
 
 	function modifymake(){
 		var alias = $("#alias").val();
 		var memo = $("#memo").val();
-		<%-- document.cateForm.act = "followmodify";
+<%-- 		document.cateForm.act = "followmodify";
 		document.cateForm.alias = alias;
 		document.cateForm.memo = memo;
-		document.cateForm.userid = userid;
+		document.cateForm.userId = userId;
 		document.cateForm.action = "<%=ContextPath.root %>/mypage";
-		document.cateForm.submit(); --%>
-		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&userid=" + userid+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
+		document.cateForm.submit();  --%>
+		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&followUserId=" + followUserId+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
 	}
 
 	function downOrder(order, id) {
@@ -73,6 +87,11 @@ var userid;
 			show : true
 		});
 	}
+	function modalcate() {
+		$('#modalcate').modal({
+			show : true
+		});
+	}
 	function check() {
 		cbox = input_form.chk;
 		if (cbox.length) { // 여러 개일 경우
@@ -98,12 +117,12 @@ var userid;
 		$("#text").val('');
 	}
 	function getMemoData(id) {
-		$.get("/secondproject/mypage?act=followUser&id="+id, function(data, status){
+		$.get("/secondproject/mypage?act=followUser&followuserid="+id, function(data, status){
 			var form = document.getElementById("cateForm");
 			form.innerHTML=data;
 		});
 		modalmemo();
-		userid=id;
+		followUserId=id;
 	}
 	
 	
@@ -128,11 +147,61 @@ var userid;
 			if (valueArr == "") {
 				alert("선택하세요");
 			} else {
-				document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&id=" + valueArr;
+				<%-- document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&id=" + valueArr; --%>
+					document.commonForm.act.value="followdelete";
+				   document.commonForm.pg.value="1";
+				   document.commonForm.key.value="";
+				   document.commonForm.word.value="";
+				   document.commonForm.control.value=control;
+				   document.commonForm.seq.value=valueArr;
+				   document.commonForm.action=root+control;
+				   document.commonForm.submit();
 			}
 		});
+		 $("#catemodify").click(function() {
+			valueArr = new Array();
+			$("input[name=chk]:checked").each(function() {
+				valueArr.push($(this).val());
+			});
+			if (valueArr == "") {
+				alert("선택하세요");
+			} else {
+				modalcate();	
+				/* document.commonForm.act.value="catemodify";
+				   document.commonForm.pg.value="1";
+				   document.commonForm.key.value="";
+				   document.commonForm.word.value="";
+				   document.commonForm.control.value=control;
+				   document.commonForm.seq.value=valueArr;
+				   document.commonForm.action=root+control;
+				   document.commonForm.submit(); */
+			}
+		}); 
 		
 	});
+	function select() {
+		var id =$("select[name=select]").val();
+	<%-- 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=category_name&word="+encodeURI(id)+"&control=";
+ --%>
+		   document.commonForm.act.value="followView";
+		   document.commonForm.pg.value="1";
+		   document.commonForm.key.value="category_name";
+		   document.commonForm.word.value=id;
+		   document.commonForm.control.value=control;
+		   document.commonForm.action=root+control;
+		   document.commonForm.submit();
+		
+	}
+	function modicate() {
+		var cateid =$("select[name=modicate]").val();
+		/* alert("seq : "+valueArr+"cateid : "+cateid) */
+		   document.commonForm.act.value="catemodify";
+		   document.commonForm.control.value=control;
+		   document.commonForm.seq.value=valueArr;
+		   document.commonForm.id.value=cateid;
+		   document.commonForm.action=root+control;
+		   document.commonForm.submit(); 
+	}
 </script>
 <div class="col-xs-9 col-md-9 col-xs-offset-1 a">
 
@@ -142,17 +211,25 @@ var userid;
 	<div class="form-group form-inline">
 		<div class="row mar">
 			<div class="col-xs-6">
-				<select name="" onchange="" class="form-control">
-					<option value="all">전체</option>
-					<option value="">키트리</option>
-					<option value="">한식</option>
-					<option value="">내맘대로</option>
+				<select id="select" name="select" onchange="select()" class="form-control">
+					<option value="">전체</option>
+				<%
+									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("followCategoryList");
+									if (list != null && list.size()!=0) {
+										int size = list.size();
+										for (int i = 0; i < size; i++) {
+											FollowCategoryDto fcdto = list.get(i);
+								%>
+					<option value="<%=fcdto.getFollowCategoryId()%>" <%= ((fcdto.getFollowCategoryId()+"").equals(word) ? "selected" : "") %>><%=fcdto.getCategoryName()%></option>
+					<%}
+										
+					}%>
 				</select>
 			</div>
 			<div class="col-xs-6">
 				<div class="pull-right">
 					<a class="btn btn-default" href="javascript:modal();" role="button">그룹관리</a>
-					<a class="btn btn-default" href="#" role="button">그룹이동</a> <a
+					<a class="btn btn-default" id="catemodify" role="button">그룹이동</a> <a
 						class="btn btn-default" role="button" id="getCheckedAll">삭제</a>
 				</div>
 			</div>
@@ -160,16 +237,16 @@ var userid;
 		</div>
 		<div class="row table-responsive">
 			<form name="input_form">
-				<table class="table table-bordered">
+				<table class="table table-filter">
 					<thead>
-						<tr>
+						<tr class="warning">
 							<th class="center"><input type="checkbox" class="lar"
-								name="all" onclick="javascript:check();"></th>
-							<th>카테고리</th>
-							<th>id | 상태메세지</th>
-							<th>최근후기등록일</th>
-							<th>팔로우한날짜</th>
-							<th>별칭</th>
+								name="all" onclick="javascript:check();" width="5%"></th>
+							<th width="10%">카테고리</th>
+							<th width="40%">id | 상태메세지</th>
+							<th width="15%">최근후기등록일</th>
+							<th width="15%">팔로우한날짜</th>
+							<th width="15%">별칭</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -180,7 +257,7 @@ var userid;
 								for (int i = 0; i < size; i++) {
 									FollowUserDto fudto = fulist.get(i);
 						%>
-						<tr>
+						<tr id="<%=fudto.getCategoryName()%>">
 							<td class="center"><input type="checkbox" name="chk"
 								class="lar" value="<%=fudto.getFavoriteUserId()%>"></td>
 							<td><%=fudto.getCategoryName()%></td>
@@ -214,7 +291,7 @@ var userid;
 						
 					</tbody>
 				</table>
-				<center><%=pageNavigation.getNavigator() %><center>
+				<center><%=pagination.getHtml() %><center>
 			</form>
 		</div>
 
@@ -222,7 +299,7 @@ var userid;
 	<div></div>
 </div>
 
-
+<%@ include file="/page/mypage/js/publicform.jsp" %>
 <div class="modal fade" id="modal" role="dialog" aria-hidden="true"
 	aria-labelledby="myModalLabel">
 	<div class="modal-dialog">
@@ -249,7 +326,6 @@ var userid;
 								<tbody id="tt" name="tt">
 
 								<%
-									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
 									if (list != null && list.size()!=0) {
 										int size = list.size();
 										for (int i = 0; i < size; i++) {
@@ -321,9 +397,9 @@ var userid;
 				<div class="row table-responsive">
 					<form id="cateForm" name="cateForm" method="post" action="">
 						<input type="hidden" name="act" value=""> 
-						<input type="hidden" name="userid" value="">
-						<input type="hidden" name="alias" value="">
-						<input type="hidden" name="memo" value="">
+						<input type="hidden" name="userId" value="">
+						<input type="hidden" name="" value="">
+						<input type="hidden" name="" value="">
 
 						<div class="form-group">
 							<label for="alias" class="col-lg-2 control-label">alias</label>
@@ -344,6 +420,51 @@ var userid;
 						onclick="modifymake();" name="make">저장</button>
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--      modallllllllllllllllllllllllllllll-->
+<div class="modal fade" id="modalcate" role="dialog" aria-hidden="true"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<button class="close" aria-hidden="true" type="button"
+					data-dismiss="modal">×</button>
+				<h4 class="modal-title" id="myModalLabel">그룹이동</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row table-responsive">
+					
+
+						<select id="modicate" name="modicate" onchange="modicate()" class="form-control">
+					<option value="">선택</option>
+				<%
+									List<FollowCategoryDto> catelist = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
+									if (list != null && list.size()!=0) {
+										int size = list.size();
+										for (int i = 0; i < size; i++) {
+											FollowCategoryDto fcdto = list.get(i);
+								%>
+					<option value="<%=fcdto.getFollowCategoryId()%>"><%=fcdto.getCategoryName()%></option>
+					<%}
+										
+					}%>
+				</select>
+				<form id="catemodifyForm" name="catemodifyForm" method="post" action="">
+						<input type="hidden" name="act" value=""> 
+						<input type="hidden" name="userId" value="">
+						<input type="hidden" name="categoryId" value="">
+						<input type="hidden" name="" value="">
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
+				
 			</div>
 		</div>
 	</div>

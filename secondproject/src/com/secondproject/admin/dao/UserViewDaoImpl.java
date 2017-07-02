@@ -5,56 +5,74 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.userdto.UserDto;
+import com.secondproject.util.Encoding;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
-
 
 public class UserViewDaoImpl implements UserViewDao {
 
 	private static UserViewDao userViewDao;
-	
+
 	static {
 		userViewDao = new UserViewDaoImpl();
 	}
-	
-	private UserViewDaoImpl(){}
-	
+
+	private UserViewDaoImpl() {
+	}
+
 	public static UserViewDao getUserViewDao() {
 		return userViewDao;
 	}
-	
-	
+
 	@Override
-	public ArrayList<UserDto> getArticles(String keyword, String type, String userOrder, String column) {
-		// TODO Auto-generated method stub
+	public ArrayList<UserDto> getArticles(Map<String, Object> params) {
 		ArrayList<UserDto> list = new ArrayList<UserDto>();
+
+		String key = (String) params.get("key");
+		String word = Encoding.isoToEuc((String) params.get("word"));
+		String orderKey = (String) params.get("orderKey");
+		String orderValue = (String) params.get("orderValue");
+		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
+		int pageStart = pageEnd - BoardConstant.LIST_SIZE;
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		
-		
+
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
+			sql.append("select b.* \n");
+			sql.append("from ( \n");
+			sql.append("   select rownum rn, a.* \n");
+			sql.append("   from ( \n");
 			sql.append("select * from users \n");
-			if (keyword != null && type != null) {
-				sql.append("where "+ type +" like '%' || ? || '%' \n");
+			sql.append("where type != 0 \n");
+			if (!word.isEmpty() && !key.isEmpty()) {
+				sql.append("and " + key + " like '%' || ? || '%' \n");
 			}
-			if (userOrder != null && column != null) {
-				sql.append("order by " + column + " " + userOrder);
+
+			if (!orderValue.isEmpty() && !orderKey.isEmpty()) {
+				sql.append("order by " + orderKey + " " + orderValue);
 			} else {
 				sql.append("order by reg_date desc");
 			}
+			sql.append("         ) a \n");
+			sql.append("      where rownum <=? \n");
+			sql.append("      ) b \n");
+			sql.append("   where b.rn>?");
 			pstmt = conn.prepareStatement(sql.toString());
-			if (keyword != null && type != null){
-				pstmt.setString(1, keyword);
+			int idx = 0;
+			if (!word.isEmpty() && !key.isEmpty()) {
+				pstmt.setString(++idx, word);
 			}
-			
+			pstmt.setInt(++idx, pageEnd);
+			pstmt.setInt(++idx, pageStart);
 			rs = pstmt.executeQuery();
-			
 			while (rs.next()) { // 있으면 true 없으면 false return
 				UserDto userDto = new UserDto();
 				userDto.setUser_id(rs.getInt("user_id"));
@@ -69,15 +87,14 @@ public class UserViewDaoImpl implements UserViewDao {
 				userDto.setUpdate_date(rs.getString("update_date"));
 				list.add(userDto);
 			}
-				
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBClose.close(conn, pstmt, rs);
 		}
 
-	return list;
-		
+		return list;
+
 	}
 }

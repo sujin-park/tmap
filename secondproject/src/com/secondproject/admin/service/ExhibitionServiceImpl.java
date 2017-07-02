@@ -26,17 +26,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		return ExhibitionDaoImpl.getExhibitionDao().writeExhibition(exhibitionDto);
 	}
 	@Override
-	public List<ExhibitionDto> listExhibition(String key, String word, String order, String column, int pg) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("key", key);
-		map.put("word", word);
-		map.put("order", order);
-		map.put("column", column);
-		int end = pg * BoardConstant.LIST_SIZE;
-		int start = end - BoardConstant.LIST_SIZE; 
-		map.put("start", start +""); // 페이지 첫번호와 마지막번호를 계산하기 위해서 start와 end 만듦
-		map.put("end", end +"");
-		return ExhibitionDaoImpl.getExhibitionDao().listExhibition(map);
+	public List<ExhibitionDto> listExhibition(Map<String, Object> params) {
+		return ExhibitionDaoImpl.getExhibitionDao().listExhibition(params);
 		
 	}
 	@Override

@@ -1,55 +1,60 @@
 package com.secondproject.admin.action;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.secondproject.action.Action;
+import com.secondproject.action.BoardCommonAction;
 import com.secondproject.admin.service.*;
 import com.secondproject.constant.BoardConstant;
 import com.secondproject.review.model.AdminReviewDto;
 import com.secondproject.util.*;
+import com.secondproject.util.pagination.Pagination;
 
-public class ReviewListAction implements Action {
+public class ReviewListAction extends BoardCommonAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
-		String key = Encoding.nullToBlank(request.getParameter("key"));
-		String word = Encoding.isoToEuc(request.getParameter("word"));
-		String order = Encoding.nullToBlank(request.getParameter("order"));
-		String column = Encoding.nullToBlank(request.getParameter("column"));
-		String board = "review";
+		String board = request.getParameter("board");
+		setBoardParameter(request);
+		HashMap<String, Object> params = getParameterMap();
 
-		if (order.isEmpty() || order.equals("asc")) {
-			order = "desc";
-		} else if ("desc".equals(order)) {
-			order = "asc";
+		String orderValue = (String) params.get("orderValue");
+		if (orderValue.isEmpty() || orderValue.equals("asc")) {
+			orderValue = "desc";
+		} else if ("desc".equals(orderValue)) {
+			orderValue = "asc";
 		}
+		params.put("orderValue", orderValue);
 
-		if (column.isEmpty()) {
-			column = "orderby";
-		}
-		List<AdminReviewDto> list = AdminReviewServiceImpl.getAdminReviewService().listReview(key, word, order, column,
-				pg);
-		request.setAttribute("order", order);
-		request.setAttribute("column", column);
+		List<AdminReviewDto> list = AdminReviewServiceImpl.getAdminReviewService().listReview(params);
+		int totalArticleCount = CommonServiceImpl.getCommonService().totalReviewCount(params);
+		System.out.println(totalArticleCount + " total");
+		Pagination pagination = new Pagination();
+		pagination.setTotalCount(totalArticleCount);
+		pagination.setCurrentPageNum((int) params.get("pg"));
+		pagination.setListCountPerPage(BoardConstant.LIST_SIZE);
+		pagination.setPageCount(BoardConstant.PAGE_SIZE);
+		pagination.setStartQueryString("/admin?act=mvreview&board=" + board);
+
+		ArrayList<String> filter = new ArrayList<String>();
+		filter.add("pg");
+		filter.add("board");
+		String queryString = QueryString.getQueryString(params, filter);
+
+		pagination.setQueryString(queryString);
+		pagination.setHtml();
+		
+		request.setAttribute("pagination", pagination);
+		request.setAttribute("orderValue", orderValue);
 		request.setAttribute("reviewList", list);
-		for (int i=0; i<list.size(); i++) { 
-			AdminReviewDto adminReviewDto = list.get(i);
-			System.out.println(adminReviewDto.getImg());
-		}
-		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
-		// root는 여기서 가져옴
-		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
-		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
-		pageNavigation.setNavigator();
-		request.setAttribute("navigator", pageNavigation);
+		System.out.println(list.size() + " LIST SIZE ");
+
 		return "/page/adminpage/reviewpage/reviewList.jsp";
 	}
 

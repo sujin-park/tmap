@@ -17,12 +17,12 @@ public class MyreviewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = MypageFactory.getMypageReviewViewAction().execute(request, response);
+		String path = "index.jsp";
 		String act = request.getParameter("act");
-		if("".equals(act)) {
-
-		} else if("".equals(act)) {
-		
+		if("myreviewView".equals(act)) {
+			path=MypageFactory.getMypageReviewListViewAction().execute(request, response);
+		} else if("viewreview".equals(act)) {		
+			path = MypageFactory.getMypageReviewViewAction().execute(request, response);
 		} else if("".equals(act)) {
 		
 		} else if("".equals(act)) {

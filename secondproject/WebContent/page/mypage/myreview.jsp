@@ -1,8 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath"%>
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*"%>
+	<%
+	Pagination pagination = (Pagination) request.getAttribute("pagination");
+	
+	%>
+<script type="text/javascript">
+function viewreview(reviewId) {
+	document.location.href="<%=ContextPath.root%>/myreview?act=viewreview&reviewId="+reviewId;
 
+}
 
+</script>
 
 
 <div class="col-xs-9 col-md-9 col-xs-offset-1 a">
@@ -13,20 +22,84 @@
 		<div id="map" style="width:100%;height:400px;"></div>
 	</div>
 	<h2 class="sub-header">내가 쓴 후기</h2>
- 	<% 
- 	List<MyReviewDto> myreviewlist = (List<MyReviewDto>) request.getAttribute("reviewlist");
- 	 for(MyReviewDto mrdto : myreviewlist) {
- 		 
+
+ <div class="table-container table-responsive">
+					<table class="table table-filter" id="extable">
+						<thead>
+							<tr class="warning">
+								<td width="30%">가게정보</td>
+								<td width="40%">리뷰제목</td>
+								<td width="20%">별점</td>
+								<td width="10%">등록일</td>
+							</tr>
+						</thead>
+						<tbody id="exShoplist">
+							<%	List<MyReviewDto> myreviewlist = (List<MyReviewDto>) request.getAttribute("reviewlist"); 
+							if(myreviewlist!=null) {
+ 								for(MyReviewDto mrdto : myreviewlist) {
+ 								
  	 
- 	%> <%=mrdto.getShopName() %>  평점:<%for(int i=0;i<Integer.parseInt(mrdto.getShopScore()); i++) {
- 	%>★<%
- 	}%>   <button id="" class="btn btn-primary" type="button">수정</button> <button id="" class="btn btn-primary" type="button">삭제</button>
- 		<br><%=mrdto.getAddress() %>
- 		<br><%=mrdto.getSubject() %>  내가준별점 : <%for(int i=0;i<Integer.parseInt(mrdto.getMyScore()); i++) {
- 	%>★<%
- 	}%>
- 		<br><%=mrdto.getContent() %>
- 		<br>수정일 : <%=mrdto.getUpdate_date() %>
- 		<br>	
- 	<%} %>
- </div>
+ 	%>
+						
+							<tr>
+								<td>
+									<div class="media">
+										
+										<%=mrdto.getShopName() %>
+										<%if(mrdto.getAddress()!=null) {
+											%>
+										
+										<br><%=mrdto.getAddress() %>
+										<%} %>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+									<a href="javascript:viewreview('<%=mrdto.getReviewId()%>');">
+										<%=mrdto.getSubject() %>
+										</a>
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										
+									<%if(mrdto.getMyScore()!=null){ 
+										int cnt = Integer.parseInt(mrdto.getMyScore());
+										int star = cnt/2;
+										int halfstar=cnt%2;
+										for(int i=0;i<star; i++) {
+											%><img src="<%=ContextPath.root %>/page/mypage/img/star.png" width="35px"><%
+ 										}
+										if(halfstar==1) {
+											%>
+											<img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="35px">
+											<% 
+										}
+									}%>
+ 	
+
+										
+									</div>
+								</td>
+								<td>
+									<div class="media">
+										
+										<%=mrdto.getUpdate_date() %>
+										
+									</div>
+								</td>
+								
+								
+							
+							</tr>
+							<%
+								} 
+								}
+ 	
+							%>
+								
+						</tbody>
+					</table>
+					<center><%=pagination.getHtml() %><center>
+				</div>
+ 

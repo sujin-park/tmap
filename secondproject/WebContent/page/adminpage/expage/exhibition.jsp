@@ -1,12 +1,13 @@
 <%@page import="com.secondproject.util.PageNavigation"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"%>
+	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"
+	import="com.secondproject.util.pagination.*"%>
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
-String order = (String) request.getAttribute("order");
-PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
-if (order == null) {
-	order = "asc";
+String orderValue = (String) request.getAttribute("orderValue");
+Pagination pagination = (Pagination) request.getAttribute("pagination");
+if (orderValue == null) {
+	orderValue = "asc";
 	}
 %>
 <section class="content page-top row">
@@ -35,10 +36,10 @@ if (order == null) {
 									</div>
 								</td>
 								<td>사진</td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&order=<%=order%>&column=nameby"  style="text-decoration:none; color:red">기획전명</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&orderKey=nameby&orderValue=<%=orderValue%>"  style="text-decoration:none; color:red">기획전명</a></td>
 								<td>내용</td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&order=<%=order%>&column=visiableby" style="text-decoration:none; color:red">노출여부</a></td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&order=<%=order%>&column=orderby" style="text-decoration:none; color:red">배치순서</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&orderKey=visiableby&orderValue=<%=orderValue%>" style="text-decoration:none; color:red">노출여부</a></td>
+								<td><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&orderKey=orderby&orderValue=<%=orderValue%>" style="text-decoration:none; color:red">배치순서</a></td>
 								<td>Edit</td>
 							</tr>
 							<%
@@ -129,4 +130,4 @@ if (order == null) {
 		</div>
 	</div>
 </section>
-<%=pageNavigation.getNavigator()%>
+<%=pagination.getHtml()%>

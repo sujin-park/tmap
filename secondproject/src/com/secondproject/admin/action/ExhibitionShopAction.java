@@ -31,13 +31,13 @@ public class ExhibitionShopAction implements Action {
 		List<ShopDto> list = ExhibitionServiceImpl.getExhibitionService().shopExhibition(key, word, order, column);
 		int size = list.size();
 		
-		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
-		// root는 여기서 가져옴
-		pageNavigation.setRoot(request.getContextPath());
-		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
-		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
-		pageNavigation.setNavigator();
-		request.setAttribute("navigator", pageNavigation);
+//		PageNavigation pageNavigation = CommonServiceImpl.getCommonService().makePageNavigation(pg, key, word, board);
+//		// root는 여기서 가져옴
+//		pageNavigation.setRoot(request.getContextPath());
+//		pageNavigation.setPageSize(BoardConstant.PAGE_SIZE);
+//		pageNavigation.setListSize(BoardConstant.LIST_SIZE);
+//		pageNavigation.setNavigator();
+//		request.setAttribute("navigator", pageNavigation);
 		if (size != 0) {
 			request.setAttribute("exhibitionId", seq + "");
 			request.setAttribute("exShopList", list);

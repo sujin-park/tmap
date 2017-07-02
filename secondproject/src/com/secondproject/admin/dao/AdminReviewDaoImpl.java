@@ -4,7 +4,9 @@ import java.sql.*;
 import java.util.*;
 
 import com.secondproject.admin.model.ExhibitionDetailDto;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.review.model.AdminReviewDto;
+import com.secondproject.util.Encoding;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
@@ -24,8 +26,15 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 	}
 
 	@Override
-	public List<AdminReviewDto> listReview(Map<String, String> map) {
+	public List<AdminReviewDto> listReview(Map<String, Object> params) {
 		List<AdminReviewDto> list = new ArrayList<AdminReviewDto>();
+		
+		String key = (String) params.get("key");
+		String word = Encoding.isoToEuc((String) params.get("word"));
+		String orderKey = (String) params.get("orderKey");
+		String orderValue = (String) params.get("orderValue");
+		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
+		int pageStart = pageEnd - BoardConstant.LIST_SIZE;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -33,22 +42,17 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			String key = map.get("key");
-			String word = map.get("word");
-			String order = map.get("order");
-			String column = map.get("column");
-			String columnBasic = "r.reg_date";
 
 			sql.append("select b.* \n");
 			sql.append("from ( \n");
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
-			sql.append(
-					"select r.review_id, s.title shoptitle, u.email, r.title, r.content, r.score, to_char(r.reg_date,'yyyy.mm.dd') reg_date, r.update_date, r.img, \n");
+			sql.append("select r.review_id, s.title shoptitle, u.email, r.title, r.content, r.score, to_char(r.reg_date,'yyyy.mm.dd') reg_date, r.update_date, r.img, \n");
 			sql.append(" r.is_blind \n");
 			sql.append(" from review r, shop s, users u \n");
 			sql.append("  where r.user_id = u.user_id and \n");
 			sql.append(" 	   r.shop_id = s.shop_id  \n");
+			
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("emailname")) {
 					sql.append(" and u.email like '%' ||?|| '%'\n");
@@ -56,17 +60,17 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 					sql.append(" and s.title like '%' ||?|| '%' \n");
 				}
 			}
-			if (!column.isEmpty()) {
-				if (column.equals("orderby")) {
-					columnBasic = "r.reg_date";
-				} else if (column.equals("trustby")) {
-					columnBasic = "r.score";
+			if (!orderKey.isEmpty()) {
+				if (orderKey.equals("orderby")) {
+					orderKey = "r.reg_date";
+				} else if (orderKey.equals("nameby")) {
+					orderKey = "r.score";
 				} else {
-					columnBasic = "r.is_blind";
+					orderKey = "r.is_blind";
 				}
-				sql.append("order by " + columnBasic + " " + order);
+				sql.append("order by " + orderKey + " " + orderValue + "\n");
 			} else {
-				sql.append("order by r.reg_date");
+				sql.append("order by r.reg_date \n");
 			}
 			sql.append("         ) a \n");
 			sql.append("      where rownum <=? \n");
@@ -75,10 +79,11 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
 			if (!key.isEmpty() && !word.isEmpty()) {
-				pstmt.setString(++idx, map.get("word"));
+				pstmt.setString(++idx, word);
 			}
-			pstmt.setString(++idx, map.get("end"));
-			pstmt.setString(++idx, map.get("start"));
+			pstmt.setInt(++idx, pageEnd);
+			pstmt.setInt(++idx, pageStart);
+			
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				AdminReviewDto adminReviewDto = new AdminReviewDto();

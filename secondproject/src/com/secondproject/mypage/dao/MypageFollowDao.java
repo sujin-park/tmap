@@ -16,16 +16,17 @@ public interface MypageFollowDao {
 	 FollowCategoryDto getCategoryId(int userId,int category_order);
 	 int upOrder(int followCategoryId);
 	 int downOrder(int followCategoryId);
-	 List<FollowCategoryDto> followCategoryListView(int userId);
+	 List<FollowCategoryDto> followCategoryListView(Map<String, Object> map);
 	 //favorite_user
 	 FollowUserDto getFollow(int favoriteUserId);
-	 List<FollowUserDto> followListView(Map<String,String> map);
+	 List<FollowUserDto> followListView(Map<String, Object> map);
 	 int followMove(Map<String,String> map);
 	 int followDelete(int favoriteUserId);
 	 int followModify(FollowUserDto fudto);
 	 int followdelete(int followUserId);
 	 int totalArticleCount(Map<String,String> map);
-
+	 int followCategoryModify(int cateId,int seq);
+	 int totalFollowUserCount(Map<String, Object> params);
 	 
 }
 

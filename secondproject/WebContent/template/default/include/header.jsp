@@ -26,29 +26,21 @@ UserDto userDto = (UserDto) session.getAttribute("logininfo");
 				<% } else { %>
 					<li><a href="javascript:logoutmove();">Logout</a></li>
 				<% } %>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">Mypage
-								<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="<%=ContextPath.root%>/myreview">내가쓴후기</a></li>
-							<li><a href="#">평가한후기</a></li>
-							<li><a href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=&board=">팔로우관리</a></li>
-							<li><a href="#">매장관리</a></li>
-						</ul>
-					</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Mypage
+							<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="<%=ContextPath.root%>/myreview?act=myreviewView&pg=1">내가쓴후기</a></li>
+						<li><a href="#">평가한후기</a></li>
+				 		<li><a href="<%=ContextPath.root%>/mypage?act=followView&pg=1">팔로우관리</a></li>
+						<li><a href="#">매장관리</a></li>
+					</ul>
+				</li>
 				<%if (userDto != null && userDto.getType() == 0) {%>
 					<li><a href="/secondproject/adminIndex.jsp">관리자</a></li>
 				<% } %>
-					
-<%
-if (userDto != null) {
-%>
-<li><a href="#">세션에서 가지고온 아이디 : <%=userDto.getEmail() %></a></li>
-<%
-}
-%>
 			</ul>
 		</div>
 	</div>

@@ -7,7 +7,7 @@ import com.secondproject.review.model.AdminReviewDto;
 
 
 public interface AdminReviewDao {
-	List<AdminReviewDto> listReview(Map<String, String> map);
+	List<AdminReviewDto> listReview(Map<String, Object> params);
 	AdminReviewDto viewReview(int seq);
 	int blindExhibition(String[] reviews);
 }

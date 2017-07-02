@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
    pageEncoding="EUC-KR"
-   import="java.util.*, com.secondproject.userdto.*,com.secondproject.constant.*"%>
-<%String root = request.getContextPath();
-ArrayList<UserDto> list = (ArrayList<UserDto>) request.getAttribute("list"); 
-String userOrder = (String) request.getAttribute("userOrder");
-if (userOrder == null) {
-   userOrder = "desc";
-}
+   import="java.util.*, com.secondproject.userdto.*,com.secondproject.constant.*"
+   import="com.secondproject.util.pagination.*"%>
+<%
+List<UserDto> list = (List<UserDto>) request.getAttribute("list");
+String orderValue = (String) request.getAttribute("orderValue");
+Pagination pagination = (Pagination) request.getAttribute("pagination");
+if (orderValue == null) {
+	orderValue = "asc";
+	}
 %>
 <script>
 function searchUser() {
@@ -40,7 +42,7 @@ function deleteUser() {
 
 </script>
   
-<section class="content page-top">
+<section class="content page-top row">
    <div class="col-md-10 col-md-push-1">
       <div class="panel panel-default">
          <div class="panel-body">
@@ -60,7 +62,7 @@ function deleteUser() {
                   <div class="pull-right col-md-5">
                      <div class="input-group">
                         <div class="input-group-btn">
-                        <select class="form-control" name="key_type">
+                        <select class="form-control" name="key">
                            <option value="user_id">아이디</option>
                            <option value="type">회원타입</option>                           
                            <option value="reg_date">가입일</option>
@@ -68,7 +70,7 @@ function deleteUser() {
                            <option value="age">나이</option>
                         </select>
                      </div>
-                     <input type="text" class="form-control" name = "keyword" placeholder="검색어 입력" size="3">
+                     <input type="text" class="form-control" name = "word" placeholder="검색어 입력" size="3">
                         <button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
                   </div>
                   </div>
@@ -81,11 +83,11 @@ function deleteUser() {
                    <tbody>
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=user_id" style="text-decoration:none">아이디</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=type" style="text-decoration:none">회원타입</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=reg_date" style="text-decoration:none">가입일</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=gender" style="text-decoration:none">성별</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=userOrder%>&column=age" style="text-decoration:none">나이</a></td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=user_id" style="text-decoration:none">아이디</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=type" style="text-decoration:none">회원타입</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=reg_date" style="text-decoration:none">가입일</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=gender" style="text-decoration:none">성별</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=age" style="text-decoration:none">나이</a></td>
                      </tr>
                      
                      
@@ -113,7 +115,16 @@ function deleteUser() {
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= userDto.getType()%></p>
+                                <%--  <p class="media-meta"><%= userDto.getType()%></p> --%>
+                                 <span class="media-meta"> 
+                                 <%if (userDto.getType() == 0) {%>
+                                 	
+                                 	<% } else if(userDto.getType() == 1) {%>
+                                 	회원
+                                 	<% } else {%>
+                                 	사장
+                                 	<% } %>
+                                 	</span>
                               </div>
                            </div>
                         </td>
@@ -127,7 +138,13 @@ function deleteUser() {
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <span class="media-meta"> <%=userDto.getGender()%></span>
+                                 <span class="media-meta"> 
+                                 <%if (userDto.getGender() == 1) {%>
+                                 	남성
+                                 	<% } else {%>
+                                 	여성
+                                 	<% } %>
+                                 </span>
                               </div>
                            </div>
                         </td>
@@ -162,4 +179,5 @@ function deleteUser() {
          </div>
       </div>
    </div>
-</section>S
+</section>
+<%=pagination.getHtml()%>

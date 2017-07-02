@@ -13,8 +13,6 @@
 </style>
 <%
 List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
-String order = (String) request.getAttribute("order");
-PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
 %>
 <section class="content page-top row">
 	<div class="col-md-10 col-md-push-1">
@@ -88,4 +86,3 @@ PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator
 		</div>
 	</div>
 </section>
-<%=pageNavigation.getNavigator()%>
