@@ -57,7 +57,7 @@
 
 
 								<%
-									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
+									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("followCategoryList");
 									int size = list.size();
 									for (int i = 0; i < size; i++) {
 										FollowCategoryDto fcdto = list.get(i);

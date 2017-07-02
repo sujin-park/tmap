@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath"%>
-
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*"%>
+	<%
+	Pagination pagination = (Pagination) request.getAttribute("pagination");
+	
+	%>
 <script type="text/javascript">
 function viewreview(reviewId) {
 	document.location.href="<%=ContextPath.root%>/myreview?act=viewreview&reviewId="+reviewId;
@@ -23,11 +26,11 @@ function viewreview(reviewId) {
  <div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
 						<thead>
-							<tr class="warning" align="center">
-								<td>가게정보</td>
-								<td>리뷰제목</td>
-								<td>별점</td>
-								<td>등록일</td>
+							<tr class="warning">
+								<td width="30%">가게정보</td>
+								<td width="40%">리뷰제목</td>
+								<td width="20%">별점</td>
+								<td width="10%">등록일</td>
 							</tr>
 						</thead>
 						<tbody id="exShoplist">
@@ -38,13 +41,16 @@ function viewreview(reviewId) {
  	 
  	%>
 						
-							<tr align="center">
+							<tr>
 								<td>
 									<div class="media">
 										
-										<%=mrdto.getShopName() %><br>
-										<%=mrdto.getAddress() %>
+										<%=mrdto.getShopName() %>
+										<%if(mrdto.getAddress()!=null) {
+											%>
 										
+										<br><%=mrdto.getAddress() %>
+										<%} %>
 									</div>
 								</td>
 								<td>
@@ -94,5 +100,6 @@ function viewreview(reviewId) {
 								
 						</tbody>
 					</table>
+					<center><%=pagination.getHtml() %><center>
 				</div>
  

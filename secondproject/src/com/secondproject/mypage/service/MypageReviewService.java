@@ -8,8 +8,9 @@ import com.secondproject.mypage.model.FollowUserDto;
 import com.secondproject.mypage.model.MyReviewDto;
 
 public interface MypageReviewService {
-	 List<MyReviewDto> reviewListView(int userId);
+	 List<MyReviewDto> reviewListView(Map<String, Object> params);
 	 MyReviewDto reviewView(int reviewId);
+	 int totalReviewCount(Map<String, Object> params);
 	
 	 
 }

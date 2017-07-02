@@ -32,25 +32,7 @@ public class CommonServiceImpl implements CommonService {
 	}
 	
 	
-	public PageNavigation mypagePageNavigation(int pg, String key, String word, String control) {
-		PageNavigation pageNavigation = new PageNavigation();
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("key", key);
-		map.put("word", word);
-		map.put("control", control);
-		map.put("userId",2+"");
-		int totalArticleCount = MypageFollowDaoImpl.getMypageFollowDao().totalArticleCount(map);
-		
-		int totalPageCount = (totalArticleCount - 1) / BoardConstant.MYPAGE_LIST_SIZE + 1;
-		pageNavigation.setTotalArticleCount(totalArticleCount);
-		pageNavigation.setTotalPageCount(totalPageCount);
-		pageNavigation.setNowFirst(pg <= BoardConstant.MYPAGE_PAGE_SIZE);
-		pageNavigation.setNowEnd((totalPageCount-1)/BoardConstant.MYPAGE_PAGE_SIZE == (pg-1)/BoardConstant.MYPAGE_PAGE_SIZE);
-		pageNavigation.setPageNo(pg);
-		return pageNavigation;
-	}
-
+	
 
 
 	@Override

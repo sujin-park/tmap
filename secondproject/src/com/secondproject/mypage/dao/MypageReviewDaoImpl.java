@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.model.MyReviewDto;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
@@ -27,25 +29,33 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 
 
 	@Override
-	public List<MyReviewDto> reviewListView(int userId) {
+	public List<MyReviewDto> reviewListView(Map<String, Object> params) {
 		List<MyReviewDto> list = new ArrayList<MyReviewDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		int pageEnd = (Integer)params.get("pg") * BoardConstant.MYREVIEW_PAGE_SIZE;
+		int pageStart = pageEnd - BoardConstant.MYREVIEW_PAGE_SIZE;
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select r.review_id,s.title shop_name,s.address,u.email,r.score myscore,r.title subject, \n");
-			sql.append("		r.content,decode(to_char(sysdate,'yyyy.mm.dd'), to_char(r.update_date, 'yyyy.mm.dd'), \n");
-			sql.append("		to_char(r.update_date, 'hh24:mi:ss'), to_char(r.update_date, 'yy.mm.dd')) update_date \n");
-			sql.append("from review r \n");
-			sql.append("		join shop s on s.shop_id=r.shop_id \n");
+			sql.append("select b.* \n");
+			sql.append("from (select rownum rn,a.* \n");
+			sql.append("	from (select r.review_id,nvl(s.title,'¾øÀ½') shop_name,nvl(s.address,'') address,u.email,r.score myscore,r.title subject, \n");
+			sql.append("				r.content,decode(to_char(sysdate,'yyyy.mm.dd'), to_char(r.update_date, 'yyyy.mm.dd'), \n");
+			sql.append("				to_char(r.update_date, 'hh24:mi:ss'), to_char(r.update_date, 'yy.mm.dd')) update_date \n");
+			sql.append("		from review r \n");
+			sql.append("		left outer join shop s on s.shop_id=r.shop_id \n");
 			sql.append("		join users u on u.user_id=r.user_id \n");
-			sql.append("		where u.user_id=?");
-			sql.append("		order by update_date desc");
+			sql.append("		where u.user_id=? \n");
+			sql.append("		order by update_date desc ) a \n");
+			sql.append("	where rownum<=? \n");
+			sql.append("		)b \n");
+			sql.append("where b.rn>? \n");
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, userId);
+			pstmt.setInt(1, (Integer)params.get("userId"));
+			pstmt.setInt(2, pageEnd);
+			pstmt.setInt(3, pageStart);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -121,6 +131,36 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		}
 
 		return myreviewdto;
+	}
+
+
+	@Override
+	public int totalReviewCount(Map<String, Object> params) {
+		int cnt = 0;
+	      Connection conn=null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs =null;
+	      
+	      try {
+	         conn=DBConnection.getConnection();
+	         StringBuffer sql = new StringBuffer();
+
+	         sql.append(" select count(*) \n");
+	         sql.append("	from review \n");
+	         sql.append(" 	where user_id=? \n");
+	         pstmt=conn.prepareStatement(sql.toString());
+	         pstmt.setInt(1, (Integer)params.get("userId"));
+	         rs=pstmt.executeQuery();
+	         rs.next();
+	         cnt=rs.getInt(1);
+	            
+	      } catch (SQLException e) {
+	         
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(conn, pstmt, rs);
+	      }
+	      return cnt;
 	}
 
 }

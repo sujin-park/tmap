@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.*,com.secondproject.userdto.*"%>
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*,com.secondproject.userdto.*"%>
 	<%@ include file="/page/mypage/js/public.jsp" %>
 	<%
-	PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
+	Pagination pagination = (Pagination) request.getAttribute("pagination");
 	
 	%>
 <script type="text/javascript"
@@ -42,7 +42,7 @@ function upOrder(order, id) {
 		});
 	}
 }
-var userId;
+var followUserId;
 
 	function modifymake(){
 		var alias = $("#alias").val();
@@ -53,7 +53,7 @@ var userId;
 		document.cateForm.userId = userId;
 		document.cateForm.action = "<%=ContextPath.root %>/mypage";
 		document.cateForm.submit();  --%>
-		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&userId=" + userId+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
+		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&followUserId=" + followUserId+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
 	}
 
 	function downOrder(order, id) {
@@ -122,7 +122,7 @@ var userId;
 			form.innerHTML=data;
 		});
 		modalmemo();
-		userId=id;
+		followUserId=id;
 	}
 	
 	
@@ -214,7 +214,7 @@ var userId;
 				<select id="select" name="select" onchange="select()" class="form-control">
 					<option value="">전체</option>
 				<%
-									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("favoriteCategoryList");
+									List<FollowCategoryDto> list = (List<FollowCategoryDto>) request.getAttribute("followCategoryList");
 									if (list != null && list.size()!=0) {
 										int size = list.size();
 										for (int i = 0; i < size; i++) {
@@ -237,16 +237,16 @@ var userId;
 		</div>
 		<div class="row table-responsive">
 			<form name="input_form">
-				<table class="table table-bordered">
+				<table class="table table-filter">
 					<thead>
-						<tr>
+						<tr class="warning">
 							<th class="center"><input type="checkbox" class="lar"
-								name="all" onclick="javascript:check();"></th>
-							<th>카테고리</th>
-							<th>id | 상태메세지</th>
-							<th>최근후기등록일</th>
-							<th>팔로우한날짜</th>
-							<th>별칭</th>
+								name="all" onclick="javascript:check();" width="5%"></th>
+							<th width="10%">카테고리</th>
+							<th width="40%">id | 상태메세지</th>
+							<th width="15%">최근후기등록일</th>
+							<th width="15%">팔로우한날짜</th>
+							<th width="15%">별칭</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -291,7 +291,7 @@ var userId;
 						
 					</tbody>
 				</table>
-				<center><%=pageNavigation.getNavigator() %><center>
+				<center><%=pagination.getHtml() %><center>
 			</form>
 		</div>
 
