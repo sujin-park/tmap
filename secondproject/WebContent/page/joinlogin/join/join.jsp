@@ -5,7 +5,7 @@
 	//String root = request.getContextPath();
 %>
 <form id="joinform" name="joinform" method="post" action="">
-	<input type="hidden" name="act" value="join">
+	<input type="hidden" name="act" value="attest">
 	<div class="modal" id="joinmodal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -35,12 +35,12 @@
 						<div id="pw_check"></div>
 					</div>
 					<div class="form-group">
-						<label for="inputEmail" class="col-lg-2 control-label"><h4>Age</h4></label>
+						<label for="inputAge" class="col-lg-2 control-label"><h4>Age</h4></label>
 						<div class="col-xs-3">
 							<input type="text" class="form-control" placeholder="Age"
 								id="age" name="age">
 						</div>
-						<label for="inputEmail" class="col-lg-2 control-label"><h4>Gender</h4></label>
+						<label for="inputGender" class="col-lg-2 control-label"><h4>Gender</h4></label>
 						<div class="btn-group">
 							<select class="form-control" id="gender" name="gender">
 								<option>Gender</option>
@@ -51,8 +51,12 @@
 					</div>
 				</div>
 				<div class="modal-footer">
+					<center>
+					아래 버튼을 클릭시 입력하신 Email 주소로 mail이 발송됩니다.<br>
+					유효 시간은 10분입니다.<br>
 					<button type="button" class="btn btn-primary" data-dismiss="modal"
-						onclick="javascript:join();">Join</button>
+						onclick="javascript:attest();">Email 인증하기</button>
+					</center>
 					<button type="button" class="btn btn-default"
 						onclick="">Cancel</button>
 				</div>
@@ -62,9 +66,10 @@
 </form>
 <script type="text/javascript" src="/secondproject/page/joinlogin/js/joinajax.js"></script>
 <script>
-	function join() {
+	function attest() {
 		if (document.getElementById("joinEmail").value == "") {
 			alert("이메일을 입력해주세요.");
+			return;
 		} else if (document.getElementById("joinPassword").value == "") {
 			alert("비밀번호를 입력해주세요.");
 			return;
