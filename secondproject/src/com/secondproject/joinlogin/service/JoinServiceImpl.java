@@ -1,5 +1,8 @@
 package com.secondproject.joinlogin.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.secondproject.joinlogin.dao.JoinDaoImpl;
 import com.secondproject.userdto.UserDto;
 
@@ -18,13 +21,18 @@ public class JoinServiceImpl implements JoinService {
 	}
 
 	@Override
-	public int join(UserDto userDto) {
-		return JoinDaoImpl.getJoinDao().join(userDto);
+	public int idCheck(String sid) {
+		return JoinDaoImpl.getJoinDao().idCheck(sid);
 	}
 
 	@Override
-	public int idCheck(String sid) {
-		return JoinDaoImpl.getJoinDao().idCheck(sid);
+	public UserDto attest(String email, String password, String age, String gender) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("attestemail", email);
+		map.put("attestpassword", password);
+		map.put("attestage", age);
+		map.put("attestgender", gender);
+		return JoinDaoImpl.getJoinDao().attest(map);
 	}
 
 }

@@ -1,8 +1,10 @@
 package com.secondproject.joinlogin.dao;
 
+import java.util.Map;
+
 import com.secondproject.userdto.UserDto;
 
 public interface JoinDao {
-	int join(UserDto userDto);
+	UserDto attest(Map<String, String> map);
 	int idCheck(String id);
 }

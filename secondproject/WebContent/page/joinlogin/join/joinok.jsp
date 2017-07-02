@@ -18,8 +18,8 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<center>
-						<label for="inputEmail" class="col-lg-2 control-label"><font color="blue"><%=userDto.getEmail() %></font>님 회원가입이 성공하였습니다.<br>
-						함께 맛있는 것 쳐묵쳐묵
+						<label for="inputEmail" class="col-lg-2 control-label"><font color="blue"><%=userDto.getEmail() %></font>님 인증이 성공적으로 완료되었습니다.<br>
+						회원가입을 축하합니다. 로그인하시면 서비스를 이용하실 수 있습니다.
 						</label>
 						</center>
 					</div>

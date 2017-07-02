@@ -22,7 +22,7 @@ public class LoginAction implements Action{
 		String password = request.getParameter("password");
 		
 		UserDto userDto = LoginServiceImpl.getLoginService().login(email, password);		
-		System.out.println(userDto.getEmail());
+//		System.out.println(userDto.getEmail());
 		if(userDto != null){
 			//session ¼³Á¤
 			HttpSession session = request.getSession();
