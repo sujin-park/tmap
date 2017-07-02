@@ -30,7 +30,7 @@ public class ExhibitionListAction extends BoardCommonAction implements Action {
 		int pg = NumberCheck.nullToOne(request.getParameter("pg"));
 		String key = Encoding.nullToBlank(request.getParameter("key"));
 		String word = Encoding.isoToEuc(request.getParameter("word"));
-		String order = Encoding.nullToBlank(request.getParameter("order"));                                
+		String order = Encoding.nullToBlank(request.getParameter("order"));
 		String column = Encoding.nullToBlank(request.getParameter("column"));
 		String board = request.getParameter("board");
 		System.out.println(board);

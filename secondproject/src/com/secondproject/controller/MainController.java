@@ -14,9 +14,11 @@ public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("titleTagValue", "타이틀");
-		request.setAttribute("contentPath", "/page/main.jsp");
-		RequestDispatcher dist = request.getRequestDispatcher("/template/default/default.jsp");
+		request.setAttribute("titleTagValue", "임시이름티맵");
+		request.setAttribute("contentPath", "/page/main/main.jsp");
+		request.setAttribute("addHeadPath", "/page/main/include/head.jsp");
+		request.setAttribute("addBottomPath", "/page/main/include/bottom.jsp");
+		RequestDispatcher dist = request.getRequestDispatcher("/template/main/index.jsp");
 		dist.forward(request, response);
 	}
 

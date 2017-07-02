@@ -19,7 +19,6 @@ public class ReviewWriteAction implements Action {
 		String path = "";
 		int seq = Sequence.getSequenceNextVal("SEQ_REVIEW_ID");
 		int shopId = NumberCheck.nullToZero(request.getParameter("shopId"));
-		System.out.println("shopId == " + shopId);
 		//int userId = NumberCheck.nullToZero(request.getParameter("userId"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -28,6 +27,7 @@ public class ReviewWriteAction implements Action {
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewId(seq);
 		reviewDto.setShopId(shopId);
+		// TODO User ID 세션에서 얻어올 것
 		reviewDto.setUserId(1);
 		reviewDto.setTitle(title);
 		reviewDto.setContent(content);

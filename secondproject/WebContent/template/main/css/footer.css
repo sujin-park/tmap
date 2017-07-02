@@ -1,0 +1,32 @@
+@CHARSET "EUC-KR";
+
+#footer-container{
+	background-color: #e84309;
+	padding: 25px 13px 30px;
+}
+
+#footer{
+	color: #fff;
+	text-align: center;
+}
+
+#footer-logo{
+	display: inline;
+	font-weight: bold;
+	font-size: 2.167rem;
+	margin-right: 5px;
+}
+
+.team{
+	display: block;
+	margin-top: 15px;
+}
+
+.member{
+	display: block;
+	font-weight: bold;
+}
+
+.last{
+	display: block;
+}

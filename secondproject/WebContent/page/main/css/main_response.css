@@ -1,0 +1,85 @@
+@CHARSET "EUC-KR";
+
+@media screen and (min-width: 480px) {
+	#main-visual-container{
+		height: 300px;
+	}
+	
+	.visual-title .sub-title{
+		font-size: 3rem;
+	}
+	
+	.visual-title .title{
+		font-size: 4.167rem;
+	}
+	
+	.exhibition-container{
+		padding: 45px 7% 50px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.exhibition-container{
+		padding: 45px 55px 50px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	#main-visual-container{
+		margin-top: 0;
+		height: 600px;
+	}
+	
+	.visual-title .sub-title{
+		font-size: 3rem;
+	}
+	
+	.visual-title .title{
+		font-size: 5rem;
+	}
+	
+	.exhibition-container{
+		padding: 75px 55px 100px;
+	}
+	
+	.ex-title{
+		font-size: 3.25rem;
+		margin-bottom: 3px;
+	}
+
+	.ex-desc{
+		font-size: 1.4rem;
+		margin-bottom: 35px;
+	}
+	
+	.ex-slick-container{
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+	
+	.ex-hr{
+		max-width: 1400px;
+	}
+	
+	.slick-dots{
+		margin-top: 30px;
+	}
+	
+	.slick-prev{
+		left: -50px;
+		width: 35px;
+	}
+	
+	.slick-next{
+		right: -50px;
+		width: 35px;
+	}
+	
+	.slick-prev:before, .slick-next:before{
+		font-size: 35px;
+	}
+	
+	.slick-dots li button:before{
+		font-size: 12px;
+	}
+}
