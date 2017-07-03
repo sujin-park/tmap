@@ -11,6 +11,7 @@ import java.util.Map;
 import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.model.MyReviewDto;
 import com.secondproject.mypage.model.ReviewCommentDto;
+import com.secondproject.mypage.model.ReviewGoodBad;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
@@ -55,9 +56,11 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 			sql.append("						order by review_id) a on r.review_id=a.review_id \n");
 			sql.append("		left outer join (select review_id,count(good) good \n");
 			sql.append("							from review_good_bad \n");
+			sql.append("							where good=1 \n");
 			sql.append("							group by review_id) gg on gg.review_id=r.review_id \n");
 			sql.append("		left outer join (select review_id,count(bad) bad \n");
 			sql.append("						from review_good_bad \n");
+			sql.append("						where bad=1 \n");
 			sql.append("					group by review_id) bb on bb.review_id=r.review_id \n");
 			sql.append("	where u.user_id=? \n");
 			sql.append("	order by update_date desc \n");
@@ -106,7 +109,7 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select u.email,a.good,a.bad,a.title subject,a.score, \n");
+			sql.append("select a.user_id,a.review_id,u.email,a.good,a.bad,a.title subject,a.score, \n");
 			sql.append("	   decode(to_char(sysdate,'yyyy.mm.dd'), to_char(a.update_date, 'yyyy.mm.dd'), \n");
 			sql.append("       to_char(a.update_date, 'hh24:mi:ss'), to_char(a.update_date, 'yyyy.mm.dd')) update_date, \n");
 			sql.append("       a.content,a.img reviewImg, \n");
@@ -140,6 +143,8 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 				myreviewdto.setTel(rs.getString("tel"));
 				myreviewdto.setBusinessTime(rs.getString("business_time"));
 				myreviewdto.setDetail(rs.getString("detail"));
+				myreviewdto.setReviewId(rs.getString("review_id"));
+				myreviewdto.setUserId(rs.getString("user_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -189,7 +194,8 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("select * \n");
-			sql.append("from review_comment \n");
+			sql.append("from review_comment rc \n");
+			sql.append("join users u on u.user_id=rc.user_id \n");
 			sql.append("where review_id=?");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, reviewId);
@@ -199,7 +205,7 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 				ReviewCommentDto cdto = new ReviewCommentDto();
 				cdto.setReviewCommentId(rs.getInt("review_comment_id"));
 				cdto.setReviewId(rs.getInt("review_id"));
-				cdto.setUserid(rs.getInt("user_id"));
+				cdto.setEmail(rs.getString("email"));
 				cdto.setReviewContent(rs.getString("review_content"));
 				list.add(cdto);
 			}
@@ -210,6 +216,79 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		}
 
 		return list;
+	}
+
+	@Override
+	public ReviewGoodBad goodbad(int reviewId, int userId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ReviewGoodBad goodbad = new ReviewGoodBad();
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select * \n");
+			sql.append("from review_good_bad  \n");
+			sql.append("where review_id=? and user_id=?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reviewId);
+			pstmt.setInt(2, userId);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				goodbad.setReview_id(rs.getInt("review_id"));
+				goodbad.setUser_id(rs.getInt("user_id"));
+				goodbad.setGood(rs.getInt("good"));
+				goodbad.setBad(rs.getInt("bad"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return goodbad;
+	}
+
+	@Override
+	public void goodbadselect(int good, int bad, int userId, int reviewId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			conn = DBConnection.getConnection();
+			ReviewGoodBad regb = goodbad(reviewId, userId);
+			if(regb.getReview_id()==0) {
+            
+            StringBuffer insert = new StringBuffer();
+            insert.append("insert into review_good_bad \n");
+            insert.append("values (?,?,?,?)");
+            pstmt = conn.prepareStatement(insert.toString());
+            pstmt.setInt(1, reviewId);
+            pstmt.setInt(2, userId);
+            pstmt.setInt(3, good);
+            pstmt.setInt(4, bad);
+            pstmt.executeUpdate();
+			} else {
+            StringBuffer update = new StringBuffer();
+            update.append("update review_good_bad \n");
+            update.append("set good=?,bad=? \n");
+            update.append("where user_id=? and review_id=?");
+            pstmt = conn.prepareStatement(update.toString());
+            pstmt.setInt(1, good);
+            pstmt.setInt(2, bad);
+            pstmt.setInt(3, userId);
+            pstmt.setInt(4, reviewId);
+            pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
 	}
 
 }

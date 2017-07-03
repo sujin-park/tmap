@@ -6,6 +6,7 @@ import java.util.Map;
 import com.secondproject.mypage.dao.MypageReviewDaoImpl;
 import com.secondproject.mypage.model.MyReviewDto;
 import com.secondproject.mypage.model.ReviewCommentDto;
+import com.secondproject.mypage.model.ReviewGoodBad;
 
 public class MypageReviewServiceImpl implements MypageReviewService{
 
@@ -51,6 +52,21 @@ public class MypageReviewServiceImpl implements MypageReviewService{
 	@Override
 	public List<ReviewCommentDto> commentList(int reviewId) {
 		return MypageReviewDaoImpl.getMypageReviewDao().commentList(reviewId);
+	}
+
+
+
+	@Override
+	public ReviewGoodBad goodbad(int reviewId, int userId) {
+		return MypageReviewDaoImpl.getMypageReviewDao().goodbad(reviewId, userId);
+	}
+
+
+
+	@Override
+	public void goodbadselect(int good, int bad, int userId, int reviewId) {
+		MypageReviewDaoImpl.getMypageReviewDao().goodbadselect(good, bad, userId, reviewId);
+		
 	}
 
 

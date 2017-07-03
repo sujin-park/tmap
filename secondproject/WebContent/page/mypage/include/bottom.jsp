@@ -1,45 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" import="com.secondproject.constant.ContextPath"%>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=HI7oAnTDg6I_l3gyYakf&submodules=geocoder"></script>
-<script>
-var reviewPoint = new naver.maps.LatLng($('#reviewLat').val(), $('#reviewLng').val());
-
-var mapOptions = {
-    center: reviewPoint,
-    zoom: 10
-};
-
-
-var map = new naver.maps.Map('map', mapOptions);
-
-var HOME_PATH = window.HOME_PATH || '.';
-var map = new naver.maps.Map(document.getElementById('map'), {zoom: 11});
-
-map.fitBounds(naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(37.3724620, 127.1051714),
-                                             new naver.maps.LatLng(37.3542795, 127.1174332)));
-                                             
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"
+	import="com.secondproject.constant.ContextPath,java.util.*,com.secondproject.mypage.model.*"%>
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=HI7oAnTDg6I_l3gyYakf&submodules=geocoder"></script>
 	
-var urlMarker = new naver.maps.Marker({
-    position: reviewPoint,
-    map: map,
-    title: 'urlMarker',
-    icon: HOME_PATH +"/img/example/pin_default.png",
-    animation: naver.maps.Animation.DROP
-});
+<script type="text/javascript">
 
-naver.maps.Event.addListener(urlMarker, 'click', function() {
-    if (urlMarker.getAnimation() !== null) {
-        urlMarker.setAnimation(null);
-    } else {
-        urlMarker.setAnimation(naver.maps.Animation.BOUNCE);
-    }
-});
 
-var imageMarker = new naver.maps.Marker({
-    position: reviewPoint,
-    map: map,
-    title: 'imageMarker',
-    icon: HOME_PATH +"/img/example/pin_default.png",
-    animation: naver.maps.Animation.DROP
-});
+<% List<MyReviewDto> list = (List<MyReviewDto>) request.getAttribute("reviewlist"); 
+if(list!=null) {%>
+	var map = new naver.maps.Map('map', {
+	    center: new naver.maps.LatLng(<%=list.get(0).getLat()%>, <%=list.get(0).getLng()%>),
+	    zoom: 8
+	});
+	
+	<% for(MyReviewDto rdto : list) {%>
+	var marker = new naver.maps.Marker({
+	    position: 
+	    	
+	    	new naver.maps.LatLng(<%=rdto.getLat()%>, <%=rdto.getLng()%>),
+	    
+	    map: map
+	});
+<%
+	}
+} else {
+%>
+<%MyReviewDto mrdto = (MyReviewDto) request.getAttribute("myreview");
+if(mrdto!=null) {%>
 
+var map = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(<%=mrdto.getLat()%>, <%=mrdto.getLng()%>),
+    zoom: 10
+});
+var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(<%=mrdto.getLat()%>, <%=mrdto.getLng()%>),
+    
+    map: map
+});
+<%}
+}%>
 </script>

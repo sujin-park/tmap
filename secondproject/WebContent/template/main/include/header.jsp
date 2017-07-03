@@ -10,7 +10,8 @@
 			<% if (userDto == null){ %>
 				<li><a href="javascript:loginmove();" class="nav-btn btn-login">LOGIN</a></li>
 			<% } else { %>
-				<li><a href="<%=ContextPath.root%>/mypage?act=followView&pg=1" class="nav-btn btn-login">MyPage</a></li>
+				<li><a href="<%=ContextPath.root%>/myreview?act=myreviewView&pg=1" class="nav-btn btn-login">Review</a></li>
+				<li><a href="<%=ContextPath.root%>/mypage?act=followView&pg=1" class="nav-btn btn-login">Follow</a></li>
 				<li><a href="javascript:logoutmove();" class="nav-btn btn-login">Logout</a></li>
 			<% } %>
 		</ul>

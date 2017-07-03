@@ -5,54 +5,44 @@
 	<%
 	Pagination pagination = (Pagination) request.getAttribute("pagination");
 	String word = Encoding.isoToUtf(request.getParameter("word"));
+	UserDto udto = (UserDto)session.getAttribute("logininfo");
+	if(udto!=null) {
 	%>
-<script type="text/javascript"
-	src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 	var word = "<%=word%>";
 	
 	 function firstArticle() {
 		 document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=";
-		 /*   
-		   document.commonForm.act.value="followView";
-		   document.commonForm.pg.value="1";
-		   document.commonForm.key.value="";
-		   document.commonForm.word.value="";
-		   document.commonForm.action=root+control;
-		   document.commonForm.submit(); */
+			
 		   
 		}
 
-function listArticle(mvpg) {
+	function listArticle(mvpg) {
 	
 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg="+mvpg+"&key=&word=&control=";
 	
-}
-
-
-function upOrder(order, id) {
-	if (order == 1) {
-		return alert("첫번째 순서입니다.");
-	} else {
-		$.get("/secondproject/mypage?act=upOrder&id="+id, function(data, status){
-			var tt = document.getElementById("tt");
-			tt.innerHTML=data;
-		});
 	}
-}
+
+
+	function upOrder(order, id) {
+		if (order == 1) {
+			return alert("첫번째 순서입니다.");
+		} else {
+			$.get("/secondproject/mypage?act=upOrder&id="+id, function(data, status){
+				var tt = document.getElementById("tt");
+				tt.innerHTML=data;
+			});
+		}
+	}
 var followUserId;
 
 	function modifymake(){
 		var alias = $("#alias").val();
 		var memo = $("#memo").val();
-<%-- 		document.cateForm.act = "followmodify";
-		document.cateForm.alias = alias;
-		document.cateForm.memo = memo;
-		document.cateForm.userId = userId;
-		document.cateForm.action = "<%=ContextPath.root %>/mypage";
-		document.cateForm.submit();  --%>
+
 		document.location.href = "<%=ContextPath.root%>/mypage?act=followmodify&followUserId=" + followUserId+"&alias="+encodeURI(alias)+"&memo="+encodeURI(memo);
 	}
 
@@ -136,7 +126,7 @@ var followUserId;
 			}
 		}
 
-	}
+	} 
 	var valueArr;
 	$(document).ready(function() {
 		$("#getCheckedAll").click(function() {
@@ -147,15 +137,8 @@ var followUserId;
 			if (valueArr == "") {
 				alert("선택하세요");
 			} else {
-				 document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&id=" + valueArr;
-				/* 	document.commonForm.act.value="followdelete";
-				   document.commonForm.pg.value="1";
-				   document.commonForm.key.value="";
-				   document.commonForm.word.value="";
-				   document.commonForm.control.value=control;
-				   document.commonForm.seq.value=valueArr;
-				   document.commonForm.action=root+control;
-				   document.commonForm.submit(); */
+				 document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&seq="+valueArr;
+			
 			}
 		});
 		 $("#catemodify").click(function() {
@@ -167,44 +150,37 @@ var followUserId;
 				alert("선택하세요");
 			} else {
 				modalcate();	
-				/* document.commonForm.act.value="catemodify";
-				   document.commonForm.pg.value="1";
-				   document.commonForm.key.value="";
-				   document.commonForm.word.value="";
-				   document.commonForm.control.value=control;
-				   document.commonForm.seq.value=valueArr;
-				   document.commonForm.action=root+control;
-				   document.commonForm.submit(); */
+				
 			}
 		}); 
-		
+		 $('#modal').on('hidden.bs.modal', function (e) {
+			  document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
+			})
+		$('#modalmemo').on('hidden.bs.modal', function (e) {
+			document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
+			})
+		$('#modalcate').on('hidden.bs.modal', function (e) {
+			document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
+			})
 	});
 	function select() {
 		var id =$("select[name=select]").val();
 	 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=category_name&word="+encodeURI(id);
- 
-		 /*   document.commonForm.act.value="followView";
-		   document.commonForm.pg.value="1";
-		   document.commonForm.key.value="category_name";
-		   document.commonForm.word.value=id;
-		   document.commonForm.control.value=control;
-		   document.commonForm.action=root+control;
-		   document.commonForm.submit(); */
 		
 	}
 	function modicate() {
 		var cateid =$("select[name=modicate]").val();
 		
 		document.location.href="<%=ContextPath.root%>/mypage?act=catemodify&id="+cateid+"&seq="+valueArr;
-		/*    document.commonForm.act.value="catemodify";
-		   document.commonForm.seq.value=valueArr;
-		   document.commonForm.id.value=cateid;
-		   document.commonForm.submit();  */
+		
+		
 	}
+	
 </script>
-<div class="col-xs-9 col-md-9 col-xs-offset-1 a">
+<div class="container">
+<div class="col-xs-12 col-md-12 a">
 
-	<h2 class="sub-header">팔로우 관리</h2>
+	<h4 class="sub-header">팔로우 관리</h4>
 
 
 	<div class="form-group form-inline">
@@ -297,7 +273,7 @@ var followUserId;
 	</div>
 	<div></div>
 </div>
-
+</div>
 <div class="modal fade" id="modal" role="dialog" aria-hidden="true"
 	aria-labelledby="myModalLabel">
 	<div class="modal-dialog">
@@ -467,3 +443,10 @@ var followUserId;
 		</div>
 	</div>
 </div>
+<%} else {%>
+<script>
+alert("회원전용 게시판입니다. 로그인후 사용하세요.");
+document.location.href = "<%=ContextPath.root%>/index.jsp";
+</script>
+
+<%}%>

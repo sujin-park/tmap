@@ -1,0 +1,39 @@
+@CHARSET "EUC-KR";
+
+@media screen and (min-width: 768px) {
+	
+	.team{
+		display: inline;
+	}
+	
+	.member{
+		display: inline;
+	}
+	
+	.last{
+		display: inline;
+	}
+	
+	#footer-container {
+		padding: 10px 30px 14px;
+	}
+	
+	#footer{
+		max-width: 1170px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	
+	#footer .footer-slogan{
+		display: block;
+	}
+	
+	.footer-slogan{
+		float: left;
+	}
+	
+	#footer .copyright{
+		float: right;
+		margin-top: 7px;
+	}
+}

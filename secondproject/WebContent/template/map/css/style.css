@@ -2,12 +2,9 @@
 @import url(./reset.css);
 @import url(./header.css);
 @import url(./header_response.css);
-@import url(./footer.css);
-@import url(./footer_response.css);
 
 .page-container{
 	padding-top: 50px;
-	padding-bottom: 100px;
 	-webkit-transition: padding 0.45s ease;
 	-moz-transition: padding 0.45s ease;
 	-ms-transition: padding 0.45s ease;

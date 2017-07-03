@@ -119,7 +119,7 @@ public class Pagination {
 		}
 		
 		StringBuffer html = new StringBuffer();
-		html.append("<nav aria-label=\"Page navigation\">\n");
+		html.append("<nav class=\"pageNavigation\" aria-label=\"Page navigation\">\n");
 		html.append("	<ul class=\"pagination\">\n");
 		html.append("		<li " + isFirstPageActive + "><a href=\"" + firstPageHref + "\">처음</a></li>\n");
 		html.append("		<li " + isPrevPageActive + "><a href=\"" + prevPageHref + "\" aria-label=\"Previous\"> <span aria-hidden=\"true\">이전</span></a></li>\n");

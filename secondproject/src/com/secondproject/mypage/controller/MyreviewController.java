@@ -17,25 +17,27 @@ public class MyreviewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "index.jsp";
+		String path = "/index.jsp";
 		String act = request.getParameter("act");
 		if("myreviewView".equals(act)) {
 			path=MypageFactory.getMypageReviewListViewAction().execute(request, response);
 		} else if("viewreview".equals(act)) {		
 			path = MypageFactory.getMypageReviewViewAction().execute(request, response);
+		} else if("goodbad".equals(act)) {
+			path = MypageFactory.getGoodBadAction().execute(request, response);
 		} else if("".equals(act)) {
 		
 		} else if("".equals(act)) {
 		
 		} else if("".equals(act)) {
 		
-		} else if("".equals(act)) {
-		
+			
 		}
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
 		request.setAttribute("addHeadPath", "/page/mypage/include/head.jsp");
 		request.setAttribute("addBottomPath", "/page/mypage/include/bottom.jsp");
+		
 		RequestDispatcher dist = request.getRequestDispatcher("/template/default/default.jsp");
 		dist.forward(request, response);
 		
@@ -45,5 +47,6 @@ public class MyreviewController extends HttpServlet {
 		request.setCharacterEncoding("EUC-KR");
 		doGet(request,response);
 	}
+	
 
 }

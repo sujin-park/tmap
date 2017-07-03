@@ -19,7 +19,7 @@ public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "index.jsp"; 		
+		String path = "/index.jsp"; 		
 		String act = request.getParameter("act");
 		if("followCategoryListView".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryListView().execute(request, response);
