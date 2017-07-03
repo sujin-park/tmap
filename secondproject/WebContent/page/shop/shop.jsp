@@ -17,17 +17,17 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-xs-12 col-md-3">
+		
+			<div class="col-xs-12 col-md-4">
 				<img src="<%=ContextPath.root%>/upload/test/test.png"
 					class="img-responsive" />
 			</div>
-			<div class="col-md-9">
 			
+			<div class="col-md-8">
 				<span class="label label-default"><%=shopDto.getCategoryTitle()%></span>
 				<h3>
 					<%=shopDto.getTitle()%>
 					<span class="badge"><%=shopDto.getScore()%></span>
-					<a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>">府轰累己</a>
 				</h3>
 				<ul class="list-group">
 					<li class="list-group-item">林家 : <%=shopDto.getAddress()%></li>
@@ -41,8 +41,9 @@
 					<li class="list-group-item">沥焊 : <%=shopDto.getDetail()%></li>
 					<% } %>
 				</ul>
-
+				<a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>" class="btn btn-default">府轰累己</a>
 			</div>
+			
 		</div>
 
 		<div class="row review-list-container">
