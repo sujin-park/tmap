@@ -26,6 +26,7 @@ public class ExhibitionListAction extends BoardCommonAction implements Action {
 		String board = request.getParameter("board");
 		setBoardParameter(request);
 		HashMap<String, Object> params = getParameterMap();
+
 		// pg, key, word, orderKey, orderValue
 		String orderValue = (String) params.get("orderValue");
 		if (orderValue.isEmpty() || orderValue.equals("asc")) {

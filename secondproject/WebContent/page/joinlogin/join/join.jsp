@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-
-<%
-	//String root = request.getContextPath();
-%>
 <form id="joinform" name="joinform" method="post" action="">
 	<input type="hidden" name="act" value="attest">
 	<div class="modal" id="joinmodal">
@@ -64,63 +60,3 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript" src="/secondproject/page/joinlogin/js/joinajax.js"></script>
-<script>
-	function attest() {
-		if (document.getElementById("joinEmail").value == "") {
-			alert("이메일을 입력해주세요.");
-			return;
-		} else if (document.getElementById("joinPassword").value == "") {
-			alert("비밀번호를 입력해주세요.");
-			return;
-		} else if (document.getElementById("joinPassword").value != document.getElementById("password_check").value) {
-			alert("비밀번호를 확인해주세요.");
-			return;
-		} else if (document.getElementById("gender").value == "") {
-			alert("성별를 입력해주세요.");
-			return;
-		} else if (document.getElementById("age").value == "") {
-			alert("나이를 입력해주세요.");
-			return;
-		} else {
-			document.joinform.action = "/secondproject/joinlogin"
-			document.joinform.submit();
-		}
-	}
-var view;
-
-function idcheck() {
-	view = document.getElementById("idresult");
-	var idck = document.getElementById("joinEmail").value;
-	console.log(idck.match("@"));
-	if(idck.match("@") == null){
-		view.innerHTML="<font color='RED'>이메일 형식을 갖추어야합니다.</font>"
-	} else {
-		var param ="act=idcheck&email=" + encodeURIComponent(idck);
-		sendRequest("/secondproject/joinlogin", param, idresult, "GET");
-	}
-}
-
-function idresult() {
-	if(httpRequest.readyState == 4){
-		if(httpRequest.status == 200){
-			var txt = httpRequest.responseText;
-			view.innerHTML = txt; 
-		} else {
-			alert("문제발생 : " + httpRequest.status);
-		}
-	}
-}
-
-function pwcheck() {
-	view = document.getElementById("pw_check");
-	var pw = document.getElementById("joinPassword").value;
-	var pwck = document.getElementById("password_check").value;
-	if(pw != pwck){
-		view.innerHTML="<font color='RED'>비밀번호가 일치하지 않습니다.</font>"
-	} else {
-		view.innerHTML="<font color='BLUE'>비밀번호가 일치합니다.</font>"
-	}
-}
-
-</script>

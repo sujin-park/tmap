@@ -32,4 +32,9 @@ public class ShopInfoServiceImpl implements ShopInfoService {
 
 	}
 
+	@Override
+	public ShopInfoDto viewShopInfomation(int shopseq) {
+		return ShopInfoDaoImpl.getShopInfoDao().viewShopInfomation(shopseq);
+	}
+
 }

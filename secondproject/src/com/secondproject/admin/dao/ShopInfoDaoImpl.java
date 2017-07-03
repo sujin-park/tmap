@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.secondproject.admin.model.ExhibitionDto;
 import com.secondproject.admin.model.ShopInfoDto;
 import com.secondproject.constant.BoardConstant;
 import com.secondproject.util.Encoding;
@@ -48,7 +49,7 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 			sql.append("from ( \n");
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
-			sql.append("select s.title,c.category_title,s.tel,s.address,e.shop_id \n");
+			sql.append("select s.title, c.category_title, s.tel, s.address, e.shop_id \n");
 			sql.append("from shop s, shop_category c, exhibition_detail e \n");
 			sql.append("where c.category_id = s.category_id and s.shop_id = e.shop_id \n");
 
@@ -79,7 +80,7 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 				shopInfoDto.setCategoryName(rs.getString("category_title"));
 				shopInfoDto.setShopTel(rs.getString("tel"));
 				shopInfoDto.setShopAddress(rs.getString("address"));
-				shopInfoDto.setExhibitionId(rs.getInt("shop_id"));
+				shopInfoDto.setShopId(rs.getInt("shop_id"));
 
 				list.add(shopInfoDto);
 			}
@@ -128,6 +129,47 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 
 		return cnt;
 
+	}
+
+	@Override
+	public ShopInfoDto viewShopInfomation(int shopseq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ShopInfoDto shopInfoDto = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select s.title, c.category_title, s.tel, s.address, e.shop_id, \n");
+			sql.append("	   s.business_time, s.detail, s.img, s.lat, s.lng \n");
+			sql.append("	   from shop s, shop_category c, exhibition_detail e \n");
+			sql.append("	   where c.category_id = s.category_id and s.shop_id = e.shop_id \n");
+			sql.append("	   and s.shop_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, shopseq);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				shopInfoDto = new ShopInfoDto();
+				shopInfoDto.setShopId(rs.getInt("shop_id"));
+				shopInfoDto.setShopTitle(rs.getString("title"));
+				shopInfoDto.setCategoryName(rs.getString("category_title"));
+				shopInfoDto.setShopTel(rs.getString("tel"));
+				shopInfoDto.setShopAddress(rs.getString("address"));
+				shopInfoDto.setBusinessTime(rs.getString("business_time"));
+				shopInfoDto.setDetail(rs.getString("detail"));
+				shopInfoDto.setImg(rs.getString("img"));
+				shopInfoDto.setLat(rs.getDouble("lat"));
+				shopInfoDto.setLng(rs.getDouble("lng"));
+				
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return shopInfoDto;
 	}
 
 }

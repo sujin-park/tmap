@@ -8,6 +8,7 @@ var mapOptions = {
     zoom: 10
 };
 
+
 var map = new naver.maps.Map('map', mapOptions);
 
 var HOME_PATH = window.HOME_PATH || '.';
@@ -15,7 +16,8 @@ var map = new naver.maps.Map(document.getElementById('map'), {zoom: 11});
 
 map.fitBounds(naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(37.3724620, 127.1051714),
                                              new naver.maps.LatLng(37.3542795, 127.1174332)));
-
+                                             
+	
 var urlMarker = new naver.maps.Marker({
     position: reviewPoint,
     map: map,

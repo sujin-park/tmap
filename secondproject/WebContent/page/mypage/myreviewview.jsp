@@ -110,8 +110,5 @@
 			
 			</div>
 		</div>
-</div>
-<script type="text/javascript">
-   var reviewPoint = new naver.maps.LatLng(<%=mrdto.getLat()%>, <%=mrdto.getLng()%>);
-</script>
 
+</div>

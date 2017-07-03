@@ -87,6 +87,7 @@ public class PictureUploadControrller extends HttpServlet {
 
 		ExhibitionDto exhibitionDto = new ExhibitionDto();
 		exhibitionDto.setExhibitionId(seq);
+		System.out.println("EXHIBITION ID " + seq);
 		exhibitionDto.setExTitle(multi.getParameter("subject"));
 		exhibitionDto.setExDesc(multi.getParameter("content"));
 		exhibitionDto.setExImage(multi.getFilesystemName("picturename"));

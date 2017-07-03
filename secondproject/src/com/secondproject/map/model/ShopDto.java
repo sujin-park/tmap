@@ -12,6 +12,14 @@ public class ShopDto {
 	private String tel;
 	private String businessTime;
 	private String detail;
+	private String img;
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 	public int getShopId() {
 		return shopId;

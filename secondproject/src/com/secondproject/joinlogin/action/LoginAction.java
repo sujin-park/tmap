@@ -20,17 +20,12 @@ public class LoginAction implements Action{
 		String path = "/index.jsp";
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
-		UserDto userDto = LoginServiceImpl.getLoginService().login(email, password);		
-//		System.out.println(userDto.getEmail());
+		UserDto userDto = LoginServiceImpl.getLoginService().login(email, password);
 		if(userDto != null){
-			//session 설정
 			HttpSession session = request.getSession();
 			session.setAttribute("logininfo", userDto);
 			path = "/page/joinlogin/login/loginok.jsp";
-			System.out.println("dto있냐??");
 		} else { 
-			System.out.println("dto 없냐?");
 			path = "/page/joinlogin/login/loginfail.jsp";
 		}
 		return path;

@@ -116,7 +116,6 @@ public class CommonDaoImpl implements CommonDao {
 			if (!word.isEmpty() && !key.isEmpty()) {
 				pstmt.setString(1, word);
 			}
-			System.out.println(sql.toString());
 			rs = pstmt.executeQuery();
 			rs.next();
 			count = rs.getInt(1);
@@ -146,7 +145,6 @@ public class CommonDaoImpl implements CommonDao {
 			sql.append("from shop s, shop_category c, exhibition_detail e \n");
 			sql.append("where c.category_id = s.category_id and s.shop_id = e.shop_id \n");
 
-			System.out.println(word + "     commonDaoImpl" );
 			if (!word.isEmpty() && !key.isEmpty()) {
 				sql.append("and " + key + " like '%' || ? || '%' \n");
 			}
@@ -154,7 +152,6 @@ public class CommonDaoImpl implements CommonDao {
 			if (!word.isEmpty() && !key.isEmpty()) {
 				pstmt.setString(1, word);
 			}
-			System.out.println(sql.toString());
 			rs = pstmt.executeQuery();
 			rs.next();
 			count = rs.getInt(1);

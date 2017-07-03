@@ -1,14 +1,7 @@
 @CHARSET "EUC-KR";
 
-@media screen and (min-width:700px) {
-	.map-container{
-		height: 400px;
-	}
-	
-	.add-form-container{
-	}
-	
-	.add-form-container .row{
-		overflow-y: auto;
+@media screen and (min-width:768px) {
+	.review.grid-2{
+		clear: both;
 	}
 }
