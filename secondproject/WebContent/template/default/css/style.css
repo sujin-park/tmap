@@ -7,6 +7,7 @@
 
 .page-container{
 	padding-top: 50px;
+	padding-bottom: 100px;
 	-webkit-transition: padding 0.45s ease;
 	-moz-transition: padding 0.45s ease;
 	-ms-transition: padding 0.45s ease;

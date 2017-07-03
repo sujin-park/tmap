@@ -4,14 +4,13 @@
 	<footer id="footer">
 		
 		<div class="footer-slogan">
-			<div id="footer-logo">Tmap</div>
-			<span>솔직한 리뷰, 믿을 수 있는 평점!</span>
+			<div id="footer-logo">야진짜</div>
+			<span>친구야 여기가 진짜 맛집이야</span>
 		</div>
 		
 		<div class="copyright">
-			<span class="team">KITRI E TEAM </span>
-			<span class="member">(김주희, 박수진, 신민철, 양호민, 이형규)</span>
-			<span class="last">Portfolio 2017</span>
+			<span class="team">Powered by</span>
+			<span class="member">김주희 박수진 신민철 양호민 이형규</span>
 		</div>
 	</footer>
 </div>

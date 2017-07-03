@@ -14,12 +14,8 @@
 		display: inline;
 	}
 	
-}
-
-@media screen and (min-width: 1024px) {
-	
 	#footer-container {
-		padding: 15px 30px 20px;
+		padding: 10px 30px 14px;
 	}
 	
 	#footer{
@@ -28,12 +24,16 @@
 		overflow: hidden;
 	}
 	
+	#footer .footer-slogan{
+		display: block;
+	}
+	
 	.footer-slogan{
 		float: left;
 	}
 	
-	.copyright{
+	#footer .copyright{
 		float: right;
-		margin-top: 13px;
+		margin-top: 7px;
 	}
 }
