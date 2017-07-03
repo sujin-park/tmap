@@ -7,8 +7,8 @@ List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitio
 <div id="main-visual-container">
 
 	<div class="visual-title">
-		<span class="sub-title">솔직한 리뷰, 믿을 수 있는 평점!</span>
-		<span class="title">Tmap</span>
+		<span class="sub-title">친구<span>야! 진짜</span> 여기가 맛집이야</span>
+		<span class="title">야진짜</span>
 	</div>
 	
 	<div class="visual-imgs">

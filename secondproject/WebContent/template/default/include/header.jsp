@@ -5,7 +5,7 @@ UserDto userDto = (UserDto) session.getAttribute("logininfo");
 %>
 <div id="header-container">
 	<header id="header">
-		<h1 id="logo"><a href="<%=ContextPath.root%>">Tmap</a></h1>
+		<h1 id="logo"><a href="<%=ContextPath.root%>">¾ß!ÁøÂ¥</a></h1>
 		<ul class="nav-container">
 			<li><a href="<%=ContextPath.root%>/map" class="nav-btn btn-map"><i class="fa fa-map-marker" aria-hidden="true"></i>MAP</a></li>
 			<% if (userDto == null){ %>
