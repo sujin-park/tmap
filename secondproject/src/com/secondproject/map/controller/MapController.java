@@ -16,26 +16,18 @@ public class MapController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean isAjax = false;
 		String act = request.getParameter("act");
 		if (act == null) {
-			
-		} else if ("ajaxGetShopList".equals(act)) {
-			isAjax = true;
-			String jsonData = MapFactory.shopListAction().execute(request, response);
-			response.setContentType("text/html; charset=EUC-KR");
-			response.getWriter().print(jsonData);
-		} else if ("addShopPage".equals(act)) {
-			
-		}
-		
-		if (isAjax == false) {
 			request.setAttribute("titleTagValue", "TMAP");
 			request.setAttribute("contentPath", "/page/map/map.jsp");
 			request.setAttribute("addHeadPath", "/page/map/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/map/include/bottom.jsp");
-			RequestDispatcher dist = request.getRequestDispatcher("/template/default/default.jsp");
+			RequestDispatcher dist = request.getRequestDispatcher("/template/map/default.jsp");
 			dist.forward(request, response);
+		} else if ("ajaxGetShopList".equals(act)) {
+			String jsonData = MapFactory.shopListAction().execute(request, response);
+			response.setContentType("text/html; charset=EUC-KR");
+			response.getWriter().print(jsonData);
 		}
 	}
 

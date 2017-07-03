@@ -22,70 +22,66 @@
 					class="img-responsive" />
 			</div>
 			<div class="col-md-9">
+			
 				<span class="label label-default"><%=shopDto.getCategoryTitle()%></span>
-				<h3><%=shopDto.getTitle()%>
+				<h3>
+					<%=shopDto.getTitle()%>
 					<span class="badge"><%=shopDto.getScore()%></span>
+					<a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>">리뷰작성</a>
 				</h3>
 				<ul class="list-group">
 					<li class="list-group-item">주소 : <%=shopDto.getAddress()%></li>
 					<li class="list-group-item">전화번호 : <%=shopDto.getTel()%></li>
-					<%
-						if (shopDto.getBusinessTime() != null) {
-					%>
+					
+					<% if (shopDto.getBusinessTime() != null) { %>
 					<li class="list-group-item">영업시간 : <%=shopDto.getBusinessTime()%></li>
-					<%
-						}
-					%>
-					<%
-						if (shopDto.getDetail() != null) {
-					%>
+					<% } %>
+					
+					<% if (shopDto.getDetail() != null) { %>
 					<li class="list-group-item">정보 : <%=shopDto.getDetail()%></li>
-					<%
-						}
-					%>
+					<% } %>
 				</ul>
 
 			</div>
+		</div>
+
+		<div class="row review-list-container">
+			<%
+				int i = 0;
+				String grid2;
+				String grid3;
+				for (ReviewListDto reviewListDto : reviewList) {
+					grid2 = (i % 2 == 0) ? "grid-2" : "";
+					grid3 = (i % 3 == 0) ? "grid-3" : "";
+			%>
+			<div class="review col-sm-6 col-md-4 <%=grid2%> <%=grid3%>">
+				<div class="thumbnail">
+					<a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>">
+						<img src="<%=ContextPath.root + reviewListDto.getImg()%>">
+					</a>
+					<div class="caption">
+						<h4><a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>"><%=reviewListDto.getTitle()%></a></h4>
+						<div class="info-container">
+							<a href="javascript:alert('유저정보  + 팔로우 모달');"><%=reviewListDto.getUserEmail()%></a>
+							<div class="clearfix">
+								<span class="pull-right"><%=reviewListDto.getRegDate()%></span>
+								<div class="good-bad-container pull-left">
+									<span class="label label-warning">좋아요 <%=reviewListDto.getGoodCount()%></span>
+									<span class="label label-warning">싫어요 <%=reviewListDto.getBadCount()%></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<%		
+					i++;
+				}
+			%>
 		</div>
 
 		<div class="row">
 			<div class="col-xs-12">
-				<ul>
-					<li><button class="btn btn-default">포털리뷰</button></li>
-					<li><button class="btn btn-default">TMAP 리뷰</button></li>
-					<li><a
-						href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>">리뷰작성</a></li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="review-list-container">
-				<%
-					int i = 0;
-					for (ReviewListDto reviewListDto : reviewList) {
-				%>
-					<div class="review col-sm-6 col-md-4 <%=(i % 2 == 0) ? "grid-2" : "" %> <%=(i % 4 == 0) ? "grid-4" : "" %> <%=(i % 6 == 0) ? "grid-6" : "" %>">
-						<div class="thumbnail">
-							<a href="<%=ContextPath.root%>/review?act=view&reviewId=<%=reviewListDto.getReviewId()%>"><img src="..." alt="..."></a>
-							<div class="caption">
-								<h3><a href="<%=ContextPath.root%>/review?act=view&reviewId=<%=reviewListDto.getReviewId()%>"><%=reviewListDto.getTitle()%></a></h3>
-								<p>
-									<a href="#" class="btn btn-primary" role="button">Button</a>
-									<a href="#" class="btn btn-default" role="button">Button</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				<%		
-						i++;
-					}
-				%>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-6 col-xs-offset-4">
 				<%=pagination.getHtml()%>
 			</div>
 		</div>

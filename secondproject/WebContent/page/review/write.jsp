@@ -6,8 +6,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h3>리뷰작성</h3>
-				<form action="<%=ContextPath.root%>/review" method="post">
-					<input type="hidden" name="act" value="write" />
+				<form action="<%=ContextPath.root%>/reviewFile" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="shopId" value="1"/>
 					
 					<div class="form-group">
@@ -39,7 +38,7 @@
 					
 					<div class="form-group">
 						<label for="exampleInputFile">사진</label>
-						<input type="file" id="exampleInputFile">
+						<input type="file" name="shopImg" id="exampleInputFile">
 						<p class="help-block">Example block-level help text here.</p>
 					</div>
 					
