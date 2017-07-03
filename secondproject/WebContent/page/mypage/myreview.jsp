@@ -20,7 +20,7 @@ function viewreview(reviewId) {
 	<div class="map-container">
 		<div id="map" style="width:100%;height:400px;"></div>
 	</div>
-	<h2 class="sub-header">내가 쓴 후기</h2>
+	<h4 class="sub-header">내가 쓴 후기</h4>
 
  <div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">

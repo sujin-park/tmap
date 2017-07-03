@@ -180,7 +180,7 @@ var followUserId;
 <div class="container">
 <div class="col-xs-12 col-md-12 a">
 
-	<h2 class="sub-header">迫肺快 包府</h2>
+	<h4 class="sub-header">迫肺快 包府</h4>
 
 
 	<div class="form-group form-inline">
