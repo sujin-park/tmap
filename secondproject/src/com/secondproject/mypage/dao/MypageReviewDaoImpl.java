@@ -109,7 +109,7 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select a.review_id,u.email,a.good,a.bad,a.title subject,a.score, \n");
+			sql.append("select a.user_id,a.review_id,u.email,a.good,a.bad,a.title subject,a.score, \n");
 			sql.append("	   decode(to_char(sysdate,'yyyy.mm.dd'), to_char(a.update_date, 'yyyy.mm.dd'), \n");
 			sql.append("       to_char(a.update_date, 'hh24:mi:ss'), to_char(a.update_date, 'yyyy.mm.dd')) update_date, \n");
 			sql.append("       a.content,a.img reviewImg, \n");
@@ -144,6 +144,7 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 				myreviewdto.setBusinessTime(rs.getString("business_time"));
 				myreviewdto.setDetail(rs.getString("detail"));
 				myreviewdto.setReviewId(rs.getString("review_id"));
+				myreviewdto.setUserId(rs.getString("user_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -193,7 +194,8 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("select * \n");
-			sql.append("from review_comment \n");
+			sql.append("from review_comment rc \n");
+			sql.append("join users u on u.user_id=rc.user_id \n");
 			sql.append("where review_id=?");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, reviewId);
@@ -203,7 +205,7 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 				ReviewCommentDto cdto = new ReviewCommentDto();
 				cdto.setReviewCommentId(rs.getInt("review_comment_id"));
 				cdto.setReviewId(rs.getInt("review_id"));
-				cdto.setUserid(rs.getInt("user_id"));
+				cdto.setEmail(rs.getString("email"));
 				cdto.setReviewContent(rs.getString("review_content"));
 				list.add(cdto);
 			}

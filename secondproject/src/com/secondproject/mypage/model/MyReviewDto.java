@@ -20,10 +20,19 @@ public class MyReviewDto {
 	private String lng;
 	private String reserveUrl;
 	private String commentCnt;
+	private String userId;
 	
 	
 	
 	
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getCommentCnt() {
 		return commentCnt;
 	}

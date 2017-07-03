@@ -5,6 +5,16 @@ public class ReviewCommentDto {
 	private int reviewId;
 	private int userid;
 	private String reviewContent;
+	private String email;
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public int getReviewCommentId() {
 		return reviewCommentId;

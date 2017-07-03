@@ -110,12 +110,12 @@
 					<div class="container" style="background-color: #dbdbdb;">
 					<div class="map-container" align="">
 						<div class="col-md-offset-3" id="map" style="width: 50%; height: 400px;"></div>
-					
+				<%	if(Integer.parseInt(mrdto.getUserId())!=udto.getUser_id()) {%>
 			<div id="goba" class="pull-right">이 리뷰가 도움이 되었습니까?&nbsp;&nbsp;
 			<% ReviewGoodBad goodbad = (ReviewGoodBad)request.getAttribute("goodbad"); %>
 			<a href="javascript:like(<%=goodbad.getGood() %>,<%=goodbad.getBad() %>,<%=mrdto.getReviewId()%>);"><img src="<%=ContextPath.root %>/page/mypage/img/like<%=goodbad.getGood() %>.png"></a>
 			<a href="javascript:hate(<%=goodbad.getGood() %>,<%=goodbad.getBad() %>,<%=mrdto.getReviewId()%>);"><img src="<%=ContextPath.root %>/page/mypage/img/hate<%=goodbad.getBad() %>.png"></a>
-										</div>
+										</div><% } %>
 					</div>
 
 					<%
@@ -127,18 +127,27 @@
 		<div class="row mar">
 			<div class="container" style="background-color: #dbdbdb;">
 			<a href="">댓글</a> 
-			<div>					
-			<% List<ReviewCommentDto>  clist =(List<ReviewCommentDto>) request.getAttribute("clist"); 
-				for(ReviewCommentDto cdto : clist) {
-					
-					%>
-					<%=cdto.getReviewContent() %>
-					<% 
-				}
-				%>
-			</div>
+						
+			
+		
+		
+		
 			<div class="">
 				<table style="margin-bottom: 100px;">
+				<% List<ReviewCommentDto>  clist =(List<ReviewCommentDto>) request.getAttribute("clist"); %>
+			
+	
+	
+					<%	for(ReviewCommentDto cdto : clist) {
+					
+					%>
+					<tr>
+						<td width="10%" align="center" style="text-align: center;"><%=cdto.getEmail() %></td>
+						<td colspan="2" width="90%"><%=cdto.getReviewContent() %></td>
+					</tr>
+						<% 
+				}
+				%>
 					<tr>
 						<td width="10%" align="center" style="text-align: center;"><%=udto.getEmail() %>
 						<td width="80%"><textarea rows="3" cols="130" ></textarea></td>	
