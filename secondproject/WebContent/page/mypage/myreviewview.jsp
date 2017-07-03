@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath"%>
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.userdto.*"%>
 
+<%UserDto udto = (UserDto)session.getAttribute("logininfo"); %>
 <script type="text/javascript">
 
 	function like(good,bad,reviewId){
@@ -88,7 +89,7 @@
 		<div class="container" style="background-color: #dbdbdb;">
 			<div class="row">
 				<div class="col-md-12 h-75 mar">
-					<p class="" align="center"><%=mrdto.getContent()%>
+					<p class="" align=""><%=mrdto.getContent()%>
 
 					</p>
 				</div>
@@ -126,7 +127,7 @@
 		<div class="row mar">
 			<div class="container" style="background-color: #dbdbdb;">
 			<a href="">´ñ±Û</a> 
-								
+			<div>					
 			<% List<ReviewCommentDto>  clist =(List<ReviewCommentDto>) request.getAttribute("clist"); 
 				for(ReviewCommentDto cdto : clist) {
 					
@@ -135,8 +136,17 @@
 					<% 
 				}
 				%>
-			
+			</div>
+			<div class="">
+				<table style="margin-bottom: 100px;">
+					<tr>
+						<td width="10%" align="center" style="text-align: center;"><%=udto.getEmail() %>
+						<td width="80%"><textarea rows="3" cols="130" ></textarea></td>	
+						<td width="10%"><a href="" class="btnbtn" style="position: relative;">ÀÔ·Â</a></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 
+</div>
 </div>

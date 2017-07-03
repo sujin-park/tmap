@@ -12,8 +12,8 @@ function viewreview(reviewId) {
 
 </script>
 
-
-<div class="col-xs-9 col-md-9 col-xs-offset-1 a">
+<div class="container">
+<div class="col-xs-12 col-md-12 a">
 
 	
 	
@@ -115,3 +115,5 @@ function viewreview(reviewId) {
 					<center><%=pagination.getHtml() %><center>
 				</div>
  
+</div>
+</div>

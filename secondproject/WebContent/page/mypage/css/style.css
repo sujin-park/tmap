@@ -48,3 +48,15 @@ body {
 	height : 300px;
 	background-color: #4f9e77;
 }
+
+.btnbtn {
+	display:inline-block;
+	width:84px;
+	height:61px;
+	border:1px solid #ccc;
+	background:#fff !important;
+	font-size:13px;
+	font-weight:bold;
+	line-height:61px;
+	text-align:center
+}

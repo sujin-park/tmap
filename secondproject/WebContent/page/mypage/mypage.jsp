@@ -137,7 +137,7 @@ var followUserId;
 			if (valueArr == "") {
 				alert("선택하세요");
 			} else {
-				 document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&id=" + valueArr;
+				 document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&seq="+valueArr;
 			
 			}
 		});
@@ -168,7 +168,8 @@ var followUserId;
 		
 	}
 </script>
-<div class="col-xs-9 col-md-9 col-xs-offset-1 a">
+<div class="container">
+<div class="col-xs-12 col-md-12 a">
 
 	<h2 class="sub-header">팔로우 관리</h2>
 
@@ -263,7 +264,7 @@ var followUserId;
 	</div>
 	<div></div>
 </div>
-
+</div>
 <div class="modal fade" id="modal" role="dialog" aria-hidden="true"
 	aria-labelledby="myModalLabel">
 	<div class="modal-dialog">
