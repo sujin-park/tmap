@@ -10,6 +10,7 @@ public class MainExhibitionDto {
 	private String ex_image;
 	private int ex_order;
 	private int ex_visiable;
+	private int ex_shopid;
 	// 매장 정보들
 	private int exd_order;
 	private String shop_name; // 매장명

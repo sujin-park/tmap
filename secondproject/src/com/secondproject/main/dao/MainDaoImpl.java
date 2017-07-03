@@ -40,7 +40,7 @@ public class MainDaoImpl implements MainDao {
 
 			sql.append("select e.exhibition_id, e.ex_title, e.ex_desc, e.ex_image, e.ex_order, \n");
 			sql.append("	   e.ex_visiable, exd.exd_desc, exd_order, \n");
-			sql.append("	   s.title, s.address, s.img, \n");
+			sql.append("	   s.title, s.address, s.img, exd.shop_id, \n");
 			sql.append("	   NVL((SELECT avg(score) FROM review WHERE shop_id = s.shop_id), 0) as score \n");
 			sql.append("	   from exhibition e, exhibition_detail exd, shop s \n");
 			sql.append("	   where e.exhibition_id = exd.exhibition_id \n");

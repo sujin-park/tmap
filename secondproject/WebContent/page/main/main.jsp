@@ -37,7 +37,7 @@ List<MainExhibitionDto> list = (List<MainExhibitionDto>) request.getAttribute("m
 %>
 		<a href="#" class="shop">
 			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
+				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg"/>
 				<div class="shop-score"><%=mainExhibitionDto.getScore()%></div>
 			</div>
 			<div class="shop-content">
