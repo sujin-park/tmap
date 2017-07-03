@@ -6,4 +6,6 @@ public interface ShopDao {
 	int addShop(ShopDto shopDto);
 	
 	ShopDto getShop(int shopId);
+	
+	int getShopScore(int shopId);
 }

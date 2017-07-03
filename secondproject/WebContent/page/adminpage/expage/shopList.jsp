@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR" import="com.secondproject.constant.*, java.util.*, com.secondproject.admin.model.*"
-	import="com.secondproject.shop.model.*, com.secondproject.util.*"%>
+	import="com.secondproject.shop.model.*, com.secondproject.util.*"
+	import="com.secondproject.util.pagination.*"%>
 <%
 List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
+Pagination pagination = (Pagination) request.getAttribute("pagination");
 %>
 <script>
 
@@ -144,3 +146,4 @@ function plusShop() {
 			</div>
 		</div>
 </section>
+<%=pagination.getHtml()%>

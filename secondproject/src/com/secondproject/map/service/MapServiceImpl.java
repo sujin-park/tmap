@@ -20,6 +20,7 @@ public class MapServiceImpl implements MapService {
 
 	public static MapService getMapService() {
 		return mapService;
+		
 	}
 
 	@Override

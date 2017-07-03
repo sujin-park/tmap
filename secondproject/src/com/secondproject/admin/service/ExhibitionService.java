@@ -12,7 +12,7 @@ public interface ExhibitionService {
 	int writeExhibition(ExhibitionDto exhibitionDto);
 	List<ExhibitionDto> listExhibition(Map<String, Object> params);
 	ExhibitionDto viewExhibition(int seq);
-	List<ShopDto> shopExhibition(String key, String word, String order, String column);
+	List<ShopDto> shopExhibition(Map<String, Object> params);
 	int deleteExhibition(String[] exhibitions);
 	int plusExhibition(String[] shops, int seq);
 	int modifyExhibition(ExhibitionDto exhibitionDto);

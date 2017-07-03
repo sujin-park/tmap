@@ -53,4 +53,18 @@ public class CommonServiceImpl implements CommonService {
 	public int totalShopCount(Map<String, Object> params) {
 		return CommonDaoImpl.getCommonDao().totalShopCount(params);
 	}
+
+
+
+	@Override
+	public int totalOwnerCount(Map<String, Object> params) {
+		return CommonDaoImpl.getCommonDao().totalOwnerCount(params);
+	}
+
+
+
+	@Override
+	public int totalShopListCount(Map<String, Object> params) {
+		return CommonDaoImpl.getCommonDao().totalShopListCount(params);
+	}
 }

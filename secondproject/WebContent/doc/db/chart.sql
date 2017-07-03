@@ -36,3 +36,9 @@ select count(r.review_id), sc.category_title
 	   group by sc.category_title
 
 -------- 지역별 등록된 매장 수 ---------
+
+select count(shop_id) as count, 
+substr(address, 0, instr(address,' ')) as addressgroup
+from shop
+group by substr(address, 0, instr(address,' '));
+

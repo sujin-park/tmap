@@ -172,8 +172,14 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 
 	// 기획전 등록할 때 매장추가부분
 	@Override
-	public List<ShopDto> shopExhibition(Map<String, String> map) {
+	public List<ShopDto> shopExhibition(Map<String, Object> params) {
 		List<ShopDto> list = new ArrayList<ShopDto>();
+		
+		String key = (String) params.get("key");
+		String word = Encoding.isoToEuc((String) params.get("word"));
+		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
+		int pageStart = pageEnd - BoardConstant.LIST_SIZE;
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -181,12 +187,15 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
+			sql.append("select b.* \n");
+			sql.append("from ( \n");
+			sql.append("   select rownum rn, a.* \n");
+			sql.append("   from ( \n");
 			sql.append("select shop_id, category_title, title, lat, lng, nvl(owner_id,0) owner_id, \n");
 			sql.append("	   reserve_url, address, tel, business_time, detail \n");
 			sql.append("from shop s, shop_category sc\n");
 			sql.append("where s.category_id = sc.category_id \n");
-			String key = map.get("key");
-			String word = map.get("word");
+			
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("title")) {
 					sql.append("and title like '%' ||?|| '%'\n");
@@ -194,11 +203,18 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 					sql.append("and category_title like '%' ||?|| '%'\n");
 				}
 			}
+			sql.append("         ) a \n");
+			sql.append("      where rownum <=? \n");
+			sql.append("      ) b \n");
+			sql.append("   where b.rn>?");
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx = 0;
 			if (!key.isEmpty() && !word.isEmpty()) {
 				pstmt.setString(++idx, word);
 			}
+			pstmt.setInt(++idx, pageEnd);
+			pstmt.setInt(++idx, pageStart);
+			
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				ShopDto shopDto = new ShopDto();

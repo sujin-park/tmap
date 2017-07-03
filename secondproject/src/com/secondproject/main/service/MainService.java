@@ -7,4 +7,5 @@ import com.secondproject.main.model.MainExhibitionDto;
 public interface MainService {
 	
 	List<MainExhibitionDto> listMainExhibition(); 
+	MainExhibitionDto viewMainExhibition(int i);
 }

@@ -35,14 +35,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		return ExhibitionDaoImpl.getExhibitionDao().viewExhibition(seq);
 	}
 	@Override
-	public List<ShopDto> shopExhibition(String key, String word, String order, String column) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("key", key);
-		map.put("word", word);
-		map.put("order", order);
-		map.put("column", column);
-
-		return ExhibitionDaoImpl.getExhibitionDao().shopExhibition(map);
+	public List<ShopDto> shopExhibition(Map<String, Object> params) {
+		return ExhibitionDaoImpl.getExhibitionDao().shopExhibition(params);
 	}
 	@Override
 	public int deleteExhibition(String[] exhibitions) {
