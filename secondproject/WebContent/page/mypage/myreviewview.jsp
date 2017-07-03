@@ -81,19 +81,34 @@
 					<%=mrdto.getDetail()%>
 					</div>
 					</div>
-					<div class="container mar" style="background-color: #dbdbdb;">
-					<div class="map-container mar" align="">
+					<div class="container" style="background-color: #dbdbdb;">
+					<div class="map-container" align="">
 						<div class="col-md-offset-3" id="map" style="width: 50%; height: 400px;"></div>
+					
+			<div class="pull-right">이 리뷰가 도움이 되었습니까?&nbsp;&nbsp;<><img src="<%=ContextPath.root %>/page/mypage/img/like.png">&nbsp;
+										<img src="<%=ContextPath.root %>/page/mypage/img/hate.png"></div>
 					</div>
 
 					<%
 						}
 					%>
+			
 			</div>
 		</div>
-		<div class="row">
+		<div class="row mar">
 			<div class="container" style="background-color: #dbdbdb;">
-			댓글
+			<a href="">댓글</a> 
+								
+			<% List<ReviewCommentDto>  clist =(List<ReviewCommentDto>) request.getAttribute("clist"); 
+				for(ReviewCommentDto cdto : clist) {
+					
+					%>
+					<%=cdto.getReviewContent() %>
+					<% 
+				}
+				%>
+			
 			</div>
 		</div>
+
 </div>

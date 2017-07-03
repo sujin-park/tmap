@@ -28,8 +28,9 @@ function viewreview(reviewId) {
 						<thead>
 							<tr class="warning">
 								<td width="30%">가게정보</td>
-								<td width="40%">리뷰제목</td>
-								<td width="20%">별점</td>
+								<td width="40%">제목</td>
+								<td width="15%">좋아요</td>
+								<td width="5%">댓글</td>
 								<td width="10%">등록일</td>
 							</tr>
 						</thead>
@@ -63,7 +64,7 @@ function viewreview(reviewId) {
 								<td>
 									<div class="media">
 										
-									<%if(mrdto.getMyScore()!=null){ 
+									<%-- <%if(mrdto.getMyScore()!=null){ 
 										int cnt = Integer.parseInt(mrdto.getMyScore());
 										int star = cnt/2;
 										int halfstar=cnt%2;
@@ -75,11 +76,22 @@ function viewreview(reviewId) {
 											<img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="35px">
 											<% 
 										}
-									}%>
- 	
+									}%> --%>
+ 									<img src="<%=ContextPath.root %>/page/mypage/img/like.png">
+								<%=mrdto.getGood()%>
+								<img src="<%=ContextPath.root %>/page/mypage/img/hate.png">
+								<%=mrdto.getBad()%>
 
 										
 									</div>
+								</td>
+								<td>
+									<div class="media">
+										
+										
+										<%=mrdto.getCommentCnt() %>
+									</div>
+								</td>
 								</td>
 								<td>
 									<div class="media">
