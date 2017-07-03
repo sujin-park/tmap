@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.secondproject.action.Action;
 import com.secondproject.action.BoardCommonAction;
@@ -17,6 +18,7 @@ import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.model.FollowCategoryDto;
 import com.secondproject.mypage.model.FollowUserDto;
 import com.secondproject.mypage.service.MypageServiceImpl;
+import com.secondproject.userdto.UserDto;
 import com.secondproject.util.Encoding;
 import com.secondproject.util.NumberCheck;
 import com.secondproject.util.PageNavigation;
@@ -43,10 +45,10 @@ public class MypageFollowDeleteAction extends BoardCommonAction implements Actio
 
 			
 		
-//		HttpSession session = request.getSession();
-//		UserDto udto = (UserDto)session.getAttribute("logininfo");
-//		int userId= udto.getUser_id();
-		int userId = 2;
+		HttpSession session = request.getSession();
+		UserDto udto = (UserDto)session.getAttribute("logininfo");
+		if(udto!=null) {
+		int userId = udto.getUser_id();
 		setBoardParameter(request);
 		HashMap<String, Object> params = getParameterMap();
 		params.put("userId", userId);
@@ -72,7 +74,9 @@ public class MypageFollowDeleteAction extends BoardCommonAction implements Actio
 
 		request.setAttribute("followCategoryList", fclist);
 		request.setAttribute("list", list);
-		
+		} else {
+			path="/index.jsp";
+		}
 		return path;
 	}
 

@@ -3,9 +3,33 @@
 	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath"%>
 
 <script type="text/javascript">
-	function viewreview(reviewId) {
+
+	function like(good,bad,reviewId){
+		if(good==1) {
+			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=0&bad=0&reviewId="+reviewId, function(data, status){
+				var goba = document.getElementById("goba");
+				goba.innerHTML=data;
+			});
+		} else {
+			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=1&bad=0&reviewId="+reviewId, function(data, status){
+				var goba = document.getElementById("goba");
+				goba.innerHTML=data;
+		});
+		}
 	}
-	
+	function hate(good,bad,reviewId){
+		if(bad==1) {
+			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=0&bad=0&reviewId="+reviewId, function(data, status){
+				var goba = document.getElementById("goba");
+				goba.innerHTML=data;
+		});
+		} else {
+			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=0&bad=1&reviewId="+reviewId, function(data, status){
+				var goba = document.getElementById("goba");
+				goba.innerHTML=data;
+		});
+		}
+	}
 
 </script>
 
@@ -50,9 +74,9 @@
 						</div>
 						<div class="col-md-12 mar">
 							<div class="pull-right">
-								<img src="<%=ContextPath.root %>/page/mypage/img/like.png">
+								<img src="<%=ContextPath.root %>/page/mypage/img/like1.png">
 								<%=mrdto.getGood()%>
-								<img src="<%=ContextPath.root %>/page/mypage/img/hate.png">
+								<img src="<%=ContextPath.root %>/page/mypage/img/hate1.png">
 								<%=mrdto.getBad()%></div>
 						</div>
 
@@ -85,8 +109,11 @@
 					<div class="map-container" align="">
 						<div class="col-md-offset-3" id="map" style="width: 50%; height: 400px;"></div>
 					
-			<div class="pull-right">이 리뷰가 도움이 되었습니까?&nbsp;&nbsp;<><img src="<%=ContextPath.root %>/page/mypage/img/like.png">&nbsp;
-										<img src="<%=ContextPath.root %>/page/mypage/img/hate.png"></div>
+			<div id="goba" class="pull-right">이 리뷰가 도움이 되었습니까?&nbsp;&nbsp;
+			<% ReviewGoodBad goodbad = (ReviewGoodBad)request.getAttribute("goodbad"); %>
+			<a href="javascript:like(<%=goodbad.getGood() %>,<%=goodbad.getBad() %>,<%=mrdto.getReviewId()%>);"><img src="<%=ContextPath.root %>/page/mypage/img/like<%=goodbad.getGood() %>.png"></a>
+			<a href="javascript:hate(<%=goodbad.getGood() %>,<%=goodbad.getBad() %>,<%=mrdto.getReviewId()%>);"><img src="<%=ContextPath.root %>/page/mypage/img/hate<%=goodbad.getBad() %>.png"></a>
+										</div>
 					</div>
 
 					<%

@@ -28,8 +28,8 @@ public class MypageFollowViewAction extends BoardCommonAction implements Action{
 		String path="/page/mypage/mypage.jsp";
 		HttpSession session = request.getSession();
 		UserDto udto = (UserDto)session.getAttribute("logininfo");
-//		int userId= udto.getUser_id();
-		int userId = 2;
+		if(udto!=null) {
+		int userId = udto.getUser_id();
 		setBoardParameter(request);
 		HashMap<String, Object> params = getParameterMap();
 		params.put("userId", userId);
@@ -54,7 +54,9 @@ public class MypageFollowViewAction extends BoardCommonAction implements Action{
 
 		request.setAttribute("followCategoryList", fclist);
 		request.setAttribute("list", list);
-		
+		} else {
+			path="/index.jsp";
+		}
 		return path;
 	}
  

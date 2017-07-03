@@ -28,10 +28,10 @@ public class MypageFollowModifyAction extends BoardCommonAction implements Actio
 			throws ServletException, IOException {
 		
 		String path="/page/mypage/mypage.jsp";
-//		HttpSession session = request.getSession();
-//		UserDto udto = (UserDto)session.getAttribute("logininfo");
-//		int userId= udto.getUser_id();
-		int userId = 2;
+		HttpSession session = request.getSession();
+		UserDto udto = (UserDto)session.getAttribute("logininfo");
+		if(udto!=null) {
+		int userId = udto.getUser_id();
 		int followUserId = Integer.parseInt(request.getParameter("followUserId"));
 		String alias = Encoding.isoToUtf(request.getParameter("alias"));
 		String memo = Encoding.isoToUtf(request.getParameter("memo"));
@@ -66,7 +66,9 @@ public class MypageFollowModifyAction extends BoardCommonAction implements Actio
 
 		request.setAttribute("followCategoryList", fclist);
 		request.setAttribute("list", list);
-		
+		} else {
+			path="/index.jsp";
+		}
 		return path;
 	}
 

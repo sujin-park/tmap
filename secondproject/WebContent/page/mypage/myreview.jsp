@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*"%>
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*,com.secondproject.userdto.*"%>
 	<%
 	Pagination pagination = (Pagination) request.getAttribute("pagination");
-	
 	%>
 <script type="text/javascript">
 function viewreview(reviewId) {
@@ -41,10 +40,11 @@ function viewreview(reviewId) {
  								
  	 
  	%>
-						
 							<tr>
 								<td>
 									<div class="media">
+						<input type="hidden" id="reviewLat" value="37.484168">
+						<input type="hidden" id="reviewLng" value="126.9004223">
 										
 										<%=mrdto.getShopName() %>
 										<%if(mrdto.getAddress()!=null) {
@@ -77,9 +77,9 @@ function viewreview(reviewId) {
 											<% 
 										}
 									}%> --%>
- 									<img src="<%=ContextPath.root %>/page/mypage/img/like.png">
+ 									<img src="<%=ContextPath.root %>/page/mypage/img/like1.png">
 								<%=mrdto.getGood()%>
-								<img src="<%=ContextPath.root %>/page/mypage/img/hate.png">
+								<img src="<%=ContextPath.root %>/page/mypage/img/hate1.png">
 								<%=mrdto.getBad()%>
 
 										

@@ -1,6 +1,7 @@
 package com.secondproject.factory;
 
 import com.secondproject.action.Action;
+import com.secondproject.mypage.action.GoodBadAction;
 import com.secondproject.mypage.action.MypageFollowAddAction;
 import com.secondproject.mypage.action.MypageFollowCategoryDeleteAction;
 import com.secondproject.mypage.action.MypageFollowCategoryDownOrderAction;
@@ -31,6 +32,7 @@ public class MypageFactory {
 	private static Action mypageReviewDeleteAction;
 	private static Action mypageFollowUserViewAction;
 	private static Action mypageReviewViewAction;
+	private static Action goodBadAction;
 
 	public static Action getMypageFollowCategoryUpOrderAction() {
 		return mypageFollowCategoryUpOrderAction;
@@ -55,10 +57,15 @@ public class MypageFactory {
 		mypageReviewDeleteAction = new MypageReviewDeleteAction();
 		mypageFollowUserViewAction = new MypageFollowUserViewAction();
 		mypageReviewViewAction = new MypageReviewViewAction();
+		goodBadAction = new GoodBadAction();
 
 	}
 
 	
+	public static Action getGoodBadAction() {
+		return goodBadAction;
+	}
+
 	public static Action getMypageReviewListViewAction() {
 		return mypageReviewListViewAction;
 	}
