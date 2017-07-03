@@ -250,12 +250,6 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 
 	@Override
 	public void goodbadselect(int good, int bad, int userId, int reviewId) {
-//		if(bad==1) {
-//			//update 00
-//			
-//		} else {
-//				//01
-//		}
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -277,10 +271,13 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 			} else {
             StringBuffer update = new StringBuffer();
             update.append("update review_good_bad \n");
-            update.append("set good=?,bad=?");
+            update.append("set good=?,bad=? \n");
+            update.append("where user_id=? and review_id=?");
             pstmt = conn.prepareStatement(update.toString());
             pstmt.setInt(1, good);
             pstmt.setInt(2, bad);
+            pstmt.setInt(3, userId);
+            pstmt.setInt(4, reviewId);
             pstmt.executeUpdate();
 			}
 			
