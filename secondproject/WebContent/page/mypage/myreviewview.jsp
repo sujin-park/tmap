@@ -17,6 +17,8 @@
 		if (mrdto != null) {
 	%>
 		<div class="container" style="background-color: #dbdbdb;">
+		<input type="hidden" id="reviewLat" value="<%=mrdto.getLat()%>">
+		<input type="hidden" id="reviewLng" value="<%=mrdto.getLng()%>">
 	<div class="section py-5" id="features">
 			<div class="row">
 				<div class="col-md-12 marr">
@@ -95,5 +97,3 @@
 			</div>
 		</div>
 </div>
-
-

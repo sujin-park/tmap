@@ -48,6 +48,3 @@
 						</div>
 					</div>
 			</div>
-<script type="text/javascript">
-var shopPoint = new naver.maps.LatLng(<%=shopInfoDto.getLat()%>, <%=shopInfoDto.getLng()%>);
-</script>

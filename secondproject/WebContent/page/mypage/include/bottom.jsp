@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" import="com.secondproject.constant.ContextPath"%>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=HI7oAnTDg6I_l3gyYakf&submodules=geocoder"></script>
 <script>
+var reviewPoint = new naver.maps.LatLng($('#reviewLat').val(), $('#reviewLng').val());
+
 var mapOptions = {
-    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    center: reviewPoint,
     zoom: 10
 };
+
 
 var map = new naver.maps.Map('map', mapOptions);
 
@@ -13,9 +16,10 @@ var map = new naver.maps.Map(document.getElementById('map'), {zoom: 11});
 
 map.fitBounds(naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(37.3724620, 127.1051714),
                                              new naver.maps.LatLng(37.3542795, 127.1174332)));
-
+                                             
+	
 var urlMarker = new naver.maps.Marker({
-    position: new naver.maps.LatLng(37.3542795, 127.1072556),
+    position: reviewPoint,
     map: map,
     title: 'urlMarker',
     icon: HOME_PATH +"/img/example/pin_default.png",
@@ -31,7 +35,7 @@ naver.maps.Event.addListener(urlMarker, 'click', function() {
 });
 
 var imageMarker = new naver.maps.Marker({
-    position: new naver.maps.LatLng(37.3637770, 127.1174332),
+    position: reviewPoint,
     map: map,
     title: 'imageMarker',
     icon: HOME_PATH +"/img/example/pin_default.png",
