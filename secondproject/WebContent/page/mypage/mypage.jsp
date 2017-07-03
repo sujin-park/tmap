@@ -1,27 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"
-	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*,com.secondproject.userdto.*"%>
-	<%@ include file="/page/mypage/js/public.jsp" %>
+	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*,com.secondproject.userdto.*,com.secondproject.util.*"%>
+
 	<%
 	Pagination pagination = (Pagination) request.getAttribute("pagination");
-	
+	String word = Encoding.isoToUtf(request.getParameter("word"));
 	%>
 <script type="text/javascript"
 	src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
 
 <script type="text/javascript">
-control = "/mypage";
+
+	var word = "<%=word%>";
 	
-<%-- 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=&control=";
-	 --%>
 	 function firstArticle() {
-		   
+		 document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=";
+		 /*   
 		   document.commonForm.act.value="followView";
 		   document.commonForm.pg.value="1";
 		   document.commonForm.key.value="";
 		   document.commonForm.word.value="";
 		   document.commonForm.action=root+control;
-		   document.commonForm.submit();
+		   document.commonForm.submit(); */
 		   
 		}
 
@@ -147,15 +147,15 @@ var followUserId;
 			if (valueArr == "") {
 				alert("선택하세요");
 			} else {
-				<%-- document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&id=" + valueArr; --%>
-					document.commonForm.act.value="followdelete";
+				 document.location.href = "<%=ContextPath.root%>/mypage?act=followdelete&id=" + valueArr;
+				/* 	document.commonForm.act.value="followdelete";
 				   document.commonForm.pg.value="1";
 				   document.commonForm.key.value="";
 				   document.commonForm.word.value="";
 				   document.commonForm.control.value=control;
 				   document.commonForm.seq.value=valueArr;
 				   document.commonForm.action=root+control;
-				   document.commonForm.submit();
+				   document.commonForm.submit(); */
 			}
 		});
 		 $("#catemodify").click(function() {
@@ -181,26 +181,25 @@ var followUserId;
 	});
 	function select() {
 		var id =$("select[name=select]").val();
-	<%-- 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=category_name&word="+encodeURI(id)+"&control=";
- --%>
-		   document.commonForm.act.value="followView";
+	 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=category_name&word="+encodeURI(id);
+ 
+		 /*   document.commonForm.act.value="followView";
 		   document.commonForm.pg.value="1";
 		   document.commonForm.key.value="category_name";
 		   document.commonForm.word.value=id;
 		   document.commonForm.control.value=control;
 		   document.commonForm.action=root+control;
-		   document.commonForm.submit();
+		   document.commonForm.submit(); */
 		
 	}
 	function modicate() {
 		var cateid =$("select[name=modicate]").val();
-		/* alert("seq : "+valueArr+"cateid : "+cateid) */
-		   document.commonForm.act.value="catemodify";
-		   document.commonForm.control.value=control;
+		
+		document.location.href="<%=ContextPath.root%>/mypage?act=catemodify&id="+cateid+"&seq="+valueArr;
+		/*    document.commonForm.act.value="catemodify";
 		   document.commonForm.seq.value=valueArr;
 		   document.commonForm.id.value=cateid;
-		   document.commonForm.action=root+control;
-		   document.commonForm.submit(); 
+		   document.commonForm.submit();  */
 	}
 </script>
 <div class="col-xs-9 col-md-9 col-xs-offset-1 a">
@@ -299,7 +298,6 @@ var followUserId;
 	<div></div>
 </div>
 
-<%@ include file="/page/mypage/js/publicform.jsp" %>
 <div class="modal fade" id="modal" role="dialog" aria-hidden="true"
 	aria-labelledby="myModalLabel">
 	<div class="modal-dialog">

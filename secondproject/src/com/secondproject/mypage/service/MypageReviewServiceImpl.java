@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.secondproject.mypage.dao.MypageReviewDaoImpl;
 import com.secondproject.mypage.model.MyReviewDto;
+import com.secondproject.mypage.model.ReviewCommentDto;
 
 public class MypageReviewServiceImpl implements MypageReviewService{
 
@@ -43,6 +44,13 @@ public class MypageReviewServiceImpl implements MypageReviewService{
 	public int totalReviewCount(Map<String, Object> params) {
 	
 		return MypageReviewDaoImpl.getMypageReviewDao().totalReviewCount(params);
+	}
+
+
+
+	@Override
+	public List<ReviewCommentDto> commentList(int reviewId) {
+		return MypageReviewDaoImpl.getMypageReviewDao().commentList(reviewId);
 	}
 
 

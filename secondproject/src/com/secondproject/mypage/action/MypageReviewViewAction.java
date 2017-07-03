@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.secondproject.action.Action;
 import com.secondproject.mypage.dao.MypageReviewDaoImpl;
 import com.secondproject.mypage.model.MyReviewDto;
+import com.secondproject.mypage.model.ReviewCommentDto;
 import com.secondproject.mypage.service.MypageReviewServiceImpl;
 import com.secondproject.util.Encoding;
 import com.secondproject.util.NumberCheck;
@@ -23,7 +24,9 @@ public class MypageReviewViewAction implements Action{
 		int reviewId = NumberCheck.nullToZero(request.getParameter("reviewId"));
 		int userId = 2;
 		MyReviewDto mrdto = MypageReviewServiceImpl.getMypageReviewService().reviewView(reviewId);
+		List<ReviewCommentDto>  clist = MypageReviewServiceImpl.getMypageReviewService().commentList(reviewId);
 		request.setAttribute("myreview", mrdto);
+		request.setAttribute("clist", clist);
 		return path;
 	}
 

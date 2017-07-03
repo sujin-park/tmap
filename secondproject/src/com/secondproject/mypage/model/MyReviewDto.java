@@ -19,8 +19,17 @@ public class MyReviewDto {
 	private String lat;
 	private String lng;
 	private String reserveUrl;
+	private String commentCnt;
 	
 	
+	
+	
+	public String getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(String commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 	public String getReserveUrl() {
 		return reserveUrl;
 	}
