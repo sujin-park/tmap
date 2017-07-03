@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
    pageEncoding="EUC-KR"
-   import="java.util.*, com.secondproject.admin.model.*,com.secondproject.constant.*"%>
-<%String root = request.getContextPath();
+   import="java.util.*, com.secondproject.admin.model.*,com.secondproject.constant.*"
+   import="com.secondproject.util.pagination.*"%>
+<%
 ArrayList<OwnerConfirmDto> list = (ArrayList<OwnerConfirmDto>) request.getAttribute("list"); 
-String userOrder = (String) request.getAttribute("userOrder");
-if (userOrder == null) {
-   userOrder = "desc";
+Pagination pagination = (Pagination) request.getAttribute("pagination");
+String orderValue = (String) request.getAttribute("orderValue");
+if (orderValue == null) {
+	orderValue = "desc";
 }
 %>
 <script>
@@ -88,11 +90,11 @@ function modifyOwner(a) {
                    <tbody>
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=ownerview&userorder=<%=userOrder%>&column=email" style="text-decoration:none">사장아이디</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&userorder=<%=userOrder%>&column=reg_date" style="text-decoration:none">가입일</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&userorder=<%=userOrder%>&column=title" style="text-decoration:none">가게이름</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&userorder=<%=userOrder%>&column=tel" style="text-decoration:none">전화번호</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&userorder=<%=userOrder%>&column=address" style="text-decoration:none">주소</a></td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=email" style="text-decoration:none">사장아이디</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=reg_date" style="text-decoration:none">가입일</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=title" style="text-decoration:none">가게이름</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=tel" style="text-decoration:none">전화번호</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=address" style="text-decoration:none">주소</a></td>
                      </tr>
                      
                      
@@ -172,3 +174,4 @@ function modifyOwner(a) {
       </div>
    </div>
 </section>
+<%=pagination.getHtml()%>

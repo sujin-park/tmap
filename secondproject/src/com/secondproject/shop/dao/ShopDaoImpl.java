@@ -94,4 +94,30 @@ public class ShopDaoImpl implements ShopDao {
 		}
 		return shopDto;
 	}
+
+	@Override
+	public int getShopScore(int shopId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int score = 0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select");
+			sql.append("	s.*,");
+			sql.append("	NVL((SELECT avg(score) FROM review WHERE shop_id = s.shop_id), 0) as score");
+			sql.append("	FROM SHOP s");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			rs.next();
+			score = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return score;
+	}
 }

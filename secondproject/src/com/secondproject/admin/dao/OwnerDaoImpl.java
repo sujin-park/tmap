@@ -5,9 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.secondproject.admin.model.OwnerConfirmDto;
+import com.secondproject.constant.BoardConstant;
 import com.secondproject.userdto.UserDto;
+import com.secondproject.util.Encoding;
 import com.secondproject.util.db.DBClose;
 import com.secondproject.util.db.DBConnection;
 
@@ -27,8 +30,16 @@ public class OwnerDaoImpl implements OwnerDao {
 
 	
 	@Override
-	public ArrayList<OwnerConfirmDto> getArticles(String keyword, String type, String userOrder, String column, int confirm_ok) {
+	public ArrayList<OwnerConfirmDto> getArticles(Map<String, Object> params) {
 		ArrayList<OwnerConfirmDto> list = new ArrayList<OwnerConfirmDto>();
+		
+		String key = (String) params.get("key");
+		String word = Encoding.isoToEuc((String) params.get("word"));
+		String orderKey = (String) params.get("orderKey");
+		String orderValue = (String) params.get("orderValue");
+		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
+		int pageStart = pageEnd - BoardConstant.LIST_SIZE;
+		int confirm_ok = (int) params.get("confirm_ok");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -40,14 +51,13 @@ public class OwnerDaoImpl implements OwnerDao {
 			sql.append("from users u, shop s, OWNER_CONFIRM o \n");
 			sql.append("where u.user_id = o.user_id and o.shop_id = s.shop_id \n");
 			sql.append("and confirm_ok = ? \n");
-			//			sql.append("where type != '0' \n");
-			System.out.println(confirm_ok);
-			if (keyword != null && type != null) {
-				sql.append("and "+ type +" like '%' || ? || '%' \n");
+			
+			if (!word.isEmpty() && !key.isEmpty()) {
+				sql.append("and "+ key +" like '%' || ? || '%' \n");
 			}
 			
-			if (userOrder != null && column != null) {
-				sql.append("order by " + column + " " + userOrder);
+			if (!orderValue.isEmpty() && !orderKey.isEmpty()) {
+				sql.append("order by " + orderKey + " " + orderValue);
 			} else {
 				sql.append("order by u.reg_date desc");
 			}
@@ -55,11 +65,9 @@ public class OwnerDaoImpl implements OwnerDao {
 
 			int idx = 0;
 			pstmt.setInt(++idx, confirm_ok);
-			if (keyword != null && type != null){
-				pstmt.setString(++idx, keyword);
+			if (!word.isEmpty() && !key.isEmpty()){
+				pstmt.setString(++idx, word);
 			}
-			System.out.println("keyword === " + keyword + " type === " + type);
-			System.out.println(sql.toString());
 			rs = pstmt.executeQuery();
 			while (rs.next()) { // 있으면 true 없으면 false return
 				OwnerConfirmDto ownerConfirmDto = new OwnerConfirmDto();
@@ -69,8 +77,6 @@ public class OwnerDaoImpl implements OwnerDao {
 				ownerConfirmDto.setShopTel(rs.getString("tel"));
 				ownerConfirmDto.setShopAddress(rs.getString("address"));
 
-				
-				
 				list.add(ownerConfirmDto);
 			}
 				

@@ -1,6 +1,7 @@
 package com.secondproject.admin.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.secondproject.admin.dao.OwnerDaoImpl;
 import com.secondproject.admin.model.OwnerConfirmDto;
@@ -21,14 +22,12 @@ public class OwnerServiceImpl implements OwnerService {
 
 	
 	@Override
-	public ArrayList<OwnerConfirmDto> getArticles(String keyword, String type, String userOrder, String column, int confirm_ok) {
-		// TODO Auto-generated method stub
-		return OwnerDaoImpl.getOwnerDao().getArticles(keyword, type, userOrder, column, confirm_ok);
+	public ArrayList<OwnerConfirmDto> getArticles(Map<String, Object> params) {
+		return OwnerDaoImpl.getOwnerDao().getArticles(params);
 	}
 
 	@Override
 	public ArrayList<OwnerConfirmDto> modifyArticles(String[] user_id, int ownerOk) {
-		// TODO Auto-generated method stub
 		return OwnerDaoImpl.getOwnerDao().modifyArticles(user_id, ownerOk);
 	}
 

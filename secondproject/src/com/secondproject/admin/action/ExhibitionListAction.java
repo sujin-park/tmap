@@ -16,6 +16,7 @@ import com.secondproject.admin.service.ExhibitionServiceImpl;
 import com.secondproject.constant.BoardConstant;
 import com.secondproject.map.model.ShopDto;
 import com.secondproject.util.*;
+import com.secondproject.util.db.Dummy;
 import com.secondproject.util.pagination.Pagination;
 
 public class ExhibitionListAction extends BoardCommonAction implements Action {

@@ -113,7 +113,7 @@ public final class Dummy {
 	public static Connection getConnection() {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "map", "map");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1522:orcl", "map", "map");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

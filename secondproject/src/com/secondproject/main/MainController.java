@@ -23,7 +23,7 @@ public class MainController extends HttpServlet {
 			contentPath = MainFactory.getMainListAction().execute(request, response);
 		}
 		request.setAttribute("titleTagValue", "Tmap");
-		request.setAttribute("contentPath", "/page/main/main.jsp");
+		request.setAttribute("contentPath", contentPath);
 		request.setAttribute("addHeadPath", "/page/main/include/head.jsp");
 		request.setAttribute("addBottomPath", "/page/main/include/bottom.jsp");
 		RequestDispatcher dist = request.getRequestDispatcher("/template/main/index.jsp");

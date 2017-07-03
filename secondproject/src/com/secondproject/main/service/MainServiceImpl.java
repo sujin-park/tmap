@@ -25,4 +25,9 @@ public class MainServiceImpl implements MainService {
 		return MainDaoImpl.getMainDao().listMainExhibition();
 	}
 
+
+	@Override
+	public MainExhibitionDto viewMainExhibition(int i) {
+		return MainDaoImpl.getMainDao().viewMainExhibition(i);
+	}
 }

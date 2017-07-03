@@ -45,4 +45,9 @@ public class ShopServiceImpl implements ShopService {
 		return ShopDaoImpl.getShopDao().getShop(shopId);
 	}
 
+	@Override
+	public int getShopScore(int shopId) {
+		return ShopDaoImpl.getShopDao().getShopScore(shopId);
+	}
+
 }
