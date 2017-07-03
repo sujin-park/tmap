@@ -37,6 +37,8 @@ public class ReviewController extends HttpServlet {
 			contentPath = ReviewFactory.getReviewViewAction().execute(request, response);
 			request.setAttribute("titleTagValue", "≈∏¿Ã∆≤");
 			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("addHeadPath", "/page/review/include/head.jsp");
+			request.setAttribute("addBottomPath", "/page/review/include/bottom.jsp");
 			PageMove.forward("/template/default/default.jsp", request, response);
 		} 
 	}

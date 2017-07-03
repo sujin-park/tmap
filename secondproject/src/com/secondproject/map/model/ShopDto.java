@@ -3,6 +3,7 @@ package com.secondproject.map.model;
 public class ShopDto {
 	private int shopId;
 	private int categoryId;
+	private String categoryName;
 	private String title;
 	private Double lat;
 	private Double lng;
@@ -13,6 +14,7 @@ public class ShopDto {
 	private String businessTime;
 	private String detail;
 	private String img;
+	private Double score;
 	public String getImg() {
 		return img;
 	}
@@ -35,6 +37,14 @@ public class ShopDto {
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getTitle() {
@@ -107,6 +117,14 @@ public class ShopDto {
 
 	public void setDetail(String detail) {
 		this.detail = detail;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
 	}
 
 }

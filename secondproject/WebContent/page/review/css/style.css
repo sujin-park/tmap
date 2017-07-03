@@ -1,2 +1,21 @@
 @CHARSET "EUC-KR";
 
+.review-view-page{
+	
+}
+
+.review-view-page .main-img-container img{
+	width: 100%;
+}
+
+.review-view-page .review-content{
+	margin-top: 50px;
+}
+
+.info-container{
+	margin-top: 30px;
+}
+
+.info-container .label{
+	font-size: 1.5rem;
+}

@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.secondproject.map.dao.MapDaoImpl;
+import com.secondproject.map.model.FollowCategoryDto;
+import com.secondproject.map.model.FollowCategoryUserDto;
 import com.secondproject.map.model.ShopDto;
 import com.secondproject.util.map.Bounds;
 
@@ -31,6 +33,16 @@ public class MapServiceImpl implements MapService {
 	@Override
 	public String getShopListJSON(Bounds bounds) {
 		return new Gson().toJson(getShopList(bounds));
+	}
+
+	@Override
+	public ArrayList<FollowCategoryDto> getCategoryByUser(int userId) {
+		return MapDaoImpl.getMapDao().getCategoryByUser(userId);
+	}
+
+	@Override
+	public FollowCategoryUserDto getCategoryUser(int categoryId) {
+		return MapDaoImpl.getMapDao().getCategoryUser(categoryId);
 	}
 
 }
