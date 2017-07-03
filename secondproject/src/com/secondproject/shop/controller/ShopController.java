@@ -31,10 +31,6 @@ public class ShopController extends HttpServlet {
 			String jsonData = ShopFactory.getShopAddAction().execute(request, response);
 			response.setContentType("text/html; charset=EUC-KR");
 			response.getWriter().print(jsonData);
-		} else if ("test".equals(act)) {
-			ShopFactory.getShopViewAction().execute(request, response);
-		} else if ("test2".equals(act)) {
-			ShopFactory.getShopViewAction().execute(request, response);
 		}
 	}
 	

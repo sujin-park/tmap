@@ -25,9 +25,8 @@ public class ReviewController extends HttpServlet {
 		String column = Encoding.nullToBlank(request.getParameter("column"));
 		String queryString = "?key=" + key + "&word=" + Encoding.urlFormat(word) + "&order=" + order + "&column=" + column;
 		if ("writeForm".equals(act)) {
-			contentPath = "/page/review/write.jsp";
 			request.setAttribute("titleTagValue", "TMAP - ∏Æ∫‰¿€º∫");
-			request.setAttribute("contentPath", contentPath);
+			request.setAttribute("contentPath", "/page/review/write.jsp");
 			request.setAttribute("addHeadPath", "/page/review/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/review/include/bottom.jsp");
 			PageMove.forward("/template/default/default.jsp", request, response);

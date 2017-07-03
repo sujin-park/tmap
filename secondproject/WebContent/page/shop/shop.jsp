@@ -14,8 +14,6 @@
 %>
 
 <div class="page-container">
-	<button id="test">TEST</button>
-	<button id="test2">TEST2</button>
 	<div class="container">
 
 		<div class="row">
@@ -62,24 +60,28 @@
 		</div>
 
 		<div class="row">
-			<%
-				for (ReviewListDto reviewListDto : reviewList) {
-			%>
-			<div class="col-sm-6 col-md-4 ">
-				<div class="thumbnail">
-					<img src="..." alt="...">
-					<div class="caption">
-						<h3><a href="<%=ContextPath.root%>/review?act=view&reviewId=<%=reviewListDto.getReviewId()%>"><%=reviewListDto.getTitle()%></a></h3>
-						<p>
-							<a href="#" class="btn btn-primary" role="button">Button</a>
-							<a href="#" class="btn btn-default" role="button">Button</a>
-						</p>
+			<div class="review-list-container">
+				<%
+					int i = 0;
+					for (ReviewListDto reviewListDto : reviewList) {
+				%>
+					<div class="review col-sm-6 col-md-4 <%=(i % 2 == 0) ? "grid-2" : "" %> <%=(i % 4 == 0) ? "grid-4" : "" %> <%=(i % 6 == 0) ? "grid-6" : "" %>">
+						<div class="thumbnail">
+							<a href="<%=ContextPath.root%>/review?act=view&reviewId=<%=reviewListDto.getReviewId()%>"><img src="..." alt="..."></a>
+							<div class="caption">
+								<h3><a href="<%=ContextPath.root%>/review?act=view&reviewId=<%=reviewListDto.getReviewId()%>"><%=reviewListDto.getTitle()%></a></h3>
+								<p>
+									<a href="#" class="btn btn-primary" role="button">Button</a>
+									<a href="#" class="btn btn-default" role="button">Button</a>
+								</p>
+							</div>
+						</div>
 					</div>
-				</div>
+				<%		
+						i++;
+					}
+				%>
 			</div>
-			<%
-				}
-			%>
 		</div>
 
 		<div class="row">
@@ -89,38 +91,3 @@
 		</div>
 	</div>
 </div>
-<script>
-$("#test").on('click', function() {
-	$.ajax({
-		method: 'post',
-		url: CONTEXT_PATH + '/shop',
-		data: {
-			'act': 'test',
-			'key' : 'isChange'
-		},
-		success: function(data) {
-			console.log(data);
-		},
-		error: function(error) {
-			alert('검색오류');
-			SYSOUT(error);
-		}
-	})
-});
-$("#test2").on('click', function() {
-	$.ajax({
-		method: 'post',
-		url: CONTEXT_PATH + '/shop',
-		data: {
-			'act': 'test2'
-		},
-		success: function(data) {
-			console.log(data);
-		},
-		error: function(error) {
-			alert('검색오류');
-			SYSOUT(error);
-		}
-	})
-});
-</script>
