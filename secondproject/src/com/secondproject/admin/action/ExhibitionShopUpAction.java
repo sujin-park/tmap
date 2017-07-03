@@ -26,9 +26,7 @@ public class ExhibitionShopUpAction implements Action {
 		String[] shops = request.getParameterValues("shoplist");
 		int size = shops.length;
 		int cnt = ExhibitionServiceImpl.getExhibitionService().plusExhibition(shops, seq);
-		//System.out.println("EXHIBITION SHOPUP ACTION " + size);
 		ExhibitionDto exhibitionDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
-		///System.out.println(seq + "ExhibitionShopUpAction");
 		
 		List<ShopDto> shoplist = ExhibitionServiceImpl.getExhibitionService().shopUpdated(seq);
 		if (cnt !=0) {
