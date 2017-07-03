@@ -153,7 +153,15 @@ var followUserId;
 				
 			}
 		}); 
-		
+		 $('#modal').on('hidden.bs.modal', function (e) {
+			  document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
+			})
+		$('#modalmemo').on('hidden.bs.modal', function (e) {
+			document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
+			})
+		$('#modalcate').on('hidden.bs.modal', function (e) {
+			document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
+			})
 	});
 	function select() {
 		var id =$("select[name=select]").val();
@@ -167,6 +175,7 @@ var followUserId;
 		
 		
 	}
+	
 </script>
 <div class="container">
 <div class="col-xs-12 col-md-12 a">
