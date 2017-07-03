@@ -31,19 +31,22 @@ public class MyreviewController extends HttpServlet {
 		
 		} else if("".equals(act)) {
 		
+			
 		}
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
 		request.setAttribute("addHeadPath", "/page/mypage/include/head.jsp");
 		request.setAttribute("addBottomPath", "/page/mypage/include/bottom.jsp");
-		RequestDispatcher dist =null;
-		dist = request.getRequestDispatcher("/template/default/default.jsp");
+		
+		RequestDispatcher dist = request.getRequestDispatcher("/template/default/default.jsp");
 		dist.forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");
 		doGet(request,response);
 	}
+	
 
 }

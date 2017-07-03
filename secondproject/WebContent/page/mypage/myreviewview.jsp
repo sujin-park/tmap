@@ -6,25 +6,26 @@
 
 	function like(good,bad,reviewId){
 		if(good==1) {
-			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=0&bad=0&reviewId="+reviewId, function(data, status){
+			$.get("/secondproject/myreview?act=goodbad&good=0&bad=0&reviewId="+reviewId, function(data, status){
 				var goba = document.getElementById("goba");
 				goba.innerHTML=data;
 			});
 		} else {
-			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=1&bad=0&reviewId="+reviewId, function(data, status){
+			$.get("/secondproject/myreview?act=goodbad&good=1&bad=0&reviewId="+reviewId, function(data, status){
 				var goba = document.getElementById("goba");
 				goba.innerHTML=data;
 		});
 		}
+		
 	}
 	function hate(good,bad,reviewId){
 		if(bad==1) {
-			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=0&bad=0&reviewId="+reviewId, function(data, status){
+			$.get("/secondproject/myreview?act=goodbad&good=0&bad=0&reviewId="+reviewId, function(data, status){
 				var goba = document.getElementById("goba");
 				goba.innerHTML=data;
 		});
 		} else {
-			$.get("<%=ContextPath.root%>/myreview?act=goodbad&good=0&bad=1&reviewId="+reviewId, function(data, status){
+			$.get("/secondproject/myreview?act=goodbad&good=0&bad=1&reviewId="+reviewId, function(data, status){
 				var goba = document.getElementById("goba");
 				goba.innerHTML=data;
 		});

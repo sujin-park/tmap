@@ -8,9 +8,8 @@
 	UserDto udto = (UserDto)session.getAttribute("logininfo");
 	if(udto!=null) {
 	%>
-<script type="text/javascript"
-	src="<%=ContextPath.root%>/page/mypage/js/myajax.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 	var word = "<%=word%>";
@@ -21,23 +20,23 @@
 		   
 		}
 
-function listArticle(mvpg) {
+	function listArticle(mvpg) {
 	
 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg="+mvpg+"&key=&word=&control=";
 	
-}
-
-
-function upOrder(order, id) {
-	if (order == 1) {
-		return alert("첫번째 순서입니다.");
-	} else {
-		$.get("/secondproject/mypage?act=upOrder&id="+id, function(data, status){
-			var tt = document.getElementById("tt");
-			tt.innerHTML=data;
-		});
 	}
-}
+
+
+	function upOrder(order, id) {
+		if (order == 1) {
+			return alert("첫번째 순서입니다.");
+		} else {
+			$.get("/secondproject/mypage?act=upOrder&id="+id, function(data, status){
+				var tt = document.getElementById("tt");
+				tt.innerHTML=data;
+			});
+		}
+	}
 var followUserId;
 
 	function modifymake(){
@@ -127,7 +126,7 @@ var followUserId;
 			}
 		}
 
-	}
+	} 
 	var valueArr;
 	$(document).ready(function() {
 		$("#getCheckedAll").click(function() {
