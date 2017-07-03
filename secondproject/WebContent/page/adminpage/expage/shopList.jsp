@@ -4,7 +4,6 @@
 <%
 List<ShopDto> list = (List<ShopDto>) request.getAttribute("exShopList");
 int seq = Integer.parseInt((String) request.getAttribute("exhibitionId"));
-PageNavigation pageNavigation = (PageNavigation) request.getAttribute("navigator");
 %>
 <script>
 
@@ -145,4 +144,3 @@ function plusShop() {
 			</div>
 		</div>
 </section>
-<%=pageNavigation.getNavigator()%>

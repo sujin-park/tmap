@@ -14,6 +14,7 @@ import com.secondproject.admin.model.ExhibitionDto;
 import com.secondproject.admin.service.CommonServiceImpl;
 import com.secondproject.admin.service.ExhibitionServiceImpl;
 import com.secondproject.constant.BoardConstant;
+import com.secondproject.map.model.ShopDto;
 import com.secondproject.util.*;
 import com.secondproject.util.pagination.Pagination;
 
@@ -37,7 +38,7 @@ public class ExhibitionListAction extends BoardCommonAction implements Action {
 		params.put("orderValue", orderValue);
 
 		List<ExhibitionDto> list = ExhibitionServiceImpl.getExhibitionService().listExhibition(params);
-
+		
 		int totalArticleCount = CommonServiceImpl.getCommonService().totalExhibitionCount(params);
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalArticleCount);
@@ -57,6 +58,7 @@ public class ExhibitionListAction extends BoardCommonAction implements Action {
 		request.setAttribute("exhibitionList", list);
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("orderValue", (String) params.get("orderValue"));
+		
 		if (board.equals("exhibition")) {
 			path = "/page/adminpage/expage/exhibition.jsp";
 		} else {

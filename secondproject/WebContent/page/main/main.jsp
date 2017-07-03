@@ -1,6 +1,9 @@
 <%@page import="com.secondproject.constant.ContextPath"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"
+	import="java.util.*, com.secondproject.admin.model.*"%>
+<%
+List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("exhibitionList");
+%>
 <div id="main-visual-container">
 
 	<div class="visual-title">
@@ -17,10 +20,15 @@
 </div>
 
 
-
+<%
+	if (list != null) {
+		int size = list.size();
+	for (int i=0; i<size; i++) {
+		ExhibitionDto exhibitionDto = list.get(i);
+%>
 <div class="exhibition-container black">
-	<div class="ex-title">캠핑엔 바베큐죠 그쵸</div>
-	<div class="ex-desc">#캠핑 #바비큐 #여름휴가 #야외음식 #가족</div>
+	<div class="ex-title"><%=exhibitionDto.getExTitle()%></div>
+	<div class="ex-desc"><%=exhibitionDto.getExDesc()%></div>
 	
 	<div class="ex-slick-container">
 	
@@ -98,8 +106,10 @@
 		
 	</div>
 </div>
-
-
+<%
+	}
+}
+%>
 <div class="exhibition-container">
 	<div class="ex-title">캠핑엔 바베큐죠 그쵸</div>
 	<div class="ex-desc">#캠핑 #바비큐 #여름휴가 #야외음식 #가족</div>

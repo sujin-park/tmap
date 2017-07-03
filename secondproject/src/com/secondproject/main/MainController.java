@@ -9,11 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.secondproject.factory.MainFactory;
+
 @WebServlet("/main")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String act = request.getParameter("act");
+		String contentPath = "";
+		if("ex_main".equals(act)) {
+			contentPath = MainFactory.getMainListAction().execute(request, response);
+		}
 		request.setAttribute("titleTagValue", "Tmap");
 		request.setAttribute("contentPath", "/page/main/main.jsp");
 		request.setAttribute("addHeadPath", "/page/main/include/head.jsp");
