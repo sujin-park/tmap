@@ -3,6 +3,7 @@
 	import="java.util.*, com.secondproject.main.model.*"%>
 <%
 List<MainExhibitionDto> list = (List<MainExhibitionDto>) request.getAttribute("mainlist");
+if (list != null) {
 %>
 <div id="main-visual-container">
 
@@ -19,25 +20,36 @@ List<MainExhibitionDto> list = (List<MainExhibitionDto>) request.getAttribute("m
 	
 </div>
 
-<div class="exhibition-container black">
+
 <%
-	if (list != null) {
 		int size = list.size();
 		int code = 0;
-	for (int i=0; i<size; i++) {
-		MainExhibitionDto mainExhibitionDto = list.get(i);
-		if (code!= mainExhibitionDto.getExhibitionId()) {
-			code = mainExhibitionDto.getExhibitionId();
+		for (int i=0; i<size; i++) {
+			MainExhibitionDto mainExhibitionDto = list.get(i);
+			if (mainExhibitionDto.getEx_visiable() != 0) {
+				if (code != mainExhibitionDto.getExhibitionId()) {
+					code = mainExhibitionDto.getExhibitionId();
+				
+					if (i == 0) {
 %>
-	<div class="ex-title"><%=mainExhibitionDto.getEx_title()%></div>
-	<div class="ex-desc"><%=mainExhibitionDto.getEx_desc()%></div>
-	<div class="ex-slick-container">
+<div class="exhibition-container black">
 <%
-	}
+					} else {
+%>
+	<div class="exhibition-container">
+<%
+			}
+%>
+		<div class="ex-title"><%=mainExhibitionDto.getEx_title()%></div>
+		<div class="ex-desc"><%=mainExhibitionDto.getEx_desc()%></div>
+		<div class="ex-slick-container">
+<%
+				   }
 %>
 		<a href="#" class="shop">
 			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg"/>
+				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg/<%=mainExhibitionDto.getEx_shopid()%>.jpg"
+				 width="200" height="200"/>
 				<div class="shop-score"><%=mainExhibitionDto.getScore()%></div>
 			</div>
 			<div class="shop-content">
@@ -50,216 +62,20 @@ List<MainExhibitionDto> list = (List<MainExhibitionDto>) request.getAttribute("m
 	if(i < size - 1) {
 		if(code != list.get(i + 1).getExhibitionId()) {
 %>
+		</div>
+
+<%
+					}
+				}
+			}
+		}
+%>
 	</div>
+</div>
+<%
+	} else {
+%>
+
 <%
 	}
-}
-	}
-	}
 %>
-</div>
-<div class="exhibition-container">
-	<div class="ex-title">캠핑엔 바베큐죠 그쵸</div>
-	<div class="ex-desc">#캠핑 #바비큐 #여름휴가 #야외음식 #가족</div>
-	
-	<div class="ex-slick-container">
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-	</div>
-</div>
-
-<div class="ex-hr"></div>
-
-<div class="exhibition-container">
-	<div class="ex-title">캠핑엔 바베큐죠 그쵸</div>
-	<div class="ex-desc">#캠핑 #바비큐 #여름휴가 #야외음식 #가족</div>
-	
-	<div class="ex-slick-container">
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-		
-		<a href="#" class="shop">
-			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg1.png"/>
-				<div class="shop-score">7.74</div>
-			</div>
-			<div class="shop-content">
-				<div class="shop-title">고스히얼</div>
-				<div class="shop-desc">연희동으로 이사온 폴앤폴리나! 연희김밥집보다 좀더 안으로 들어 가다보면 있다.</div>
-				<div class="shop-address">경기도 시흥시 정왕동 46-2</div>
-			</div>
-		</a>
-	</div>
-</div>

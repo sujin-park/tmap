@@ -34,7 +34,7 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-											<img id="shop_img" src="<%=ContextPath.root%>/upload/fries.PNG" width="350" style="margin-top:20px"/>
+											<img id="shop_img" src="<%=ContextPath.root%>/page/main/img/shopimg/<%=shopInfoDto.getShopId()%>.jpg" width="350" height="250" style="margin-top:20px"/>
 									</div>
 								</div>
 									<div class="form-group">

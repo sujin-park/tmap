@@ -1,12 +1,26 @@
-#footer{
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	height: 30px;
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(./reset.css);
+@import url(./header.css);
+@import url(./header_response.css);
+@import url(./footer.css);
+@import url(./footer_response.css);
+
+.page-container{
+	padding-top: 50px;
+	padding-bottom: 100px;
+	-webkit-transition: padding 0.45s ease;
+	-moz-transition: padding 0.45s ease;
+	-ms-transition: padding 0.45s ease;
+	-o-transition: padding 0.45s ease;
+	transition: padding 0.45s ease;
 }
 
-.footer-container{
-	
+.pageNavigation{
+	text-align: center;
 }
 
+@media screen and (min-width: 1024px) {
+	.page-container{
+		padding-top: 70px;
+	}
+}

@@ -11,6 +11,7 @@ public class MainExhibitionDto {
 	private int ex_order;
 	private int ex_visiable;
 	private int ex_shopid;
+
 	// 매장 정보들
 	private int exd_order;
 	private String shop_name; // 매장명
@@ -89,5 +90,11 @@ public class MainExhibitionDto {
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+	public int getEx_shopid() {
+		return ex_shopid;
+	}
+	public void setEx_shopid(int ex_shopid) {
+		this.ex_shopid = ex_shopid;
 	}
 }

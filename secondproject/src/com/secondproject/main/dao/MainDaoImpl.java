@@ -63,6 +63,7 @@ public class MainDaoImpl implements MainDao {
 				mainExhibitionDto.setAddress(rs.getString("address"));
 				mainExhibitionDto.setScore(rs.getInt("score"));
 				mainExhibitionDto.setShopImg(rs.getString("img"));
+				mainExhibitionDto.setEx_shopid(rs.getInt("shop_id"));
 				list.add(mainExhibitionDto);
 			}
 		} catch (SQLException e) {

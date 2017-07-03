@@ -47,40 +47,37 @@ function deleteUser() {
       <div class="panel panel-default">
          <div class="panel-body">
             <div class="row">
-               <div class="pull-left col-md-7">
+               <div class="pull-left col-md-4">
                   <div class="btn-group">
                     <div class="btn-group">
-                    
 							<button type="button" class="btn btn-warning btn-filter" onclick="deleteUser();">회원 삭제</button>
 						</div>
        
                   </div>
                </div>
-         <form name="searchForm" method="get" action="">
-   
+        	 <form name="searchForm" method="get" action="">
                <input type="hidden" name="act" value="userview">
                   <div class="pull-right col-md-5">
-                     <div class="input-group">
-                        <div class="input-group-btn">
-                        <select class="form-control" name="key">
-                           <option value="user_id">아이디</option>
-                           <option value="type">회원타입</option>                           
-                           <option value="reg_date">가입일</option>
-                           <option value="gender">성별</option>                           
-                           <option value="age">나이</option>
-                        </select>
-                     </div>
-                     <input type="text" class="form-control" name = "word" placeholder="검색어 입력" size="3">
-                        <button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
-                  </div>
-                  </div>
+					<div class="input-group">
+						<div class="input-group-btn">
+							<select class="form-control" name="key">
+								<option value="emailname">작성자명</option>
+								<option value="shopname">매장명</option>
+							</select>
+						</div>
+						<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="3">
+							<span class="input-group-btn">
+							<button class="btn btn-warning" type="button" onclick="javascript:searchReview();">Search</button>
+							</span>
+					</div>
+				 </div>
             </form>
              </div>
-             <form name="orderncolumn" method="post" action="">
-            <input type="hidden" name="act" value="userdelete">
              <div class="table-container">
                 <table class="table table-filter">
                    <tbody>
+             		<form name="orderncolumn" method="post" action="">
+            		<input type="hidden" name="act" value="userdelete">
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=user_id" style="text-decoration:none">아이디</a></td>
@@ -89,9 +86,6 @@ function deleteUser() {
                          <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=gender" style="text-decoration:none">성별</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=age" style="text-decoration:none">나이</a></td>
                      </tr>
-                     
-                     
-                     
                      <tr>
                      <%int size = list.size();
                   
@@ -158,26 +152,15 @@ function deleteUser() {
                      </tr>
                      
                      <%} %>
-                     </input>
                      </form>
-                     
                   </tbody>
                </table>
             </div>
-            <!-- <div class="btn-group pull-right">
-               <button type="button" class="btn btn-warning">가나다순</button>
-               <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <span class="caret"></span> 
-                  <span class="sr-only">Toggle Dropdown</span>
-               </button>
-               <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">가나다순</a></li>
-                  <li><a href="#">가입일순</a></li>
-                  <li><a href="#">신뢰도순</a></li>
-               </ul>
-            </div> -->
          </div>
       </div>
    </div>
 </section>
+<div class="col-md-6">
 <%=pagination.getHtml()%>
+</div>
+<div class="col-md-6"></div>

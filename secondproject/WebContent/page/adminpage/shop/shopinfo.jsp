@@ -163,7 +163,7 @@ function shopmodal(seq) {
    </div>
 </section>
 <%@include file="/page/adminpage/shop/shopInfoModal.jsp"%>
-<div class="col-md-12 col-md-push-4">
+<div class="col-md-6">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
