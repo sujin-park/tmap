@@ -4,8 +4,7 @@
 	<footer id="footer">
 		
 		<div class="footer-slogan">
-			<div id="footer-logo">야진짜</div>
-			<span>친구야 여기가 진짜 맛집이야</span>
+			<span>친구<b>야 진짜</b> 여기가 맛집이야</span>
 		</div>
 		
 		<div class="copyright">

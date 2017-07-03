@@ -1,5 +1,9 @@
 @CHARSET "EUC-KR";
 
+.page-container{
+	padding-top: 70px;
+}
+
 .review-list-container{
 	margin-top: 50px;
 }

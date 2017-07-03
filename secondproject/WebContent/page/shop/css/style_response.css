@@ -14,3 +14,10 @@
 		clear: both;
 	}
 }
+
+@media screen and (min-width:1024px) {
+	.page-container{
+		padding-top: 110px;
+	}
+	
+}

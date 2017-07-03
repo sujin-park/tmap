@@ -8,8 +8,8 @@ if (list != null) {
 <div id="main-visual-container">
 
 	<div class="visual-title">
-		<span class="sub-title">친구가 추천해준 믿을 수 있는 맛집</span>
-		<span class="title">야!진짜</span>
+		<span class="sub-title">친구<span>야! 진짜</span> 여기가 맛집이야</span>
+		<span class="title">야진짜</span>
 	</div>
 	
 	<div class="visual-imgs">
