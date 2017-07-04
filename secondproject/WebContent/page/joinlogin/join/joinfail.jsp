@@ -1,5 +1,14 @@
+<%@page import="com.secondproject.constant.ContextPath"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+
+<script>
+alert("입력하신 정보가 부정확하거나 일시적 서버 문제로 회원 가입이 실패하였습니다.\n확인 후 다시 시도해 주세요.");
+history.back();
+location.href="<%=ContextPath.root%>";
+</script>
+    
+    <!-- 
     
 <div class="modal" id="joinfailmodal">
 		<div class="modal-dialog">
@@ -33,4 +42,4 @@
 function joinmove() {
 	$("#joinmodal").modal("show");
 }
-</script>
+</script> -->

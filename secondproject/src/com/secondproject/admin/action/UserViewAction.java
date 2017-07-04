@@ -42,7 +42,6 @@ public class UserViewAction extends BoardCommonAction implements Action {
 		} else if ("gender".equals(key) && "¿©¼º".equals(word)) {
 			word = "2";
 		}
-		params.put("word", word);
 		
 		ArrayList<UserDto> list = UserViewServiceImpl.getUserViewService().getArticles(params);
 

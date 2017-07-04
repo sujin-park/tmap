@@ -1,13 +1,11 @@
 <%@page import="com.secondproject.constant.ContextPath"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"
-	import="java.util.*, com.secondproject.main.model.*"%>
+	import="java.util.*, com.secondproject.admin.model.*, com.secondproject.main.model.*"%>
 <%
-List<MainExhibitionDto> list = (List<MainExhibitionDto>) request.getAttribute("mainlist");
-
-if (list != null) {
+List<ExhibitionDto> list = (List<ExhibitionDto>) request.getAttribute("mainlist");
+List<MainExhibitionDto> shoplist = (List<MainExhibitionDto>) request.getAttribute("mainShoplist");
 %>
 <div id="main-visual-container">
-
 	<div class="visual-title">
 		<span class="sub-title">친구<span>야! 진짜</span> 여기가 맛집이야</span>
 		<span class="title">야진짜</span>
@@ -20,68 +18,52 @@ if (list != null) {
 	</div>
 	
 </div>
-
-
 <%
+	if (list != null) {
 		int size = list.size();
-		int code = 0;
-		for (int i=0; i<size; i++) {
-			MainExhibitionDto mainExhibitionDto = list.get(i);
-			if (mainExhibitionDto.getEx_visiable() != 0) {
-				if (code != mainExhibitionDto.getExhibitionId()) {
-					code = mainExhibitionDto.getExhibitionId();
-				
-					if (i == 0) {
+			for(int i=0; i<size; i++) {
+				ExhibitionDto exhibitionDto = list.get(i);
+	
+				if (i==0) {
 %>
 <div class="exhibition-container black">
 <%
-					} else {
+				} else {
 %>
-	<div class="exhibition-container">
+<div class="exhibition-container">
 <%
-			}
+				}
 %>
-		<div class="ex-title"><%=mainExhibitionDto.getEx_title()%></div>
-		<div class="ex-desc"><%=mainExhibitionDto.getEx_desc()%></div>
-		<div class="ex-slick-container">
+	<div class="ex-title"><%=exhibitionDto.getExTitle() %></div>
+	<div class="ex-desc"><%=exhibitionDto.getExDesc()%></div>
+	<div class="ex-slick-container">
 <%
-				   }
+			int shopsize = shoplist.size();
+				for(int j=0; j<shopsize; j++) {
+					MainExhibitionDto mainExhibitionDto = shoplist.get(j);
+						if (mainExhibitionDto.getExhibitionId() == exhibitionDto.getExhibitionId()) {
 %>
+	
 		<a href="<%=ContextPath.root%>/shop?act=view&shopId=<%=mainExhibitionDto.getEx_shopid()%>" class="shop">
 			<div class="shop-img">
-				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg/<%=mainExhibitionDto.getEx_shopid()%>.jpg"
-				 width="200" height="200"/>
+				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg/<%=mainExhibitionDto.getEx_shopid()%>.jpg" width="300" height="200"/>
 				<div class="shop-score"><%=mainExhibitionDto.getScore()%></div>
 			</div>
-			<div class="shop-content width:200px; height:200px;">
+			<div class="shop-content">
 				<div class="shop-title"><%=mainExhibitionDto.getShop_name()%></div>
 				<div class="shop-desc"><%=mainExhibitionDto.getExd_desc()%></div>
 				<div class="shop-address"><%=mainExhibitionDto.getAddress()%></div>
 			</div>
 		</a>
+
 <%
-	if(i < size - 1) {
-		if(code != list.get(i + 1).getExhibitionId()) {
+						}
+				}
 %>
 		</div>
-
-<%
-					}
-				}
-			}
-		if (i == size) {
-			%>
 		<div class="ex-hr"></div>
-			<%
-		}
-		}
-%>
 	</div>
-</div>
 <%
-	} else {
-%>
-
-<%
+			}
 	}
 %>

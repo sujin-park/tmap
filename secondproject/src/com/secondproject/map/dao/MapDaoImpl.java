@@ -119,7 +119,7 @@ public class MapDaoImpl implements MapDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("SELECT * \n");
 			sql.append("FROM follow_user fu \n");
-			sql.append("JOIN users ON user_id = fu.reg_user_id ");
+			sql.append("JOIN users ON user_id = fu.reg_user_id \n");
 			sql.append("WHERE follow_category_id = ? ");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, categoryId);

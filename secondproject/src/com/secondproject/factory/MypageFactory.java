@@ -35,6 +35,7 @@ public class MypageFactory {
 	private static Action mypageReviewViewAction;
 	private static Action goodBadAction;
 	private static Action commentInsertAction;
+	private static Action followSelect;
 
 	public static Action getMypageFollowCategoryUpOrderAction() {
 		return mypageFollowCategoryUpOrderAction;
@@ -61,10 +62,13 @@ public class MypageFactory {
 		mypageReviewViewAction = new MypageReviewViewAction();
 		goodBadAction = new GoodBadAction();
 		commentInsertAction = new CommentInsertAction();
-
 	}
 
 	
+	public static Action getFollowSelect() {
+		return followSelect;
+	}
+
 	public static Action getCommentInsertAction() {
 		return commentInsertAction;
 	}

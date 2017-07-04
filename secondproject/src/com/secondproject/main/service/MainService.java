@@ -2,6 +2,7 @@ package com.secondproject.main.service;
 
 import java.util.List;
 
+import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.main.model.MainExhibitionDto;
 
 public interface MainService {
