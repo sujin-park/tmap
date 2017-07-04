@@ -77,6 +77,12 @@ public class MypageServiceImpl implements MypageService {
 		return MypageFollowDaoImpl.getMypageFollowDao().totalFollowUserCount(params);
 	}
 
+	@Override
+	public List<FollowUserDto> followselect(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }
