@@ -28,8 +28,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
 						onclick="javascript:joinmove();" align="left">Go Join</button>
-					<button type="button" class="btn btn-primary"
-						onclick="javascript:logincheck();">Login</button>
+					<button type="button" class="btn btn-warning" onclick="javascript:logincheck();">Login</button>
 				</div>
 			</div>
 		</div>

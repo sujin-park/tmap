@@ -3,10 +3,10 @@ var httpRequest;
 
 function logincheck(){
 	if(document.getElementById("email").value == ""){
-		alert("ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 		return;
 	} else if (document.getElementById("password").value == ""){
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 		return; 
 	} else { 
 		document.loginform.action = "/secondproject/joinlogin"
@@ -16,22 +16,22 @@ function logincheck(){
 
 function attest() {
 	if (document.getElementById("joinEmail").value == "") {
-		alert("ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 		return;
 	} else if (document.getElementById("joinPassword").value == "") {
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 		return;
 	} else if (document.getElementById("joinPassword").value != document.getElementById("password_check").value) {
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
+		alert("ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
 		return;
 	} else if (document.getElementById("gender").value == "") {
-		alert("ì„±ë³„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		alert("¼ºº°¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 		return;
 	} else if (document.getElementById("age").value == "") {
-		alert("ë‚˜ì´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		alert("³ªÀÌ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 		return;
 	} else {
-		document.joinform.action = CONTEXT_PATH + "/secondproject/joinlogin"
+		document.joinform.action = CONTEXT_PATH + "/joinlogin"
 		document.joinform.submit();
 	}
 }
@@ -41,7 +41,7 @@ function idcheck() {
 	var idck = document.getElementById("joinEmail").value;
 	console.log(idck.match("@"));
 	if(idck.match("@") == null){
-		view.innerHTML="<font color='RED'>ì´ë©”ì¼ í˜•ì‹ì„ ê°–ì¶”ì–´ì•¼í•©ë‹ˆë‹¤.</font>"
+		view.innerHTML="<font color='RED'>ÀÌ¸ŞÀÏ Çü½ÄÀ» °®Ãß¾î¾ßÇÕ´Ï´Ù.</font>"
 	} else {
 		var param ="act=idcheck&email=" + encodeURIComponent(idck);
 		sendRequest(CONTEXT_PATH + "/joinlogin", param, idresult, "GET");
@@ -54,7 +54,7 @@ function idresult() {
 			var txt = httpRequest.responseText;
 			view.innerHTML = txt; 
 		} else {
-			alert("ë¬¸ì œë°œìƒ : " + httpRequest.status);
+			alert("¹®Á¦¹ß»ı : " + httpRequest.status);
 		}
 	}
 }
@@ -64,9 +64,9 @@ function pwcheck() {
 	var pw = document.getElementById("joinPassword").value;
 	var pwck = document.getElementById("password_check").value;
 	if(pw != pwck){
-		view.innerHTML="<font color='RED'>ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</font>"
+		view.innerHTML="<font color='RED'>ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.</font>"
 	} else {
-		view.innerHTML="<font color='BLUE'>ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•©ë‹ˆë‹¤.</font>"
+		view.innerHTML="<font color='BLUE'>ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù.</font>"
 	}
 }
 
@@ -83,40 +83,40 @@ function logoutmove() {
 }
 
 function getXMLHttpRequest() {
-	if (window.ActiveXObject) { // IE ë¼ë©´
+	if (window.ActiveXObject) { // IE ¶ó¸é
 		try {
-			return new ActiveXObject("Msxml2.XMLHTTP"); // IE 7ì´ìƒ
-		} catch (e1) { // ìë°”ìŠ¤í¬ë¦½íŠ¸ë„ ìµì…‰ì…˜ ì²˜ë¦¬ ê°€ëŠ¥ eë§Œ ì¨ë„ ì•Œì•„ì„œ
+			return new ActiveXObject("Msxml2.XMLHTTP"); // IE 7ÀÌ»ó
+		} catch (e1) { // ÀÚ¹Ù½ºÅ©¸³Æ®µµ ÀÍ¼Á¼Ç Ã³¸® °¡´É e¸¸ ½áµµ ¾Ë¾Æ¼­
 			try {
-				return new ActiveXObject("Microsoft.XMLHTTP"); // IE 7 ë°‘
-			} catch (e2) { // ìë°”ìŠ¤í¬ë¦½íŠ¸ë„ ìµì…‰ì…˜ ì²˜ë¦¬ ê°€ëŠ¥ eë§Œ ì¨ë„ ì•Œì•„ì„œ
-				alert("ì§€ì›í•˜ì§€ ì•ŠëŠ” ë¸Œë¼ìš°ì €ì…ë‹ˆë‹¤.");
+				return new ActiveXObject("Microsoft.XMLHTTP"); // IE 7 ¹Ø
+			} catch (e2) { // ÀÚ¹Ù½ºÅ©¸³Æ®µµ ÀÍ¼Á¼Ç Ã³¸® °¡´É e¸¸ ½áµµ ¾Ë¾Æ¼­
+				alert("Áö¿øÇÏÁö ¾Ê´Â ºê¶ó¿ìÀúÀÔ´Ï´Ù.");
 				return null;
 			}
 		}
-	} else if (window.XMLHttpRequest) { // IEê°€ ì•„ë‹Œ ë‚˜ë¨¸ì§€
-		return new XMLHttpRequest(); // ì´ë ‡ê²Œ ë§Œë“¤ì–´ì£¼ë©´ ëœë‹¤.
-	} else { // XMLHttpRequestë¥¼ ì§€ì›í•˜ì§€ ì•ŠëŠ” ë¸Œë¼ìš°ì €
-		alert("ì§€ì›í•˜ì§€ ì•ŠëŠ” ë¸Œë¼ìš°ì €ì…ë‹ˆë‹¤.");
+	} else if (window.XMLHttpRequest) { // IE°¡ ¾Æ´Ñ ³ª¸ÓÁö
+		return new XMLHttpRequest(); // ÀÌ·¸°Ô ¸¸µé¾îÁÖ¸é µÈ´Ù.
+	} else { // XMLHttpRequest¸¦ Áö¿øÇÏÁö ¾Ê´Â ºê¶ó¿ìÀú
+		alert("Áö¿øÇÏÁö ¾Ê´Â ºê¶ó¿ìÀúÀÔ´Ï´Ù.");
 		return null;
 	}
 }
 
-function sendRequest(url, param, callback, method) { //4ê°œê°€ ë³€ìˆ˜ë‹ˆ ë°›ëŠ”ê±¸ë¡œ ì„¤ì •
-	httpRequest = getXMLHttpRequest(); // ë¸Œë¼ìš°ì €ë§ˆë‹¤ ë‹¬ë¼ì„œ ì—¬ê¸°ì„œ ê°ì²´ ìƒì„±
+function sendRequest(url, param, callback, method) { //4°³°¡ º¯¼ö´Ï ¹Ş´Â°É·Î ¼³Á¤
+	httpRequest = getXMLHttpRequest(); // ºê¶ó¿ìÀú¸¶´Ù ´Ş¶ó¼­ ¿©±â¼­ °´Ã¼ »ı¼º
 	
-	var httpMethod = method ? method : "GET"; //ìŠ¤í¬ë¦½ë„ ì‚¼í•­ì—°ì‚°ì ê°€ëŠ¥
+	var httpMethod = method ? method : "GET"; //½ºÅ©¸³µµ »ïÇ×¿¬»êÀÚ °¡´É
 	if(httpMethod != "GET" && httpMethod != "POST") {
-		httpMethod = "GET" //ë””í´íŠ¸ëŠ” ë¬´ì¡°ê±´ getì´ ë˜ê²Œë”
-	} //ë©”ì†Œë“œ íƒ€ì… ì™„ì„±
+		httpMethod = "GET" //µğÆúÆ®´Â ¹«Á¶°Ç getÀÌ µÇ°Ô²û
+	} //¸Ş¼Òµå Å¸ÀÔ ¿Ï¼º
 	
 	var httpParam = (param == null || param == "") ? null : param;
 	var httpUrl = url;
-	if(httpMethod == "GET" && httpParam != null) { //ê²Ÿì´ë©´ì„œ nullì´ ì•„ë‹Œ ê²½ìš°
+	if(httpMethod == "GET" && httpParam != null) { //°ÙÀÌ¸é¼­ nullÀÌ ¾Æ´Ñ °æ¿ì
 		httpUrl = httpUrl + "?" + httpParam;
 	}
 	
 	httpRequest.onreadystatechange = callback; 
-	httpRequest.open(httpMethod, httpUrl, "true"); // postê°€ ì•„ë‹Œ ê²½ìš° (ì´ìƒí•˜ê²Œ ì ëŠ”ê²½ìš° í¬í•¨) defaultëŠ” get
-	httpRequest.send(httpMethod == "POST" ? httpParam : null); // postë°©ì‹ì—ì„  sendì—ì„œ param ê·¸ëŒ€ë¡œ ë³´ë‚´ê³  getì´ë©´ nullë¡œ
+	httpRequest.open(httpMethod, httpUrl, "true"); // post°¡ ¾Æ´Ñ °æ¿ì (ÀÌ»óÇÏ°Ô Àû´Â°æ¿ì Æ÷ÇÔ) default´Â get
+	httpRequest.send(httpMethod == "POST" ? httpParam : null); // post¹æ½Ä¿¡¼± send¿¡¼­ param ±×´ë·Î º¸³»°í getÀÌ¸é null·Î
 }

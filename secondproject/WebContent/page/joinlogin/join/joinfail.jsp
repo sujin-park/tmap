@@ -15,7 +15,6 @@
 					<div class="form-group">
 					<center>
 						<label for="inputEmail" class="col-lg-2 control-label">일시적 서버 문제로 회원가입이 실패하였습니다.<br>
-						얼른 고칠거야 고친다고! 그러니까 기다려!
 						</label>
 					</center>
 					</div>

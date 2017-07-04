@@ -19,24 +19,32 @@ public class AttestAction implements Action {
 			throws ServletException, IOException {
 		String path = "/index.jsp";
 		String email = request.getParameter("email");
+//        String email1 = email.substring(0, 5);
+
 		String password = request.getParameter("password");
+//		String pass = email.substring(0, 4);
 		String age = request.getParameter("age");
 		String gender = request.getParameter("gender");
+		
 //		System.out.println(request.getParameter("email"));
 //		System.out.println(request.getParameter("password"));
 //		System.out.println(request.getParameter("age"));
 //		System.out.println(request.getParameter("gender"));
 		
-		UserDto userDto = JoinServiceImpl.getJoinService().attest(email, password, age, gender);
-		if(userDto != null){
-			// 이메일 인증을 위한 session 생성
-			HttpSession session = request.getSession();
-			session.setAttribute("attestinfo", userDto);
-			session.setMaxInactiveInterval(60*10); // 지속시간 10분 설정?? 시간 설정 
-			//TODO 밑에 경로 수정
-			path = "/page/joinlogin/join/mailform.jsp";
-			request.setAttribute("userinfo", userDto);
+//		int checkkey = Integer.parseInt(email1);
+//		System.out.println(checkkey);
+		
+		int cnt = JoinServiceImpl.getJoinService().attest(email, password, age, gender);
+		System.out.println("1");
+		if(cnt != 0){
+			System.out.println("2");
+			//TODO 밑에 경로 수정??
+//			request.setAttribute("userinfo", userDto);
+			path = "/page/joinlogin/join/joinok.jsp";
+			//path += "?email=" + email + "&checkkey=" + checkkey;
+			
 		} else {
+			System.out.println("3");
 			path = "/page/joinlogin/join/joinfail.jsp";
 		}
 		return path;
