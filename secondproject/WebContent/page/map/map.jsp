@@ -33,34 +33,32 @@
 					<div class="panel-heading">ÆÈ·Î¿ì</div>
 					<div class="panel-body">
 					
-						<%
-						if (followList != null && followList.size() > 0) {
-							for (FollowCategoryDto dto : followList) {
-								ArrayList<FollowCategoryUserDto> followUserList = dto.getCategoryUserList();
-								if (followUserList.size() > 0) {
-						%>
-							<div class="panel panel-default favorite-item">
-								<div class="panel-heading" data-toggle="collapse" data-target="#collapseExample1"><%=dto.getCategoryName()%></div>
-								<div class="collapse panel-collapse" id="collapseExample1">
-									<ul class="list-group">
-										<%
-										for (FollowCategoryUserDto followUserDto : followUserList) {
-										%>
-											<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value=""> <%=followUserDto.getUserEmail()%> (<%=followUserDto.getAlias() %>)</label></div></li>
-										<%
-										}
-										%>
-									</ul>
-								</div>
+						<div class="panel panel-default favorite-item">
+							<div class="panel-heading" data-toggle="collapse" data-target="#collapseExample1">Follow Group1</div>
+							<div class="collapse panel-collapse" id="collapseExample1">
+								<ul class="list-group">
+									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">nimrh1k@gmail.com (Çü±Ô)</label></div></li>
+									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">sze2k@gmail.com (È£¹Î)</label></div></li>
+									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">xrh3k@gmail.com (¹ÎÃ¶)</label></div></li>
+								</ul>
 							</div>
-						<%
-								}
-							}
-						}
-						%>
+						</div>
+						
+						<div class="panel panel-default favorite-item">
+							<div class="panel-heading" data-toggle="collapse" data-target="#collapseExample2">Follow Group2</div>
+							<div class="collapse panel-collapse" id="collapseExample2">
+								<ul class="list-group">
+									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">d4k@gmail.com (ÁÖÈñ)</label></div></li>
+									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">nggh5k@gmail.com (¼öÁø)</label></div></li>
+									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">naaak@gmail.com (È¿ÀÎ)</label></div></li>
+								</ul>
+							</div>
+						</div>
 						
 					</div>
 				</div>
+				
+				
 			</div>
 		</div><!-- favorite-container -->
 
