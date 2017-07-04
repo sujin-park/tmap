@@ -16,8 +16,6 @@ public class CategoryChartAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
 		String number = new Gson().fromJson(request.getParameter("number"), String.class);
 		return ChartServiceImpl.getChartService().getCategoryJSON(number);
 	}
