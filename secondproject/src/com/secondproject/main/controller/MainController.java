@@ -1,4 +1,4 @@
-package com.secondproject.main;
+package com.secondproject.main.controller;
 
 import java.io.IOException;
 

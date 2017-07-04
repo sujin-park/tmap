@@ -11,7 +11,7 @@ if (orderValue == null) {
 	}
 %>
 <section class="content page-top row">
-	<div class="col-md-10 col-md-push-1">
+	<div class="col-md-10 col-md-push-1" style="padding-top: 60px;">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
@@ -108,6 +108,7 @@ if (orderValue == null) {
 					</table>
 					</form>
 				</div>
+				<div align="center">
 				<form name="searchForm" method="get" action="">
 					<input type="hidden" name="act" value="mvexhibition"> 
 					<input type="hidden" name="board" value="exhibition"> 
@@ -126,6 +127,7 @@ if (orderValue == null) {
 							</div>
 						</div>
 					</form>
+				</div>
 			</div>
 		</div>
 	</div>

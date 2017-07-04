@@ -2,6 +2,7 @@ package com.secondproject.main.dao;
 
 import java.util.List;
 
+import com.secondproject.admin.model.ExhibitionDetailDto;
 import com.secondproject.main.model.MainExhibitionDto;
 
 public interface MainDao {

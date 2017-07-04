@@ -2,4 +2,3 @@
 <link rel="stylesheet" href="<%=ContextPath.root%>/page/main/css/slick.css" />
 <link rel="stylesheet" href="<%=ContextPath.root%>/page/main/css/slick-theme.css" />
 <link rel="stylesheet" href="<%=ContextPath.root%>/page/main/css/style.css" />
-i

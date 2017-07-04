@@ -57,12 +57,12 @@ function modal(reviewimg,seq) {
 	
 }
 </script>
-<section class="content page-top row">
-	<div class="col-md-10 col-md-push-1">
+<section class="content page-top row" >
+	<div class="col-md-10 col-md-push-1" style="padding-top: 60px;">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
-					<div class="pull-right">
+					<div class="pull-left col-md-3">
 					<form name="reviewForm" method="post" action="">
 					<input type="hidden" name="act" value="blind">
 					
@@ -92,12 +92,12 @@ function modal(reviewimg,seq) {
 											for="checkedAll"></label>
 									</div>
 								</td>
-								<td>매장명</td>
+								<td width="20%">매장명</td>
 								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&orderKey=orderby&orderValue=<%=orderValue%>"  style="text-decoration:none; color:red">작성일</a></td>
 								<td>작성자</td>
-								<td>작성내용</td>
+								<td width="30%">작성내용</td>
 								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&orderKey=trustby&orderValue=<%=orderValue%>" style="text-decoration:none; color:red">매장 평점</a></td>
-								<td><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&orderKey=blindby&orderValue=<%=orderValue%>" style="text-decoration:none; color:red">Blind</a></td>
+								<td width="10%"><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&orderKey=blindby&orderValue=<%=orderValue%>" style="text-decoration:none; color:red">Blind</a></td>
 							</tr>
 						</thead>
 						<tbody id="reviewList">
@@ -153,12 +153,27 @@ function modal(reviewimg,seq) {
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>"><%=adminReviewDto.getScore()%></span>
+											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>">
+											<%if(adminReviewDto.getScore()!=0){ 
+                              					int cnt = adminReviewDto.getScore();
+                              					int star = cnt/2;
+                              					int halfstar=cnt%2;
+                              					for(int j=0; j<star; j++) {
+                                				 %><img src="<%=ContextPath.root %>/page/mypage/img/star.png" width="20px"><%
+                              					 }
+                             					 if(halfstar==1) {
+                                				 %>
+                                				 <img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="20px">
+                                 				 <% 
+                             					 }
+                           						 }%>
+											
+											</span>
 										</div>
 									</div>
 								</td>
 								<td>
-									<p data-placement="top" data-toggle="tooltip" title="Edit">
+									<p align="center" data-placement="top" data-toggle="tooltip" title="Edit">
 										<button type="button" class="btn btn-warning btn-xs" 
 							    		 onclick="javascript:modal('<%=adminReviewDto.getImg()%>',<%=adminReviewDto.getReviewId()%>);"><span class="glyphicon glyphicon-pencil"></span>
 							    		</button>
@@ -172,29 +187,33 @@ function modal(reviewimg,seq) {
 							%>
 						</tbody>
 					</table>
+			<div class="form-group form-inline">
+				<div align="center">
+					<form name="searchForm" method="get" action="">
+						<input type="hidden" name="act" value="mvreview"> 
+							 <div class="pull-right col-md-5">
+	               				<div class="input-group">
+	                 				 <div class="input-group-btn">
+										<select class="form-control" name="key">
+										  	<option value="emailname">작성자명</option>
+										  	<option value="shopname">매장명</option>
+										</select>
+									</div>
+										<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="25">
+										<span class="input-group-btn">
+											<button class="btn btn-warning" type="button" onclick="javascript:searchReview();">Search</button>
+										</span>
+								</div>
+							</div>
 					</form>
 				</div>
-				<form name="searchForm" method="get" action="">
-					<input type="hidden" name="act" value="mvreview"> 
-						<div class="pull-right col-md-5">
-							<div class="input-group">
-								<div class="input-group-btn">
-									<select class="form-control" name="key">
-									  	<option value="emailname">작성자명</option>
-									  	<option value="shopname">매장명</option>
-									</select>
-								</div>
-									<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="3">
-									<span class="input-group-btn">
-										<button class="btn btn-warning" type="button" onclick="javascript:searchReview();">Search</button>
-									</span>
-							</div>
-						</div>
-					</form>
 			</div>
 		</div>
+		</form>
 	</div>
-<div class="col-md-6">
+</div>
+</div>
+<div align="center">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>

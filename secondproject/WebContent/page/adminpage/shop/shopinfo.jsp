@@ -51,7 +51,7 @@ function shopmodal(seq) {
 
 </script> 
 <section class="content page-top row">
-   <div class="col-md-10 col-md-push-1">
+   <div class="col-md-10 col-md-push-1" style="padding-top: 60px;">
       <div class="panel panel-default">
          <div class="panel-body">
             <div class="row">
@@ -70,10 +70,14 @@ function shopmodal(seq) {
                 <table class="table table-filter">
                    <tbody>
                       <tr class="warning" align="center">
-                       <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=category_title" style="text-decoration:none">카테고리</a></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=title" style="text-decoration:none">매장명</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=tel" style="text-decoration:none">매장 번호</a></td>
+                       <td>
+                       <div class="ckbox">
+                       <input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label>
+						</div>
+                       </td>
+                         <td width="15%"><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=category_title" style="text-decoration:none">카테고리</a></td>
+                        <td width="25%"><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=title" style="text-decoration:none">매장명</a></td>
+                         <td width="15%"><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=tel" style="text-decoration:none">매장 번호</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&orderValue=<%=orderValue%>&orderKey=address" style="text-decoration:none">주소</a></td>
                 <%--          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=shop_id" style="text-decoration:none">기획전여부</a></td> <!-- 기획전 있는지 없는지 여부 --> --%>
                      	 <td>EDIT</td>
@@ -138,6 +142,8 @@ function shopmodal(seq) {
                   </tbody>
                </table>
             </div>
+             <div class="form-group form-inline">
+			  <div align="center">
                <form name="searchForm" method="get" action="">
                <input type="hidden" name="act" value="shopinfo">
                   <div class="pull-right col-md-5">
@@ -151,19 +157,22 @@ function shopmodal(seq) {
                           <!--  <option value="shop_id">기획전</option> -->
                         </select>
                      </div>
-                     <input type="text" class="form-control" name = "word" placeholder="검색어 입력" size="3">
+                     <input type="text" class="form-control" name = "word" placeholder="검색어 입력" size="25">
                         <span class="input-group-btn">
                         	<button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
                   		</span>
                   </div>
                   </div>
             </form>
+            </div>
+         </div>
+        </div>
          </div>
       </div>
    </div>
 </section>
 <%@include file="/page/adminpage/shop/shopInfoModal.jsp"%>
-<div class="col-md-6">
+<div align="center">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
