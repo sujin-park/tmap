@@ -82,6 +82,11 @@ var followUserId;
 			show : true
 		});
 	}
+	function followmodal() {
+		$('#followmodal').modal({
+			show : true
+		});
+	}
 	function check() {
 		cbox = input_form.chk;
 		if (cbox.length) { // 여러 개일 경우
@@ -162,7 +167,10 @@ var followUserId;
 		$('#modalcate').on('hidden.bs.modal', function (e) {
 			document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
 			})
-	});
+		$('#followmodal').on('hidden.bs.modal', function (e) {
+			document.location.href = "<%=ContextPath.root%>/mypage?act=followView&pg=1";
+			})
+	});	
 	function select() {
 		var id =$("select[name=select]").val();
 	 	document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=category_name&word="+encodeURI(id);
@@ -203,6 +211,7 @@ var followUserId;
 			</div>
 			<div class="col-xs-6">
 				<div class="pull-right">
+					<a class="btn btn-default" href="javascript:followmodal();" role="button">팔로우검색</a>
 					<a class="btn btn-default" href="javascript:modal();" role="button">그룹관리</a>
 					<a class="btn btn-default" id="catemodify" role="button">그룹이동</a> <a
 						class="btn btn-default" role="button" id="getCheckedAll">삭제</a>
@@ -266,12 +275,30 @@ var followUserId;
 						
 					</tbody>
 				</table>
-				<center><%=pagination.getHtml() %><center>
+				
 			</form>
+			
+				<center><%=pagination.getHtml() %><center>
 		</div>
 
-	</div>
-	<div></div>
+	
+	<div align="center"><form name="searchForm" method="get" action="">
+               <input type="hidden" name="act" value="userview">
+                  <div class="col-md-12">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<select class="form-control" name="key">
+								<option value="email">아이디</option>
+								<option value="alias">별칭</option>
+							</select>
+						</div>
+						<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="25">
+							<span class="input-group-btn">
+							<button class="btn btn-warning" type="button" onclick="javascript:searchReview();">Search</button>
+							</span>
+					</div>
+				 </div>
+            </form>
 </div>
 </div>
 <div class="modal fade" id="modal" role="dialog" aria-hidden="true"
@@ -342,6 +369,7 @@ var followUserId;
 							
 						</table>
 					</form>
+					
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -439,6 +467,56 @@ var followUserId;
 				
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
 				
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="followmodal" role="dialog" aria-hidden="true"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<button class="close" aria-hidden="true" type="button"
+					data-dismiss="modal">×</button>
+				<h4 class="modal-title" id="myModalLabel">팔로우 검색</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row table-responsive">
+					<form id="orderForm" name="orderForm" method="post" action="">
+						<input type="hidden" name="act" value=""> <input
+							type="hidden" name="id" value="">
+						<table id="info" class="table table-bordered">
+							<thead>
+								<tr>
+									<th>아이디</th>
+									<th>상태메세지</th>
+
+								</tr>
+							</thead>
+								<tbody id="" name="">
+								<tr id="" name="">
+									<td id=""></td>
+									<td id="" name="">
+										<div id="divv" class="pull-right">
+												<a id="" class="btn btn-default" href="javascript:;" role="button">팔로우</a>
+										</div></td>
+								</tr>
+							</tbody>
+							
+						</table>
+					</form>
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<form name="" method="post">
+					<input type="hidden" name="act"> <input type="text" class="marright" id="" name=""
+									placeholder="검색할 아이디">
+					<button id="btn" class="btn btn-primary" type="button"
+						onclick=";" name="">검색</button>
+					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
+				</form>
 			</div>
 		</div>
 	</div>

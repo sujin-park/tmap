@@ -3,6 +3,7 @@
 	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.userdto.*"%>
 
 <%UserDto udto = (UserDto)session.getAttribute("logininfo"); %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 	function like(good,bad,reviewId){
@@ -32,12 +33,26 @@
 		});
 		}
 	}
-	function com(){
+	function com() {
+		var text = $("#commenttext").val();
+		var reviewId = $("#reviewId").val();
+			$.get("/secondproject/myreview?act=commentinsert&reviewId="+reviewId+"&text="+encodeURI(text), function(data, status){
+				var tt = document.getElementById("coo");
+				tt.innerHTML=data;
+			});
+		}
+	
+	<%-- function com(){
 		var text = $("#commenttext").val();
 		var reviewId = $("#reviewId").val();
 		
 		document.location.href="<%=ContextPath.root %>/myreview?act=commentinsert&reviewId="+reviewId+"&text="+encodeURI(text);		
-	}
+	} --%>
+	$(document).ready(function() {
+		$("#co").click(function() {
+			$("#com").slideToggle();
+		});
+	});
 </script>
 
 
@@ -130,19 +145,18 @@
 			</div>
 		</div>
 		<div class="row mar">
-			<div class="container">
-			<a href="">´ñ±Û</a> 
-						
+			<div class="container" >
+				<% List<ReviewCommentDto>  clist =(List<ReviewCommentDto>) request.getAttribute("clist"); %>
+			<div id="coo" class="coo mar" ><div id="co" class="co">´ñ±Û(<%=clist.size() %>)</div>
 			
 		
 		
-		
-			<div class="">
+			
+			<div id="com" class="com" style="">
 			<form method="post" action="" id="commentform" name="commentform">
 			<input type="hidden" id="reviewId" name="reviewId" value="<%=mrdto.getReviewId()%>">
 			<input type="hidden" name="act" value="commentinsert">
 				<table style="margin-bottom: 100px;">
-				<% List<ReviewCommentDto>  clist =(List<ReviewCommentDto>) request.getAttribute("clist"); %>
 			
 	
 	
@@ -163,7 +177,7 @@
 					</tr>
 				</table>
 				</form>
-			</div>
+			</div></div>
 		</div>
 
 </div>

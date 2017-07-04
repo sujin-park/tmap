@@ -37,7 +37,7 @@ public class CommentInsertAction implements Action {
 			request.setAttribute("clist", clist);
 			request.setAttribute("goodbad", goodbad);
 		}
-		path="/page/mypage/myreviewview.jsp";
+		path="/page/mypage/comment.jsp";
 		return path;
 	}
 
