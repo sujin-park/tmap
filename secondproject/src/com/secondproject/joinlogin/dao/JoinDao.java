@@ -5,6 +5,7 @@ import java.util.Map;
 import com.secondproject.userdto.UserDto;
 
 public interface JoinDao {
-	UserDto attest(Map<String, String> map);
+	int attest(Map<String, String> map);
 	int idCheck(String id);
+	UserDto lastcheck(Map<String, String> map);
 }

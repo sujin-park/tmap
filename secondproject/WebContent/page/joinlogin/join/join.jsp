@@ -47,12 +47,11 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<center>
+					<!-- <center>
 					아래 버튼을 클릭시 입력하신 Email 주소로 mail이 발송됩니다.<br>
-					유효 시간은 10분입니다.<br>
-					<button type="button" class="btn btn-primary" data-dismiss="modal"
-						onclick="javascript:attest();">Email 인증하기</button>
-					</center>
+					</center>  -->
+					<button type="button" class="btn btn-warning" data-dismiss="modal"
+						onclick="javascript:attest();">Join</button>
 					<button type="button" class="btn btn-default"
 						onclick="">Cancel</button>
 				</div>

@@ -25,7 +25,7 @@ public class JoinLoginController extends HttpServlet {
 		} else if ("logout".equals(act)) { //로그아웃
 			HttpSession session = request.getSession();
 			session.removeAttribute("logininfo"); //세션 삭제
-//			path ="/index.jsp";
+			path = "/page/joinlogin/login/logout.jsp";
 			PageMove.redirect(path, request, response);
 		} else if ("attest".equals(act)){ //이메일 인증
 			path = JoinLoginFactory.getAttestAction().execute(request, response);
@@ -34,7 +34,7 @@ public class JoinLoginController extends HttpServlet {
 			path = JoinLoginFactory.getIdCheckAction().execute(request, response);
 			PageMove.forward(path, request, response);
 		} else if ("lastcheck".equals(act)){ // email 인증 확인 용
-			path = JoinLoginFactory.getIdCheckAction().execute(request, response);
+			path = JoinLoginFactory.getLastCheckAction().execute(request, response);
 			PageMove.forward(path, request, response);
 		}
 	}
