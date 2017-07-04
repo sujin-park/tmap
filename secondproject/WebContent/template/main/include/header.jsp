@@ -13,7 +13,10 @@
 				<li><a href="<%=ContextPath.root%>/myreview?act=myreviewView&pg=1" class="nav-btn btn-login">Review</a></li>
 				<li><a href="<%=ContextPath.root%>/mypage?act=followView&pg=1" class="nav-btn btn-login">Follow</a></li>
 				<li><a href="javascript:logoutmove();" class="nav-btn btn-login">Logout</a></li>
-			<% } %>
+				<% if(userDto.getType() == 0)  {%>
+				<li><a href="javascript:adminmove();" class="nav-btn btn-login">Admin</a></li>
+			<%		}
+				} %>
 		</ul>
 	</header>
 </div>

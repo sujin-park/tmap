@@ -8,7 +8,7 @@
 
 
 <% List<MyReviewDto> list = (List<MyReviewDto>) request.getAttribute("reviewlist"); 
-if(list!=null) {%>
+if(list!=null&& list.size()!=0) {%>
 	var map = new naver.maps.Map('map', {
 	    center: new naver.maps.LatLng(<%=list.get(0).getLat()%>, <%=list.get(0).getLng()%>),
 	    zoom: 8
@@ -38,6 +38,13 @@ var marker = new naver.maps.Marker({
     
     map: map
 });
-<%}
+<%} else { %>
+var map = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(127, 36),
+    zoom: 10
+});
+
+	<%
+}
 }%>
 </script>

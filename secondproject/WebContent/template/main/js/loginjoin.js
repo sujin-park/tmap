@@ -80,3 +80,7 @@ function joinmove() {
 function logoutmove() {
 	document.location.href = CONTEXT_PATH + "/joinlogin?act=logout";
 }
+
+function adminmove() {
+	document.location.href = "/adminIndex.jsp";
+}

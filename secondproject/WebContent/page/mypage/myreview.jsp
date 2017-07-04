@@ -46,9 +46,9 @@ function viewreview(reviewId) {
 						<input type="hidden" id="reviewLat" value="37.484168">
 						<input type="hidden" id="reviewLng" value="126.9004223">
 										
-										<%=mrdto.getShopName() %>
 										<%if(mrdto.getAddress()!=null) {
 											%>
+										<%=mrdto.getShopName() %>
 										
 										<br><%=mrdto.getAddress() %>
 										<%} %>

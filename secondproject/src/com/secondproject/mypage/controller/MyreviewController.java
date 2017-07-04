@@ -25,8 +25,8 @@ public class MyreviewController extends HttpServlet {
 			path = MypageFactory.getMypageReviewViewAction().execute(request, response);
 		} else if("goodbad".equals(act)) {
 			path = MypageFactory.getGoodBadAction().execute(request, response);
-		} else if("".equals(act)) {
-		
+		} else if("commentinsert".equals(act)) {
+			path= MypageFactory.getCommentInsertAction().execute(request, response);
 		} else if("".equals(act)) {
 		
 		} else if("".equals(act)) {

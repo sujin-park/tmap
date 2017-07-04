@@ -71,6 +71,14 @@ public class MypageReviewServiceImpl implements MypageReviewService{
 
 
 
+	@Override
+	public void commentinsert(int reviewId, int userId, String content) {
+		MypageReviewDaoImpl.getMypageReviewDao().commentinsert(reviewId, userId, content);
+		
+	}
+
+
+
 	
 
 }
