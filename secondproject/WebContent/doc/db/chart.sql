@@ -42,3 +42,8 @@ substr(address, 0, instr(address,' ')) as addressgroup
 from shop
 group by substr(address, 0, instr(address,' '));
 
+-------- 카테고리별 선호도 (성별) ---------
+
+select NVL((SELECT avg(score) FROM review WHERE shop_id = s.shop_id), 0) as score
+FROM SHOP s, shop_category sc
+where s.category_id = sc.category_id

@@ -3,6 +3,7 @@
 	import="java.util.*, com.secondproject.main.model.*"%>
 <%
 List<MainExhibitionDto> list = (List<MainExhibitionDto>) request.getAttribute("mainlist");
+
 if (list != null) {
 %>
 <div id="main-visual-container">
@@ -46,13 +47,13 @@ if (list != null) {
 <%
 				   }
 %>
-		<a href="#" class="shop">
+		<a href="<%=ContextPath.root%>/shop?act=view&shopId=<%=mainExhibitionDto.getEx_shopid()%>" class="shop">
 			<div class="shop-img">
 				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg/<%=mainExhibitionDto.getEx_shopid()%>.jpg"
 				 width="200" height="200"/>
 				<div class="shop-score"><%=mainExhibitionDto.getScore()%></div>
 			</div>
-			<div class="shop-content">
+			<div class="shop-content width:200px; height:200px;">
 				<div class="shop-title"><%=mainExhibitionDto.getShop_name()%></div>
 				<div class="shop-desc"><%=mainExhibitionDto.getExd_desc()%></div>
 				<div class="shop-address"><%=mainExhibitionDto.getAddress()%></div>
@@ -68,6 +69,11 @@ if (list != null) {
 					}
 				}
 			}
+		if (i == size) {
+			%>
+		<div class="ex-hr"></div>
+			<%
+		}
 		}
 %>
 	</div>

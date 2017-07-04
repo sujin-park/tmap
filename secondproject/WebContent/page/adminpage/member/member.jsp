@@ -6,6 +6,7 @@
 List<UserDto> list = (List<UserDto>) request.getAttribute("list");
 String orderValue = (String) request.getAttribute("orderValue");
 Pagination pagination = (Pagination) request.getAttribute("pagination");
+
 if (orderValue == null) {
 	orderValue = "asc";
 	}
@@ -80,11 +81,11 @@ function deleteUser() {
             		<input type="hidden" name="act" value="userdelete">
                       <tr class="warning" align="center">
                        <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
-                        <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=user_id" style="text-decoration:none">아이디</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=type" style="text-decoration:none">회원타입</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=reg_date" style="text-decoration:none">가입일</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=gender" style="text-decoration:none">성별</a></td>
-                         <td><a href="<%=ContextPath.root%>/admin?act=userview&userorder=<%=orderValue%>&orderKey=age" style="text-decoration:none">나이</a></td>
+                        <td><a href="<%=ContextPath.root%>/admin?act=userview&orderValue=<%=orderValue%>&orderKey=user_id" style="text-decoration:none">아이디</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&orderValue=<%=orderValue%>&orderKey=type" style="text-decoration:none">회원타입</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&orderValue=<%=orderValue%>&orderKey=reg_date" style="text-decoration:none">가입일</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&orderValue=<%=orderValue%>&orderKey=gender" style="text-decoration:none">성별</a></td>
+                         <td><a href="<%=ContextPath.root%>/admin?act=userview&orderValue=<%=orderValue%>&orderKey=age" style="text-decoration:none">나이</a></td>
                      </tr>
                      <tr>
                      <%int size = list.size();
@@ -159,8 +160,8 @@ function deleteUser() {
          </div>
       </div>
    </div>
-</section>
 <div class="col-md-6">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
+</section>

@@ -194,9 +194,9 @@ function modal(reviewimg,seq) {
 			</div>
 		</div>
 	</div>
-</section>
-<jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>
 <div class="col-md-6">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
+</section>
+<jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>

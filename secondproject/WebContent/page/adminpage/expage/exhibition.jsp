@@ -129,8 +129,8 @@ if (orderValue == null) {
 			</div>
 		</div>
 	</div>
-</section>
 <div class="col-md-6">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
+</section>

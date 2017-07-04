@@ -2,12 +2,12 @@
     pageEncoding="EUC-KR" import="com.secondproject.constant.ContextPath" %>
 <div id="header-container">
 	<header id="header">
-		<h1 id="logo"><a href="<%=ContextPath.root%>/adminIndex.jsp">Tmap</a></h1>
+		<h1 id="logo"><a href="<%=ContextPath.root%>/adminIndex.jsp">야진짜</a></h1>
 		<ul class="nav-container">
 				<li><a href=<%=ContextPath.root%>/admin?act=userview&pg=1&key=&word=&orderValue=asc" class="nav-btn btn-login">회원</a></li>
 				<li><a href="<%=ContextPath.root%>/myreview?act=myreviewView&pg=1" class="nav-btn btn-login">사장</a></li>
 				<li><a href="<%=ContextPath.root%>/admin?act=shopinfo&pg=1&key=&word=&orderValue=" class="nav-btn btn-login">매장</a></li>
-				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=&orderValue=asc" class="nav-btn btn-login">후기관리</a></li>
+				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=&orderValue=asc" class="nav-btn btn-login">후기</a></li>
 				<li><a href="<%=ContextPath.root%>/admin?act=mvstats" class="nav-btn btn-login">통계</a></li>
 				<li><a href="javascript:logoutmove();" class="nav-btn btn-login">기획전</a></li>
 		</ul>

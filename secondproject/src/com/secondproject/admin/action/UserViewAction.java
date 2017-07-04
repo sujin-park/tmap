@@ -55,8 +55,8 @@ public class UserViewAction extends BoardCommonAction implements Action {
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalUserCount);
 		pagination.setCurrentPageNum((int) params.get("pg"));
-		pagination.setListCountPerPage(BoardConstant.SHOP_REVIEW_LIST_COUNT_PER_PAGE);
-		pagination.setPageCount(BoardConstant.SHOP_REVIEW_PAGE_COUNT);
+		pagination.setListCountPerPage(BoardConstant.LIST_SIZE);
+		pagination.setPageCount(BoardConstant.PAGE_SIZE);
 		pagination.setStartQueryString("/admin?act=userview");
 		
 		ArrayList<String> filter = new ArrayList<String>();
