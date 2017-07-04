@@ -2,7 +2,6 @@ package com.secondproject.factory;
 
 import com.secondproject.action.Action;
 import com.secondproject.mypage.action.CommentInsertAction;
-import com.secondproject.mypage.action.FollowSelect;
 import com.secondproject.mypage.action.GoodBadAction;
 import com.secondproject.mypage.action.MypageFollowAddAction;
 import com.secondproject.mypage.action.MypageFollowCategoryDeleteAction;
@@ -63,8 +62,6 @@ public class MypageFactory {
 		mypageReviewViewAction = new MypageReviewViewAction();
 		goodBadAction = new GoodBadAction();
 		commentInsertAction = new CommentInsertAction();
-		followSelect = new FollowSelect();
-
 	}
 
 	

@@ -38,10 +38,10 @@ public class MapDaoImpl implements MapDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT s.*, (SELECT AVG(score) FROM review WHERE shop_id = s.shop_id) as score, (SELECT category_title FROM shop_category WHERE category_id = s.category_id) as category_name \n");
+			sql.append("SELECT s.*, (SELECT NVL(AVG(score), 0) FROM review WHERE shop_id = s.shop_id) as score, (SELECT category_title FROM shop_category WHERE category_id = s.category_id) as category_name \n");
 			sql.append("FROM shop s \n");
 			sql.append("WHERE lat > ? and lat < ? and lng > ? and lng < ? ");
-			sql.append("ORDER BY score ASC");
+			sql.append("ORDER BY score DESC");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setDouble(1, bounds._min._lat);
 			pstmt.setDouble(2, bounds._max._lat);
