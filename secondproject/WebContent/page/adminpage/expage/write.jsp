@@ -36,7 +36,7 @@
 						<tr valign="top">
 							<td width="95" nowrap style="padding-left: 8px; padding-top: 10px"><img src="" width="4" height="4" border="0"
 								align="absmiddle"> 
-								<b>사진첨부</b>
+								<b>대표이미지첨부</b>
 							</td>
 							<td colspan="5"><input name="picturename" id="picturename" type="file"
 								size="76" maxlength="150" class="inp_02" style="width: 300px"

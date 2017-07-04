@@ -104,10 +104,11 @@ if (orderValue == null) {
 							<%
 								}
 							%>
+							</form>
 						</tbody>
 					</table>
-					</form>
 				</div>
+				<div class="form-group form-inline">
 				<div align="center">
 				<form name="searchForm" method="get" action="">
 					<input type="hidden" name="act" value="mvexhibition"> 
@@ -120,7 +121,7 @@ if (orderValue == null) {
 									  	<option value="shopname">매장명</option>
 									</select>
 								</div>
-									<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="3">
+									<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="25">
 									<span class="input-group-btn">
 										<button class="btn btn-warning" type="button" onclick="javascript:searchExhibition();">Search</button>
 									</span>
@@ -131,8 +132,9 @@ if (orderValue == null) {
 			</div>
 		</div>
 	</div>
-<div class="col-md-6">
+  </div>
+</section>
+<div align="center">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
-</section>

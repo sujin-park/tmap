@@ -23,7 +23,7 @@ List<MainExhibitionDto> shoplist = (List<MainExhibitionDto>) request.getAttribut
 		int size = list.size();
 			for(int i=0; i<size; i++) {
 				ExhibitionDto exhibitionDto = list.get(i);
-	
+				if (exhibitionDto.getExVisiable() != 0) {
 				if (i==0) {
 %>
 <div class="exhibition-container black">
@@ -61,9 +61,10 @@ List<MainExhibitionDto> shoplist = (List<MainExhibitionDto>) request.getAttribut
 				}
 %>
 		</div>
-		<div class="ex-hr"></div>
 	</div>
+		<div class="ex-hr"></div>
 <%
+				}
 			}
 	}
 %>

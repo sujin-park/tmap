@@ -41,45 +41,26 @@ function modifyOwner(a) {
 	}
 }
 
+function moveOwnerList() {
+	document.location.href ="<%=ContextPath.root%>/admin?act=realownerview&pg=1&key=&word=&orderValue=";
+}
 
 </script>
   
 <section class="content page-top row">
-   <div class="col-md-10 col-md-push-1">
+   <div class="col-md-10 col-md-push-1" style="padding-top: 60px;">
       <div class="panel panel-default">
          <div class="panel-body">
             <div class="row">
-               
                <div class="pull-left col-md-7">
                   <div class="btn-group">
-                    <div class="btn-group">
-                    
 							<button type="button" class="btn btn-warning btn-filter" onclick="modifyOwner(2);">사장 인증</button>
 							<button type="button" class="btn btn-warning btn-filter" onclick="modifyOwner(3);">인증 거부</button>
-						
-						</div>
-       
+							<button type="button" class="btn btn-warning btn-filter" onclick="moveOwnerList();">사장 LIST</button>
                   </div>
                </div>
-         <form name="searchForm" method="get" action="">
-   
-               <input type="hidden" name="act" value="ownerview">
-                  <div class="pull-right col-md-5">
-                     <div class="input-group">
-                        <div class="input-group-btn">
-                        <select class="form-control" name="key_type">
-                           <option value="email">사장아이디</option>
-                           <option value="reg_date">가입일</option>                           
-                           <option value="title">가게이름</option>
-                           <option value="tel">전화번호</option>                           
-                           <option value="address">주소</option>
-                        </select>
-                     </div>
-                     <input type="text" class="form-control" name = "keyword" placeholder="검색어 입력" size="3">
-                        <button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
-                  </div>
-                  </div>
-            </form>
+               <div class="col-md-5">
+               </div>
              </div>
              <form name="orderncolumn" method="post" action="">
               <input type="hidden" name="ownerok" value="ownermodify">
@@ -89,16 +70,17 @@ function modifyOwner(a) {
                 <table class="table table-filter">
                    <tbody>
                       <tr class="warning" align="center">
-                       <td><input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label></td>
+                       <td>
+                       <div class="ckbox">
+                       <input type="checkbox" id="th_checkAll" onclick="checkAll();"/><label for="checkbox"></label>
+                       </div>
+                       </td>
                         <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=email" style="text-decoration:none">사장아이디</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=reg_date" style="text-decoration:none">가입일</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=title" style="text-decoration:none">가게이름</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=tel" style="text-decoration:none">전화번호</a></td>
                          <td><a href="<%=ContextPath.root%>/admin?act=ownerview&orderValue=<%=orderValue%>&orderKey=address" style="text-decoration:none">주소</a></td>
                      </tr>
-                     
-                     
-                     
                      <tr>
                      <%int size = list.size();
                   
@@ -150,31 +132,40 @@ function modifyOwner(a) {
                            </div>
                         </td>
                      </tr>
-                     
                      <%} %>
-         
-                     </form>
-                     
+  		            </form>
                   </tbody>
                </table>
+            <div class="form-group form-inline">
+            <div align="center">
+            <form name="searchForm" method="get" action="">
+               <input type="hidden" name="act" value="ownerview">
+                  <div class="pull-right col-md-5">
+                     <div class="input-group">
+                        <div class="input-group-btn">
+                        <select class="form-control" name="key_type">
+                           <option value="email">사장아이디</option>
+                           <option value="reg_date">가입일</option>                           
+                           <option value="title">가게이름</option>
+                           <option value="tel">전화번호</option>                           
+                           <option value="address">주소</option>
+                        </select>
+                     </div>
+                     <input type="text" class="form-control" name = "keyword" placeholder="검색어 입력" size="25">
+                        <span class="input-group-btn">
+                        	<button class="btn btn-warning" type="button" onclick="searchUser();">Search</button>
+                  		</span>
+                  </div>
+                  </div>
+            </form>
             </div>
-            <!-- <div class="btn-group pull-right">
-               <button type="button" class="btn btn-warning">가나다순</button>
-               <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <span class="caret"></span> 
-                  <span class="sr-only">Toggle Dropdown</span>
-               </button>
-               <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">가나다순</a></li>
-                  <li><a href="#">가입일순</a></li>
-                  <li><a href="#">신뢰도순</a></li>
-               </ul>
-            </div> -->
+            </div>
          </div>
       </div>
    </div>
+   </div>
 </section>
-<div class="col-md-6">
+<div align="center">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>

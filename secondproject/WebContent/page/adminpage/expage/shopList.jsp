@@ -27,7 +27,7 @@ function plusShop() {
 
 </script>
 <section class="content page-top">
-	<div class="col-md-10 col-md-push-1">
+	<div class="col-md-10 col-md-push-1" style="padding-top:60px;">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
@@ -36,24 +36,15 @@ function plusShop() {
 							<button type="button" class="btn btn-default btn-filter" onclick="javascript:plusShop();">매장 추가</button>
 						</div>
 					</div>
-				<form name="searchForm" method="get" action="">
-					<input type="hidden" name="act" value="mvshoplist"> 
-					<div class="pull-right col-md-5">
-						<div class="input-group">
-							<div class="input-group-btn">
-									<select class="form-control" name="key">
-									  	<option value="title">매장명</option>
-									  	<option value="category">카테고리명</option>
-									</select>
-						</div>
-							<input type="text" class="form-control" placeholder="검색어 입력" name="word">
-							<span class="input-group-btn">
-								<button class="btn btn-warning" type="button" onclick="javascript:searchShop();">Search</button>
-							</span>
-						</div>
-					</div>
-				</form>
 				</div>
+				<!-- 
+				<div class="btn-group pull-right">
+									<select class="form-control" name="key">
+									  	<option value="shopname">매장명순</option>
+									  	<option value="category">카테고리순</option>
+									</select>
+								</div>
+				 -->				
 				<form name="updateForm" method="post" action="">
 				<input type="hidden" name="act" value="plusshop">
 				<input type="hidden" name="seq" value="<%=seq%>">
@@ -67,12 +58,12 @@ function plusShop() {
 											for="checkedAll"></label>
 									</div>
 								</td>
-								<td>매장명</td>
-								<td>음식종류</td>
-								<td>평점</td>
-								<td>매장 주소</td>
-								<td>영업시간</td>
-								<td>상세 설명</td>
+								<td width="20%">매장명</td>
+								<td width="10%">음식종류</td>
+								<td width="15%">평점</td>
+								<td width="20%">매장 주소</td>
+								<td width="20%">영업시간</td>
+								<td width="20%">상세 설명</td>
 							</tr>
 							<%
 								int size = list.size();
@@ -122,7 +113,7 @@ function plusShop() {
 								</td>
 								<td>
 									<div class="media">
-										<div class="media-body">
+										<div class="media-detail">
 											<span class="media-meta"><%=shopDto.getDetail() %></span>
 										</div>
 									</div>
@@ -136,14 +127,32 @@ function plusShop() {
 					</table>
 				</div>
 				</form>
-				<div class="btn-group pull-right">
+				<div class="form-group form-inline">
+				<div align="center">
+				<form name="searchForm" method="get" action="">
+					<input type="hidden" name="act" value="mvshoplist"> 
+					<div class="pull-right col-md-5">
+						<div class="input-group">
+							<div class="input-group-btn">
 									<select class="form-control" name="key">
-									  	<option value="shopname">매장명순</option>
-									  	<option value="category">카테고리순</option>
+									  	<option value="title">매장명</option>
+									  	<option value="category">카테고리명</option>
 									</select>
-								</div>
+							</div>
+							<input type="text" class="form-control" placeholder="검색어 입력" name="word" size="25">
+							<span class="input-group-btn">
+								<button class="btn btn-warning" type="button" onclick="javascript:searchShop();">Search</button>
+							</span>
+						</div>
+					</div>
+				</form>
 				</div>
 			</div>
 		</div>
+	</div>
+  </div>
 </section>
+<div align="center">
 <%=pagination.getHtml()%>
+</div>
+<div class="col-md-6"></div>
