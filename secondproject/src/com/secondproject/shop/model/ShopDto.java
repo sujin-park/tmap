@@ -14,6 +14,7 @@ public class ShopDto extends ShopCategoryDto{
 	private String businessTime;
 	private String detail;
 	private String img;
+	
 	public String getImg() {
 		return img;
 	}
