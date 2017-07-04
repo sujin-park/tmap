@@ -18,14 +18,15 @@ public class MapController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String act = request.getParameter("act");
 		if (act == null) {
+			String path = MapFactory.getCategoryListAction().execute(request, response);
 			request.setAttribute("titleTagValue", "TMAP");
-			request.setAttribute("contentPath", "/page/map/map.jsp");
+			request.setAttribute("contentPath", path);
 			request.setAttribute("addHeadPath", "/page/map/include/head.jsp");
 			request.setAttribute("addBottomPath", "/page/map/include/bottom.jsp");
 			RequestDispatcher dist = request.getRequestDispatcher("/template/map/default.jsp");
 			dist.forward(request, response);
 		} else if ("ajaxGetShopList".equals(act)) {
-			String jsonData = MapFactory.shopListAction().execute(request, response);
+			String jsonData = MapFactory.getShopListAction().execute(request, response);
 			response.setContentType("text/html; charset=EUC-KR");
 			response.getWriter().print(jsonData);
 		}

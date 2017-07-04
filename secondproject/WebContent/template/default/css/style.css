@@ -6,7 +6,7 @@
 @import url(./footer_response.css);
 
 .page-container{
-	padding-top: 50px;
+	padding-top: 70px;
 	padding-bottom: 100px;
 	-webkit-transition: padding 0.45s ease;
 	-moz-transition: padding 0.45s ease;
@@ -21,6 +21,6 @@
 
 @media screen and (min-width: 1024px) {
 	.page-container{
-		padding-top: 70px;
+		padding-top: 110px;
 	}
 }

@@ -23,7 +23,7 @@ var pageFunc = (function(){
 				if (data.length === 0) {
 					map.clearMarkers();
 					var tag = '<div class="panel panel-default shop">'
-						tag += '	<div class="panel-body">이 지역에는 등록된 매장이 없습니다<br>매장을 등록해주시면 추첨을 통해 푸짐한 상품을 드리고 싶네요..';
+						tag += '	<div class="panel-body">이 지역에는 등록된 매장이 없습니다.';
 						tag += '	</div>';
 						tag += '</div>';
 					mapSlick.slick('slickAdd', tag);
@@ -32,15 +32,15 @@ var pageFunc = (function(){
 					var i = 1;
 					data.forEach(function (shop) {
 						var tag = '<div class="panel panel-default shop">'
-							tag += '	<div class="panel-body">';
-							tag += '		<a href="' + CONTEXT_PATH + '/shop?act=view&shopId=' + shop.shopId + '" target="_blank">';
+							tag += '	<a href="' + CONTEXT_PATH + '/shop?act=view&shopId=' + shop.shopId + '" target="_blank"class="panel-body">';
+							tag += '		<span class="score label label-warning">평점 : ' + shop.score + '</span>';
+							tag += '		<span class="category label label-default">' + shop.categoryName + '</span>';
+							tag += '		<div>';
 							tag += '			<span class="rank">' + i + '위</span>';
 							tag += '			<span class="title">' + shop.title + '</span>';
-							tag += '			<span class="category">[' + shop.categoryId + ']</span>';
-							tag += '			<span class="score">평점 : ' + shop.score + '</span>';
-							tag += '			<span class="address">' + shop.address + '</span>';
-							tag += '		</a>';
-							tag += '	</div>';
+							tag += '		</div>';
+							tag += '		<span class="address">' + shop.address + '</span>';
+							tag += '	</a>';
 							tag += '</div>';
 							
 						mapSlick.slick('slickAdd', tag);

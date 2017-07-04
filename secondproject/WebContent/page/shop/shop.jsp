@@ -58,7 +58,7 @@
 			<div class="review col-sm-6 col-md-4 <%=grid2%> <%=grid3%>">
 				<div class="thumbnail">
 					<a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>">
-						<img src="<%=ContextPath.root + reviewListDto.getImg()%>">
+						<img src="<%=ContextPath.root + reviewListDto.getImg()%>" class="img-rounded">
 					</a>
 					<div class="caption">
 						<h4><a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>"><%=reviewListDto.getTitle()%></a></h4>

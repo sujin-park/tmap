@@ -319,6 +319,8 @@ public class ReviewDaoImpl implements ReviewDao {
 
 			pstmt.setInt(++parameterIndex, pageEnd); // pageEnd
 			pstmt.setInt(++parameterIndex, pageStart); // pageStart
+			System.out.println("pageEnd === " + pageEnd);
+			System.out.println("pageStart === " + pageStart);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

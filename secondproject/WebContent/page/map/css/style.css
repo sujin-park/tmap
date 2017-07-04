@@ -7,6 +7,11 @@
 	width: 100%;
 	height: 100%;
 	padding-top: 50px;
+	-webkit-transition: padding 0.45s ease;
+	-moz-transition: padding 0.45s ease;
+	-ms-transition: padding 0.45s ease;
+	-o-transition: padding 0.45s ease;
+	transition: padding 0.45s ease;
 }
 
 #map{
@@ -21,6 +26,11 @@
 	width: 100%;
 	padding: 10px 0;
 	z-index: 90;
+	-webkit-transition: top 0.45s ease;
+	-moz-transition: top 0.45s ease;
+	-ms-transition: top 0.45s ease;
+	-o-transition: top 0.45s ease;
+	transition: top 0.45s ease;
 }
 
 .search-controll{
@@ -40,11 +50,11 @@
 	height: 100%;
 	padding-top: 50px;
 	z-index: 100;
-	-webkit-transition: left 0.45s ease;
-	-moz-transition: left 0.45s ease;
-	-ms-transition: left 0.45s ease;
-	-o-transition: left 0.45s ease;
-	transition: left 0.45s ease;
+	-webkit-transition: all 0.45s ease;
+	-moz-transition: all 0.45s ease;
+	-ms-transition: all 0.45s ease;
+	-o-transition: all 0.45s ease;
+	transition: all 0.45s ease;
 }
 
 .search-detail-active .search-detail-controll-container{
@@ -54,7 +64,7 @@
 .search-detail-controll{
 	height: 100%;
 	padding: 10px 15px 30px;
-	background-color: rgba(255, 141, 0, 0.97);
+	background-color: #f76c43;
 	overflow-y: auto;
 }
 
@@ -135,8 +145,10 @@
 }
 
 .search-list-container-mobile .panel .panel-body{
+	display: block;
 	background-color: #fff;
 	border: 1px solid #ccc;
+	text-decoration: none;
 }
 
 .search-list-container{

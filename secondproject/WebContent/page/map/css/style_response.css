@@ -25,6 +25,11 @@
 		background-color: transparent;
 		z-index: 100;
 		overflow-y: auto;
+		-webkit-transition: padding 0.45s ease;
+		-moz-transition: padding 0.45s ease;
+		-ms-transition: padding 0.45s ease;
+		-o-transition: padding 0.45s ease;
+		transition: padding 0.45s ease;
 	}
 	.search-list-container .search-list {
 		padding: 12px;
@@ -44,7 +49,7 @@
 	}
 	.search-list-container .search-list .shop.on {
 		color: #fff;
-		background-color: #ff8d00;
+		background-color: #f76c43;
 	}
 	.search-list-container .search-list .shop a {
 		display: block;
@@ -56,6 +61,10 @@
 	.search-list-container .search-list .shop.on a {
 		color: #fff;
 	}
+	.search-list-container .search-list .shop .category{
+		display: inline-block;
+		font-size: 1.1rem;
+	}
 	.search-list-container .search-list .shop .rank {
 		font-size: 2rem;
 		font-weight: bold;
@@ -64,11 +73,30 @@
 		font-size: 2rem;
 		font-weight: bold;
 	}
+	.search-list-container .search-list .shop .score{
+		display: inline-block;
+		font-size: 1.15rem;
+	}
 	#modal_addshopForm .modal-dialog {
 		width: 80%;
 		max-width: 900px;
 	}
 	#addShopMap {
 		height: 500px;
+	}
+}
+
+@media screen and (min-width : 1024px) {
+	.map-container{
+		padding-top: 70px;
+	}
+	.search-list-container{
+		padding-top: 70px;
+	}
+	.search-controll-container{
+		top: 70px;
+	}
+	.search-detail-controll-container{
+		padding-top: 70px;
 	}
 }

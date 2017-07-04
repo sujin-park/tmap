@@ -72,7 +72,7 @@ public class Pagination {
 	} 
 	
 	public void setHtml() {
-		
+		// TODO 숫자계산 다시하자..마지막페이지에 버그있음
 		if (listCountPerPage == 0) {
 			listCountPerPage = BoardConstant.LIST_SIZE;
 		}
@@ -113,7 +113,7 @@ public class Pagination {
 			isNextPageActive = "";
 		}
 		
-		if (currentPageNum != totalPageCount) {
+		if (currentPageNum < totalPageCount) {
 			lastPageHref = getPageHref(lastPageNum);
 			isLastPageActive = "";
 		}
@@ -125,7 +125,7 @@ public class Pagination {
 		html.append("		<li " + isPrevPageActive + "><a href=\"" + prevPageHref + "\" aria-label=\"Previous\"> <span aria-hidden=\"true\">이전</span></a></li>\n");
 		
 		for (int i = startPageNum; i <= endPageNum; i++) {
-			if (i > lastPageNum) {
+			if (i >= lastPageNum) {
 				break;
 			}
 			String isActive = (currentPageNum == i) ? "class=\"active\"" : "";
