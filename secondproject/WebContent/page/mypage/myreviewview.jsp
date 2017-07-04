@@ -32,7 +32,12 @@
 		});
 		}
 	}
-
+	function com(){
+		var text = $("#commenttext").val();
+		var reviewId = $("#reviewId").val();
+		
+		document.location.href="<%=ContextPath.root %>/myreview?act=commentinsert&reviewId="+reviewId+"&text="+encodeURI(text);		
+	}
 </script>
 
 
@@ -42,7 +47,7 @@
 		MyReviewDto mrdto = (MyReviewDto) request.getAttribute("myreview");
 		if (mrdto != null) {
 	%>
-		<div class="container" style="background-color: #dbdbdb;">
+		<div class="container">
 		<input type="hidden" id="reviewLat" value="<%=mrdto.getLat()%>">
 		<input type="hidden" id="reviewLng" value="<%=mrdto.getLng()%>">
 	<div class="section py-5" id="features">
@@ -86,7 +91,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container" style="background-color: #dbdbdb;">
+		<div class="container">
 			<div class="row">
 				<div class="col-md-12 h-75 mar">
 					<p class="" align=""><%=mrdto.getContent()%>
@@ -96,7 +101,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="container" style="background-color: #dbdbdb;">
+			<div class="container">
 				<div class="col-md-12 " style="text-align: center;">
 					<%=mrdto.getShopName()%>&nbsp;
 					<a href="<%=mrdto.getReserveUrl()%>">예약하기</a>
@@ -107,7 +112,7 @@
 					<%=mrdto.getDetail()%>
 					</div>
 					</div>
-					<div class="container" style="background-color: #dbdbdb;">
+					<div class="container">
 					<div class="map-container" align="">
 						<div class="col-md-offset-3" id="map" style="width: 50%; height: 400px;"></div>
 				<%	if(Integer.parseInt(mrdto.getUserId())!=udto.getUser_id()) {%>
@@ -125,7 +130,7 @@
 			</div>
 		</div>
 		<div class="row mar">
-			<div class="container" style="background-color: #dbdbdb;">
+			<div class="container">
 			<a href="">댓글</a> 
 						
 			
@@ -133,6 +138,9 @@
 		
 		
 			<div class="">
+			<form method="post" action="" id="commentform" name="commentform">
+			<input type="hidden" id="reviewId" name="reviewId" value="<%=mrdto.getReviewId()%>">
+			<input type="hidden" name="act" value="commentinsert">
 				<table style="margin-bottom: 100px;">
 				<% List<ReviewCommentDto>  clist =(List<ReviewCommentDto>) request.getAttribute("clist"); %>
 			
@@ -150,10 +158,11 @@
 				%>
 					<tr>
 						<td width="10%" align="center" style="text-align: center;"><%=udto.getEmail() %>
-						<td width="80%"><textarea rows="3" cols="130" ></textarea></td>	
-						<td width="10%"><a href="" class="btnbtn" style="position: relative;">입력</a></td>
+						<td width="80%"><textarea id="commenttext" rows="3" cols="130" ></textarea></td>	
+						<td width="10%"><a href="javascript:com();" class="btnbtn" >입력</a></td>
 					</tr>
 				</table>
+				</form>
 			</div>
 		</div>
 

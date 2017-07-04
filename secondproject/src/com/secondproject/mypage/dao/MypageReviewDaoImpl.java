@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -289,6 +290,32 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 			DBClose.close(conn, pstmt, rs);
 		}
 
+	}
+
+	@Override
+	public void commentinsert(int reviewId, int userId, String content) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("insert into review_comment \n");
+			sql.append("(review_comment_id,review_id,user_id,review_content) \n");
+			sql.append("	values (seq_review_comment_id.nextval,?,?,?)");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reviewId);
+			pstmt.setInt(2, userId);
+			pstmt.setString(3, content);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+		
 	}
 
 }
