@@ -86,6 +86,7 @@ public class ShopDaoImpl implements ShopDao {
 				shopDto.setTel(rs.getString("tel"));
 				shopDto.setBusinessTime(rs.getString("business_time"));
 				shopDto.setDetail(rs.getString("detail"));
+				shopDto.setImg(rs.getString("img"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

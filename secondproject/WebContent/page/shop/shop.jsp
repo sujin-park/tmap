@@ -19,7 +19,7 @@
 		<div class="row">
 		
 			<div class="col-xs-12 col-md-4">
-				<img src="<%=ContextPath.root%>/upload/test/test.png"
+				<img src="<%=ContextPath.root%>/page/main/img/shopimg/<%=shopDto.getImg()%>"
 					class="img-responsive" />
 			</div>
 			
