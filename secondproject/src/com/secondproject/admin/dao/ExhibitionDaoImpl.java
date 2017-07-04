@@ -90,12 +90,12 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 				}
 			}
 			if (!orderKey.isEmpty()) {
-				if (orderKey.equals("orderby")) {
-					orderKey = "ex_order";
+				if (orderKey.equals("visiableby")) {
+					orderKey = "ex_visiable";
 				} else if (orderKey.equals("nameby")) {
 					orderKey = "ex_title";
 				} else {
-					orderKey = "ex_visiable";
+					orderKey = "ex_order";
 				}
 				sql.append("order by " + orderKey + " " + orderValue);
 			} else {

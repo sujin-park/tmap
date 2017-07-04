@@ -62,13 +62,13 @@ function moveList() {
 					<table class="table table-filter" id="extable">
 						<thead>
 							<tr class="warning" align="center">
-								<td>매장명</td>
-								<td>음식종류</td>
-								<td>매장 주소</td>
-								<td>영업시간</td>
-								<td>평점</td>
-								<td>상세 설명</td>
-								<td>Delete</td>
+								<td width="20%">매장명</td>
+								<td width="10%">음식종류</td>
+								<td width="20%">매장 주소</td>
+								<td width="10%">영업시간</td>
+								<td width="10%">평점</td>
+								<td width="20%">상세 설명</td>
+								<td width="10%">Delete</td>
 							</tr>
 						</thead>
 						<tbody id="exShoplist">
@@ -117,12 +117,12 @@ function moveList() {
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=shopDto.getDetail() %></span>
+											<div class="media-detail"><%=shopDto.getDetail() %></div>
 										</div>
 									</div>
 								</td>
 								<td>
-								<p data-placement="top" data-toggle="tooltip" title="Delete">
+								<p  align="center" data-placement="top" data-toggle="tooltip" title="Delete">
 								<button type="button" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onclick="javascript:deleteShoplist(<%=exhibitionDto.getExhibitionId()%>, <%=shopDto.getShopId() %> );" ><span class="glyphicon glyphicon-trash"></span></button></p>
 								</td>
 							</tr>

@@ -2,7 +2,7 @@
     pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
 <section class="content page-top row">
 	<div class="col-md-3 col-md-push-5"></div>
-		<div class="panel panel-default" style="margin-left:60px; margin-right:60px;">
+		<div class="panel panel-default" style="margin-left:60px; margin-right:60px; padding-top:60px;">
 			
 			<button id="sendAge" class="btn btn-warning" width="100" height="50" onclick="javascript:getAge();">연령대별 가입자수</button>
 			<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(0);">카테고리별 All</button>
