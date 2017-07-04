@@ -34,7 +34,7 @@
 					<div class="panel-body">
 					
 						<%
-						if (followList.size() > 0) {
+						if (followList != null && followList.size() > 0) {
 							for (FollowCategoryDto dto : followList) {
 								ArrayList<FollowCategoryUserDto> followUserList = dto.getCategoryUserList();
 								if (followUserList.size() > 0) {

@@ -21,6 +21,7 @@
 <body>
 	<jsp:include page="/template/map/include/header.jsp"></jsp:include>
 	<jsp:include page="<%=contentPath%>"></jsp:include>
+	<jsp:include page="/template/map/include/footer.jsp"></jsp:include>
 	<jsp:include page="/template/map/include/bottom.jsp"></jsp:include>
 	<% if (addBottomPath != null) { %>
 		<jsp:include page="<%=addBottomPath%>"></jsp:include>

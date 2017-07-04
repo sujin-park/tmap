@@ -72,7 +72,6 @@ public class Pagination {
 	} 
 	
 	public void setHtml() {
-		// TODO 숫자계산 다시하자..마지막페이지에 버그있음
 		if (listCountPerPage == 0) {
 			listCountPerPage = BoardConstant.LIST_SIZE;
 		}
@@ -80,7 +79,7 @@ public class Pagination {
 			pageCount = BoardConstant.PAGE_SIZE;
 		}
 		
-		totalPageCount = totalCount / listCountPerPage + 1;
+		totalPageCount = (totalCount - 1) / listCountPerPage + 1;
 		
 		int startPoint = (currentPageNum - 1) / pageCount * pageCount;
 		int startPageNum = startPoint + 1;

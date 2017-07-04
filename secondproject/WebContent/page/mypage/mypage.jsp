@@ -496,11 +496,8 @@ var followUserId;
 							</thead>
 								<tbody id="" name="">
 								<tr id="" name="">
-									<td id=""></td>
-									<td id="" name="">
-										<div id="divv" class="pull-right">
-												<a id="" class="btn btn-default" href="javascript:;" role="button">팔로우</a>
-										</div></td>
+									<td colspan="2">팔로우 할 사람을 검색하세요.</td>
+									
 								</tr>
 							</tbody>
 							

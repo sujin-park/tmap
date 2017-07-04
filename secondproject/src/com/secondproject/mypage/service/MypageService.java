@@ -17,5 +17,6 @@ public interface MypageService {
 	 int followModify(FollowUserDto fudto);
 	 int followCategoryModify(int cateId,int seq);
 	 int totalFollowUserCount(Map<String, Object> params);
+	 List<FollowUserDto> followselect(String id);
 	 
 }
