@@ -47,3 +47,11 @@ group by substr(address, 0, instr(address,' '));
 select NVL((SELECT avg(score) FROM review WHERE shop_id = s.shop_id), 0) as score
 FROM SHOP s, shop_category sc
 where s.category_id = sc.category_id
+
+
+-------- 카테고리별 선호도 (성별) ---------
+select NVL((SELECT avg(score) FROM review WHERE shop_id = s.shop_id), 0) as score, sc.category_title
+	   from review r, shop s, shop_category sc
+	   where r.shop_id = s.shop_id
+	   and s.category_id = sc.category_id
+	   group by sc.category_title
