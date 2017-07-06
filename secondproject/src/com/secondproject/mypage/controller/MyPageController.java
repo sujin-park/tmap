@@ -42,6 +42,8 @@ public class MyPageController extends HttpServlet {
 			
 		} else if ("catemodify".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryModifyAction().execute(request, response);
+		} else if ("followSelect".equals(act)) {
+			path = MypageFactory.getFollowSelect().execute(request, response);
 		}
 //		path += queryString;
 		request.setAttribute("titleTagValue", "마이페이지");
@@ -53,7 +55,10 @@ public class MyPageController extends HttpServlet {
 			dist = request.getRequestDispatcher("/page/mypage/catelistview.jsp");
 		} else if(path.equals("/page/mypage/followUserData.jsp")) {
 			dist = request.getRequestDispatcher("/page/mypage/followUserData.jsp");
-		} else {
+		} else if (path.equals("/page/mypage/select.jsp")){
+			dist = request.getRequestDispatcher("/page/mypage/select.jsp");
+			
+		}else {
 			dist = request.getRequestDispatcher("/template/default/default.jsp");
 		}dist.forward(request, response);
 		

@@ -78,9 +78,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<FollowUserDto> followselect(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FollowUserDto> followselect(Map<String, Object> params) {
+		
+		return MypageFollowDaoImpl.getMypageFollowDao().followselect(params);
 	}
 
 	
