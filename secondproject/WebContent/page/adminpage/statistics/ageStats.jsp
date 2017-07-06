@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
 <section class="content page-top row">
+  <div align="center" style="padding-top:60px;">
+	<button id="sendAge" class="btn btn-warning" width="100" height="50" onclick="javascript:getAge();">연령대별 가입자수</button>
+	<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(0);">카테고리별 All</button>
+	<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(1);">카테고리별 여성</button>
+	<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(2);">카테고리별 남성</button>
+	<button id="sendArea"  class="btn btn-warning" width="100" onclick="javascript:getArea();">지역별 등록된 매장수</button>
+  </div>
 	<div class="col-md-3 col-md-push-5"></div>
-		<div class="panel panel-default" style="margin-left:60px; margin-right:60px; padding-top:60px;">
-			
-			<button id="sendAge" class="btn btn-warning" width="100" height="50" onclick="javascript:getAge();">연령대별 가입자수</button>
-			<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(0);">카테고리별 All</button>
-			<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(1);">카테고리별 여성</button>
-			<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(2);">카테고리별 남성</button>
-			<button id="sendArea"  class="btn btn-warning" width="100" onclick="javascript:getArea();">지역별 등록된 매장수</button>
-		
+		<div class="panel panel-default" style="margin-left:60px; margin-right:60px;">
 				<div class="panel-body">
 					<div class="col-md-4">
 						<canvas id="ageChart" width="600" height="500"></canvas>

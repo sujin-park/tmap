@@ -34,7 +34,13 @@ function checkAll(){
 }
 
 function deleteUser() {
-	if (confirm("삭제하시겠습니까?")) {
+	var valueArr = new Array();
+	$("input[name=checkRow]:checked").each(function() {
+		valueArr.push($(this).val());
+	});
+	if (valueArr == "") {
+		alert("삭제할 매장을 선택해주세요");
+	} else if (confirm("삭제하시겠습니까?")) {
 		document.orderncolumn.action = "<%=ContextPath.root%>/admin";
 		document.orderncolumn.submit();
 	}
@@ -47,6 +53,7 @@ function shopmodal(seq) {
 		$('#shopModal').modal({show:true});
 		initMap();
 	});
+
 }
 
 </script> 
@@ -68,7 +75,7 @@ function shopmodal(seq) {
             <input type="hidden" name="act" value="shopdelete">
              <div class="table-container">
                 <table class="table table-filter">
-                   <tbody>
+                   <thead>
                       <tr class="warning" align="center">
                        <td>
                        <div class="ckbox">
@@ -82,6 +89,8 @@ function shopmodal(seq) {
                 <%--          <td><a href="<%=ContextPath.root%>/admin?act=shopinfo&shopInfoOrder=<%=shopInfoOrder%>&column=shop_id" style="text-decoration:none">기획전여부</a></td> <!-- 기획전 있는지 없는지 여부 --> --%>
                      	 <td>EDIT</td>
                      </tr>
+                     </thead>
+                     <tbody id="shopNew">
                      <tr>
                      <%int size = list.size();
                   
@@ -150,9 +159,9 @@ function shopmodal(seq) {
                      <div class="input-group">
                         <div class="input-group-btn">
                         <select class="form-control" name="key">
-                           <option value="title">가게이름</option>
-                           <option value="category_title">가게타입</option>                           
-                           <option value="tel">전화번호</option>
+                           <option value="title">매장명</option>
+                           <option value="category_title">카테고리</option>                           
+                           <option value="tel">매장번호</option>
                            <option value="address">주소</option>                           
                           <!--  <option value="shop_id">기획전</option> -->
                         </select>

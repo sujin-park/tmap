@@ -50,8 +50,14 @@ where s.category_id = sc.category_id
 
 
 -------- 카테고리별 선호도 (성별) ---------
-select NVL((SELECT avg(score) FROM review WHERE shop_id = s.shop_id), 0) as score, sc.category_title
-	   from review r, shop s, shop_category sc
-	   where r.shop_id = s.shop_id
-	   and s.category_id = sc.category_id
-	   group by sc.category_title
+SELECT
+   (SELECT category_title FROM shop_category WHERE category_id = a.category_id) category_title,
+   avg(score) aaa
+	FROM
+	(
+  	 SELECT
+      	r.score, 
+      	(SELECT category_id FROM shop WHERE shop_id = r.shop_id) category_id
+  	 FROM review r
+	) a
+	GROUP BY category_id
