@@ -183,7 +183,16 @@ var followUserId;
 		
 		
 	}
-	
+
+	$(document).on('click', '#bttn', function() {
+		var selectname = $("#followselect").val();
+<%-- 		document.location.href="<%=ContextPath.root%>/mypage?act=followSelect&pg=1&word="+encodeURI(selectname); --%>
+		$.get("/secondproject/mypage?act=followSelect&pg=1&word="+encodeURI(selectname), function(data, status){
+			var div = document.getElementById("tbodyselect");
+			div.innerHTML=data;
+		});
+	});
+
 </script>
 <div class="container">
 <div class="col-xs-12 col-md-12 a">
@@ -387,7 +396,7 @@ var followUserId;
 <!--      modallllllllllllllllllllllllllllll-->
 <div class="modal fade" id="modalmemo" role="dialog" aria-hidden="true"
 	aria-labelledby="myModalLabel">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
 
@@ -494,7 +503,7 @@ var followUserId;
 
 								</tr>
 							</thead>
-								<tbody id="" name="">
+								<tbody id="tbodyselect" name="tbodyselect">
 								<tr id="" name="">
 									<td colspan="2">팔로우 할 사람을 검색하세요.</td>
 									
@@ -507,11 +516,11 @@ var followUserId;
 				</div>
 			</div>
 			<div class="modal-footer">
-				<form name="" method="post">
-					<input type="hidden" name="act"> <input type="text" class="marright" id="" name=""
+				<form name="followselect" method="get">
+					<input type="text" class="marright" id="followselect" name="followselect"
 									placeholder="검색할 아이디">
-					<button id="btn" class="btn btn-primary" type="button"
-						onclick=";" name="">검색</button>
+					<button id="bttn" class="btn btn-primary" type="button"
+						onclick="" name="bt">검색</button>
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
 				</form>
 			</div>

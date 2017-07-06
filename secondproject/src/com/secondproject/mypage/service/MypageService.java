@@ -1,5 +1,6 @@
 package com.secondproject.mypage.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,6 @@ public interface MypageService {
 	 int followModify(FollowUserDto fudto);
 	 int followCategoryModify(int cateId,int seq);
 	 int totalFollowUserCount(Map<String, Object> params);
-	 List<FollowUserDto> followselect(String id);
+	 List<FollowUserDto> followselect(Map<String, Object> params);
 	 
 }

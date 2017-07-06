@@ -269,9 +269,9 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
 			sql.append("			join users u ON fu.reg_user_id = u.user_id  \n");
 			sql.append("			where fu.user_id=? \n");
-			if(!word.equals("")) {
-				sql.append(" and fc.follow_category_id=? \n");
-			}
+//			if(!word.equals("")) {
+//				sql.append(" and fc.follow_category_id=? \n");
+//			}
 			sql.append("			ORDER BY fc.category_order ASC) a \n");
 			sql.append("	where rownum<=? \n");
 			sql.append("		)b \n");
@@ -281,9 +281,9 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx=0;
 			pstmt.setInt(++idx, (Integer)params.get("userId"));
-			if(!word.equals("")) {
-			pstmt.setString(++idx, word);
-			}
+//			if(!word.equals("")) {
+//			pstmt.setString(++idx, word);
+//			}
 			pstmt.setInt(++idx, pageEnd);
 			pstmt.setInt(++idx, pageStart);
 			rs = pstmt.executeQuery();
@@ -646,6 +646,50 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	         DBClose.close(conn, pstmt, rs);
 	      }
 	      return cnt;
+	}
+
+
+	@Override
+	public List<FollowUserDto> followselect(Map<String, Object> params) {
+		List<FollowUserDto> list = new ArrayList<FollowUserDto>();
+		FollowUserDto fudto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String word = Encoding.isoToEuc((String) params.get("word"));
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select email,status_msg \n");
+			sql.append("from users  \n");
+			sql.append("where user_id not in ( \n");
+			sql.append("	select follow_user_id \n");
+			sql.append("	from users u \n");
+			sql.append("	left outer join (select * from follow_user where user_id=?) fu on u.user_id=fu.user_id \n");
+			sql.append("	where u.user_id=?) and user_id!=? \n");
+			sql.append("	and email like '%'||?||'%'");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, (Integer)params.get("userId"));
+			pstmt.setInt(2, (Integer)params.get("userId"));
+			pstmt.setInt(3, (Integer)params.get("userId"));
+			pstmt.setString(4, (String)params.get("word"));
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				fudto=new FollowUserDto();
+				fudto.setEmail(rs.getString("email"));
+				fudto.setStatusMsg(rs.getString("status_msg"));
+				list.add(fudto);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return list;
 	}
 
 
