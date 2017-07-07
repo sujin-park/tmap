@@ -24,13 +24,12 @@ public class ShopInfoModifyAction extends BoardCommonAction implements Action {
 			throws ServletException, IOException {
 		setBoardParameter(request);
 		HashMap<String, Object> params = getParameterMap();
-		
+
 		String orderValue = (String) params.get("orderValue");
 		if (orderValue.isEmpty()) {
 			orderValue = "asc";
 		}
-		ArrayList<ShopInfoDto> shoplist= ShopInfoServiceImpl.getShopInfoService().getArticles(params);
-		
+
 		if (orderValue.equals("asc")) {
 			orderValue = "desc";
 		} else {
@@ -38,8 +37,8 @@ public class ShopInfoModifyAction extends BoardCommonAction implements Action {
 		}
 		int cnt = 0;
 		int seq = Integer.parseInt(request.getParameter("seq"));
-		String cate = Encoding.isoToEuc(request.getParameter("cate"));
-		String shopname = Encoding.isoToUtf(request.getParameter("shopname"));
+		String cate = request.getParameter("cate");
+		String shopname = request.getParameter("shopname");
 		String shopnum = request.getParameter("shopnum");
 		String shopadd = request.getParameter("shopadd");
 		ShopInfoDto shopInfoDto = new ShopInfoDto();
@@ -48,9 +47,10 @@ public class ShopInfoModifyAction extends BoardCommonAction implements Action {
 		shopInfoDto.setShopTitle(shopname);
 		shopInfoDto.setTel(shopnum);
 		shopInfoDto.setAddress(shopadd);
-		System.out.println(shopname + " SHOP MODIFY");
+		System.out.println("SHOP MODIFY" + shopname);
 		cnt = ShopInfoServiceImpl.getShopInfoService().modifyShopInfo(shopInfoDto);
-		List<ShopInfoDto> shopList= ShopInfoServiceImpl.getShopInfoService().getArticles(params);
+		System.out.println(cnt + " 수정 카운트");
+		List<ShopInfoDto> shopList = ShopInfoServiceImpl.getShopInfoService().getArticles(params);
 		int totalUserCount = CommonServiceImpl.getCommonService().totalShopCount(params);
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalUserCount);
@@ -58,14 +58,14 @@ public class ShopInfoModifyAction extends BoardCommonAction implements Action {
 		pagination.setListCountPerPage(BoardConstant.LIST_SIZE);
 		pagination.setPageCount(BoardConstant.PAGE_SIZE);
 		pagination.setStartQueryString("/admin?act=shopinfo");
-		
+
 		ArrayList<String> filter = new ArrayList<String>();
 		filter.add("pg");
 		String queryString = QueryString.getQueryString(params, filter);
-		
+
 		pagination.setQueryString(queryString);
 		pagination.setHtml();
-		
+
 		System.out.println(shopList.size() + "SHOP MODIFY");
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("orderValue", orderValue);

@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="com.secondproject.admin.model.*, com.secondproject.constant.*, java.util.*"%>
+    pageEncoding="EUC-KR" import="com.secondproject.admin.model.*, com.secondproject.constant.*, java.util.*"
+    import="com.secondproject.util.pagination.*"%>
 <%
- 	List<ShopInfoDto> shoplist = (List<ShopInfoDto>) request.getAttribute("shoplist");
-	if (shoplist!=null ){ 
+String orderValue = (String) request.getAttribute("orderValue");
+Pagination pagination = (Pagination) request.getAttribute("pagination");
+List<ShopInfoDto> shoplist = (List<ShopInfoDto>) request.getAttribute("shoplist");
+if (orderValue == null) {
+orderValue = "asc";
+}
 %>
                      <tr>
                      <%int size = shoplist.size();
@@ -58,5 +63,6 @@
 							</p>
 						</td>
                      </tr>
- <%}
-                     }%>
+ <%} 
+%>
+                     </form>

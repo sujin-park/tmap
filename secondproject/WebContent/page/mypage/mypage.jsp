@@ -303,7 +303,7 @@ var followUserId;
 						</div>
 						<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="25">
 							<span class="input-group-btn">
-							<button class="btn btn-warning" type="button" onclick="javascript:searchReview();">Search</button>
+							<button class="btn btn-warning" type="button" onclick="">Search</button>
 							</span>
 					</div>
 				 </div>
