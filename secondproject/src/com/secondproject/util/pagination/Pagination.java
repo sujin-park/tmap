@@ -79,8 +79,8 @@ public class Pagination {
 			pageCount = BoardConstant.PAGE_SIZE;
 		}
 		
-		totalPageCount = (totalCount - 1) / listCountPerPage + 1;
-		
+		totalPageCount = (int) Math.ceil((double) (totalCount - 1) / (double) listCountPerPage);
+
 		int startPoint = (currentPageNum - 1) / pageCount * pageCount;
 		int startPageNum = startPoint + 1;
 		int endPageNum = startPageNum - 1 + pageCount;
@@ -124,11 +124,11 @@ public class Pagination {
 		html.append("		<li " + isPrevPageActive + "><a href=\"" + prevPageHref + "\" aria-label=\"Previous\"> <span aria-hidden=\"true\">이전</span></a></li>\n");
 		
 		for (int i = startPageNum; i <= endPageNum; i++) {
+			String isActive = (currentPageNum == i) ? "class=\"active\"" : "";
+			html.append("		<li " + isActive + "><a href=\"" + getPageHref(i) + "\">" + i + "</a></li>\n");
 			if (i >= lastPageNum) {
 				break;
 			}
-			String isActive = (currentPageNum == i) ? "class=\"active\"" : "";
-			html.append("		<li " + isActive + "><a href=\"" + getPageHref(i) + "\">" + i + "</a></li>\n");
 		}
 		
 		html.append("		<li " + isNextPageActive + "><a href=\"" + nextPageHref + "\" aria-label=\"Next\"> <span aria-hidden=\"true\">다음</span></a></li>\n");

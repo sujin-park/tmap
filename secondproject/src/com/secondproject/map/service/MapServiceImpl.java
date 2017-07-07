@@ -18,11 +18,12 @@ public class MapServiceImpl implements MapService {
 		mapService = new MapServiceImpl();
 	}
 
-	private MapServiceImpl() {}
+	private MapServiceImpl() {
+	}
 
 	public static MapService getMapService() {
 		return mapService;
-		
+
 	}
 
 	@Override
@@ -38,11 +39,6 @@ public class MapServiceImpl implements MapService {
 	@Override
 	public ArrayList<FollowCategoryDto> getCategoryByUser(int userId) {
 		return MapDaoImpl.getMapDao().getCategoryByUser(userId);
-	}
-
-	@Override
-	public FollowCategoryUserDto getCategoryUser(int categoryId) {
-		return MapDaoImpl.getMapDao().getCategoryUser(categoryId);
 	}
 
 }

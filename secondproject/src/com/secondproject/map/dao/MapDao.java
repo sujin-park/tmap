@@ -14,6 +14,6 @@ public interface MapDao {
 
 	ArrayList<FollowCategoryDto> getCategoryByUser(int userId);
 
-	FollowCategoryUserDto getCategoryUser(int categoryId);
+	ArrayList<FollowCategoryUserDto> getCategoryUser(int categoryId);
 	
 }

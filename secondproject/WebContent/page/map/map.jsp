@@ -26,60 +26,89 @@
 			</div>
 		</div>
 		
+		<%
+		if (followList != null) {
+		%>
 		<div class="row favorite-container">
 			<div class="col-xs-12">
-			
 				<div class="panel panel-default favorite">
 					<div class="panel-heading">팔로우</div>
 					<div class="panel-body">
-					
-						<div class="panel panel-default favorite-item">
-							<div class="panel-heading" data-toggle="collapse" data-target="#collapseExample1">Follow Group1</div>
-							<div class="collapse panel-collapse" id="collapseExample1">
-								<ul class="list-group">
-									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">nimrh1k@gmail.com (형규)</label></div></li>
-									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">sze2k@gmail.com (호민)</label></div></li>
-									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">xrh3k@gmail.com (민철)</label></div></li>
-								</ul>
+						<%
+						int i = 0;
+						for (FollowCategoryDto cate : followList) {
+							ArrayList<FollowCategoryUserDto> userlist = cate.getCategoryUserList();
+							int followUserCnt = userlist.size();
+						%>
+							<div class="panel panel-default favorite-item">
+								<div class="panel-heading" data-toggle="collapse" data-target="#collapseExample<%=i%>" <%=(followUserCnt == 0 ? "onclick=\"alert('등록된 유저가 없습니다.')\"" : "") %> >
+									<input type="checkbox" name="" id="" />
+									<span><%=cate.getCategoryName()%></span>
+								</div>
+								<%
+								if (followUserCnt > 0) {
+								%>
+								<div class="collapse panel-collapse" id="collapseExample<%=i%>"  >
+									<ul class="list-group">
+										<%
+										for (FollowCategoryUserDto userDto : userlist) {
+										%>
+										<li class="list-group-item"><div class="checkbox">
+											<label>
+												<input type="checkbox" class="followUserId" value="<%=userDto.getUserId()%>">
+												<h5><%=userDto.getUserEmail()%></h5>
+												<span><%=userDto.getAlias() %></span>
+											</label>
+										</li>
+										<%
+										}
+										%>
+									</ul>
+								</div>
+								<%
+								}
+								%>
 							</div>
-						</div>
-						
-						<div class="panel panel-default favorite-item">
-							<div class="panel-heading" data-toggle="collapse" data-target="#collapseExample2">Follow Group2</div>
-							<div class="collapse panel-collapse" id="collapseExample2">
-								<ul class="list-group">
-									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">d4k@gmail.com (주희)</label></div></li>
-									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">nggh5k@gmail.com (수진)</label></div></li>
-									<li class="list-group-item"><div class="checkbox"><label><input type="checkbox" value="">naaak@gmail.com (효인)</label></div></li>
-								</ul>
-							</div>
-						</div>
-						
+						<%
+							i++;
+						}
+						%>
 					</div>
 				</div>
-				
-				
 			</div>
 		</div><!-- favorite-container -->
+		<%
+		}
+		%>
 
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-default btn-sm" type="button" id="search-detail-controll-submit" data-searching-text="검색중..." autocomplete="off">검색!!!</button>
+				<button class="btn btn-danger" type="button" id="search-detail-controll-submit" data-searching-text="검색중..." autocomplete="off">검색</button>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 
 <div class="search-controll-container">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-xs-12 col-md-6 pull-right">
 				<div class="search-controll">
-					<!-- href="<%=ContextPath.root%>/shop?act=addShopForm" target="_blank" -->
-					<button class="btn btn-sm btn-primary" id="modal_add_shop_btn">매장등록</button>
-					<span class="label label-danger">현재 검색조건</span> [전체메뉴] [전체유저]
-					<button class="btn btn-sm btn-primary pull-right" type="button" id="search_detail_controll_btn">검색</button>
+					<div class="row">
+						<div class="col-xs-6">
+							<button class="btn btn-primary" type="button" id="modal_add_shop_btn">매장등록</button>
+						</div>
+						<div class="col-xs-6">
+							<button class="btn btn-primary" type="button" id="search_detail_controll_btn">검색</button>
+						</div>
+					</div>
+					<div class="input-group searchMapByLocation">
+						<input type="text" class="form-control" placeholder="지역명" id="addressValue"> 
+						<span class="input-group-btn">
+							<button class="btn btn-primary" type="button" id="search_map_by_location_btn">지역검색</button>
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>

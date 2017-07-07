@@ -139,6 +139,33 @@ var map = (function() {
 		return map.getBounds();
 	}
 	
+	function searchAddressAndSetCenter(address, callback) {
+		console.log(address);
+		naver.maps.Service.geocode(
+			{
+				address : address
+			},
+			function(status, response) {
+				if (status === naver.maps.Service.Status.ERROR) {
+					return alert('주소가 검색이 안되네요!');
+				}
+		
+				var items = response.result.items, htmlAddresses = [];
+				for (var i = 0, ii = items.length, item; i < ii; i++) {
+					item = items[i];
+					if (item.isRoadAddress === false) {
+						currentAddress = item.address;
+						currentPosition = new naver.maps.Point(item.point.x, item.point.y);
+						map.setCenter(currentPosition);
+						callback();
+						break;
+					}
+				}
+
+			}
+		);
+	}
+	
 	return {
 		'getCurrentPositionMarker': getCurrentPositionMarker,
 		'getBounds': getBounds,
@@ -147,6 +174,7 @@ var map = (function() {
 		'clearAnimationMarkers': clearAnimationMarkers,
 		'setMarkerAnimationByIndex': setMarkerAnimationByIndex,
 		'moveMapByMarkerIndex': moveMapByMarkerIndex,
+		'searchAddressAndSetCenter' : searchAddressAndSetCenter
 	}
 	
 })();

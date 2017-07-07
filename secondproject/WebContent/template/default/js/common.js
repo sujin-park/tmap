@@ -27,5 +27,11 @@ function SYSOUT(data) {
 	}
 }
 
+// 게시판 검색폼 관련
+function changeCommonBoardSearchKey(key, value) {
+	document.getElementById('commonBoardSearchForm').key.value = value;
+	document.getElementById('commonBoardSearchFormKeyView').innerHTML = key;
+}
+
 SYSOUT('CONTEXT_PATH = ' + CONTEXT_PATH);
 SYSOUT('MODE = ' + MODE);

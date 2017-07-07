@@ -95,6 +95,7 @@ public class MapDaoImpl implements MapDao {
 				FollowCategoryDto followCategoryDto = new FollowCategoryDto();
 				followCategoryDto.setFollowCategoryId(rs.getInt("follow_category_id"));
 				followCategoryDto.setUserId(rs.getInt("user_id"));
+				followCategoryDto.setCategoryUserList(getCategoryUser(rs.getInt("follow_category_id")));
 				followCategoryDto.setCategoryName(rs.getString("category_name"));
 				followCategoryDto.setCategoryOrder(rs.getInt("category_order"));
 				list.add(followCategoryDto);
@@ -109,31 +110,34 @@ public class MapDaoImpl implements MapDao {
 	}
 
 	@Override
-	public FollowCategoryUserDto getCategoryUser(int categoryId) {
-		FollowCategoryUserDto followCategoryUserDto = null;
+	public ArrayList<FollowCategoryUserDto> getCategoryUser(int categoryId) {
+		ArrayList<FollowCategoryUserDto> list = new ArrayList<FollowCategoryUserDto>();
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT * \n");
+			sql.append("SELECT fu.*, u.email \n");
 			sql.append("FROM follow_user fu \n");
-			sql.append("JOIN users ON user_id = fu.reg_user_id \n");
+			sql.append("JOIN users u ON u.user_id = fu.reg_user_id \n");
 			sql.append("WHERE follow_category_id = ? ");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, categoryId);
+			//System.out.println(sql.toString());
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				followCategoryUserDto = new FollowCategoryUserDto();
+				FollowCategoryUserDto followCategoryUserDto = new FollowCategoryUserDto();
 				followCategoryUserDto.setFollowUserId(rs.getInt("follow_user_id"));
 				followCategoryUserDto.setUserId(rs.getInt("user_id"));
 				followCategoryUserDto.setUserEmail(rs.getString("email"));
 				followCategoryUserDto.setFollowCategoryId(rs.getInt("follow_category_id"));
-				followCategoryUserDto.setRegUserId(rs.getInt(rs.getInt("reg_user_id")));
+				followCategoryUserDto.setRegUserId(rs.getInt("reg_user_id"));
 				followCategoryUserDto.setAlias(rs.getString("alias"));
 				followCategoryUserDto.setMemo(rs.getString("memo"));
 				followCategoryUserDto.setRegDate(rs.getString("reg_date"));
+				list.add(followCategoryUserDto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -141,7 +145,7 @@ public class MapDaoImpl implements MapDao {
 			DBClose.close(conn, pstmt, rs);
 		}
 		
-		return followCategoryUserDto;
+		return list;
 	}
 
 
