@@ -26,6 +26,10 @@ public class AdminFactory {
 	private static ShopInfoAction shopInfoAction;
 	private static ShopInfoDeleteAction shopInfoDeleteAction;
 	private static ShopInfoViewAction shopInfoViewAction;
+	private static ShopInfoModifyAction shopInfoModifyAction;
+	public static ShopInfoModifyAction getShopInfoModifyAction() {
+		return shopInfoModifyAction;
+	}
 
 	private static AgeChartAction ageChartAction;
 	private static CategoryChartAction categoryChartAction;
@@ -55,7 +59,8 @@ public class AdminFactory {
 		shopInfoAction = new ShopInfoAction();
 		shopInfoViewAction = new ShopInfoViewAction();
 		shopInfoDeleteAction = new ShopInfoDeleteAction();
-
+		shopInfoModifyAction = new ShopInfoModifyAction();
+		
 		ageChartAction = new AgeChartAction();
 		categoryChartAction = new CategoryChartAction();
 		areaChartAction = new AreaChartAction();

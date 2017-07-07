@@ -29,7 +29,7 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 	}
 
 	@Override
-	public ArrayList<ShopInfoDto> getArticles(Map<String,Object> params) {
+	public ArrayList<ShopInfoDto> getArticles(Map<String, Object> params) {
 		ArrayList<ShopInfoDto> list = new ArrayList<ShopInfoDto>();
 		String key = (String) params.get("key");
 		String word = Encoding.isoToEuc((String) params.get("word"));
@@ -37,7 +37,7 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 		String orderValue = (String) params.get("orderValue");
 		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
 		int pageStart = pageEnd - BoardConstant.LIST_SIZE;
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -160,7 +160,7 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 				shopInfoDto.setImg(rs.getString("img"));
 				shopInfoDto.setLat(rs.getDouble("lat"));
 				shopInfoDto.setLng(rs.getDouble("lng"));
-				
+
 			}
 		} catch (SQLException e) {
 
@@ -170,6 +170,39 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 		}
 
 		return shopInfoDto;
+	}
+
+	@Override
+	public int modifyShopInfo(ShopInfoDto shopInfoDto) {
+		int cnt = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int size = 0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("update shop set category_id = (select category_id from shop_category where category_title = ?), \n");
+			sql.append("title = ?, tel =?, address = ?\n");
+			sql.append("where shop_id = ? ");
+			pstmt = conn.prepareStatement(sql.toString());
+			int idx = 0;
+			// category name, shopname, number, address
+			pstmt.setString(++idx, Encoding.isoToEuc(shopInfoDto.getCategoryName()));
+			pstmt.setString(++idx, Encoding.isoToEuc(shopInfoDto.getShopTitle()));
+			pstmt.setString(++idx, Encoding.isoToEuc(shopInfoDto.getTel()));
+			pstmt.setString(++idx, Encoding.isoToEuc(shopInfoDto.getAddress()));
+			pstmt.setInt(++idx, shopInfoDto.getShopId());
+			
+			cnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cnt = 0;
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+
+		return cnt;
+
 	}
 
 }

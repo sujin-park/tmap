@@ -8,7 +8,7 @@ import com.secondproject.util.Encoding;
 import com.secondproject.util.NumberCheck;
 
 public class BoardCommonAction {
-	
+
 	private HttpServletRequest request;
 	private int pg;
 	private String key;
@@ -16,12 +16,13 @@ public class BoardCommonAction {
 	private String orderKey;
 	private String orderValue;
 	HashMap<String, Object> parameterMap;
-	
+
 	protected void setBoardParameter(HttpServletRequest request) {
 		this.request = request;
+		System.out.println(Encoding.isoToEuc(request.getParameter("word")));
 		pg = NumberCheck.nullToOne(getParameterAfterCheck("pg"));
 		key = Encoding.nullToBlank(getParameterAfterCheck("key"));
-		word = Encoding.nullToBlank(getParameterAfterCheck("word"));
+		word = Encoding.nullToBlank(getParameterAfterEncodigCheck("word"));
 		orderKey = Encoding.nullToBlank(getParameterAfterCheck("orderKey"));
 		orderValue = Encoding.nullToBlank(getParameterAfterCheck("orderValue"));
 		parameterMap = new HashMap<String, Object>();
@@ -31,11 +32,15 @@ public class BoardCommonAction {
 		parameterMap.put("orderKey", orderKey);
 		parameterMap.put("orderValue", orderValue);
 	}
-	
+
 	private String getParameterAfterCheck(String key) {
 		return whiteSpaceToBlank(request.getParameter(key));
 	}
-	
+
+	private String getParameterAfterEncodigCheck(String key) {
+		return whiteSpaceToBlank(Encoding.isoToEuc(request.getParameter(key)));
+	}
+
 	private String whiteSpaceToBlank(String tmp) {
 		return tmp == null ? tmp : tmp.trim();
 	}
@@ -87,6 +92,5 @@ public class BoardCommonAction {
 	public void setParameterMap(HashMap<String, Object> parameterMap) {
 		this.parameterMap = parameterMap;
 	}
-	
-	
+
 }

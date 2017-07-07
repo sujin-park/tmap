@@ -22,19 +22,10 @@ public class CategoryListAction implements Action{
 		UserDto userDto = (UserDto) session.getAttribute("logininfo");
 		ArrayList<FollowCategoryDto> categoryList = null;
 		
-//		if (userDto != null) {
-//			categoryList = MapServiceImpl.getMapService().getCategoryByUser(userDto.getUser_id());
-//			int size = categoryList.size();
-//			if (size > 0) {
-//				for (FollowCategoryDto dto : categoryList) {
-//					if (dto.getFollowCategoryId() != null) {
-//						FollowCategoryUserDto followCategoryUserDto = MapServiceImpl.getMapService().getCategoryUser(dto.getFollowCategoryId());
-//						dto.getCategoryUserList().add(followCategoryUserDto);
-//					}
-//				}
-//			}
-//		}
-//		
+		if (userDto != null) {
+			categoryList = MapServiceImpl.getMapService().getCategoryByUser(userDto.getUser_id());
+		}
+		
 		request.setAttribute("followList", categoryList);
 		return "/page/map/map.jsp";
 	}

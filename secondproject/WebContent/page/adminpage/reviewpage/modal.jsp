@@ -7,6 +7,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 			<input type="hidden" id="reviewseq" name="reviewseq" value="">
+			<input type="hidden" id="reviewscore" name="reviewscore" value="">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -30,8 +31,8 @@
 													name="store" value="" readonly="readonly">
 											</div>
 										<div class="form-group">
-												<label for="inputName">½Å·ÚÁ¡¼ö</label> <input type="text"
-													class="form-control" name="subject" id="modalscore"
+												<label for="inputName">½Å·ÚÁ¡¼ö</label>
+												<input type="text" class="form-control" name="modalscore" id="modalscore"
 													value="" readonly="readonly">
 										</div>
 									</div>
@@ -57,3 +58,6 @@
 		</div>
 	</div>
 </div>
+<script>
+var stars = document.getElementById("reviewscore").value;
+</script>

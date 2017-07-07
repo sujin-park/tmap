@@ -19,9 +19,32 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning"
-					onclick="javascript:blindReviewOne();">Blind</button>
+					onclick="javascript:modifyShop();">매장정보 수정</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+function modifyShop() {
+	var shopseq = document.getElementById("shopinform").value;
+	var cate = document.getElementById("shop_title").value;
+	var shopname = document.getElementById("shop_name").value;
+	var shopnum = document.getElementById("shop_tel").value;
+	var shopadd = document.getElementById("shop_add").value;
+	   $.post("/secondproject/adminshop",
+			    {
+			        act: "modify",
+			        seq: shopseq,
+			        cate: cate,
+			        shopname: shopname,
+			        shopnum: shopnum,
+			        shopadd: shopadd
+			    },
+			    function(data, status){
+			        var tt = document.getElementById("shopNew");
+			        tt.innerHTML=data;
+			    });
+	  
+}
+</script>

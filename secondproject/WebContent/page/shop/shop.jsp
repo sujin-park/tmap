@@ -8,7 +8,8 @@
 	pageEncoding="EUC-KR"%>
 
 <%
-	Pagination pagination = (Pagination) request.getAttribute("pagination");
+	String pagination = (String) request.getAttribute("pagination");
+	String searchForm = (String) request.getAttribute("searchForm");
 	ShopDto shopDto = (ShopDto) request.getAttribute("shopDto");
 	ArrayList<ReviewListDto> reviewList = (ArrayList<ReviewListDto>) request.getAttribute("reviewList");
 %>
@@ -81,10 +82,20 @@
 			%>
 		</div>
 
+		<% if (pagination != null && pagination.isEmpty() == false) { %>
 		<div class="row">
 			<div class="col-xs-12">
-				<%=pagination.getHtml()%>
+				<%=pagination%>
 			</div>
 		</div>
+		<% } %>
+		
+		<% if (searchForm != null && searchForm.isEmpty() == false) { %>
+		<div class="row">
+			<div class="col-xs-12">
+				<%=searchForm%>
+			</div>
+		</div>
+		<% } %>
 	</div>
 </div>

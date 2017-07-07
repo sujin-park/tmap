@@ -35,7 +35,14 @@ function checkAll(){
 }
 
 function deleteUser() {
-	if (confirm("삭제하시겠습니까?")) {
+	var valueArr = new Array();
+	$("input[name=checkRow]:checked").each(function() {
+		valueArr.push($(this).val());
+	});
+	
+	if (valueArr == "") {
+		alert("탈퇴시킬 회원을 선택해주세요");
+	} else if (confirm("회원을 탈퇴시키겠습니까?")) {
 		document.orderncolumn.action = "<%=ContextPath.root%>/admin";
 		document.orderncolumn.submit();
 	}

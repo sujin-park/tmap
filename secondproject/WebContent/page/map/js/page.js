@@ -44,3 +44,11 @@ $(document).on('click', '#modal_add_shop_btn', function() {
 $(document).on('click', '#addShopSubmit', function() {
 	pageFunc.addShop();
 });
+
+$(document).on('click', '#search_map_by_location_btn', function() {
+	map.searchAddressAndSetCenter($('#addressValue').val(), function() {
+		pageFunc.getShopList(mapSlick, function () {
+			pageFunc.showSearchDetail(false);
+		});
+	});
+});
