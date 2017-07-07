@@ -23,8 +23,12 @@ public class AdminShopController extends HttpServlet {
 		
 		if ("showShopInfo".equals(act)) {
 			contentPath = AdminFactory.getShopInfoViewAction().execute(request, response);
+		} else if ("modify".equals(act)) {
+			contentPath = AdminFactory.getShopInfoModifyAction().execute(request, response);
 		}
 		if (contentPath.equals("/page/adminpage/shop/shopInfoOne.jsp")) {
+			path = contentPath;
+		} else if (contentPath.equals("/page/adminpage/shop/shopInfoModify.jsp")) {
 			path = contentPath;
 		} else {
 			path = "/template/admin/admin.jsp";

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="com.secondproject.review.model.*, java.util.*"
-    import="com.secondproject.util.pagination.*"%>
+    import="com.secondproject.util.pagination.*" import="com.secondproject.constant.*"%>
 <%
 List<AdminReviewDto> list = (List<AdminReviewDto>) request.getAttribute("reviewList");
 String orderValue = (String) request.getAttribute("orderValue");
@@ -60,7 +60,21 @@ if (orderValue == null) {
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>"><%=adminReviewDto.getScore()%></span>
+											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>">
+												<%if(adminReviewDto.getScore()!=0){ 
+	                              					int cnt = adminReviewDto.getScore();
+	                              					int star = cnt/2;
+	                              					int halfstar=cnt%2;
+	                              					for(int j=0; j<star; j++) {
+	                                				 %><img src="<%=ContextPath.root %>/page/mypage/img/star.png" width="20px"><%
+	                              					 }
+	                             					 if(halfstar==1) {
+	                                				 %>
+	                                				 <img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="20px">
+	                                 				 <% 
+	                             					 }
+	                           						 }%>
+											</span>
 										</div>
 									</div>
 								</td>

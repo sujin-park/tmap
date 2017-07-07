@@ -83,7 +83,7 @@ function moveOwnerList() {
                      </tr>
                      <tr>
                      <%int size = list.size();
-                  
+                  	 if (size != 0) { 
                      for (int i = 0; i<size; i++) {
                     	 OwnerConfirmDto ownerConfirmDto = list.get(i);
                         String checkbox = "checkbox" + i;
@@ -94,13 +94,6 @@ function moveOwnerList() {
                            </div>
                         </td>
                      
-                        <td>
-                           <div class="media">
-                              <div class="media-body">
-                                 <p class="media-meta"><%= ownerConfirmDto.getUserEmail()%></p>
-                              </div>
-                           </div>
-                        </td>
                         <td>
                            <div class="media">
                               <div class="media-body">
@@ -132,7 +125,18 @@ function moveOwnerList() {
                            </div>
                         </td>
                      </tr>
-                     <%} %>
+                     <%} 
+                     } else {%>
+                     <tr>
+                     <td colspan="6">
+                           <div class="media">
+                              <div class="media-body">
+                                 <p class="media-meta">새로 가입한 회원이 없습니다.</p>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <% } %>
   		            </form>
                   </tbody>
                </table>

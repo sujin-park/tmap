@@ -43,7 +43,7 @@ function modifyOwner() {
 </script>
   
 <section class="content page-top row">
-   <div class="col-md-10 col-md-push-1">
+   <div class="col-md-10 col-md-push-1"  style="padding-top: 60px;">
       <div class="panel panel-default">
          <div class="panel-body">
             <div class="row">

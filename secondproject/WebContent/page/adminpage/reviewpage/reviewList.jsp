@@ -47,39 +47,30 @@ function searchReview() {
 function modal(reviewimg,seq) {
 	
 	document.getElementById("reviewseq").value = seq;
-	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent
-	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent
-	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent
-	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent
+	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent;
+	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent;
+	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent;
+	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent;
+	
 	$('#reimg').attr("src", "<%=ContextPath.root%>/upload/" + reviewimg)
 	
 	$('#myModal').modal({show:true});
 	
 }
 </script>
-<section class="content page-top row" >
-	<div class="col-md-10 col-md-push-1" style="padding-top: 60px;">
+<section class="content page-top row"  >
+	<div class="col-md-10 col-md-push-1" style="padding-top: 60px; padding-bottom: 60px;">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
 					<div class="pull-left col-md-3">
 					<form name="reviewForm" method="post" action="">
+					<input type="hidden" name="review_img" value="">
 					<input type="hidden" name="act" value="blind">
-					
 						<div class="btn-group col-md-offset-2">
 							<button type="button" class="btn btn-warning btn-filter" onclick="javascript:blindReview();">Blind</button>
 						</div>
 					</div>
-					
-					<!-- <div class="pull-right col-md-5">
-						<div class="btn-group pull-right">
-							<select class="form-control" name="key">
-									  	<option value="orderby">배치순</option>
-									  	<option value="nameby">가나다순</option>
-									  	<option value="visiableby">노출여부순</option>
-									</select>
-						</div>
-					</div> -->
 				</div>
 				<div class="table-container table-responsive">
 					
@@ -153,7 +144,7 @@ function modal(reviewimg,seq) {
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>">
+											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>" value="<%=adminReviewDto.getScore()%>">
 											<%if(adminReviewDto.getScore()!=0){ 
                               					int cnt = adminReviewDto.getScore();
                               					int star = cnt/2;
@@ -213,9 +204,9 @@ function modal(reviewimg,seq) {
 	</div>
 </div>
 </div>
-<div align="center">
+<jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>
+<div align="center" style="clear:both;">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
 </section>
-<jsp:include page="/page/adminpage/reviewpage/modal.jsp"></jsp:include>

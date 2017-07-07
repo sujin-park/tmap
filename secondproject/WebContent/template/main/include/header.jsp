@@ -20,3 +20,8 @@
 		</ul>
 	</header>
 </div>
+<script type="text/javascript">
+function adminmove() {
+	document.location.href = "<%=ContextPath.root%>/adminIndex.jsp";
+}
+</script>

@@ -3,7 +3,6 @@
 <%
  	ShopInfoDto shopInfoDto = (ShopInfoDto) request.getAttribute("shopInfo");
 %>
-
 <input type="hidden" id="shoplat" value="<%=shopInfoDto.getLat()%>" />
 <input type="hidden" id="shoplng" value="<%=shopInfoDto.getLng()%>" />
 			<div class="row">
@@ -13,24 +12,25 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
+										<input type="hidden" id="shopinform" value="<%=shopInfoDto.getShopId()%>">
 											<label for="inputName">카테고리</label> <input type="text"
 												class="form-control" name="subject" id="shop_title"
-												value="<%=shopInfoDto.getCategoryName()%>" readonly="readonly">
+												value="<%=shopInfoDto.getCategoryName()%>">
 										</div>
 										<label for="inputStore">매장명</label>
 											<div class="input-group">
 												<input type="text" class="form-control" id="shop_name"
-													name="store" value="<%=shopInfoDto.getShopTitle()%>" readonly="readonly">
+													name="store" value="<%=shopInfoDto.getShopTitle()%>">
 											</div>
 										<div class="form-group">
 												<label for="inputName">매장번호</label> <input type="text"
-													class="form-control" name="subject" id="shop_score"
-													value="<%=shopInfoDto.getShopTel()%>" readonly="readonly">
+													class="form-control" name="subject" id="shop_tel"
+													value="<%=shopInfoDto.getShopTel()%>">
 										</div>
 										<div class="form-group">
 												<label for="inputName">주소</label> <input type="text"
-													class="form-control" name="subject" id="modalscore"
-													value="<%=shopInfoDto.getShopAddress()%>" readonly="readonly">
+													class="form-control" name="subject" id="shop_add"
+													value="<%=shopInfoDto.getShopAddress()%>">
 										</div>
 									</div>
 									<div class="col-md-6">

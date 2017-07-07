@@ -27,6 +27,7 @@ public interface MypageFollowDao {
 	 int totalArticleCount(Map<String,String> map);
 	 int followCategoryModify(int cateId,int seq);
 	 int totalFollowUserCount(Map<String, Object> params);
+	 List<FollowUserDto> followselect(Map<String, Object> params);
 	 
 }
 

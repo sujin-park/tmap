@@ -9,4 +9,5 @@ public interface ShopInfoDao {
 	ArrayList<ShopInfoDto> getArticles(Map<String,Object> params);
 	int deleteUsers(String[] users);
 	ShopInfoDto viewShopInfomation(int shopseq);
+	int modifyShopInfo(ShopInfoDto shopInfoDto);
 }
