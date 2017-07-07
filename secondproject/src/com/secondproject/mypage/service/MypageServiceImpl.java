@@ -83,6 +83,12 @@ public class MypageServiceImpl implements MypageService {
 		return MypageFollowDaoImpl.getMypageFollowDao().followselect(params);
 	}
 
+	@Override
+	public int followadd(int followUserId,int userId) {
+		
+		return MypageFollowDaoImpl.getMypageFollowDao().followAdd(followUserId,userId);
+	}
+
 	
 
 }

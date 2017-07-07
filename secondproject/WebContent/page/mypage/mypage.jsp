@@ -12,8 +12,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-	var word = "<%=word%>";
-	
+	function follow(followUserId) {
+		document.location.href="<%=ContextPath.root%>/mypage?act=followadd&followUserId="+followUserId;
+	}
 	 function firstArticle() {
 		 document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=";
 			
@@ -193,6 +194,19 @@ var followUserId;
 		});
 	});
 
+	function searchfollow() {
+		if (document.searchfollowForm.word.value == "")	{
+			alert("검색어 입력!!!!!");
+		} else {
+			document.searchfollowForm.action = "<%=ContextPath.root%>/mypage";
+			document.searchfollowForm.submit();
+		}
+	}
+	/* $(document).on('click', '#follow', function() {
+			alert($("#db").val());
+	
+	}); */
+	
 </script>
 <div class="container">
 <div class="col-xs-12 col-md-12 a">
@@ -291,8 +305,8 @@ var followUserId;
 		</div>
 
 	
-	<div align="center"><form name="searchForm" method="get" action="">
-               <input type="hidden" name="act" value="userview">
+	<div align="center"><form name="searchfollowForm" method="get" action="">
+               <input type="hidden" name="act" value="followView">
                   <div class="col-md-12">
 					<div class="input-group">
 						<div class="input-group-btn">
@@ -303,7 +317,7 @@ var followUserId;
 						</div>
 						<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="25">
 							<span class="input-group-btn">
-							<button class="btn btn-warning" type="button" onclick="javascript:searchReview();">Search</button>
+							<button class="btn btn-warning" type="button" onclick="javascript:searchfollow();">Search</button>
 							</span>
 					</div>
 				 </div>
@@ -516,11 +530,11 @@ var followUserId;
 				</div>
 			</div>
 			<div class="modal-footer">
-				<form name="followselect" method="get">
+				<form name="followselect" method="get" onsubmit="return false;">
 					<input type="text" class="marright" id="followselect" name="followselect"
 									placeholder="검색할 아이디">
 					<button id="bttn" class="btn btn-primary" type="button"
-						onclick="" name="bt">검색</button>
+						onclick=""  name="bt" >검색</button>
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
 				</form>
 			</div>

@@ -28,6 +28,6 @@ public interface MypageFollowDao {
 	 int followCategoryModify(int cateId,int seq);
 	 int totalFollowUserCount(Map<String, Object> params);
 	 List<FollowUserDto> followselect(Map<String, Object> params);
-	 
+	 int followAdd(int followUserId,int userId);
 }
 

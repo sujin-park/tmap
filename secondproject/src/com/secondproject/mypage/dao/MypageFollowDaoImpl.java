@@ -254,9 +254,9 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String word = Encoding.isoToEuc((String) params.get("word"));
+		String key = Encoding.isoToEuc((String) params.get("key"));
 		int pageEnd = (Integer)params.get("pg") * BoardConstant.MYPAGE_LIST_SIZE;
 		int pageStart = pageEnd - BoardConstant.MYPAGE_LIST_SIZE;
-		
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
@@ -269,21 +269,25 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
 			sql.append("			join users u ON fu.reg_user_id = u.user_id  \n");
 			sql.append("			where fu.user_id=? \n");
-//			if(!word.equals("")) {
-//				sql.append(" and fc.follow_category_id=? \n");
-//			}
+			if(key.equals("email")){
+				sql.append("and email like \n");				
+			} else if(key.equals("alias")){
+				sql.append("and alias like \n");	
+			}
+			if(!word.equals("")) {
+				sql.append("'%'||?||'%' \n");
+			}
 			sql.append("			ORDER BY fc.category_order ASC) a \n");
 			sql.append("	where rownum<=? \n");
 			sql.append("		)b \n");
 			sql.append("where b.rn>? \n");
-			
 			//TODO 검색조건설정
 			pstmt = conn.prepareStatement(sql.toString());
 			int idx=0;
 			pstmt.setInt(++idx, (Integer)params.get("userId"));
-//			if(!word.equals("")) {
-//			pstmt.setString(++idx, word);
-//			}
+			if(!word.equals("")) {
+				pstmt.setString(++idx, word);
+			}
 			pstmt.setInt(++idx, pageEnd);
 			pstmt.setInt(++idx, pageStart);
 			rs = pstmt.executeQuery();
@@ -656,14 +660,14 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String word = Encoding.isoToEuc((String) params.get("word"));
+		String word = Encoding.isoToUtf((String) params.get("word"));
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select email,status_msg \n");
+			sql.append("select user_id,email,status_msg \n");
 			sql.append("from users  \n");
 			sql.append("where user_id not in ( \n");
-			sql.append("	select follow_user_id \n");
+			sql.append("	select nvl(reg_user_id,0) \n");
 			sql.append("	from users u \n");
 			sql.append("	left outer join (select * from follow_user where user_id=?) fu on u.user_id=fu.user_id \n");
 			sql.append("	where u.user_id=?) and user_id!=? \n");
@@ -673,11 +677,12 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			pstmt.setInt(1, (Integer)params.get("userId"));
 			pstmt.setInt(2, (Integer)params.get("userId"));
 			pstmt.setInt(3, (Integer)params.get("userId"));
-			pstmt.setString(4, (String)params.get("word"));
+			pstmt.setString(4, word);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
 				fudto=new FollowUserDto();
+				fudto.setUserId(rs.getInt("user_id"));
 				fudto.setEmail(rs.getString("email"));
 				fudto.setStatusMsg(rs.getString("status_msg"));
 				list.add(fudto);
@@ -692,5 +697,29 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		return list;
 	}
 
+
+	@Override
+	public int followAdd(int followUserId,int userId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();									
+			sql.append("insert into follow_user \n");
+			sql.append("values (SEQ_FOLLOW_USER_ID.nextval,?,0,?,null,null,sysdate) \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, followUserId);
+
+			cnt = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+		return cnt;
+	}
 
 }
