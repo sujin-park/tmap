@@ -3,6 +3,7 @@ package com.secondproject.shop.action;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,12 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.secondproject.action.Action;
 import com.secondproject.action.BoardCommonAction;
 import com.secondproject.constant.BoardConstant;
+import com.secondproject.constant.ContextPath;
 import com.secondproject.review.model.ReviewListDto;
 import com.secondproject.review.service.ReviewServiceImpl;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.shop.service.ShopServiceImpl;
 import com.secondproject.util.*;
 import com.secondproject.util.pagination.Pagination;
+import com.secondproject.util.search.Search;
 
 public class ShopViewAction extends BoardCommonAction implements Action {
 
@@ -28,6 +31,23 @@ public class ShopViewAction extends BoardCommonAction implements Action {
 		
 		HashMap<String, Object> params = getParameterMap();
 		params.put("shopId", shopId);
+		params.put("act", request.getParameter("act"));
+		
+		LinkedHashMap<String, String> searchKey = new LinkedHashMap<String, String>();
+		searchKey.put("title", "리뷰명");
+		searchKey.put("userEmail", "회원아이디");
+		
+		HashMap<String, Object> inputHiddenList = new HashMap<String, Object>();
+		inputHiddenList.put("act", "view");
+		inputHiddenList.put("shopId", shopId);
+		
+		Search search = new Search();
+		search.setFormActionValue(ContextPath.root + "/shop");
+		search.setDefaultKey("title");
+		search.setParams(params);
+		search.setSearchKey(searchKey);
+		search.setInputHiddenList(inputHiddenList);
+		search.setHtml();
 		
 		ShopDto shopDto = ShopServiceImpl.getShopService().getShop(shopId);
 		List<ReviewListDto> reviewList = ReviewServiceImpl.getReviewService().getReviewListByShopNotBlind(params);
@@ -48,10 +68,10 @@ public class ShopViewAction extends BoardCommonAction implements Action {
 		pagination.setQueryString(queryString);
 		pagination.setHtml();
 		
-		request.setAttribute("pagination", pagination);
+		request.setAttribute("pagination", pagination.getHtml());
 		request.setAttribute("shopDto", shopDto);
 		request.setAttribute("reviewList", reviewList);
-		
+		request.setAttribute("searchForm", search.getHtml());
 		return "/page/shop/shop.jsp";
 	}
 }

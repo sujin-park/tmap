@@ -303,7 +303,7 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("        WHERE rownum <= ? \n");
 			sql.append("    ) B \n");
 			sql.append("WHERE B.num >= ? \n");
-			//System.out.println(sql.toString());
+//			System.out.println(sql.toString());
 			pstmt = conn.prepareStatement(sql.toString());
 
 			int parameterIndex = 0;
@@ -314,6 +314,7 @@ public class ReviewDaoImpl implements ReviewDao {
 			}
 
 			if (key.isEmpty() == false && word.isEmpty() == false) {
+				System.out.println("검색어 == " + word);
 				pstmt.setString(++parameterIndex, word); // 검색어
 			}
 
