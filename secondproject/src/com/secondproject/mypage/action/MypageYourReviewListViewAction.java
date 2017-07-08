@@ -31,7 +31,10 @@ public class MypageYourReviewListViewAction extends BoardCommonAction implements
 		String path = "/page/mypage/yourreview.jsp";
 		
 		
-		
+		HttpSession session = request.getSession();
+		UserDto udto = (UserDto)session.getAttribute("logininfo");
+		if(udto!=null) {
+		int userId = udto.getUser_id();
 		int followUserId = NumberCheck.nullToZero(request.getParameter("followUserId"));
 		setBoardParameter(request);
 		HashMap<String, Object> params = getParameterMap();
@@ -39,6 +42,10 @@ public class MypageYourReviewListViewAction extends BoardCommonAction implements
 		int totalReviewCount =  MypageReviewServiceImpl.getMypageReviewService().totalReviewCount(params);
 		List<MyReviewDto> list = MypageReviewServiceImpl.getMypageReviewService().reviewListView(params);
 		UserDto fudto = MypageFollowDaoImpl.getMypageFollowDao().getUser(followUserId);
+		int cnt = MypageFollowDaoImpl.getMypageFollowDao().selectfollowuser(followUserId, userId);
+			if(cnt!=0){
+				fudto.setUser_id(0);
+			}
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalReviewCount);
 		pagination.setCurrentPageNum((int) params.get("pg"));
@@ -54,9 +61,13 @@ public class MypageYourReviewListViewAction extends BoardCommonAction implements
 		pagination.setHtml();
 		
 		request.setAttribute("pagination", pagination);
-		request.setAttribute("followUserDto", fudto);
+		
 		
 		request.setAttribute("reviewlist", list);
+		request.setAttribute("followUserDto", fudto);
+		} else {
+			path="/index.jsp";
+		}
 		return path;
 	}
 

@@ -48,6 +48,12 @@
 			$("#com").slideToggle();
 		});
 	});
+	
+	function reviewDelete(reviewId) {
+		if(confirm("정말 삭제하시겠습니까???")) {
+			document.location.href="<%=ContextPath.root%>/myreview?act=reviewDelete&reviewId="+reviewId;
+		}
+	}
 </script>
 
 
@@ -71,7 +77,12 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">
-					<div class="col-md-12" align="right">수정 &nbsp;삭제</div>
+					<%if(mrdto.getUserId().equals(udto.getUser_id()+"")) {%>
+					<div class="col-md-12" align="right">수정 &nbsp;
+						<a href="javascript:reviewDelete('<%=mrdto.getReviewId()%>');">삭제</a>
+					
+					</div>
+					<%} %>
 						<div class="col-md-12 mar">
 							<div class="pull-right">
 								<%if(mrdto.getMyScore()!=null){ 

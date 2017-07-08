@@ -64,19 +64,7 @@ function viewreview(reviewId) {
 								<td>
 									<div class="media">
 										
-									<%-- <%if(mrdto.getMyScore()!=null){ 
-										int cnt = Integer.parseInt(mrdto.getMyScore());
-										int star = cnt/2;
-										int halfstar=cnt%2;
-										for(int i=0;i<star; i++) {
-											%><img src="<%=ContextPath.root %>/page/mypage/img/star.png" width="35px"><%
- 										}
-										if(halfstar==1) {
-											%>
-											<img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="35px">
-											<% 
-										}
-									}%> --%>
+							
  									<img src="<%=ContextPath.root %>/page/mypage/img/like1.png">
 								<%=mrdto.getGood()%>
 								<img src="<%=ContextPath.root %>/page/mypage/img/hate1.png">

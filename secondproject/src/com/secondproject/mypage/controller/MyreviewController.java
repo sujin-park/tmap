@@ -29,9 +29,8 @@ public class MyreviewController extends HttpServlet {
 			path= MypageFactory.getCommentInsertAction().execute(request, response);
 		} else if("yourreview".equals(act)) {
 			path=MypageFactory.getMypageYourReviewListViewAction().execute(request, response);
-		} else if("".equals(act)) {
-		
-			
+		} else if("reviewDelete".equals(act)) {
+			path=MypageFactory.getMypageReviewDeleteAction().execute(request, response);
 		}
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);

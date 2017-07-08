@@ -194,6 +194,7 @@ var followUserId;
  					var div = document.getElementById("tbodyselect");
  					div.innerHTML=data;
  				});
+ 				$("#followselect").val('');
  		}
  	}
 	function searchfollow() {

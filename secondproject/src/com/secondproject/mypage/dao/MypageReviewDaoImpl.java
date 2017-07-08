@@ -319,4 +319,27 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		
 	}
 
+	@Override
+	public int reviewDelete(int reviewId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt=0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("delete from review \n");
+			sql.append("where review_id=?");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setInt(1, reviewId);
+			cnt=pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+		return cnt;
+	}
+
 }

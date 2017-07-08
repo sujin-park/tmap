@@ -234,6 +234,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 				fudto.setFavoriteUserId(rs.getInt("follow_user_id"));
 				fudto.setAlias(rs.getString("alias"));
 				fudto.setMemo(rs.getString("memo"));
+				fudto.setMemo(rs.getString("memo"));
 			}
 
 		} catch (SQLException e) {
@@ -782,7 +783,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select email from users where user_id=?");
+			sql.append("select email,user_id from users where user_id=?");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, userId);
@@ -790,6 +791,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			if (rs.next()) {
 				udto=new UserDto();
 				udto.setEmail(rs.getString("email"));
+				udto.setUser_id(rs.getInt("user_id"));
 			}
 
 		} catch (SQLException e) {
@@ -800,6 +802,38 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		}
 
 		return udto;
+	}
+
+
+	@Override
+	public int selectfollowuser(int followUserId, int userId) {
+		int cnt = 0;
+	      Connection conn=null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs =null;
+	      
+	      try {
+	         conn=DBConnection.getConnection();
+	         StringBuffer sql = new StringBuffer();
+
+	         sql.append(" select count(*) \n");
+	         sql.append("	from follow_user \n");
+	         sql.append(" 	where user_id=? \n");
+	         sql.append(" 	and reg_user_id=? \n");
+	         pstmt=conn.prepareStatement(sql.toString());
+	         pstmt.setInt(1,userId);
+	         pstmt.setInt(2, followUserId);
+	         rs=pstmt.executeQuery();
+	         rs.next();
+	         cnt=rs.getInt(1);
+	            
+	      } catch (SQLException e) {
+	         
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(conn, pstmt, rs);
+	      }
+	      return cnt;
 	}
 
 }
