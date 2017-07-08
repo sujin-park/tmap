@@ -204,10 +204,9 @@ var followUserId;
 			document.searchfollowForm.submit();
 		}
 	}
-	/* $(document).on('click', '#follow', function() {
-			alert($("#db").val());
-	
-	}); */
+	function yourreview(followUserId) {
+		document.location.href="<%=ContextPath.root%>/myreview?act=yourreview&followUserId="+followUserId+"&pg=1";
+	}
 	
 </script>
 <div class="container">
@@ -270,7 +269,7 @@ var followUserId;
 							<td class="center"><input type="checkbox" name="chk"
 								class="lar" value="<%=fudto.getFavoriteUserId()%>"></td>
 							<td><%=fudto.getCategoryName()%></td>
-							<td><%=fudto.getEmail()%> | <%=fudto.getStatusMsg()%></td>
+							<td><a href="javascript:yourreview('<%=fudto.getRegUserId()%>')"><%=fudto.getEmail()%> | <%=fudto.getStatusMsg()%></a></td>
 							<td><%=fudto.getRegDate()%></td>
 							<td><%=fudto.getFavoriteRegDate()%></td>
 							<%

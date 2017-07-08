@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.secondproject.mypage.model.FollowCategoryDto;
 import com.secondproject.mypage.model.FollowUserDto;
+import com.secondproject.userdto.UserDto;
 
 public interface MypageFollowDao {
 	//favorite_category
@@ -19,6 +20,7 @@ public interface MypageFollowDao {
 	 List<FollowCategoryDto> followCategoryListView(Map<String, Object> map);
 	 //favorite_user
 	 FollowUserDto getFollow(int favoriteUserId);
+	 UserDto getUser(int userId);
 	 List<FollowUserDto> followListView(Map<String, Object> map);
 	 int followMove(Map<String,String> map);
 	 int followDelete(int favoriteUserId);

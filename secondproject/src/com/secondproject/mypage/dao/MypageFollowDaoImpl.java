@@ -15,6 +15,7 @@ import com.secondproject.util.db.DBConnection;
 import com.secondproject.constant.BoardConstant;
 import com.secondproject.mypage.model.FollowCategoryDto;
 import com.secondproject.mypage.model.FollowUserDto;
+import com.secondproject.userdto.UserDto;
 
 public class MypageFollowDaoImpl implements MypageFollowDao {
 
@@ -262,7 +263,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("	select b.* \n");
 			sql.append("	from (select rownum rn,a.* \n");
-			sql.append("		from (select fc.follow_category_id,fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
+			sql.append("		from (select fu.reg_user_id,fc.follow_category_id,fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
 			sql.append("					u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
 			sql.append("				to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
 			sql.append("			from follow_user fu \n");
@@ -301,6 +302,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 				fudto.setFavoriteRegDate(rs.getString("reg_date"));
 				fudto.setAlias(rs.getString("alias"));
 				fudto.setMemo(rs.getString("memo"));
+				fudto.setRegUserId(rs.getInt("reg_user_id"));
 				list.add(fudto);
 			}
 		} catch (SQLException e) {
@@ -661,8 +663,6 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String word = (String) params.get("word");
-		int pageEnd = (Integer)params.get("pg") * BoardConstant.MYREVIEW_PAGE_SIZE;
-		int pageStart = pageEnd - BoardConstant.MYREVIEW_PAGE_SIZE;
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
@@ -769,6 +769,37 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	         DBClose.close(conn, pstmt, rs);
 	      }
 	      return cnt;
+	}
+
+
+	@Override
+	public UserDto getUser(int userId) {
+		UserDto udto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select email from users where user_id=?");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, userId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				udto=new UserDto();
+				udto.setEmail(rs.getString("email"));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return udto;
 	}
 
 }

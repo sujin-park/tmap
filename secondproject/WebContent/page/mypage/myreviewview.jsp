@@ -42,12 +42,7 @@
 			});
 		}
 	
-	<%-- function com(){
-		var text = $("#commenttext").val();
-		var reviewId = $("#reviewId").val();
-		
-		document.location.href="<%=ContextPath.root %>/myreview?act=commentinsert&reviewId="+reviewId+"&text="+encodeURI(text);		
-	} --%>
+
 	$(document).ready(function() {
 		$("#co").click(function() {
 			$("#com").slideToggle();
@@ -164,8 +159,8 @@
 					
 					%>
 					<tr>
-						<td width="10%" align="center" style="text-align: center;"><%=cdto.getEmail() %></td>
-						<td colspan="2" width="90%"><%=cdto.getReviewContent() %></td>
+						<td width="10%" align="center" style="text-align: center;padding-bottom: 5px;padding-right: 5px;"><%=cdto.getEmail() %></td>
+						<td colspan="2" width="90%">&nbsp;<%=cdto.getReviewContent() %></td>
 					</tr>
 						<% 
 				}
