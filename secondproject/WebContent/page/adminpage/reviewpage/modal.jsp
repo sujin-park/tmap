@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="EUC-KR"
+	import="com.secondproject.constant.*"%>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -30,11 +31,11 @@
 												<input type="text" class="form-control" id="modalemail"
 													name="store" value="" readonly="readonly">
 											</div>
-										<div class="form-group">
-												<label for="inputName">½Å·ÚÁ¡¼ö</label>
-												<input type="text" class="form-control" name="modalscore" id="modalscore"
-													value="" readonly="readonly">
-										</div>
+											<div class="form-group">
+												<label for="inputScore">½Å·ÚÁ¡¼ö</label>
+													<span class="media-meta" id="modalscore">
+													</span>
+											</div>
 									</div>
 									<div class="col-md-6">
 										<img id="reimg" src="" width="200" style="margin-top:20px"/>
@@ -58,6 +59,3 @@
 		</div>
 	</div>
 </div>
-<script>
-var stars = document.getElementById("reviewscore").value;
-</script>

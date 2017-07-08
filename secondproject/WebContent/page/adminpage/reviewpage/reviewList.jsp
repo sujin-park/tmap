@@ -36,11 +36,11 @@ function blindReviewOne() {
 }
 
 function searchReview() {
-		if (document.searchForm.word.value == "")	{
+		if (document.reviewSearchForm.word.value == "")	{
 			alert("검색어 입력!!!!!");
 		} else {
-			document.searchForm.action = "<%=ContextPath.root%>/admin";
-			document.searchForm.submit();
+			document.reviewSearchForm.action = "<%=ContextPath.root%>/admin";
+			document.reviewSearchForm.submit();
 		}
 }
 
@@ -50,9 +50,9 @@ function modal(reviewimg,seq) {
 	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent;
 	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent;
 	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent;
-	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent;
+	document.getElementById("modalscore").innerHTML = document.getElementById("score"+seq).textContent;
 	
-	$('#reimg').attr("src", "<%=ContextPath.root%>/upload/" + reviewimg)
+	$('#reimg').attr("src", "<%=ContextPath.root%>/upload/" + reviewimg);
 	
 	$('#myModal').modal({show:true});
 	
@@ -158,7 +158,6 @@ function modal(reviewimg,seq) {
                                  				 <% 
                              					 }
                            						 }%>
-											
 											</span>
 										</div>
 									</div>
@@ -180,7 +179,7 @@ function modal(reviewimg,seq) {
 					</table>
 			<div class="form-group form-inline">
 				<div align="center">
-					<form name="searchForm" method="get" action="">
+					<form name="reviewSearchForm" method="get" action="">
 						<input type="hidden" name="act" value="mvreview"> 
 							 <div class="pull-right col-md-5">
 	               				<div class="input-group">

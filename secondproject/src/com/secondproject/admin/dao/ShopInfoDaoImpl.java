@@ -32,7 +32,7 @@ public class ShopInfoDaoImpl implements ShopInfoDao {
 	public ArrayList<ShopInfoDto> getArticles(Map<String, Object> params) {
 		ArrayList<ShopInfoDto> list = new ArrayList<ShopInfoDto>();
 		String key = (String) params.get("key");
-		String word = Encoding.isoToEuc((String) params.get("word"));
+		String word =(String) params.get("word");
 		String orderKey = (String) params.get("orderKey");
 		String orderValue = (String) params.get("orderValue");
 		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;

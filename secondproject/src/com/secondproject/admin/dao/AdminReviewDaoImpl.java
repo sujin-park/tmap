@@ -30,15 +30,16 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 		List<AdminReviewDto> list = new ArrayList<AdminReviewDto>();
 		
 		String key = (String) params.get("key");
-		String word = Encoding.isoToEuc((String) params.get("word"));
+		String word = (String) params.get("word");
 		String orderKey = (String) params.get("orderKey");
 		String orderValue = (String) params.get("orderValue");
 		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
 		int pageStart = pageEnd - BoardConstant.LIST_SIZE;
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		System.out.println("KEY " + key + " WORD " + word);
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
@@ -52,12 +53,11 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 			sql.append(" from review r, shop s, users u \n");
 			sql.append("  where r.user_id = u.user_id and \n");
 			sql.append(" 	   r.shop_id = s.shop_id  \n");
-			
 			if (!key.isEmpty() && !word.isEmpty()) {
 				if (key.equals("emailname")) {
 					sql.append(" and u.email like '%' ||?|| '%'\n");
 				} else {
-					sql.append(" and s.title like '%' ||?|| '%' \n");
+					sql.append(" and shoptitle like '%' ||?|| '%' \n");
 				}
 			}
 			if (!orderKey.isEmpty()) {
@@ -85,6 +85,7 @@ public class AdminReviewDaoImpl implements AdminReviewDao {
 			pstmt.setInt(++idx, pageStart);
 			
 			rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				AdminReviewDto adminReviewDto = new AdminReviewDto();
 				adminReviewDto.setReviewId(rs.getInt("review_id"));

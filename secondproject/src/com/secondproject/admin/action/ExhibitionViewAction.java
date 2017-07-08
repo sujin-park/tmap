@@ -1,7 +1,7 @@
 package com.secondproject.admin.action;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class ExhibitionViewAction implements Action {
 		if (shoplist != null) {
 			size = shoplist.size();
 		}
-		System.out.println("SHOPLIST SIZE " + shoplist.size());
+
 		if (exhibitionDto != null) {
 			request.setAttribute("exhibitionInfo", exhibitionDto);
 			if (size != 0) {

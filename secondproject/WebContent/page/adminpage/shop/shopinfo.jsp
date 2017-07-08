@@ -12,7 +12,7 @@ if (orderValue == null) {
 %>
 <script>
 function searchUser() {
-   if (document.searchForm.keyword.value == "") {
+   if (document.searchForm.word.value == "") {
       alert("검색어 입력!!!!!");
    } else {
       document.searchForm.action = "<%=ContextPath.root%>/admin";

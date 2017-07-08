@@ -23,7 +23,7 @@ public class ReviewListAction extends BoardCommonAction implements Action {
 		String board = request.getParameter("board");
 		setBoardParameter(request);
 		HashMap<String, Object> params = getParameterMap();
-
+		System.out.println(params.get("key") + " key " + params.get("word"));
 		String orderValue = (String) params.get("orderValue");
 		if (orderValue.isEmpty() || orderValue.equals("asc")) {
 			orderValue = "desc";
@@ -34,7 +34,6 @@ public class ReviewListAction extends BoardCommonAction implements Action {
 
 		List<AdminReviewDto> list = AdminReviewServiceImpl.getAdminReviewService().listReview(params);
 		int totalArticleCount = CommonServiceImpl.getCommonService().totalReviewCount(params);
-		System.out.println(totalArticleCount + " total");
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalArticleCount);
 		pagination.setCurrentPageNum((int) params.get("pg"));
@@ -53,7 +52,6 @@ public class ReviewListAction extends BoardCommonAction implements Action {
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("orderValue", orderValue);
 		request.setAttribute("reviewList", list);
-		System.out.println(list.size() + " LIST SIZE ");
 
 		return "/page/adminpage/reviewpage/reviewList.jsp";
 	}
