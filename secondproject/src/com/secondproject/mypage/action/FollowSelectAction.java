@@ -1,7 +1,6 @@
 package com.secondproject.mypage.action;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,13 +11,9 @@ import javax.servlet.http.HttpSession;
 
 import com.secondproject.action.Action;
 import com.secondproject.action.BoardCommonAction;
-import com.secondproject.constant.BoardConstant;
-import com.secondproject.mypage.model.FollowCategoryDto;
 import com.secondproject.mypage.model.FollowUserDto;
 import com.secondproject.mypage.service.MypageServiceImpl;
 import com.secondproject.userdto.UserDto;
-import com.secondproject.util.*;
-import com.secondproject.util.pagination.Pagination;
 
 public class FollowSelectAction extends BoardCommonAction implements Action{
 

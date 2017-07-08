@@ -12,8 +12,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-	var word = "<%=word%>";
-	
+	function follow(followUserId) {
+		document.location.href="<%=ContextPath.root%>/mypage?act=followadd&followUserId="+followUserId;
+	}
 	 function firstArticle() {
 		 document.location.href="<%=ContextPath.root%>/mypage?act=followView&pg=1&key=&word=";
 			

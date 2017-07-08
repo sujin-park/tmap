@@ -39,11 +39,12 @@ public class MyPageController extends HttpServlet {
 			path = MypageFactory.getMypageFollowModifyAction().execute(request, response);
 		} else if ("followView".equals(act)) {
 			path = MypageFactory.getMypageFollowViewAction().execute(request, response);
-			
 		} else if ("catemodify".equals(act)) {
 			path = MypageFactory.getMypageFollowCategoryModifyAction().execute(request, response);
 		} else if ("followSelect".equals(act)) {
 			path = MypageFactory.getFollowSelect().execute(request, response);
+		} else if ("followadd".equals(act)) {
+			path = MypageFactory.getMypageFollowAddAction().execute(request, response);
 		}
 //		path += queryString;
 		request.setAttribute("titleTagValue", "마이페이지");
