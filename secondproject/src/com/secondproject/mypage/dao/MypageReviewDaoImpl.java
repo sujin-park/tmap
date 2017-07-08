@@ -194,7 +194,7 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select * \n");
+			sql.append("select review_comment_id,review_id,substr(email, 0, instr(email, '@')-1) email,review_content \n");
 			sql.append("from review_comment rc \n");
 			sql.append("join users u on u.user_id=rc.user_id \n");
 			sql.append("where review_id=?");

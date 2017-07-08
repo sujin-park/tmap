@@ -253,8 +253,8 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String word = Encoding.isoToEuc((String) params.get("word"));
-		String key = Encoding.isoToEuc((String) params.get("key"));
+		String word = (String) params.get("word");
+		String key = (String) params.get("key");
 		int pageEnd = (Integer)params.get("pg") * BoardConstant.MYPAGE_LIST_SIZE;
 		int pageStart = pageEnd - BoardConstant.MYPAGE_LIST_SIZE;
 		try {
@@ -660,18 +660,26 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String word = Encoding.isoToUtf((String) params.get("word"));
+		String word = (String) params.get("word");
+		int pageEnd = (Integer)params.get("pg") * BoardConstant.MYREVIEW_PAGE_SIZE;
+		int pageStart = pageEnd - BoardConstant.MYREVIEW_PAGE_SIZE;
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select user_id,email,status_msg \n");
+			sql.append("select b.* \n");
+			sql.append("from (select rownum rn,a.* \n");
+			sql.append("	  from(	select user_id,email,nvl(status_msg,'¾øÀ½') status_msg \n");
 			sql.append("from users  \n");
 			sql.append("where user_id not in ( \n");
 			sql.append("	select nvl(reg_user_id,0) \n");
 			sql.append("	from users u \n");
 			sql.append("	left outer join (select * from follow_user where user_id=?) fu on u.user_id=fu.user_id \n");
 			sql.append("	where u.user_id=?) and user_id!=? \n");
-			sql.append("	and email like '%'||?||'%'");
+			sql.append("	and email like '%'||?||'%' \n");
+			sql.append("	) a \n");
+			sql.append("where rownum<=5 \n");
+			sql.append(") b \n");
+			sql.append("where b.rn>0");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, (Integer)params.get("userId"));
@@ -720,6 +728,47 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			DBClose.close(conn, pstmt);
 		}
 		return cnt;
+	}
+
+
+	@Override
+	public int totalFollowSelect(Map<String, Object> params) {
+		int cnt = 0;
+	      Connection conn=null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs =null;
+	      String word = (String) params.get("word");
+	      try {
+	         conn=DBConnection.getConnection();
+	         StringBuffer sql = new StringBuffer();
+
+	         sql.append("select count(*) \n");
+				sql.append("from users  \n");
+				sql.append("where user_id not in ( \n");
+				sql.append("	select nvl(reg_user_id,0) \n");
+				sql.append("	from users u \n");
+				sql.append("	left outer join (select * from follow_user where user_id=?) fu on u.user_id=fu.user_id \n");
+				sql.append("	where u.user_id=?) and user_id!=? \n");
+				sql.append("	and email like '%'||?||'%'");
+	         pstmt=conn.prepareStatement(sql.toString());
+
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, (Integer)params.get("userId"));
+				pstmt.setInt(2, (Integer)params.get("userId"));
+				pstmt.setInt(3, (Integer)params.get("userId"));
+				pstmt.setString(4, word);
+				rs = pstmt.executeQuery();
+	         rs=pstmt.executeQuery();
+	         rs.next();
+	         cnt=rs.getInt(1);
+	            
+	      } catch (SQLException e) {
+	         
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(conn, pstmt, rs);
+	      }
+	      return cnt;
 	}
 
 }
