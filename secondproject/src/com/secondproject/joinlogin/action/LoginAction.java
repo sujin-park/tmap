@@ -21,7 +21,6 @@ public class LoginAction implements Action{
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String old_url = request.getHeader("referer");
-		System.out.println("LOGIN" + old_url);
 		UserDto userDto = LoginServiceImpl.getLoginService().login(email, password);
 		if(userDto != null){
 			HttpSession session = request.getSession();
