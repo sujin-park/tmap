@@ -178,10 +178,9 @@ function shopmodal(seq) {
         </div>
          </div>
       </div>
-   </div>
-</section>
 <%@include file="/page/adminpage/shop/shopInfoModal.jsp"%>
-<div align="center">
+<div align="center" style="clear:both;">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
+</section>

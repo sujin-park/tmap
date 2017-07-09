@@ -174,8 +174,8 @@ function deleteUser() {
         </div>
       </div>
    </div>
-</section>
-<div align="center">
+<div align="center" style="clear:both;">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
+</section>

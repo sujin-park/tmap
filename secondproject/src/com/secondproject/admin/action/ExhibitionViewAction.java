@@ -23,7 +23,6 @@ public class ExhibitionViewAction implements Action {
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		String board = request.getParameter("board");
 		String path = "/adminIndex.jsp";
-		System.out.println("ViewAction  " + seq);
 		ExhibitionDto exhibitionDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
 		List<ShopDto> shoplist = ExhibitionServiceImpl.getExhibitionService().shopUpdated(seq);
 		if (shoplist != null) {

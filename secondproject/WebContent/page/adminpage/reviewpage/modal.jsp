@@ -31,7 +31,7 @@
 												<input type="text" class="form-control" id="modalemail"
 													name="store" value="" readonly="readonly">
 											</div>
-											<div class="form-group">
+											<div class="input-group">
 												<label for="inputScore">½Å·ÚÁ¡¼ö</label>
 													<span class="media-meta" id="modalscore">
 													</span>

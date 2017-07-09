@@ -20,8 +20,11 @@ public class JoinLoginController extends HttpServlet {
 		String act = request.getParameter("act");
 		String path ="/index.jsp";
 		if("login".equals(act)){ //로그인
-			path = JoinLoginFactory.getLoginAction().execute(request, response);
-			PageMove.forward(path, request, response);
+			String url = JoinLoginFactory.getLoginAction().execute(request, response);
+			String[] urlselect = url.split("/");
+			String loginURL = urlselect[4];
+			path = "/" + loginURL;
+			PageMove.redirect(path, request, response);
 		} else if ("logout".equals(act)) { //로그아웃
 			HttpSession session = request.getSession();
 			session.removeAttribute("logininfo"); //세션 삭제
