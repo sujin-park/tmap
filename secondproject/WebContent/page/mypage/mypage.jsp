@@ -255,7 +255,8 @@ var followUserId;
 							<th width="40%">id | 상태메세지</th>
 							<th width="15%">최근후기등록일</th>
 							<th width="15%">팔로우한날짜</th>
-							<th width="15%">별칭</th>
+							<th width="10%">별칭</th>
+							<th width="">팔로워</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -286,6 +287,7 @@ var followUserId;
 							<%
 								}
 							%>
+							<td align="center">▼</td>
 						</tr>
 						
 						<%
