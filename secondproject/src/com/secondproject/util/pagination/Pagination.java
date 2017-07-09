@@ -125,7 +125,7 @@ public class Pagination {
 		
 		for (int i = startPageNum; i <= endPageNum; i++) {
 			String isActive = (currentPageNum == i) ? "class=\"active\"" : "";
-			html.append("		<li " + isActive + "><a href=\"" + getPageHref(i) + "\">" + i + "</a></li>\n");
+			html.append("		<li " + isActive + "><a	style=\"background-color:#f0ad4e;border-color:#f0ad4e;\" href=\"" + getPageHref(i) + "\">" + i + "</a></li>\n");
 			if (i >= lastPageNum) {
 				break;
 			}
