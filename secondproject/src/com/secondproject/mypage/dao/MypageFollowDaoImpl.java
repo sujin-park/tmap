@@ -275,6 +275,8 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 				sql.append("and email like \n");				
 			} else if(key.equals("alias")){
 				sql.append("and alias like \n");	
+			} else if(key.equals("category_name")&&!word.equals("")) {
+				sql.append("and fc.follow_category_id like \n");
 			}
 			if(!word.equals("")) {
 				sql.append("'%'||?||'%' \n");
@@ -630,22 +632,43 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	      Connection conn=null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs =null;
-	      
+	      String word = (String) params.get("word");
+	      String key = (String) params.get("key");
 	      try {
 	         conn=DBConnection.getConnection();
 	         StringBuffer sql = new StringBuffer();
 
-	         sql.append(" select count(*) \n");
-	         sql.append("	from follow_user fu \n");
-	         sql.append(" 	LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
-	         sql.append(" 	join users u ON fu.reg_user_id = u.user_id  \n");
-	         sql.append(" 	where fu.user_id=? \n");
-	         pstmt=conn.prepareStatement(sql.toString());
-	         pstmt.setInt(1, (Integer)params.get("userId"));
-	         rs=pstmt.executeQuery();
-	         rs.next();
-	         cnt=rs.getInt(1);
-	            
+//	         sql.append(" select count(*) \n");
+//	         sql.append("	from follow_user fu \n");
+//	         sql.append(" 	LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
+//	         sql.append(" 	join users u ON fu.reg_user_id = u.user_id  \n");
+//	         sql.append(" 	where fu.user_id=? \n");
+				sql.append("	select count(*) \n");
+				sql.append("			from follow_user fu \n");
+				sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
+				sql.append("			join users u ON fu.reg_user_id = u.user_id  \n");
+				sql.append("			where fu.user_id=? \n");
+				if(key.equals("email")){
+					sql.append("and email like \n");				
+				} else if(key.equals("alias")){
+					sql.append("and alias like \n");	
+				} else if(key.equals("category_name")&&!word.equals("")) {
+					sql.append("and fc.follow_category_id like \n");
+				}
+				if(!word.equals("")) {
+					sql.append("'%'||?||'%' \n");
+				}
+				//TODO 검색조건설정
+				pstmt = conn.prepareStatement(sql.toString());
+				int idx=0;
+				pstmt.setInt(++idx, (Integer)params.get("userId"));
+				if(!word.equals("")) {
+					pstmt.setString(++idx, word);
+				}
+	  
+				rs=pstmt.executeQuery();
+				rs.next();
+				cnt=rs.getInt(1);
 	      } catch (SQLException e) {
 	         
 	         e.printStackTrace();
