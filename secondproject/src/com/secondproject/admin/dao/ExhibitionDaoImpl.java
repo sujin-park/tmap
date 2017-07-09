@@ -89,7 +89,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 					sql.append("	  where ex_title like '%' ||?|| '%'\n");
 				}
 			}
-			System.out.println("exhibition dao" + word + " key " + key );
 			if (!orderKey.isEmpty()) {
 				if (orderKey.equals("visiableby")) {
 					orderKey = "ex_visiable";
@@ -310,7 +309,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 				pstmt.setInt(1, seq);
 				pstmt.setInt(2, Integer.parseInt(shops[i]));
 				pstmt.setInt(3, 8); // 8번이라고 가정
-				System.out.println("db에 몇번 왔다갔다 하나 8ㅅ8 ");
 				cnt = pstmt.executeUpdate();
 				pstmt.close();
 			}

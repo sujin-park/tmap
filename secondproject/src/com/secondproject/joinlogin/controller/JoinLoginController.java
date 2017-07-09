@@ -22,8 +22,11 @@ public class JoinLoginController extends HttpServlet {
 		if("login".equals(act)){ //로그인
 			String url = JoinLoginFactory.getLoginAction().execute(request, response);
 			String[] urlselect = url.split("/");
-			String loginURL = urlselect[4];
-			path = "/" + loginURL;
+			int size = urlselect.length;
+			if (size == 5) {
+				String loginURL = urlselect[4];
+				path = "/" + loginURL;
+			}
 			PageMove.redirect(path, request, response);
 		} else if ("logout".equals(act)) { //로그아웃
 			HttpSession session = request.getSession();
