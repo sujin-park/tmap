@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
+<%
+	String json = (String) request.getAttribute("age");
+%>
 <section class="content page-top row">
   <div align="center" style="padding-top:60px;">
 	<button id="sendAge" class="btn btn-warning" width="100" height="50" onclick="javascript:getAge();">연령대별 가입자수</button>
@@ -8,6 +11,10 @@
 	<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(2);">카테고리별 남성</button>
 	<button id="sendArea"  class="btn btn-warning" width="100" onclick="javascript:getArea();">지역별 등록된 매장수</button>
   </div>
+  <label for="from">From</label>
+	<input type="text" id="from" name="from">
+  <label for="to">to</label>
+	<input type="text" id="to" name="to">
 	<div class="col-md-3 col-md-push-5"></div>
 		<div class="panel panel-default" style="margin-left:60px; margin-right:60px;">
 				<div class="panel-body">
@@ -63,97 +70,17 @@ var myChart = new Chart(ctx, {
     }
 });
 
-var ctx2 = document.getElementById("categoryChart");
-var cateChart = new Chart(ctx2,{
-    type: 'doughnut',
-    data: {  
-    	datasets: [{
-        data: [0, 0, 0],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)'
-        ]
-    }],
-    labels: [
-        'Red',
-        'Yellow',
-        'Blue'
-    ]
-    }
-});
+var obj = JSON.parse('<%=json%>');
 
-function getAge() {
-	$.ajax({
-		method: 'get',
-		url: '/secondproject/chart',
-		data: {
-			'act': 'ageChart',
-		},
-		dataType: 'json',
-		success: function(data) {
-			for (var i = 0; i <data.length; i++) {
-					myChart.data.labels[i] = data[i].age;	
-					myChart.data.datasets[0].data[i] = data[i].ageCount;	
-			}
-					myChart.update();
-		}
-			
-	})
+	for (var i = 0; i <obj.length; i++) {
+		myChart.data.labels[i] = obj[i].age;	
+		myChart.data.datasets[0].data[i] = obj[i].ageCount;	
 }
+		myChart.update();
 
-function getCategory(number) {
-		$.ajax({
-		method: 'get',
-		url: '/secondproject/chart',
-		data: {
-			'act': 'categoryChart',
-			'number': number
-		},
-		dataType: 'json',
-		success: function(data) {
-			for (var i=0; i<data.length; i++) {
-				cateChart.data.labels[i] = data[i].category;
-				cateChart.data.datasets[0].data[i] = data[i].categoryCount;
-			}
-				cateChart.update();
-		}
-			
-	})
-}
-var ctx3 = document.getElementById("areaChart");
-var areaChart = new Chart(ctx3,{
-    type: 'pie',
-    data: {  
-    	datasets: [{
-        data: [0],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)'
-        ]
-    }],
-    labels: [
-        'Red'
-    ]
-    }
-});
 
-function getArea() {
-	$.ajax({
-		method: 'get',
-		url: '/secondproject/chart',
-		data: {
-			'act': 'areaChart',
-		},
-		dataType: 'json',
-		success: function(data) {
-			for (var i=0; i<data.length; i++) {
-				console.log(data);
-				areaChart.data.labels[i] = data[i].area;
-				areaChart.data.datasets[0].data[i] = data[i].areaCount;
-			}
-				areaChart.update();
-		}
-			
-	})
-}
+
 </script>
+<script src="<%=ContextPath.root%>/page/adminpage/js/ageChart.js"></script>
+<script src="<%=ContextPath.root%>/page/adminpage/js/categoryStats.js"></script>
+<script src="<%=ContextPath.root%>/page/adminpage/js/areaChart.js"></script>

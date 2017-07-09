@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="com.secondproject.constant.*"%>
 <%
-	String json = (String) request.getAttribute("category");
+	String json = (String) request.getAttribute("area");
 %>
 <section class="content page-top row">
   <div align="center" style="padding-top:60px;">
@@ -35,22 +35,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 <script type="text/javascript">
 
-var ctx2 = document.getElementById("categoryChart");
-var cateChart = new Chart(ctx2,{
-    type: 'doughnut',
+var ctx3 = document.getElementById("areaChart");
+var areaChart = new Chart(ctx3,{
+    type: 'pie',
     data: {  
     	datasets: [{
-        data: [0, 0, 0],
+        data: [0],
         backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)'
+            'rgba(255, 99, 132, 0.2)'
         ]
     }],
     labels: [
-        'Red',
-        'Yellow',
-        'Blue'
+        'Red'
     ]
     }
 });
@@ -58,10 +54,10 @@ var cateChart = new Chart(ctx2,{
 var obj = JSON.parse('<%=json%>');
 
 for (var i=0; i<obj.length; i++) {
-	cateChart.data.labels[i] = obj[i].category;
-	cateChart.data.datasets[0].data[i] = obj[i].categoryCount;
+	areaChart.data.labels[i] = obj[i].area;
+	areaChart.data.datasets[0].data[i] = obj[i].areaCount;
 }
-	cateChart.update();
+	areaChart.update();
 </script>
 <script src="<%=ContextPath.root%>/page/adminpage/js/categoryStats.js"></script>
 <script src="<%=ContextPath.root%>/page/adminpage/js/ageChart.js"></script>

@@ -5,6 +5,14 @@ select substr(age,0,1),
 	   group by substr(age,0,1) 
 	   order by 1 desc 
 
+-------- 당일 ------------
+select substr(age,0,1),
+	   count(age) from users
+	   where reg_date = sysdate
+	   group by substr(age,0,1) 
+	   order by 1 desc 
+	   
+	   
 -------- 카테고리별 후기갯수 (연령대, 성별)---------
 
 -- 전체
