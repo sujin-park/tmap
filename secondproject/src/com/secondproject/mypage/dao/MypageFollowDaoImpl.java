@@ -275,7 +275,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 				sql.append("and email like \n");				
 			} else if(key.equals("alias")){
 				sql.append("and alias like \n");	
-			} else if(key.equals("category_name")) {
+			} else if(key.equals("category_name")&&!word.equals("")) {
 				sql.append("and fc.follow_category_id like \n");
 			}
 			if(!word.equals("")) {
