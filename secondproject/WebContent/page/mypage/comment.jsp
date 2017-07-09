@@ -22,8 +22,8 @@ MyReviewDto mrdto = (MyReviewDto) request.getAttribute("myreview");%>
 					
 					%>
 					<tr>
-						<td width="10%" align="center" style="text-align: center;"><%=cdto.getEmail() %></td>
-						<td colspan="2" width="90%"><%=cdto.getReviewContent() %></td>
+						<td width="10%" align="center" style="text-align: center;padding-bottom: 5px; padding-right: 5px;"><%=cdto.getEmail() %></td>
+						<td colspan="2" width="90%">&nbsp;<%=cdto.getReviewContent() %></td>
 					</tr>
 						<% 
 				}

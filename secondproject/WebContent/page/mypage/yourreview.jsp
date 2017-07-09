@@ -2,12 +2,16 @@
 	pageEncoding="EUC-KR"
 	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*,com.secondproject.userdto.*"%>
 	<%
+	UserDto fudto = (UserDto) request.getAttribute("followUserDto");
 	Pagination pagination = (Pagination) request.getAttribute("pagination");
 	%>
 <script type="text/javascript">
 function viewreview(reviewId) {
 	document.location.href="<%=ContextPath.root%>/myreview?act=viewreview&reviewId="+reviewId;
 
+}
+function follow(followUserId) {
+	document.location.href="<%=ContextPath.root%>/mypage?act=followadd&followUserId="+followUserId;
 }
 
 </script>
@@ -20,8 +24,13 @@ function viewreview(reviewId) {
 	<div class="map-container">
 		<div id="map" style="width:100%;height:400px;"></div>
 	</div>
-	<h4 class="sub-header">내가 쓴 후기</h4>
-
+	<div class=row>
+	<h4 class="sub-header"><%=fudto.getEmail() %>님이 쓴 후기&nbsp;&nbsp;
+	<%if(fudto.getUser_id()!=0) { %>
+	<button class="btn btn-primary" type="button" onclick="follow('<%=fudto.getUser_id()%>');">팔로우</button>
+	<%} %>
+	</h4> 
+	</div>
  <div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
 						<thead>
@@ -64,7 +73,19 @@ function viewreview(reviewId) {
 								<td>
 									<div class="media">
 										
-							
+									<%-- <%if(mrdto.getMyScore()!=null){ 
+										int cnt = Integer.parseInt(mrdto.getMyScore());
+										int star = cnt/2;
+										int halfstar=cnt%2;
+										for(int i=0;i<star; i++) {
+											%><img src="<%=ContextPath.root %>/page/mypage/img/star.png" width="35px"><%
+ 										}
+										if(halfstar==1) {
+											%>
+											<img src="<%=ContextPath.root %>/page/mypage/img/halfstar.gif" width="35px">
+											<% 
+										}
+									}%> --%>
  									<img src="<%=ContextPath.root %>/page/mypage/img/like1.png">
 								<%=mrdto.getGood()%>
 								<img src="<%=ContextPath.root %>/page/mypage/img/hate1.png">

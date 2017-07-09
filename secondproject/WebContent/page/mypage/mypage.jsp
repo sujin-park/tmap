@@ -185,15 +185,18 @@ var followUserId;
 		
 	}
 
-	$(document).on('click', '#bttn', function() {
-		var selectname = $("#followselect").val();
-<%-- 		document.location.href="<%=ContextPath.root%>/mypage?act=followSelect&pg=1&word="+encodeURI(selectname); --%>
-		$.get("/secondproject/mypage?act=followSelect&pg=1&word="+encodeURI(selectname), function(data, status){
-			var div = document.getElementById("tbodyselect");
-			div.innerHTML=data;
-		});
-	});
-
+ 	function fofo() {
+ 		var selectname = $("#followselect").val();
+ 		if(selectname=="") {
+ 			alert("검색어 입력!!!!!");
+ 		}else {
+ 				$.get("/secondproject/mypage?act=followSelect&pg=1&word="+encodeURI(selectname), function(data, status){
+ 					var div = document.getElementById("tbodyselect");
+ 					div.innerHTML=data;
+ 				});
+ 				$("#followselect").val('');
+ 		}
+ 	}
 </script>
 <div class="container">
 <div class="col-xs-12 col-md-12 a">

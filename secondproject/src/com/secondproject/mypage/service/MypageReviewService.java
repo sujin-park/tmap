@@ -17,6 +17,6 @@ public interface MypageReviewService {
 	 ReviewGoodBad goodbad(int reviewId,int userId);
 	 void goodbadselect(int good,int bad,int userId,int reviewId);
 	 void commentinsert(int reviewId,int userId,String content);
-	 
+	 int reviewDelete(int reviewId);
 }
 
