@@ -1,7 +1,6 @@
 package com.secondproject.admin.service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.secondproject.admin.dao.ChartDaoImpl;

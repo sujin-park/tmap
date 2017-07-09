@@ -197,18 +197,6 @@ var followUserId;
  				$("#followselect").val('');
  		}
  	}
-	function searchfollow() {
-		if (document.searchfollowForm.word.value == "")	{
-			alert("검색어 입력!!!!!");
-		} else {
-			document.searchfollowForm.action = "<%=ContextPath.root%>/mypage";
-			document.searchfollowForm.submit();
-		}
-	}
-	function yourreview(followUserId) {
-		document.location.href="<%=ContextPath.root%>/myreview?act=yourreview&followUserId="+followUserId+"&pg=1";
-	}
-	
 </script>
 <div class="container">
 <div class="col-xs-12 col-md-12 a">
@@ -271,7 +259,7 @@ var followUserId;
 							<td class="center"><input type="checkbox" name="chk"
 								class="lar" value="<%=fudto.getFavoriteUserId()%>"></td>
 							<td><%=fudto.getCategoryName()%></td>
-							<td><a href="javascript:yourreview('<%=fudto.getRegUserId()%>')"><%=fudto.getEmail()%> | <%=fudto.getStatusMsg()%></a></td>
+							<td><%=fudto.getEmail()%> | <%=fudto.getStatusMsg()%></td>
 							<td><%=fudto.getRegDate()%></td>
 							<td><%=fudto.getFavoriteRegDate()%></td>
 							<%
@@ -309,8 +297,8 @@ var followUserId;
 		</div>
 
 	
-	<div align="center"><form name="searchfollowForm" method="get" action="">
-               <input type="hidden" name="act" value="followView">
+	<div align="center"><form name="searchForm" method="get" action="">
+               <input type="hidden" name="act" value="userview">
                   <div class="col-md-12">
 					<div class="input-group">
 						<div class="input-group-btn">
@@ -321,7 +309,7 @@ var followUserId;
 						</div>
 						<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="25">
 							<span class="input-group-btn">
-							<button class="btn btn-warning" type="button" onclick="javascript:searchfollow();">Search</button>
+							<button class="btn btn-warning" type="button" onclick="">Search</button>
 							</span>
 					</div>
 				 </div>
@@ -534,11 +522,13 @@ var followUserId;
 				</div>
 			</div>
 			<div class="modal-footer">
+				<form name="followselect" method="get">
 					<input type="text" class="marright" id="followselect" name="followselect"
-									placeholder="검색할 아이디" onkeypress="javascript:if(event.keyCode==13) {fofo();}">
+									placeholder="검색할 아이디">
 					<button id="bttn" class="btn btn-primary" type="button"
-						onclick="fofo();"  name="bt"  >검색</button>
+						onclick="" name="bt">검색</button>
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
+				</form>
 			</div>
 		</div>
 	</div>

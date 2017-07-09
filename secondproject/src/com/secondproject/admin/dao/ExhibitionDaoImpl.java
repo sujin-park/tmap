@@ -63,7 +63,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		List<ExhibitionDto> list = new ArrayList<ExhibitionDto>();
 		
 		String key = (String) params.get("key");
-		String word = Encoding.isoToEuc((String) params.get("word"));
+		String word = (String) params.get("word");
 		String orderKey = (String) params.get("orderKey");
 		String orderValue = (String) params.get("orderValue");
 		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
@@ -89,6 +89,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 					sql.append("	  where ex_title like '%' ||?|| '%'\n");
 				}
 			}
+			System.out.println("exhibition dao" + word + " key " + key );
 			if (!orderKey.isEmpty()) {
 				if (orderKey.equals("visiableby")) {
 					orderKey = "ex_visiable";

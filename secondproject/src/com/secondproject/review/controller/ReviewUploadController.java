@@ -26,7 +26,7 @@ public class ReviewUploadController extends HttpServlet {
 		Uploader uploader = new Uploader(request, 10, "EUC-KR", "review");
 		MultipartRequest multipartRequest = uploader.doUploadAndReturnRequest();
 		String filePath = uploader.getFilePath();
-		System.out.println("filePath = " + filePath);
+		//System.out.println("filePath = " + filePath);
 		
 		int seq = Sequence.getSequenceNextVal("SEQ_REVIEW_ID");
 		int shopId = NumberCheck.nullToZero(multipartRequest.getParameter("shopId"));

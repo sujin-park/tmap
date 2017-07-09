@@ -12,7 +12,7 @@ if (orderValue == null) {
 %>
 <script>
 function searchUser() {
-   if (document.searchForm.keyword.value == "") {
+   if (document.searchForm.word.value == "") {
       alert("검색어 입력!!!!!");
    } else {
       document.searchForm.action = "<%=ContextPath.root%>/admin";
@@ -178,10 +178,9 @@ function shopmodal(seq) {
         </div>
          </div>
       </div>
-   </div>
-</section>
 <%@include file="/page/adminpage/shop/shopInfoModal.jsp"%>
-<div align="center">
+<div align="center" style="clear:both;">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
+</section>
