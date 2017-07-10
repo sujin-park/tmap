@@ -6,10 +6,14 @@
 List<UserDto> list = (List<UserDto>) request.getAttribute("list");
 String orderValue = (String) request.getAttribute("orderValue");
 Pagination pagination = (Pagination) request.getAttribute("pagination");
+UserDto userDto = (UserDto) session.getAttribute("logininfo");
+if(userDto != null) {
+	System.out.println(userDto.getType());
+if (userDto.getType() == 0) {
 
-if (orderValue == null) {
-	orderValue = "asc";
-	}
+	if (orderValue == null) {
+		orderValue = "asc";
+		}
 %>
 <script>
 function searchUser() {
@@ -85,7 +89,7 @@ function deleteUser() {
                      <%int size = list.size();
                   
                      for (int i = 0; i<size; i++) {
-                        UserDto userDto = list.get(i);
+                        userDto = list.get(i);
                         String checkbox = "checkbox" + i;
                      %>
                         <td>
@@ -179,3 +183,14 @@ function deleteUser() {
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
+<%}} else {
+%>
+<script>
+alert("부적절한 URL 접근입니다.")
+document.location.href = "<%=ContextPath.root%>/main?act=ex_main";
+</script>
+<%
+/* RequestDispatcher dist = request.getRequestDispatcher("/main?act=ex_main");
+dist.forward(request, response); */
+}
+%>
