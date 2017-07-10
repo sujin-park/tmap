@@ -55,7 +55,7 @@ List<MainExhibitionDto> shoplist = (List<MainExhibitionDto>) request.getAttribut
 				<img  data-lazy="<%=ContextPath.root%>/page/main/img/shopimg/<%=mainExhibitionDto.getEx_shopid()%>.jpg" width="300" height="200"/>
 				<div class="shop-score"><%=mainExhibitionDto.getScore()%></div>
 			</div>
-			<div class="shop-content">
+			<div class="shop-content" height="163px">
 				<div class="shop-title"><%=mainExhibitionDto.getShop_name()%></div>
 <%
 	if (mainExhibitionDto.getExd_desc() != null) { 

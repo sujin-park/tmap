@@ -5,12 +5,15 @@ import java.util.Map;
 
 import com.secondproject.review.model.ReviewDto;
 import com.secondproject.review.model.ReviewListDto;
-import com.secondproject.util.QueryString;
 
 public interface ReviewDao {
 
 	int addReview(ReviewDto reviewDto);
 
+	int modifyReview(ReviewDto reviewDto);
+
+	int deleteReview(int reviewId);
+	
 	ReviewDto getReview(int reviewId);
 
 	int getTotalCountByShopNotBlind(Map<String, Object> params);

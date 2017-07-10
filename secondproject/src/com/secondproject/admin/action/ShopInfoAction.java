@@ -37,7 +37,7 @@ public class ShopInfoAction extends BoardCommonAction implements Action {
 			orderValue = "asc";
 		}
 		
-		int totalUserCount = CommonServiceImpl.getCommonService().totalShopCount(params);
+		int totalUserCount = CommonServiceImpl.getCommonService().totalShopListCount(params);
 		Pagination pagination = new Pagination();
 		pagination.setTotalCount(totalUserCount);
 		pagination.setCurrentPageNum((int) params.get("pg"));

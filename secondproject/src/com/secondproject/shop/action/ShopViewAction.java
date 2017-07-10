@@ -18,7 +18,8 @@ import com.secondproject.review.model.ReviewListDto;
 import com.secondproject.review.service.ReviewServiceImpl;
 import com.secondproject.shop.model.ShopDto;
 import com.secondproject.shop.service.ShopServiceImpl;
-import com.secondproject.util.*;
+import com.secondproject.util.NumberCheck;
+import com.secondproject.util.QueryString;
 import com.secondproject.util.pagination.Pagination;
 import com.secondproject.util.search.Search;
 
@@ -26,6 +27,7 @@ public class ShopViewAction extends BoardCommonAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = "";
 		setBoardParameter(request);
 		int shopId = NumberCheck.nullToZero(request.getParameter("shopId"));
 		
@@ -50,28 +52,34 @@ public class ShopViewAction extends BoardCommonAction implements Action {
 		search.setHtml();
 		
 		ShopDto shopDto = ShopServiceImpl.getShopService().getShop(shopId);
-		List<ReviewListDto> reviewList = ReviewServiceImpl.getReviewService().getReviewListByShopNotBlind(params);
-		int reviewListTotalCount = ReviewServiceImpl.getReviewService().getTotalCountByShopNotBlind(params);
+		if (shopDto != null) {
+			List<ReviewListDto> reviewList = ReviewServiceImpl.getReviewService().getReviewListByShopNotBlind(params);
+			int reviewListTotalCount = ReviewServiceImpl.getReviewService().getTotalCountByShopNotBlind(params);
+			
+			Pagination pagination = new Pagination();
+			pagination.setTotalCount(reviewListTotalCount);
+			pagination.setCurrentPageNum((int) params.get("pg"));
+			pagination.setListCountPerPage(BoardConstant.SHOP_REVIEW_LIST_COUNT_PER_PAGE);
+			pagination.setPageCount(BoardConstant.SHOP_REVIEW_PAGE_COUNT);
+			pagination.setStartQueryString("/shop?act=view&shopId=" + shopId);
+			
+			ArrayList<String> filter = new ArrayList<String>();
+			filter.add("pg");
+			filter.add("shopId");
+			String queryString = QueryString.getQueryString(params, filter);
+			
+			pagination.setQueryString(queryString);
+			pagination.setHtml();
+			
+			request.setAttribute("pagination", pagination.getHtml());
+			request.setAttribute("shopDto", shopDto);
+			request.setAttribute("reviewList", reviewList);
+			request.setAttribute("searchForm", search.getHtml());
+			path = "/page/shop/shop.jsp";
+		} else {
+			path = "/page/error/error.jsp";
+		}
 		
-		Pagination pagination = new Pagination();
-		pagination.setTotalCount(reviewListTotalCount);
-		pagination.setCurrentPageNum((int) params.get("pg"));
-		pagination.setListCountPerPage(BoardConstant.SHOP_REVIEW_LIST_COUNT_PER_PAGE);
-		pagination.setPageCount(BoardConstant.SHOP_REVIEW_PAGE_COUNT);
-		pagination.setStartQueryString("/shop?act=view&shopId=" + shopId);
-		
-		ArrayList<String> filter = new ArrayList<String>();
-		filter.add("pg");
-		filter.add("shopId");
-		String queryString = QueryString.getQueryString(params, filter);
-		
-		pagination.setQueryString(queryString);
-		pagination.setHtml();
-		
-		request.setAttribute("pagination", pagination.getHtml());
-		request.setAttribute("shopDto", shopDto);
-		request.setAttribute("reviewList", reviewList);
-		request.setAttribute("searchForm", search.getHtml());
-		return "/page/shop/shop.jsp";
+		return path;
 	}
 }

@@ -5,6 +5,27 @@ select substr(age,0,1),
 	   group by substr(age,0,1) 
 	   order by 1 desc 
 
+-------- 당일 ------------
+select substr(age,0,1),
+	   count(age) from users
+	   where reg_date = sysdate
+	   group by substr(age,0,1) 
+	   order by 1 desc 
+	   
+-------- 연도별 쿼리 -----------
+select to_char(reg_date, 'yyyy') as regdate,
+count (user_id)
+from users
+where gender = 1
+group by to_char(reg_date, 'yyyy')
+
+
+select to_char(reg_date, 'yyyy') as regdate,
+count (user_id)
+from users
+where gender = 2
+group by to_char(reg_date, 'yyyy')
+	   
 -------- 카테고리별 후기갯수 (연령대, 성별)---------
 
 -- 전체
@@ -50,14 +71,7 @@ where s.category_id = sc.category_id
 
 
 -------- 카테고리별 선호도 (성별) ---------
-SELECT
-   (SELECT category_title FROM shop_category WHERE category_id = a.category_id) category_title,
-   avg(score) aaa
-	FROM
-	(
-  	 SELECT
-      	r.score, 
-      	(SELECT category_id FROM shop WHERE shop_id = r.shop_id) category_id
-  	 FROM review r
-	) a
-	GROUP BY category_id
+SELECT AVG(score), (select category_title from shop_category where category_id = s.category_id) as category_title
+FROM review r
+JOIN shop s ON r.shop_id = s.shop_id
+GROUP BY s.category_id

@@ -27,13 +27,16 @@ public class AdminFactory {
 	private static ShopInfoDeleteAction shopInfoDeleteAction;
 	private static ShopInfoViewAction shopInfoViewAction;
 	private static ShopInfoModifyAction shopInfoModifyAction;
-	public static ShopInfoModifyAction getShopInfoModifyAction() {
-		return shopInfoModifyAction;
-	}
 
 	private static AgeChartAction ageChartAction;
 	private static CategoryChartAction categoryChartAction;
 	private static AreaChartAction areaChartAction;
+
+	private static AgeYearChartAction ageYearChartAction;
+
+	public static AgeYearChartAction getAgeYearChartAction() {
+		return ageYearChartAction;
+	}
 
 	static {
 		exhibitionWriteAction = new ExhibitionWriteAction();
@@ -60,8 +63,9 @@ public class AdminFactory {
 		shopInfoViewAction = new ShopInfoViewAction();
 		shopInfoDeleteAction = new ShopInfoDeleteAction();
 		shopInfoModifyAction = new ShopInfoModifyAction();
-		
+
 		ageChartAction = new AgeChartAction();
+		ageYearChartAction = new AgeYearChartAction();
 		categoryChartAction = new CategoryChartAction();
 		areaChartAction = new AreaChartAction();
 	}
@@ -156,4 +160,7 @@ public class AdminFactory {
 		return areaChartAction;
 	}
 
+	public static ShopInfoModifyAction getShopInfoModifyAction() {
+		return shopInfoModifyAction;
+	}
 }

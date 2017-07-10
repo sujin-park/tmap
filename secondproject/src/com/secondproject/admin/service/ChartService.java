@@ -5,12 +5,17 @@ import java.util.Map;
 
 
 public interface ChartService {
-	List<Map<String, String>> ageChart();
-	String getAgeChartJSON();
+	// 연령대별
+	List<Map<String, String>> ageChart(String snum);
+	String getAgeChartJSON(String snum);
+	
+	// 성별 2000 - 2017
+	List<Map<String, String>> ageYearChart();
+	String getAgeYearJSON();
 	
 	List<Map<String, String>> categoryChart(String number);
 	String getCategoryJSON(String number);
 	
-	List<Map<String, String>> areaChart();
-	String getAreaJSON();
+	List<Map<String, String>> areaChart(String num);
+	String getAreaJSON(String num);
 }

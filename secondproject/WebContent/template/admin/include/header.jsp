@@ -8,7 +8,7 @@
 				<li><a href="<%=ContextPath.root%>/admin?act=ownerview&pg=1key=&word=&orderValue=asc" class="nav-btn btn-login">사장</a></li>
 				<li><a href="<%=ContextPath.root%>/admin?act=shopinfo&pg=1&key=&word=&orderValue=" class="nav-btn btn-login">매장</a></li>
 				<li><a href="<%=ContextPath.root%>/admin?act=mvreview&board=review&pg=1&key=&word=&orderValue=asc" class="nav-btn btn-login">후기</a></li>
-				<li><a href="<%=ContextPath.root%>/admin?act=mvstats" class="nav-btn btn-login">통계</a></li>
+				<li><a href="<%=ContextPath.root%>/chart?act=ageChart&snum=0" class="nav-btn btn-login">통계</a></li>
 				<li><a href="<%=ContextPath.root%>/admin?act=mvexhibition&board=exhibition&pg=1&key=&word=&orderValue=asc" class="nav-btn btn-login">기획전</a></li>
 		</ul>
 	</header>
