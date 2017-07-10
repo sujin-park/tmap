@@ -161,8 +161,8 @@ function deleteUser() {
 						<div class="input-group">
 							<div class="input-group-btn">
 								<select class="form-control" name="key">
-									<option value="emailname">작성자명</option>
-									<option value="shopname">매장명</option>
+									<option value="email">작성자명</option>
+									<option value="type">회원타입</option>
 								</select>
 							</div>
 							<input type="text" class="form-control" name="word" placeholder="검색어 입력" size="25">
@@ -178,8 +178,7 @@ function deleteUser() {
         </div>
       </div>
    </div>
-</section>
-<div align="center">
+<div align="center" style="clear:both;">
 <%=pagination.getHtml()%>
 </div>
 <div class="col-md-6"></div>
@@ -194,3 +193,4 @@ document.location.href = "<%=ContextPath.root%>/main?act=ex_main";
 dist.forward(request, response); */
 }
 %>
+</section>

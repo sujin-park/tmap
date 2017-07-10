@@ -19,7 +19,6 @@ public class BoardCommonAction {
 
 	protected void setBoardParameter(HttpServletRequest request) {
 		this.request = request;
-		System.out.println(Encoding.isoToEuc(request.getParameter("word")));
 		pg = NumberCheck.nullToOne(getParameterAfterCheck("pg"));
 		key = Encoding.nullToBlank(getParameterAfterCheck("key"));
 		word = Encoding.nullToBlank(getParameterAfterEncodigCheck("word"));

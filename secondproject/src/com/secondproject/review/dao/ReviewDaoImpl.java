@@ -61,6 +61,61 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
+	public int modifyReview(ReviewDto reviewDto) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("UPDATE review \n");
+			sql.append("SET title = ?, content = ? , score = ?, update_date = sysdate \n");
+			if (reviewDto.getImg() != null && reviewDto.getImg().isEmpty() == false) {
+				sql.append(", img = ? \n");
+			}
+			sql.append("WHERE review_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			int i = 0;
+			pstmt.setString(++i, reviewDto.getTitle());
+			pstmt.setString(++i, reviewDto.getContent());
+			pstmt.setInt(++i, reviewDto.getScore());
+			if (reviewDto.getImg() != null && reviewDto.getImg().isEmpty() == false) {
+				pstmt.setString(++i, reviewDto.getImg());
+			}
+			pstmt.setInt(++i, reviewDto.getReviewId());
+			count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+
+		return count;
+	}
+
+	@Override
+	public int deleteReview(int reviewId) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("DELETE review \n");
+			sql.append("WHERE review_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reviewId);
+			count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+
+		return count;
+	}
+
+	@Override
 	public ReviewDto getReview(int reviewId) {
 		ReviewDto reviewDto = null;
 		Connection conn = null;
@@ -141,7 +196,7 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("SELECT count(review_id) as total_count \n");
 			sql.append("FROM review \n");
 			sql.append("WHERE " + (filterShopOrUser.equals("shop") ? "shop_id" : "user_id") + " = ? \n");
-			
+
 			if (filterBlind == null || filterBlind.isEmpty() == false) {
 				String blindSql = "";
 				if (filterBlind.equals("justBlind")) {
@@ -155,7 +210,7 @@ public class ReviewDaoImpl implements ReviewDao {
 			if (key.isEmpty() == false && word.isEmpty() == false) {
 				sql.append("AND " + key + " like '%' || ? || '%' \n");
 			}
-			
+
 			pstmt = conn.prepareStatement(sql.toString());
 
 			int parameterIndex = 0;
@@ -168,7 +223,7 @@ public class ReviewDaoImpl implements ReviewDao {
 			if (key.isEmpty() == false && word.isEmpty() == false) {
 				pstmt.setString(++parameterIndex, word); // °Ë»ö¾î
 			}
-			
+
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -248,27 +303,30 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("        FROM \n");
 			sql.append("            ( \n");
 			sql.append("                SELECT \n");
-			sql.append("                    review.review_id, review.user_id, user_email, review.title, review.score, review.img, review.reg_date,  \n");
+			sql.append(
+					"                    review.review_id, review.user_id, user_email, review.title, review.score, review.img, review.reg_date,  \n");
 			sql.append("                    NVL(gbc.good_count, 0) good_count, \n");
 			sql.append("                    NVL(gbc.bad_count, 0) bad_count \n");
-			
+
 			if (filterShopOrUser.equals("user")) {
 				sql.append("                    ,shop.title, shop.lat, shop.lng, shop.address \n");
 			}
-			
+
 			sql.append("                FROM \n");
 			sql.append("                    ( \n");
 			sql.append("                        SELECT  \n");
 			sql.append("                            review_id, user_id, title, score, img, reg_date, \n");
-			sql.append("                            (SELECT email FROM users where user_id = review.user_id) user_email \n");
-			
+			sql.append(
+					"                            (SELECT email FROM users where user_id = review.user_id) user_email \n");
+
 			if (filterShopOrUser.equals("user")) {
 				sql.append("                            ,shop.title as shop_title, lat, lng, address \n");
 			}
-			
+
 			sql.append("                        FROM review \n");
 			sql.append("                        WHERE \n");
-			sql.append("                            " + (filterShopOrUser.equals("shop") ? "shop_id" : "user_id") + " = ? \n");
+			sql.append("                            " + (filterShopOrUser.equals("shop") ? "shop_id" : "user_id")
+					+ " = ? \n");
 
 			if (filterBlind == null || filterBlind.isEmpty() == false) {
 				String blindSql = "";
@@ -293,17 +351,17 @@ public class ReviewDaoImpl implements ReviewDao {
 			sql.append("                        FROM review_good_bad GROUP BY review_id \n");
 			sql.append("                    ) gbc \n");
 			sql.append("                    ON gbc.review_id = review.review_id \n");
-			
+
 			if (filterShopOrUser.equals("user")) {
 				sql.append("                    JOIN shop ON review.shop_id = shop.shop_id \n");
 			}
-			
+
 			sql.append("                ORDER BY " + orderKey + " " + orderValue + " \n");
 			sql.append("            ) A \n");
 			sql.append("        WHERE rownum <= ? \n");
 			sql.append("    ) B \n");
 			sql.append("WHERE B.num >= ? \n");
-//			System.out.println(sql.toString());
+			// System.out.println(sql.toString());
 			pstmt = conn.prepareStatement(sql.toString());
 
 			int parameterIndex = 0;
@@ -320,8 +378,8 @@ public class ReviewDaoImpl implements ReviewDao {
 
 			pstmt.setInt(++parameterIndex, pageEnd); // pageEnd
 			pstmt.setInt(++parameterIndex, pageStart); // pageStart
-			System.out.println("pageEnd === " + pageEnd);
-			System.out.println("pageStart === " + pageStart);
+			// System.out.println("pageEnd === " + pageEnd);
+			// System.out.println("pageStart === " + pageStart);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

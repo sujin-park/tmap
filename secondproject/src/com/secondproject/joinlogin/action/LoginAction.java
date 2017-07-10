@@ -20,11 +20,12 @@ public class LoginAction implements Action{
 		String path = "/index.jsp";
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		String old_url = request.getHeader("referer");
 		UserDto userDto = LoginServiceImpl.getLoginService().login(email, password);
 		if(userDto != null){
 			HttpSession session = request.getSession();
 			session.setAttribute("logininfo", userDto);
-			path = "/page/joinlogin/login/loginok.jsp";
+			path = old_url;
 		} else { 
 			path = "/page/joinlogin/login/loginfail.jsp";
 		}

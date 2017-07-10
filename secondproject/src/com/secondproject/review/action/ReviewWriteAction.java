@@ -27,7 +27,6 @@ public class ReviewWriteAction implements Action {
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewId(seq);
 		reviewDto.setShopId(shopId);
-		// TODO User ID 세션에서 얻어올 것
 		reviewDto.setUserId(1);
 		reviewDto.setTitle(title);
 		reviewDto.setContent(content);

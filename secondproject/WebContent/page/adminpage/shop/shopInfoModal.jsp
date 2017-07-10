@@ -39,11 +39,12 @@ function modifyShop() {
 			        cate: cate,
 			        shopname: shopname,
 			        shopnum: shopnum,
-			        shopadd: shopadd
+			        shopadd:shopadd
 			    },
 			    function(data, status){
 			        var tt = document.getElementById("shopNew");
 			        tt.innerHTML=data;
+			        $('#shopModal').modal('hide');
 			    });
 	  
 }

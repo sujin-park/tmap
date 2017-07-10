@@ -32,7 +32,7 @@ function blindReviewOne() {
 		tt.innerHTML=data;
 		$('#myModal').modal('hide');
 	});
-
+	
 }
 
 function searchReview() {
@@ -45,14 +45,27 @@ function searchReview() {
 }
 
 function modal(reviewimg,seq) {
+	$('#modalscore').html("");
 	
 	document.getElementById("reviewseq").value = seq;
 	document.getElementById("modalshop").value = document.getElementById("shop"+seq).textContent;
 	document.getElementById("modalemail").value = document.getElementById("email"+seq).textContent;
 	document.getElementById("modalcontent").value = document.getElementById("content"+seq).textContent;
-	document.getElementById("modalscore").value = document.getElementById("score"+seq).textContent;
+	$('#reimg').attr("src", "<%=ContextPath.root%>/" + reviewimg);
 	
-	$('#reimg').attr("src", "<%=ContextPath.root%>/upload/" + reviewimg)
+
+	var star = (document.getElementById("mvscore"+seq).value)/2;
+	var halfstar = (document.getElementById("mvscore"+seq).value)%2;
+
+	for(var j=1; j<=star; j++) {
+		var tag = "<img src='<%=ContextPath.root%>/page/mypage/img/star.png'>";
+		$('#modalscore').append(tag);
+	} 
+	
+	if(halfstar==1) {
+		var tag2 = "<img src='<%=ContextPath.root%>/page/mypage/img/halfstar.gif'>";
+		$('#modalscore').append(tag2);
+	}
 	
 	$('#myModal').modal({show:true});
 	
@@ -144,7 +157,8 @@ function modal(reviewimg,seq) {
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>" value="<%=adminReviewDto.getScore()%>">
+										<input type="hidden" id="mvscore<%=adminReviewDto.getReviewId()%>" value="<%=adminReviewDto.getScore()%>">
+											<span class="media-meta" id="score<%=adminReviewDto.getReviewId()%>">
 											<%if(adminReviewDto.getScore()!=0){ 
                               					int cnt = adminReviewDto.getScore();
                               					int star = cnt/2;
@@ -158,7 +172,6 @@ function modal(reviewimg,seq) {
                                  				 <% 
                              					 }
                            						 }%>
-											
 											</span>
 										</div>
 									</div>
@@ -178,6 +191,7 @@ function modal(reviewimg,seq) {
 							%>
 						</tbody>
 					</table>
+				</form>
 			<div class="form-group form-inline">
 				<div align="center">
 					<form name="searchForm" method="get" action="">
@@ -200,7 +214,7 @@ function modal(reviewimg,seq) {
 				</div>
 			</div>
 		</div>
-		</form>
+		
 	</div>
 </div>
 </div>

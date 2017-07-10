@@ -194,10 +194,11 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select * \n");
+			sql.append("select review_comment_id,review_id, email,review_content \n");
 			sql.append("from review_comment rc \n");
 			sql.append("join users u on u.user_id=rc.user_id \n");
-			sql.append("where review_id=?");
+			sql.append("where review_id=? \n");
+			sql.append("order by review_comment_id");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, reviewId);
 			rs = pstmt.executeQuery();
@@ -316,6 +317,29 @@ public class MypageReviewDaoImpl implements MypageReviewDao {
 			DBClose.close(conn, pstmt);
 		}
 		
+	}
+
+	@Override
+	public int reviewDelete(int reviewId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt=0;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("delete from review \n");
+			sql.append("where review_id=?");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setInt(1, reviewId);
+			cnt=pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+		return cnt;
 	}
 
 }

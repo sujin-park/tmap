@@ -185,15 +185,18 @@ var followUserId;
 		
 	}
 
-	$(document).on('click', '#bttn', function() {
-		var selectname = $("#followselect").val();
-<%-- 		document.location.href="<%=ContextPath.root%>/mypage?act=followSelect&pg=1&word="+encodeURI(selectname); --%>
-		$.get("/secondproject/mypage?act=followSelect&pg=1&word="+encodeURI(selectname), function(data, status){
-			var div = document.getElementById("tbodyselect");
-			div.innerHTML=data;
-		});
-	});
-
+ 	function fofo() {
+ 		var selectname = $("#followselect").val();
+ 		if(selectname=="") {
+ 			alert("검색어 입력!!!!!");
+ 		}else {
+ 				$.get("/secondproject/mypage?act=followSelect&pg=1&word="+encodeURI(selectname), function(data, status){
+ 					var div = document.getElementById("tbodyselect");
+ 					div.innerHTML=data;
+ 				});
+ 				$("#followselect").val('');
+ 		}
+ 	}
 	function searchfollow() {
 		if (document.searchfollowForm.word.value == "")	{
 			alert("검색어 입력!!!!!");
@@ -202,10 +205,9 @@ var followUserId;
 			document.searchfollowForm.submit();
 		}
 	}
-	/* $(document).on('click', '#follow', function() {
-			alert($("#db").val());
-	
-	}); */
+	function yourreview(followUserId) {
+		document.location.href="<%=ContextPath.root%>/myreview?act=yourreview&followUserId="+followUserId+"&pg=1";
+	}
 	
 </script>
 <div class="container">
@@ -268,7 +270,7 @@ var followUserId;
 							<td class="center"><input type="checkbox" name="chk"
 								class="lar" value="<%=fudto.getFavoriteUserId()%>"></td>
 							<td><%=fudto.getCategoryName()%></td>
-							<td><%=fudto.getEmail()%> | <%=fudto.getStatusMsg()%></td>
+							<td><a href="javascript:yourreview('<%=fudto.getRegUserId()%>')"><%=fudto.getEmail()%> | <%=fudto.getStatusMsg()%></a></td>
 							<td><%=fudto.getRegDate()%></td>
 							<td><%=fudto.getFavoriteRegDate()%></td>
 							<%
@@ -530,13 +532,11 @@ var followUserId;
 				</div>
 			</div>
 			<div class="modal-footer">
-				<form name="followselect" method="get" onsubmit="return false;">
 					<input type="text" class="marright" id="followselect" name="followselect"
-									placeholder="검색할 아이디">
+									placeholder="검색할 아이디" onkeypress="javascript:if(event.keyCode==13) {fofo();}">
 					<button id="bttn" class="btn btn-primary" type="button"
-						onclick=""  name="bt" >검색</button>
+						onclick="fofo();"  name="bt"  >검색</button>
 					<button class="btn btn-default" type="button" data-dismiss="modal">취소</button>
-				</form>
 			</div>
 		</div>
 	</div>

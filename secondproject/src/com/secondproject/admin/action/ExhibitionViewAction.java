@@ -1,7 +1,7 @@
 package com.secondproject.admin.action;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +23,12 @@ public class ExhibitionViewAction implements Action {
 		int seq = NumberCheck.nullToZero(request.getParameter("seq"));
 		String board = request.getParameter("board");
 		String path = "/adminIndex.jsp";
-		System.out.println("ViewAction  " + seq);
 		ExhibitionDto exhibitionDto = ExhibitionServiceImpl.getExhibitionService().viewExhibition(seq);
 		List<ShopDto> shoplist = ExhibitionServiceImpl.getExhibitionService().shopUpdated(seq);
 		if (shoplist != null) {
 			size = shoplist.size();
 		}
-		System.out.println("SHOPLIST SIZE " + shoplist.size());
+
 		if (exhibitionDto != null) {
 			request.setAttribute("exhibitionInfo", exhibitionDto);
 			if (size != 0) {

@@ -20,4 +20,5 @@ public interface MypageService {
 	 int totalFollowUserCount(Map<String, Object> params);
 	 List<FollowUserDto> followselect(Map<String, Object> params);
 	 int followadd(int followUserId,int userId);
+	 int totalFollowSelect(Map<String, Object> params);
 }

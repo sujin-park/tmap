@@ -470,7 +470,7 @@ var followUserId;
       
       
       
-      
+
 <%@include file="/page/adminpage/shop/shopInfoModal.jsp"%>
 <div align="center" style="clear:both;">
 <%=pagination.getHtml()%>

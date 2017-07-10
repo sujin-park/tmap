@@ -35,7 +35,13 @@ List<MainExhibitionDto> shoplist = (List<MainExhibitionDto>) request.getAttribut
 				}
 %>
 	<div class="ex-title"><%=exhibitionDto.getExTitle() %></div>
+<%
+	if (exhibitionDto.getExDesc()!=null) { 
+%>
 	<div class="ex-desc"><%=exhibitionDto.getExDesc()%></div>
+<%
+	}
+%>
 	<div class="ex-slick-container">
 <%
 			int shopsize = shoplist.size();
@@ -51,7 +57,13 @@ List<MainExhibitionDto> shoplist = (List<MainExhibitionDto>) request.getAttribut
 			</div>
 			<div class="shop-content" height="163px">
 				<div class="shop-title"><%=mainExhibitionDto.getShop_name()%></div>
+<%
+	if (mainExhibitionDto.getExd_desc() != null) { 
+%>
 				<div class="shop-desc"><%=mainExhibitionDto.getExd_desc()%></div>
+<%
+	}
+%>
 				<div class="shop-address"><%=mainExhibitionDto.getAddress()%></div>
 			</div>
 		</a>

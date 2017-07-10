@@ -82,6 +82,10 @@ function logoutmove() {
 	document.location.href = CONTEXT_PATH + "/joinlogin?act=logout";
 }
 
+function adminmove() {
+	document.location.href = CONTEXT_PATH + "/adminIndex.jsp";
+}
+
 function getXMLHttpRequest() {
 	if (window.ActiveXObject) { // IE 라면
 		try {

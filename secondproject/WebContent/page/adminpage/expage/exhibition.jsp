@@ -16,7 +16,7 @@ if (orderValue == null) {
 			<div class="panel-body">
 				<div class="row">
 					<form name="exhibitionForm" method="post" action="">
-					<div class="pull-right col-md-offset-2">
+					<div class="pull-left col-md-3">
 					<input type="hidden" name="act" value="delete">
 						<div class="btn-group">
 							<button type="button" class="btn btn-default btn-filter" onclick="javascript:moveWrite();">기획전 등록</button>

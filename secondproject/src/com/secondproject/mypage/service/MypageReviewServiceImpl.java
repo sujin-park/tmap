@@ -79,6 +79,13 @@ public class MypageReviewServiceImpl implements MypageReviewService{
 
 
 
+	@Override
+	public int reviewDelete(int reviewId) {
+		return MypageReviewDaoImpl.getMypageReviewDao().reviewDelete(reviewId);
+	}
+
+
+
 	
 
 }

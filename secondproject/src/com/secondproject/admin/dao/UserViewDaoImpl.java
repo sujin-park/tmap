@@ -53,9 +53,12 @@ public class UserViewDaoImpl implements UserViewDao {
 			sql.append("select * from users \n");
 			sql.append("where type != 0 \n");
 			if (!word.isEmpty() && !key.isEmpty()) {
+				if (key.equals("type")) {
+					sql.append("and type = ? \n");
+				} else {
 				sql.append("and " + key + " like '%' || ? || '%' \n");
+				}
 			}
-
 			if (!orderValue.isEmpty() && !orderKey.isEmpty()) {
 				sql.append("order by " + orderKey + " " + orderValue);
 			} else {

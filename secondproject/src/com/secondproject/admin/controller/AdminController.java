@@ -18,7 +18,6 @@ public class AdminController extends HttpServlet {
 			throws ServletException, IOException {
 		String path = "/index.jsp";
 		String contentPath = "";
-
 		String act = request.getParameter("act");
 		String board = request.getParameter("board");
 		String addBottomPath = "/page/adminpage/include/bottom_exhibition.jsp";

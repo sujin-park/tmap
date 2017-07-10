@@ -134,6 +134,6 @@ body {
 	text-align: center;
 	clear :both;
 }
-.pagination>li>a.color-orange {
-		color: #ec9a25;
+.pagination.active>a{
+		border-color: #ec9a25;
 }

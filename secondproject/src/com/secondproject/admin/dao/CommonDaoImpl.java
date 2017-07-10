@@ -155,6 +155,7 @@ public class CommonDaoImpl implements CommonDao {
 			rs = pstmt.executeQuery();
 			rs.next();
 			count = rs.getInt(1);
+			System.out.println(count + " COMMON DAO ");
 		} catch (SQLException e) {
 
 			e.printStackTrace();

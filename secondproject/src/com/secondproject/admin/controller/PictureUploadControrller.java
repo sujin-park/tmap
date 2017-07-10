@@ -51,9 +51,8 @@ public class PictureUploadControrller extends HttpServlet {
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
-		System.out.println(saveDirectory);
 		MultipartRequest multi = new MultipartRequest(request, upfolder, maxPostSize, encoding,
-				new DefaultFileRenamePolicy());
+				new MyFileRenamePolicy());
 
 		String act = multi.getParameter("act");
 

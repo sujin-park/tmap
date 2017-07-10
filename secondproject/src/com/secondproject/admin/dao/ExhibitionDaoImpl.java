@@ -63,7 +63,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 		List<ExhibitionDto> list = new ArrayList<ExhibitionDto>();
 		
 		String key = (String) params.get("key");
-		String word = Encoding.isoToEuc((String) params.get("word"));
+		String word = (String) params.get("word");
 		String orderKey = (String) params.get("orderKey");
 		String orderValue = (String) params.get("orderValue");
 		int pageEnd = (int) params.get("pg") * BoardConstant.LIST_SIZE;
@@ -309,7 +309,6 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 				pstmt.setInt(1, seq);
 				pstmt.setInt(2, Integer.parseInt(shops[i]));
 				pstmt.setInt(3, 8); // 8번이라고 가정
-				System.out.println("db에 몇번 왔다갔다 하나 8ㅅ8 ");
 				cnt = pstmt.executeUpdate();
 				pstmt.close();
 			}
