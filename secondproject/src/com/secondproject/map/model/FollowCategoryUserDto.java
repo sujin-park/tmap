@@ -9,6 +9,7 @@ public class FollowCategoryUserDto {
 	private String alias;
 	private String memo;
 	private String regDate;
+	private int mapReviewCount;
 
 	public int getFollowUserId() {
 		return followUserId;
@@ -73,4 +74,13 @@ public class FollowCategoryUserDto {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+
+	public int getMapReviewCount() {
+		return mapReviewCount;
+	}
+
+	public void setMapReviewCount(int mapReviewCount) {
+		this.mapReviewCount = mapReviewCount;
+	}
+
 }

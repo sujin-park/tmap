@@ -10,6 +10,10 @@ public interface ReviewService {
 
 	int addReview(ReviewDto reviewDto);
 
+	int modifyReview(ReviewDto reviewDto);
+	
+	int deleteReview(int reviewId);
+	
 	ReviewDto getReview(int reviewId);
 
 	int getTotalCountByShopNotBlind(Map<String, Object> params);

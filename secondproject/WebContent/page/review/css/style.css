@@ -19,3 +19,30 @@
 .info-container .label{
 	font-size: 1.5rem;
 }
+
+.shopImg{
+	margin-bottom: 13px;
+}
+
+.shopInfoContainer.table>tbody>tr>th {
+	border-top: none;
+}
+
+.shopInfoContainer .shopTitle{
+	font-size: 1.9rem;
+}
+
+.shopInfoContainer .score{
+	font-size: 1.2rem;
+	vertical-align: super;
+}
+
+.shopInfoContainer .categoryTitle{
+	font-size: 1.2rem;
+	vertical-align: super;
+}
+
+.hr{
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
+}

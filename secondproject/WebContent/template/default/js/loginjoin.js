@@ -24,7 +24,7 @@ function attest() {
 	} else if (document.getElementById("joinPassword").value != document.getElementById("password_check").value) {
 		alert("비밀번호를 확인해주세요.");
 		return;
-	} else if (document.getElementById("gender").value == "") {
+	} else if (document.getElementById("gender").value == "Gender") {
 		alert("성별를 입력해주세요.");
 		return;
 	} else if (document.getElementById("age").value == "") {

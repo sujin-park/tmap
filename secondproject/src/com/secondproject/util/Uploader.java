@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import com.oreilly.servlet.MultipartRequest;
-import com.secondproject.constant.ContextPath;
 
 public class Uploader {
 	
@@ -36,7 +35,7 @@ public class Uploader {
 		MultipartRequest multipartRequest = null;
 		try {
 			multipartRequest = new MultipartRequest(request, uploadFolder, maxPostSizeByMB, encoding, new MyFileRenamePolicy());
-			System.out.println("uploadPath : " + uploadFolder);
+			//System.out.println("uploadPath : " + uploadFolder);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -49,18 +48,18 @@ public class Uploader {
 	
 	private String mkDirYYYYMMDD() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String uploadFolder = realPath + File.separator + dateFormat.format(new Date());
-		filePath += File.separator + dateFormat.format(new Date());
+		String uploadFolder = realPath + "/" + dateFormat.format(new Date());
+		filePath += "/" + dateFormat.format(new Date());
 		mkDir(uploadFolder);
 		
 		dateFormat = new SimpleDateFormat("MM");
-		uploadFolder += File.separator + dateFormat.format(new Date());
-		filePath += File.separator + dateFormat.format(new Date());
+		uploadFolder += "/" + dateFormat.format(new Date());
+		filePath += "/" + dateFormat.format(new Date());
 		mkDir(uploadFolder);
 		
 		dateFormat = new SimpleDateFormat("dd");
-		uploadFolder += File.separator + dateFormat.format(new Date());
-		filePath += File.separator + dateFormat.format(new Date());
+		uploadFolder += "/" + dateFormat.format(new Date());
+		filePath += "/" + dateFormat.format(new Date());
 		mkDir(uploadFolder);
 		
 		return uploadFolder;

@@ -1,8 +1,11 @@
+<%@page import="com.secondproject.shop.model.ShopCategoryDto"%>
 <%@page import="com.secondproject.map.model.FollowCategoryUserDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.secondproject.map.model.FollowCategoryDto"%>
 <%@page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" import="com.secondproject.constant.ContextPath"%>
-<% ArrayList<FollowCategoryDto> followList = (ArrayList<FollowCategoryDto>) request.getAttribute("followList");%>
+<%
+ArrayList<ShopCategoryDto> shopCategoryList = (ArrayList<ShopCategoryDto>) request.getAttribute("shopCategoryList");
+%>
 
 
 <div class="search-detail-controll-container">
@@ -17,69 +20,30 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<select class="form-control" id="search_menu">
-					<option value="">메뉴</option>
-					<option value="1">한식</option>
-					<option value="2">중식</option>
-					<option value="3">일식</option>
-					<option value="4">양식</option>
+					<option value="0">전체카테고리</option>
+					<%
+					if (shopCategoryList.size() > 0) {
+						for(ShopCategoryDto shopCategoryDto : shopCategoryList)  {
+					%>
+					<option value="<%=shopCategoryDto.getCategoryId()%>"><%=shopCategoryDto.getCategoryTitle()%></option>
+					<%
+						}
+					}
+					%>
 				</select>
 			</div>
 		</div>
 		
-		<%
-		if (followList != null) {
-		%>
 		<div class="row favorite-container">
 			<div class="col-xs-12">
 				<div class="panel panel-default favorite">
 					<div class="panel-heading">팔로우</div>
-					<div class="panel-body">
-						<%
-						int i = 0;
-						for (FollowCategoryDto cate : followList) {
-							ArrayList<FollowCategoryUserDto> userlist = cate.getCategoryUserList();
-							int followUserCnt = userlist.size();
-						%>
-							<div class="panel panel-default favorite-item">
-								<div class="panel-heading" data-toggle="collapse" data-target="#collapseExample<%=i%>" <%=(followUserCnt == 0 ? "onclick=\"alert('등록된 유저가 없습니다.')\"" : "") %> >
-									<input type="checkbox" name="" id="" />
-									<span><%=cate.getCategoryName()%></span>
-								</div>
-								<%
-								if (followUserCnt > 0) {
-								%>
-								<div class="collapse panel-collapse" id="collapseExample<%=i%>"  >
-									<ul class="list-group">
-										<%
-										for (FollowCategoryUserDto userDto : userlist) {
-										%>
-										<li class="list-group-item"><div class="checkbox">
-											<label>
-												<input type="checkbox" class="followUserId" value="<%=userDto.getUserId()%>">
-												<h5><%=userDto.getUserEmail()%></h5>
-												<span><%=userDto.getAlias() %></span>
-											</label>
-										</li>
-										<%
-										}
-										%>
-									</ul>
-								</div>
-								<%
-								}
-								%>
-							</div>
-						<%
-							i++;
-						}
-						%>
+					<div class="panel-body" id="follow-data-insert">
+
 					</div>
 				</div>
 			</div>
 		</div><!-- favorite-container -->
-		<%
-		}
-		%>
 
 		<div class="row">
 			<div class="col-xs-12">
@@ -93,7 +57,7 @@
 <div class="search-controll-container">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-12 col-md-6 pull-right">
+			<div class="col-xs-12 col-md-5 col-lg-4 pull-right">
 				<div class="search-controll">
 					<div class="row">
 						<div class="col-xs-6">

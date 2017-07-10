@@ -10,5 +10,4 @@ public interface ShopService {
 	
 	ShopDto getShop(int shopId);
 	
-	int getShopScore(int shopId);
 }
