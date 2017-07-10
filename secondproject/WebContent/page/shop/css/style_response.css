@@ -1,22 +1,36 @@
 @CHARSET "EUC-KR";
 
 @media screen and (min-width:768px) {
-	.review.grid-2{
+	.review.grid-2 {
 		clear: both;
+	}
+	.shopInfoContainer.table>tbody>tr>th {
+		text-align: left;
+	}
+	.shopInfoContainer .shopTitle {
+		font-size: 2.4rem;
+	}
+	.shopInfoContainer .score {
+		font-size: 1.2rem;
+		vertical-align: super;
+	}
+	.shopInfoContainer .categoryTitle {
+		font-size: 1.2rem;
+		vertical-align: super;
 	}
 }
 
 @media screen and (min-width:992px) {
-	.review.grid-2{
+	.review.grid-2 {
 		clear: none;
 	}
-	.review.grid-3{
+	.review.grid-3 {
 		clear: both;
 	}
 }
 
 @media screen and (min-width:1024px) {
-	.page-container{
+	.page-container {
 		padding-top: 110px;
 	}
 }

@@ -14,7 +14,7 @@ $(document).on('mouseenter', '.search-list-container .shop', function() {
 
 //search-detail 열기
 $(document).on('click', '#search_detail_controll_btn', function () {
-	pageFunc.showSearchDetail(true);
+	pageFunc.getFollows();
 });
 
 // search-detail 닫기
@@ -52,3 +52,11 @@ $(document).on('click', '#search_map_by_location_btn', function() {
 		});
 	});
 });
+
+$(document).on('change', '#search_menu', function() {
+	pageFunc.getFollows();
+});
+
+$(document).on('click', '.map-container', function() {
+	pageFunc.showSearchDetail(false);
+})

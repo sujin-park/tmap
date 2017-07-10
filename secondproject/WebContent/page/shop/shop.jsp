@@ -18,34 +18,49 @@
 	<div class="container">
 
 		<div class="row">
-		
-			<div class="col-xs-12 col-md-4">
-				<img src="<%=ContextPath.root%>/page/main/img/shopimg/<%=shopDto.getImg()%>"
-					class="img-responsive" />
-			</div>
+			<%
+			if (shopDto.getImg() != null && shopDto.getImg().trim().isEmpty() == false) {
+			%>
+				<div class="col-xs-12 col-md-4 shopImg">
+					<img src="<%=ContextPath.root%><%=shopDto.getImg()%>" class="img-responsive img-rounded" />
+				</div>
+			<%
+			}
+			%>
 			
-			<div class="col-md-8">
-				<span class="label label-default"><%=shopDto.getCategoryTitle()%></span>
-				<h3>
-					<%=shopDto.getTitle()%>
-					<span class="badge"><%=shopDto.getScore()%></span>
-				</h3>
-				<ul class="list-group">
-					<li class="list-group-item">주소 : <%=shopDto.getAddress()%></li>
-					<li class="list-group-item">전화번호 : <%=shopDto.getTel()%></li>
-					
-					<% if (shopDto.getBusinessTime() != null) { %>
-					<li class="list-group-item">영업시간 : <%=shopDto.getBusinessTime()%></li>
-					<% } %>
-					
-					<% if (shopDto.getDetail() != null) { %>
-					<li class="list-group-item">정보 : <%=shopDto.getDetail()%></li>
-					<% } %>
-				</ul>
-				<a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>" class="btn btn-default">리뷰작성</a>
+			<div class="col-xs-12 col-md-8">
+				<div class="table-responsive">
+					<table class="table shopInfoContainer">
+						<tr>
+							<th colspan="2">
+								<span class="shopTitle"><%=shopDto.getTitle()%></span>&nbsp;&nbsp;
+								<span class="label label-warning categoryTitle"><%=shopDto.getCategoryTitle()%></span>&nbsp;
+								<span class="label label-danger score">평점&nbsp;&nbsp;<%=shopDto.getScore()%></span>
+							</th>
+						</tr>
+						<tr>
+							<td>주소</td>
+							<td><%=shopDto.getAddress()%></td>
+						</tr>
+						<tr>
+							<td>전화번호</td>
+							<td><%=shopDto.getTel()%></td>
+						</tr>
+						<tr>
+							<td>영업시간</td>
+							<td><%=shopDto.getBusinessTime()%></td>
+						</tr>
+						<tr>
+							<td>정보</td>
+							<td><%=shopDto.getDetail()%></td>
+						</tr>
+					</table>
+				</div>
 			</div>
 			
 		</div>
+
+		<div class="hr"></div>
 
 		<div class="row review-list-container">
 			<%
@@ -58,9 +73,16 @@
 			%>
 			<div class="review col-sm-6 col-md-4 <%=grid2%> <%=grid3%>">
 				<div class="thumbnail">
-					<a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>">
-						<img src="<%=ContextPath.root + reviewListDto.getImg()%>" class="img-rounded">
-					</a>
+					<%
+					if (reviewListDto.getImg() != null && reviewListDto.getImg().trim().isEmpty() == false) {
+					%>
+						<a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>">
+							<img src="<%=ContextPath.root + reviewListDto.getImg()%>" class="img-responsive img-rounded">
+						</a>
+					<%
+					}
+					%>
+
 					<div class="caption">
 						<h4><a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>"><%=reviewListDto.getTitle()%></a></h4>
 						<div class="info-container">
@@ -92,9 +114,10 @@
 		
 		<% if (searchForm != null && searchForm.isEmpty() == false) { %>
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-xs-12 col-md-5 col-md-offset-3">
 				<%=searchForm%>
 			</div>
+			<div class="col-xs-12 col-md-1 text-center"><a href="<%=ContextPath.root%>/review?act=writeForm&shopId=<%=shopDto.getShopId()%>" class="btn btn-danger">리뷰작성</a></div>
 		</div>
 		<% } %>
 	</div>

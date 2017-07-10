@@ -188,3 +188,35 @@
 	margin-bottom: 5px;
 }
 
+
+.search-list .review-count-container{
+	margin-top: 3px;
+}
+
+.followUser{
+	cursor : pointer;
+}
+.followUser label{
+	cursor : pointer;
+}
+
+.followUser.noReview{
+	background-color: #e6e6e6;
+	cursor: not-allowed;
+}
+
+.followUser.noReview label{
+	cursor: not-allowed;
+}
+
+.followUser .userEmail{
+	display: block;
+}
+
+.followUser .alias{
+	display: block;
+}
+
+.favorite .followGroupName{
+	
+}

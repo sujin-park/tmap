@@ -15,6 +15,9 @@ public class ShopDto {
 	private String detail;
 	private String img;
 	private Double score;
+	private int reviewCount;
+	private int followReviewCount;
+
 	public String getImg() {
 		return img;
 	}
@@ -125,6 +128,22 @@ public class ShopDto {
 
 	public void setScore(Double score) {
 		this.score = score;
+	}
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+	public int getFollowReviewCount() {
+		return followReviewCount;
+	}
+
+	public void setFollowReviewCount(int followReviewCount) {
+		this.followReviewCount = followReviewCount;
 	}
 
 }

@@ -1,4 +1,24 @@
 @CHARSET "EUC-KR";
 
-@media screen and (min-width:700px) {
+@media screen and (min-width:768px) {
+	.shopInfoContainer.table>tbody>tr>th {
+		text-align: left;
+	}
+	.shopInfoContainer .shopTitle {
+		font-size: 2.4rem;
+	}
+	.shopInfoContainer .score {
+		font-size: 1.2rem;
+		vertical-align: super;
+	}
+	.shopInfoContainer .categoryTitle {
+		font-size: 1.2rem;
+		vertical-align: super;
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.page-container {
+		padding-top: 110px;
+	}
 }

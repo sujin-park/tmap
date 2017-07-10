@@ -15,9 +15,10 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewService = new ReviewServiceImpl();
 	}
 
-	private ReviewServiceImpl() {}
+	private ReviewServiceImpl() {
+	}
 
-	public static final ReviewService getReviewService() {
+	public static ReviewService getReviewService() {
 		return reviewService;
 	}
 
@@ -27,10 +28,20 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	public int modifyReview(ReviewDto reviewDto) {
+		return ReviewDaoImpl.getReviewDao().modifyReview(reviewDto);
+	}
+
+	@Override
+	public int deleteReview(int reviewId) {
+		return ReviewDaoImpl.getReviewDao().deleteReview(reviewId);
+	}
+
+	@Override
 	public ReviewDto getReview(int reviewId) {
 		return ReviewDaoImpl.getReviewDao().getReview(reviewId);
 	}
-	
+
 	@Override
 	public int getTotalCountByShopNotBlind(Map<String, Object> params) {
 		return ReviewDaoImpl.getReviewDao().getTotalCountByShopNotBlind(params);
@@ -60,7 +71,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public int getTotalCountByUserAll(Map<String, Object> params) {
 		return ReviewDaoImpl.getReviewDao().getTotalCountByUserAll(params);
 	}
-	
+
 	@Override
 	public List<ReviewListDto> getReviewListByShopNotBlind(Map<String, Object> params) {
 		return ReviewDaoImpl.getReviewDao().getReviewListByShopNotBlind(params);
