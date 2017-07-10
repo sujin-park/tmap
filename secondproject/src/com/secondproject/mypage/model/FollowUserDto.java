@@ -12,7 +12,35 @@ public class FollowUserDto {
 	private String email;
 	private String statusMsg;
 	private String regDate;
+	private String followId;
+	private String followCount;
+	private String follower;
+	private String followerCount;
 	
+	public String getFollowId() {
+		return followId;
+	}
+	public void setFollowId(String followId) {
+		this.followId = followId;
+	}
+	public String getFollowCount() {
+		return followCount;
+	}
+	public void setFollowCount(String followCount) {
+		this.followCount = followCount;
+	}
+	public String getFollower() {
+		return follower;
+	}
+	public void setFollower(String follower) {
+		this.follower = follower;
+	}
+	public String getFollowerCount() {
+		return followerCount;
+	}
+	public void setFollowerCount(String followerCount) {
+		this.followerCount = followerCount;
+	}
 	public String getCategoryName() {
 		return categoryName;
 	}

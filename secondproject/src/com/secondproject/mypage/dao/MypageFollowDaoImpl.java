@@ -88,8 +88,6 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 			pstmt.setString(1, followCategoryDto.getCategoryName());
 			pstmt.setInt(2, followCategoryDto.getFollowCategoryId());
-			
-		
 
 			cnt = pstmt.executeUpdate();
 
@@ -264,10 +262,14 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("	select b.* \n");
 			sql.append("	from (select rownum rn,a.* \n");
-			sql.append("		from (select fu.reg_user_id,fc.follow_category_id,fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
+			sql.append("		from (select aa.user_id follow_id,nvl(aa.followcount,0) followcount,bb.reg_user_id follower,nvl(bb.followercount,0) followercount ,fu.reg_user_id,fc.follow_category_id,fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
 			sql.append("					u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
 			sql.append("				to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
 			sql.append("			from follow_user fu \n");
+			sql.append("			left outer join (select user_id,count(*) followcount from follow_user \n");
+			sql.append("			group by user_id) aa on fu.reg_user_id=aa.user_id \n");
+			sql.append("			left outer join (select reg_user_id,count(*) followercount from follow_user \n");
+			sql.append("			group by reg_user_id) bb on fu.reg_user_id=bb.reg_user_id \n");
 			sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
 			sql.append("			join users u ON fu.reg_user_id = u.user_id  \n");
 			sql.append("			where fu.user_id=? \n");
@@ -297,6 +299,11 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				fudto=new FollowUserDto();
+							
+				fudto.setFollowId(rs.getString("follow_id"));
+				fudto.setFollowCount(rs.getString("followcount"));
+				fudto.setFollower(rs.getString("follower"));
+				fudto.setFollowerCount(rs.getString("followercount"));
 				fudto.setFavoriteUserId(rs.getInt("follow_user_id"));
 				fudto.setCategoryName(rs.getString("category_name"));
 				fudto.setEmail(rs.getString("email"));
@@ -638,11 +645,6 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	         conn=DBConnection.getConnection();
 	         StringBuffer sql = new StringBuffer();
 
-//	         sql.append(" select count(*) \n");
-//	         sql.append("	from follow_user fu \n");
-//	         sql.append(" 	LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
-//	         sql.append(" 	join users u ON fu.reg_user_id = u.user_id  \n");
-//	         sql.append(" 	where fu.user_id=? \n");
 				sql.append("	select count(*) \n");
 				sql.append("			from follow_user fu \n");
 				sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
@@ -857,6 +859,44 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 	         DBClose.close(conn, pstmt, rs);
 	      }
 	      return cnt;
+	}
+
+
+	@Override
+	public List<FollowUserDto> follower(Map<String, Object> params) {
+		List<FollowUserDto> list = new ArrayList<FollowUserDto>();
+		FollowUserDto fudto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select fu.reg_user_id,u.email,u.status_msg \n");
+			sql.append("from follow_user fu  \n");
+			sql.append("LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id  \n");
+			sql.append("join users u ON fu.reg_user_id = u.user_id   \n");
+			sql.append("where fu.user_id=? \n");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, (Integer)params.get("userId"));
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				fudto=new FollowUserDto();
+				fudto.setUserId(rs.getInt("user_id"));
+				fudto.setEmail(rs.getString("email"));
+				fudto.setStatusMsg(rs.getString("status_msg"));
+				list.add(fudto);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return list;
 	}
 
 }

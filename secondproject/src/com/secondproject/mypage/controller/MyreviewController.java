@@ -31,6 +31,8 @@ public class MyreviewController extends HttpServlet {
 			path=MypageFactory.getMypageYourReviewListViewAction().execute(request, response);
 		} else if("reviewDelete".equals(act)) {
 			path=MypageFactory.getMypageReviewDeleteAction().execute(request, response);
+		} else if("yourfollow".equals(act)) {
+			path="/page/mypage/followfollower.jsp";
 		}
 		request.setAttribute("titleTagValue", "마이페이지");
 		request.setAttribute("contentPath", path);
