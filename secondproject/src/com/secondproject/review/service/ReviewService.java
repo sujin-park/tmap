@@ -39,5 +39,7 @@ public interface ReviewService {
 	List<ReviewListDto> getReviewListByUserJustBlind(Map<String, Object> params);
 
 	List<ReviewListDto> getReviewListByUserAll(Map<String, Object> params);
+	
+	String getReviewGoodBadJSON(Map<String, Object> args);
 
 }

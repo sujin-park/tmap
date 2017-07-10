@@ -3,6 +3,7 @@ package com.secondproject.review.service;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.secondproject.review.dao.ReviewDaoImpl;
 import com.secondproject.review.model.ReviewDto;
 import com.secondproject.review.model.ReviewListDto;
@@ -100,6 +101,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewListDto> getReviewListByUserAll(Map<String, Object> params) {
 		return ReviewDaoImpl.getReviewDao().getReviewListByUserAll(params);
+	}
+
+	@Override
+	public String getReviewGoodBadJSON(Map<String, Object> args) {
+		return new Gson().toJson(ReviewDaoImpl.getReviewDao().getReviewGoodBadJSON(args));
 	}
 
 }

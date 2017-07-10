@@ -24,3 +24,19 @@
 		padding-top: 110px;
 	}
 }
+
+.btn-danger-border{
+	background-color: #fff;
+	border: 1px solid #f0ad4e;
+	color: #f0ad4e;
+}
+.btn-danger-border:hover{
+	color: #f0ad4e;
+}
+.btn-danger-border.active{
+	background-color: #f0ad4e;
+	color: #fff;
+}
+.btn-danger-border.active:hover{
+	color: #fff;
+}

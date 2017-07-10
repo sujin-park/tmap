@@ -34,7 +34,7 @@
 						<tr>
 							<th colspan="2">
 								<span class="shopTitle"><%=shopDto.getTitle()%></span>&nbsp;&nbsp;
-								<span class="label label-warning categoryTitle"><%=shopDto.getCategoryTitle()%></span>&nbsp;
+								<span class="label label-default categoryTitle"><%=shopDto.getCategoryTitle()%></span>&nbsp;
 								<span class="label label-danger score">평점&nbsp;&nbsp;<%=shopDto.getScore()%></span>
 							</th>
 						</tr>
@@ -86,7 +86,7 @@
 					<div class="caption">
 						<h4><a href="<%=ContextPath.root + "/review?act=view&reviewId=" + reviewListDto.getReviewId()%>"><%=reviewListDto.getTitle()%></a></h4>
 						<div class="info-container">
-							<a href="javascript:alert('유저정보  + 팔로우 모달');"><%=reviewListDto.getUserEmail()%></a>
+							<a href="<%=ContextPath.root + "/myreview?act=yourreview&followUserId=" + reviewListDto.getUserId()%>"><%=reviewListDto.getUserEmail()%></a>
 							<div class="clearfix">
 								<span class="pull-right"><%=reviewListDto.getRegDate()%></span>
 								<div class="good-bad-container pull-left">

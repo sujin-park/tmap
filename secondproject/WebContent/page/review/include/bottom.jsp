@@ -34,4 +34,31 @@
 			}
 		});
 	}
+	
+	function goodBad(reviewId, goodBad) {
+		$.ajax({
+			type : "GET",
+			url : CONTEXT_PATH + "/review?act=goodbad&reviewId=" + reviewId + "&goodBad=" + goodBad,
+			dataType: 'json',
+			success : function(data) {
+				var buttons = $('.like-unlike-container').children();
+				var goodbutton = buttons.eq(0);
+				var badbutton = buttons.eq(1);
+				
+				goodbutton.removeClass('on').find('span').text(data.good);
+				badbutton.removeClass('on').find('span').text(data.bad);
+				
+				if (data.status === '10') {
+					goodbutton.addClass('on');
+				} else if (data.status === '01') {
+					badbutton.addClass('on');
+				}
+				
+			},
+			error : function(e) {
+				alert("##ERROR\n" + e);
+			}
+		});
+	}
+	
 </script>
