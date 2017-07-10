@@ -35,16 +35,16 @@ public class AttestAction implements Action {
 //		System.out.println(checkkey);
 		
 		int cnt = JoinServiceImpl.getJoinService().attest(email, password, age, gender);
-		System.out.println("1");
+//		System.out.println("1");
 		if(cnt != 0){
-			System.out.println("2");
+//			System.out.println("2");
 			//TODO 밑에 경로 수정??
 //			request.setAttribute("userinfo", userDto);
 			path = "/page/joinlogin/join/joinok.jsp";
 			//path += "?email=" + email + "&checkkey=" + checkkey;
 			
 		} else {
-			System.out.println("3");
+//			System.out.println("3");
 			path = "/page/joinlogin/join/joinfail.jsp";
 		}
 		return path;
