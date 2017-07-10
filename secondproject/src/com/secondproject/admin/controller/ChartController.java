@@ -14,37 +14,58 @@ import com.secondproject.util.PageMove;
 public class ChartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String act = request.getParameter("act");
 		String jsonData = "";
 		String path = "/template/admin/admin.jsp";
 		String contentPath = "";
 		if ("ageChart".equals(act)) {
 			jsonData = AdminFactory.getAgeChartAction().execute(request, response);
-			contentPath ="/page/adminpage/statistics/ageStats.jsp";
+			contentPath = "/page/adminpage/statistics/ageStats.jsp";
 			response.setContentType("text/html; charset=EUC-KR");
 			response.getWriter().print(jsonData);
 			request.setAttribute("age", jsonData);
-			
+
 		} else if ("categoryChart".equals(act)) {
 			jsonData = AdminFactory.getCategoryChartAction().execute(request, response);
-			contentPath ="/page/adminpage/statistics/categoryStats.jsp";
+			contentPath = "/page/adminpage/statistics/categoryStats.jsp";
 			response.setContentType("text/html; charset=EUC-KR");
 			response.getWriter().print(jsonData);
 			request.setAttribute("category", jsonData);
-			
+
 		} else if ("areaChart".equals(act)) {
 			jsonData = AdminFactory.getAreaChartAction().execute(request, response);
+			contentPath = "/page/adminpage/statistics/areaStats.jsp";
 			response.setContentType("text/html; charset=EUC-KR");
 			response.getWriter().print(jsonData);
 			request.setAttribute("area", jsonData);
+			
+		} else if ("ageAjax".equals(act)) {
+			jsonData = AdminFactory.getAgeChartAction().execute(request, response);
+			response.setContentType("text/html; charset=EUC-KR");
+			response.getWriter().print(jsonData);
+		} else if ("ageYear".equals(act)) { // 년도별
+			jsonData = AdminFactory.getAgeYearChartAction().execute(request, response);
+			response.setContentType("text/html; charset=EUC-KR");
+			response.getWriter().print(jsonData);
+		} else if ("categoryAjax".equals(act)) {
+			jsonData = AdminFactory.getCategoryChartAction().execute(request, response);
+			response.setContentType("text/html; charset=EUC-KR");
+			response.getWriter().print(jsonData);
 		}
+
+		if ("ageChart".equals(act) || "categoryChart".equals(act) || "areaChart".equals(act)) {
 			request.setAttribute("titleTagValue", "타이틀");
 			request.setAttribute("contentPath", contentPath);
 			request.setAttribute("addHeadPath", "/template/admin/include/head.jsp");
 			PageMove.forward(path, request, response);
+		}
+		
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");
 		doGet(request, response);
 	}

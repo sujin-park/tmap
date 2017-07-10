@@ -1,13 +1,15 @@
-function getArea() {
-	document.location.href = "/secondproject/chart?act=areaChart";
+function getArea(num) {
+	console.log(num);
+	document.location.href = "/secondproject/chart?act=areaChart&num="+num;
 }
-/*
-function getArea() {
+
+function getAjaxArea(num) {
 	$.ajax({
 		method: 'get',
 		url: '/secondproject/chart',
 		data: {
-			'act': 'areaChart',
+			'act': 'areaAjax',
+			'num': num
 		},
 		dataType: 'json',
 		success: function(data) {
@@ -21,4 +23,3 @@ function getArea() {
 			
 	})
 }
-*/

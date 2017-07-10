@@ -88,8 +88,6 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 
 			pstmt.setString(1, followCategoryDto.getCategoryName());
 			pstmt.setInt(2, followCategoryDto.getFollowCategoryId());
-			
-		
 
 			cnt = pstmt.executeUpdate();
 

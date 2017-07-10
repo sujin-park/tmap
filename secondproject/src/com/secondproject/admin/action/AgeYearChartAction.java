@@ -1,6 +1,7 @@
 package com.secondproject.admin.action;
 
 import java.io.IOException;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +11,11 @@ import com.google.gson.Gson;
 import com.secondproject.action.Action;
 import com.secondproject.admin.service.ChartServiceImpl;
 
-public class AgeChartAction implements Action {
+public class AgeYearChartAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String snum = new Gson().fromJson(request.getParameter("snum"), String.class);
-		return ChartServiceImpl.getChartService().getAgeChartJSON(snum);
+		return ChartServiceImpl.getChartService().getAgeYearJSON();
 	}
-
 }

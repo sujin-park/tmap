@@ -31,7 +31,7 @@ $( function() {
       } catch( error ) {
         date = null;
       }
- 
+ 	  alert(date);
       return date;
     }
   } );
