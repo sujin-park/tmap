@@ -8,6 +8,8 @@ public interface ChartDao {
 	List<Map<String, String>> ageChart(String snum);
 
 	List<Map<String, String>> ageYearChart(); // ³²ÀÚ
+
+	List<Map<String, String>> ageMonthChart(String snum);
 	
 	List<Map<String, String>> categoryChart(String number);
 

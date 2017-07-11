@@ -13,17 +13,16 @@ select substr(age,0,1),
 	   order by 1 desc 
 	   
 -------- 연도별 쿼리 -----------
-select to_char(reg_date, 'yyyy') as regdate,
+select to_char(reg_date, 'mm') as regdate,
 count (user_id)
 from users
-where gender = 1
-group by to_char(reg_date, 'yyyy')
+group by to_char(reg_date, 'mm')
 
 
-select to_char(reg_date, 'yyyy') as regdate,
+-------- 월별 쿼리 ------------
+select to_char(reg_date, 'mm') as regdate,
 count (user_id)
 from users
-where gender = 2
 group by to_char(reg_date, 'yyyy')
 	   
 -------- 카테고리별 후기갯수 (연령대, 성별)---------

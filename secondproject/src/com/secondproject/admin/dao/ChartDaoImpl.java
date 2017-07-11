@@ -185,4 +185,42 @@ public class ChartDaoImpl implements ChartDao {
 		return alist;
 	}
 
+	@Override
+	public List<Map<String, String>> ageMonthChart(String snum) {
+		List<Map<String, String>> blist = new ArrayList<Map<String, String>>();
+		Map<String, String> ageY = null;
+		int num = Integer.parseInt(snum);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select to_char(reg_date, 'mm') as regdate, \n");
+			sql.append("nvl(count (user_id),0) dateCount \n");
+			sql.append("from users \n");
+			sql.append("where to_char(reg_date, 'yyyy') = ? \n");
+			sql.append("group by to_char(reg_date, 'mm') \n");
+			sql.append("order by to_char(reg_date, 'mm')");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ageY = new HashMap<String, String>();
+				ageY.put("regdate", rs.getString("regdate")); // 10대, 20대
+				ageY.put("dateCount", rs.getString("dateCount")); // 카운트
+
+				blist.add(ageY);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+
+		return blist;
+	}
+
 }

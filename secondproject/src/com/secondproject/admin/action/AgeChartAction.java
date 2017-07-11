@@ -15,8 +15,14 @@ public class AgeChartAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String snum = new Gson().fromJson(request.getParameter("snum"), String.class);
-		return ChartServiceImpl.getChartService().getAgeChartJSON(snum);
+		String snum = request.getParameter("snum");
+		String json = "";
+		if (snum.equals("50") || snum.equals("0")) {
+			json = ChartServiceImpl.getChartService().getAgeChartJSON(snum);
+		} else {
+			json = ChartServiceImpl.getChartService().getAgeMonthJSON(snum);
+		}
+		return json;
 	}
 
 }

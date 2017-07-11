@@ -61,4 +61,14 @@ public class ChartServiceImpl implements ChartService {
 		return new Gson().toJson(ageYearChart());
 	}
 
+	@Override
+	public List<Map<String, String>> ageMonthChart(String snum) {
+		return ChartDaoImpl.getChartDao().ageMonthChart(snum);
+	}
+
+	@Override
+	public String getAgeMonthJSON(String snum) {
+		return new Gson().toJson(ageMonthChart(snum));
+	}
+
 }

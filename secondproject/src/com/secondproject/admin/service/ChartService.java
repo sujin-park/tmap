@@ -13,6 +13,9 @@ public interface ChartService {
 	List<Map<String, String>> ageYearChart();
 	String getAgeYearJSON();
 	
+	List<Map<String, String>> ageMonthChart(String snum);
+	String getAgeMonthJSON(String snum);
+	
 	List<Map<String, String>> categoryChart(String number);
 	String getCategoryJSON(String number);
 	

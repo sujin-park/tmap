@@ -9,7 +9,7 @@
 	<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(0);">카테고리별 All</button>
 	<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(1);">카테고리별 여성</button>
 	<button id="sendCategory"  class="btn btn-warning" width="100" onclick="javascript:getCategory(2);">카테고리별 남성</button>
-	<button id="sendArea"  class="btn btn-warning" width="100" onclick="javascript:getArea(5);">지역별 등록된 매장수</button>
+	<button id="sendArea"  class="btn btn-warning" width="100" onclick="javascript:getArea(0);">지역별 등록된 매장수</button>
   </div>
 
   <div class="col-md-3 col-md-push-5"></div>
@@ -40,12 +40,12 @@
 								<tr>
 									<td align="center">MONTH</td>
 									<td align="center">
-										<select class="form-control" name="month" style="width:270px;">
+										<select class="form-control" id="month" name="month" style="width:270px;">
 											<option>연도를 선택해주세요</option>
 											<% 
 												for (int i=2017; i>2000; i--) {
 											%>
-											  	<option value="year<%=i%>"><%=i%></option>
+											  	<option value="<%=i%>"><%=i%></option>
 											<%
 												}
 											%>
@@ -72,7 +72,7 @@
 						<span class="glyphicon glyphicon-stats" aria-hidden="true"></span></button>
 						<button id="allday" class="btn btn-warning" width="50" height="50" onclick="javascript:getAjaxAge(0);">ALL
 						<span class="glyphicon glyphicon-stats" aria-hidden="true"></span></button>
-						<button id="selectday" class="btn btn-default" width="50" height="50" onclick="javascript:getAjaxAge();">SELECT
+						<button id="selectday" class="btn btn-default" width="50" height="50" onclick="javascript:getAgeSelect();">SELECT
 						</button>
 					</div>
 					</div>
