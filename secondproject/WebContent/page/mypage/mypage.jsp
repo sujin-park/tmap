@@ -275,7 +275,7 @@ var followUserId;
 								class="lar" value="<%=fudto.getFavoriteUserId()%>"></td>
 							<td><%=fudto.getCategoryName()%></td>
 							<td><a href="javascript:yourreview('<%=fudto.getRegUserId()%>')"><%=fudto.getEmail()%> | <%=fudto.getStatusMsg()%></a></td>
-							<td><%=fudto.getRegDate()%></td>
+							<td><%=fudto.getNewarticle()%></td>
 							<td><%=fudto.getFavoriteRegDate()%></td>
 							<%
 								String a = fudto.getAlias();

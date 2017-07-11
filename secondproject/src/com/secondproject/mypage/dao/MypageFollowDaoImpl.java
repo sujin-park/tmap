@@ -262,7 +262,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("	select b.* \n");
 			sql.append("	from (select rownum rn,a.* \n");
-			sql.append("		from (select aa.user_id follow_id,nvl(aa.followcount,0) followcount,bb.reg_user_id follower,nvl(bb.followercount,0) followercount ,fu.reg_user_id,fc.follow_category_id,fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
+			sql.append("		from (select nvl(to_char(r.newarticle,'yyyy.mm.dd'),'없음') newarticle,aa.user_id follow_id,nvl(aa.followcount,0) followcount,bb.reg_user_id follower,nvl(bb.followercount,0) followercount ,fu.reg_user_id,fc.follow_category_id,fu.follow_user_id,nvl(fc.category_name,'없음') category_name,u.email, \n");
 			sql.append("					u.status_msg,to_char(u.reg_date,'yyyy.mm.dd') as follow_reg_date, \n");
 			sql.append("				to_char(fu.reg_date,'yyyy.mm.dd') as reg_date,fu.alias,fu.memo \n");
 			sql.append("			from follow_user fu \n");
@@ -272,6 +272,8 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			sql.append("			group by reg_user_id) bb on fu.reg_user_id=bb.reg_user_id \n");
 			sql.append("			LEFT OUTER JOIN follow_category fc ON fc.follow_category_id = fu.follow_category_id \n");
 			sql.append("			join users u ON fu.reg_user_id = u.user_id  \n");
+			sql.append("			left outer join (select user_id,max(reg_date) newarticle from review \n");
+			sql.append("			group by user_id) r on r.user_id=u.user_id \n");
 			sql.append("			where fu.user_id=? \n");
 			if(key.equals("email")){
 				sql.append("and email like \n");				
@@ -299,7 +301,7 @@ public class MypageFollowDaoImpl implements MypageFollowDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				fudto=new FollowUserDto();
-							
+				fudto.setNewarticle(rs.getString("newarticle"));
 				fudto.setFollowId(rs.getString("follow_id"));
 				fudto.setFollowCount(rs.getString("followcount"));
 				fudto.setFollower(rs.getString("follower"));
