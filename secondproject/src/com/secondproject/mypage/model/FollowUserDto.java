@@ -16,7 +16,16 @@ public class FollowUserDto {
 	private String followCount;
 	private String follower;
 	private String followerCount;
+	private String newarticle;
 	
+	
+	
+	public String getNewarticle() {
+		return newarticle;
+	}
+	public void setNewarticle(String newarticle) {
+		this.newarticle = newarticle;
+	}
 	public String getFollowId() {
 		return followId;
 	}
