@@ -2,6 +2,7 @@
 	pageEncoding="EUC-KR"
 	import="java.util.*,com.secondproject.mypage.model.*, com.secondproject.constant.ContextPath,com.secondproject.util.pagination.*,com.secondproject.userdto.*"%>
 	<%
+	UserDto udto = (UserDto)session.getAttribute("logininfo");
 	UserDto fudto = (UserDto) request.getAttribute("followUserDto");
 	Pagination pagination = (Pagination) request.getAttribute("pagination");
 	%>
@@ -25,11 +26,18 @@ function follow(followUserId) {
 		<div id="map" style="width:100%;height:400px;"></div>
 	</div>
 	<div class=row>
+	<%if(udto.getUser_id()==fudto.getUser_id()) {
+		%>
+		<h4>내가 쓴 후기</h4>
+		<% 
+	} else {
+	%>
 	<h4 class="sub-header"><%=fudto.getEmail() %>님이 쓴 후기&nbsp;&nbsp;
-	<%if(fudto.getUser_id()!=0) { %>
+	<%if(fudto.getUser_id()!=0 && fudto.getUser_id()!=udto.getUser_id()) { %>
 	<button class="btn btn-primary" type="button" onclick="follow('<%=fudto.getUser_id()%>');">팔로우</button>
 	<%} %>
 	</h4> 
+	<%} %>
 	</div>
  <div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
