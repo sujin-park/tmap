@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -124,9 +125,10 @@ public class ReviewDaoImpl implements ReviewDao {
 		try {
 			conn = DBConnection.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT * \n");
-			sql.append("FROM review \n");
-			sql.append("WHERE review_id = ?");
+			sql.append("SELECT r.*, NVL(good, 0) good, NVL(bad, 0) bad \n");
+			sql.append("FROM review r \n");
+			sql.append("LEFT JOIN (SELECT review_id, SUM(good) good, SUM(bad) bad FROM review_good_bad GROUP BY review_id) gb ON gb.review_id = r.review_id \n");
+			sql.append("WHERE r.review_id = ?");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, reviewId);
 			rs = pstmt.executeQuery();
@@ -142,6 +144,8 @@ public class ReviewDaoImpl implements ReviewDao {
 				reviewDto.setIsBlind(rs.getInt("is_blind"));
 				reviewDto.setRegDate(rs.getString("reg_date"));
 				reviewDto.setUpdateDate(rs.getString("update_date"));
+				reviewDto.setGood(rs.getInt("good"));
+				reviewDto.setBad(rs.getInt("bad"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -403,6 +407,89 @@ public class ReviewDaoImpl implements ReviewDao {
 		}
 
 		return list;
+	}
+
+	@Override
+	public Map<String, Object> getReviewGoodBadJSON(Map<String, Object> args) {
+		Map<String, Object> goodBadMap = new HashMap<String, Object>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String status = "";
+		
+		int loginUserId = (int) args.get("loginUserId");
+		int reviewId = (int) args.get("reviewId");
+		String goodBad = (String) args.get("goodBad");
+		
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT * FROM review_good_bad WHERE review_id = ? AND user_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reviewId);
+			pstmt.setInt(2, loginUserId);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				int good = rs.getInt("good");
+				int bad = rs.getInt("bad");
+				sql = new StringBuffer();
+				sql.append("UPDATE review_good_bad SET ");
+				if ((good == 1 && goodBad.equals("good")) || (bad == 1 && goodBad.equals("bad"))) {
+					sql.append("good = 0, bad = 0 \n");
+					status = "00";
+				} else {
+					if (goodBad.equals("good")) {
+						sql.append("good = 1, bad = 0 \n");
+						status = "10";
+					} else {
+						sql.append("good = 0, bad = 1 \n");
+						status = "01";
+					}
+				}
+				sql.append("WHERE review_id = ? AND user_id = ?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, reviewId);
+				pstmt.setInt(2, loginUserId);
+				pstmt.executeUpdate();
+			} else {
+				sql = new StringBuffer();
+				sql.append("INSERT INTO review_good_bad (review_id, user_id, good, bad) VALUES (?, ?, ?, ?)");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, reviewId);
+				pstmt.setInt(2, loginUserId);
+				if (goodBad.equals("good")) {
+					pstmt.setInt(3, 1);
+					pstmt.setInt(4, 0);
+					status = "10";
+				} else {
+					pstmt.setInt(3, 0);
+					pstmt.setInt(4, 1);
+					status = "01";
+				}
+				pstmt.executeUpdate();
+			}
+			
+			sql = new StringBuffer();
+			sql.append("SELECT SUM(good) good, SUM(bad) bad FROM review_good_bad WHERE review_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reviewId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				goodBadMap.put("good", rs.getInt("good"));
+				goodBadMap.put("bad", rs.getInt("bad"));
+				goodBadMap.put("message", "처리되었습니다");
+				goodBadMap.put("status", status);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		
+		return goodBadMap;
 	}
 
 }

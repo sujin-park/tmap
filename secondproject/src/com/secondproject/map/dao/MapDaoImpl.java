@@ -70,6 +70,7 @@ public class MapDaoImpl implements MapDao {
 			sql.append("        ( \n");
 			sql.append("            SELECT shop_id, COUNT(shop_id) review_count, ROUND(NVL(AVG(score), 0), 2) score \n");
 			sql.append("            FROM review \n");
+			sql.append("            WHERE is_blind = 0 \n");
 			sql.append("            GROUP BY shop_id \n");
 			sql.append("        ) r ON s.shop_id = r.shop_id \n");
 			sql.append("        LEFT JOIN \n");
@@ -90,7 +91,7 @@ public class MapDaoImpl implements MapDao {
 			} else {
 				sql.append("            WHERE user_id in (?) \n");
 			}
-			
+			sql.append("            AND is_blind = 0 \n");
 			sql.append("            GROUP BY shop_id \n");
 			sql.append("        ) rs ON s.shop_id = rs.shop_id \n");
 			sql.append("    ORDER BY algorythm DESC \n");
@@ -197,13 +198,14 @@ public class MapDaoImpl implements MapDao {
 			} else {
 				sql.append("            WHERE user_id in (?) \n");
 			}
-			
+			sql.append("            AND is_blind = 0 \n");
 			sql.append("            GROUP BY shop_id \n");
 			sql.append("        ) rs ON s.shop_id = rs.shop_id \n");
 			sql.append("        LEFT JOIN \n");
 			sql.append("        ( \n");
 			sql.append("            SELECT shop_id, COUNT(shop_id) review_count, ROUND(NVL(AVG(score), 0), 2) score \n");
 			sql.append("            FROM review \n");
+			sql.append("            WHERE is_blind = 0 \n");
 			sql.append("            GROUP BY shop_id \n");
 			sql.append("        ) r ON s.shop_id = r.shop_id \n");
 			sql.append("    ORDER BY algorythm DESC \n");

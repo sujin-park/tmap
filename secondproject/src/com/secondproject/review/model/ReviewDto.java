@@ -12,6 +12,8 @@ public class ReviewDto {
 	private int isBlind;
 	private String regDate;
 	private String updateDate;
+	private int good;
+	private int bad;
 
 	public int getReviewId() {
 		return reviewId;
@@ -91,6 +93,22 @@ public class ReviewDto {
 
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public int getGood() {
+		return good;
+	}
+
+	public void setGood(int good) {
+		this.good = good;
+	}
+
+	public int getBad() {
+		return bad;
+	}
+
+	public void setBad(int bad) {
+		this.bad = bad;
 	}
 
 }

@@ -33,7 +33,7 @@ HashMap<String, String> linkMap = (HashMap<String, String>) request.getAttribute
 						<tr>
 							<th colspan="2">
 								<span class="shopTitle"><%=shopDto.getTitle()%></span>&nbsp;&nbsp;
-								<span class="label label-warning categoryTitle"><%=shopDto.getCategoryTitle()%></span>&nbsp;
+								<span class="label label-default categoryTitle"><%=shopDto.getCategoryTitle()%></span>&nbsp;
 								<span class="label label-danger score">평점&nbsp;&nbsp;<%=shopDto.getScore()%></span>
 							</th>
 						</tr>
@@ -63,12 +63,15 @@ HashMap<String, String> linkMap = (HashMap<String, String>) request.getAttribute
 		
 		<div class="row">
 			<div class="col-xs-12">
-				<h2><%=reviewDto.getTitle()%></h2>
+				<h3><%=reviewDto.getTitle()%> &nbsp;<span class="label label-danger"><%=reviewDto.getScore()%>점</span></h3>
 				<div class="info-container">
-					<span class="label label-warning"><%=reviewDto.getScore()%>점</span>
-					<a href=""><%=userDto.getEmail()%></a>
-					<span><%=reviewDto.getUpdateDate()%></span>
+					<a href="<%=ContextPath.root + "/myreview?act=yourreview&followUserId=" + reviewDto.getUserId()%>"><%=userDto.getEmail()%></a>
+					 <span><%=reviewDto.getUpdateDate()%></span>
 				</div>
+			</div>
+			<div class="col-xs-12 like-unlike-container">
+				<button class="btn btn-sm" onclick="goodBad(<%=reviewDto.getReviewId()%>, 'good')"><i class="fa fa-thumbs-up" aria-hidden="true"></i> 좋아요 <span><%=reviewDto.getGood()%></span></button>&nbsp;
+				<button class="btn btn-sm" onclick="goodBad(<%=reviewDto.getReviewId()%>, 'bad')" ><i class="fa fa-thumbs-down" aria-hidden="true"></i> 싫어요 <span><%=reviewDto.getBad()%></span></button>
 			</div>
 		</div>
 		
@@ -83,7 +86,7 @@ HashMap<String, String> linkMap = (HashMap<String, String>) request.getAttribute
 				<%
 				for (String key : linkMap.keySet()) {
 				%>
-					<%=linkMap.get(key)%>
+					<%=linkMap.get(key)%>&nbsp;
 				<%
 				}
 				%>
