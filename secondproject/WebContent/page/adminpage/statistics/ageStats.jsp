@@ -87,7 +87,7 @@ var ctx = document.getElementById("ageChart");
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+        labels: ["10대", "20대", "30대", "40대", "50대"],
         datasets: [{
             label: '연령대별 가입자수',
             data: ["", "", "", "", ""],

@@ -95,17 +95,21 @@ var cateChart = new Chart(ctx2,{
     type: 'doughnut',
     data: {  
     	datasets: [{
-        data: [0, 0, 0],
+        data: [0, 0, 0, 0, 0],
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)'
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)'
         ]
     }],
     labels: [
-        'Red',
-        'Yellow',
-        'Blue'
+        '한식',
+        '중식',
+        '일식',
+        '양식',
+        '기타'
     ]
     }
 });

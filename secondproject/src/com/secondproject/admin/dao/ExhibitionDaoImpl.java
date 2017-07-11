@@ -81,7 +81,7 @@ public class ExhibitionDaoImpl implements ExhibitionDao {
 			sql.append("from ( \n");
 			sql.append("   select rownum rn, a.* \n");
 			sql.append("   from ( \n");
-			sql.append("      select exhibition_id, ex_title, ex_desc, ex_image, ex_order, ex_visiable \n");
+			sql.append("      select exhibition_id, ex_title, nvl(ex_desc,'') ex_desc, ex_image, ex_order, ex_visiable \n");
 			sql.append("      from exhibition e \n");
 
 			if (!key.isEmpty() && !word.isEmpty()) {
