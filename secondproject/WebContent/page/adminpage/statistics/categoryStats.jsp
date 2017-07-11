@@ -31,7 +31,7 @@
 								<tr>
 									<td align="center">YEAR</td>
 									<td align="center">
-										<select class="form-control" name="year" style="width:270px;">
+										<select class="form-control" id="cateyear" style="width:270px;">
 											<option>연도를 선택해주세요</option>
 											<% 
 												for (int i=2017; i>2000; i--) {
@@ -46,7 +46,7 @@
 								<tr>
 									<td align="center">MONTH</td>
 									<td align="center">
-										<select class="form-control" name="month" style="width:270px;">
+										<select class="form-control" id="catemonth" style="width:270px;">
 											<option>월을 선택해주세요</option>
 											<% 
 												for (int j=1; j<13; j++) {
@@ -78,7 +78,7 @@
 						<span class="glyphicon glyphicon-stats" aria-hidden="true"></span></button>
 						<button id="allday" class="btn btn-warning" width="50" height="50" onclick="javascript:getCateAjax(0);">ALL
 						<span class="glyphicon glyphicon-stats" aria-hidden="true"></span></button>
-						<button id="selectday" class="btn btn-default" width="50" height="50" onclick="javascript:getCateAjax();">SELECT
+						<button id="selectday" class="btn btn-default" width="50" height="50" onclick="javascript:getCateSelect();">SELECT
 						</button>
 					</div>
 					</div>
@@ -109,7 +109,9 @@ var cateChart = new Chart(ctx2,{
     ]
     }
 });
-
+<%
+if (json != null) { 
+%>
 var obj = JSON.parse('<%=json%>');
 
 for (var i=0; i<obj.length; i++) {
@@ -117,6 +119,9 @@ for (var i=0; i<obj.length; i++) {
 	cateChart.data.datasets[0].data[i] = obj[i].categoryCount;
 }
 	cateChart.update();
+<%
+}
+%>
 </script>
 <script src="<%=ContextPath.root%>/page/adminpage/js/categoryStats.js"></script>
 <script src="<%=ContextPath.root%>/page/adminpage/js/ageChart.js"></script>

@@ -88,10 +88,19 @@ public class ChartDaoImpl implements ChartDao {
 			if (num == 50) {
 				sql.append("and to_char(r.reg_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') \n");
 			}
+//			} else if (num < 13) {
+//				sql.append("and to_char(r.reg_date, 'mm') = ? \n");
+//			} else {
+//				sql.append("and to_char(r.reg_date, 'yyyy') = ? \n");
+//			}
 
 			sql.append("   		 group by sc.category_title \n");
 
 			pstmt = conn.prepareStatement(sql.toString());
+			
+//			if (num != 50) {
+//				pstmt.setInt(1, num);
+//			}
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
