@@ -36,7 +36,7 @@ public class ReviewGoodBadAction implements Action {
 			json = ReviewServiceImpl.getReviewService().getReviewGoodBadJSON(args);
 		} else {
 			Map<String, String> aa = new HashMap<String, String>();
-			aa.put("status", "로그인하세요");
+			aa.put("status", "needLogin");
 			json = new Gson().toJson(aa);
 		}
 		

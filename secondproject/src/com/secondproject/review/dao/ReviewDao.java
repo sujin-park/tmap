@@ -46,4 +46,6 @@ public interface ReviewDao {
 
 	Map<String, Object> getReviewGoodBadJSON(Map<String, Object> args);
 
+	String getReviewMyGoodBad(int loginUserId, int reviewId);
+	
 }

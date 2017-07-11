@@ -10,6 +10,7 @@ ReviewDto reviewDto = (ReviewDto) request.getAttribute("reviewDto");
 UserDto userDto = (UserDto) request.getAttribute("userDto");
 ShopDto shopDto = (ShopDto) request.getAttribute("shopDto");
 HashMap<String, String> linkMap = (HashMap<String, String>) request.getAttribute("linkMap");
+String myGoodBad = (String) request.getAttribute("myGoodBad");
 %>
 
 <div class="page-container review-view-page">
@@ -70,8 +71,8 @@ HashMap<String, String> linkMap = (HashMap<String, String>) request.getAttribute
 				</div>
 			</div>
 			<div class="col-xs-12 like-unlike-container">
-				<button class="btn btn-sm" onclick="goodBad(<%=reviewDto.getReviewId()%>, 'good')"><i class="fa fa-thumbs-up" aria-hidden="true"></i> 좋아요 <span><%=reviewDto.getGood()%></span></button>&nbsp;
-				<button class="btn btn-sm" onclick="goodBad(<%=reviewDto.getReviewId()%>, 'bad')" ><i class="fa fa-thumbs-down" aria-hidden="true"></i> 싫어요 <span><%=reviewDto.getBad()%></span></button>
+				<button class="btn btn-sm <%=(myGoodBad.equals("good") ? "on" : "")%>" onclick="goodBad(<%=reviewDto.getReviewId()%>, 'good')"><i class="fa fa-thumbs-up" aria-hidden="true"></i> 좋아요 <span><%=reviewDto.getGood()%></span></button>&nbsp;
+				<button class="btn btn-sm <%=(myGoodBad.equals("bad") ? "on" : "")%>" onclick="goodBad(<%=reviewDto.getReviewId()%>, 'bad')" ><i class="fa fa-thumbs-down" aria-hidden="true"></i> 싫어요 <span><%=reviewDto.getBad()%></span></button>
 			</div>
 		</div>
 		

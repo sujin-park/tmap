@@ -54,6 +54,10 @@
 					badbutton.addClass('on');
 				}
 				
+				if (data.status === 'needLogin') {
+					alert('로그인이 필요한 기능입니다.');
+				}
+				
 			},
 			error : function(e) {
 				alert("##ERROR\n" + e);

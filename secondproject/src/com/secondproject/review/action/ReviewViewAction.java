@@ -45,15 +45,19 @@ public class ReviewViewAction extends BoardCommonAction implements Action {
 			String listHref = "<a href=\"" + ContextPath.root + "/shop?act=view&shopId=" + shopDto.getShopId() + queryString + "\" class=\"btn btn-primary\">목록</a>";
 			linkMap.put("list", listHref);
 			
+			String myGoodBad = "";
 			if (loginUserDto != null && loginUserDto.getUser_id() == reviewDto.getUserId()) {
 				linkMap.put("modify", "<a href=\"" + ContextPath.root + "/review?act=modifyForm&reviewId=" + reviewDto.getReviewId() + "\" class=\"btn btn-primary\">수정</a>");
 				linkMap.put("delete", "<a href=\"" + ContextPath.root + "/review?act=delete&reviewId=" + reviewDto.getReviewId() + "\" class=\"btn btn-primary\">삭제</a>");
+				myGoodBad = ReviewServiceImpl.getReviewService().getReviewMyGoodBad(loginUserDto.getUser_id(), reviewId);
 			}
+			
 			
 			request.setAttribute("reviewDto", reviewDto);
 			request.setAttribute("userDto", userDto);
 			request.setAttribute("shopDto", shopDto);
 			request.setAttribute("linkMap", linkMap);
+			request.setAttribute("myGoodBad", myGoodBad);
 			
 			contentPath = "/page/review/view.jsp";
 			

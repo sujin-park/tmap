@@ -492,4 +492,40 @@ public class ReviewDaoImpl implements ReviewDao {
 		return goodBadMap;
 	}
 
+	@Override
+	public String getReviewMyGoodBad(int loginUserId, int reviewId) {
+		String returnString = "";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT good, bad FROM review_good_bad WHERE review_id = ? AND user_id = ? ");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reviewId);
+			pstmt.setInt(2, loginUserId);
+			rs = pstmt.executeQuery();
+			int good = 0;
+			int bad = 0;
+			if (rs.next()) {
+				good = rs.getInt("good");
+				bad = rs.getInt("bad");
+			}
+			
+			if (good == 1) {
+				returnString = "good";
+			} else if (bad == 1) {
+				returnString = "bad";
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
+
+		return returnString;
+	}
+
 }

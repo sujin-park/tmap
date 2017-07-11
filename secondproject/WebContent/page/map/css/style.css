@@ -220,3 +220,9 @@
 .favorite .followGroupName{
 	
 }
+
+#search_detail_controll_btn, #modal_add_shop_btn, #search_map_by_location_btn {
+	background-color: #f7933e;
+	border-color: #f7933e;
+	background-image: none;
+}

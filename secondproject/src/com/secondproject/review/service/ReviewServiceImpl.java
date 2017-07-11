@@ -108,4 +108,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return new Gson().toJson(ReviewDaoImpl.getReviewDao().getReviewGoodBadJSON(args));
 	}
 
+	@Override
+	public String getReviewMyGoodBad(int loginUserId, int reviewId) {
+		return ReviewDaoImpl.getReviewDao().getReviewMyGoodBad(loginUserId, reviewId);
+	}
+
 }

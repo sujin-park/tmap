@@ -42,4 +42,6 @@ public interface ReviewService {
 	
 	String getReviewGoodBadJSON(Map<String, Object> args);
 
+	String getReviewMyGoodBad(int loginUserId, int reviewId);
+	
 }

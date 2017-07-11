@@ -35,13 +35,15 @@ List<MainExhibitionDto> shoplist = (List<MainExhibitionDto>) request.getAttribut
 				}
 %>
 	<div class="ex-title"><%=exhibitionDto.getExTitle() %></div>
+	<div class="ex-desc">
 <%
 	if (exhibitionDto.getExDesc()!=null) { 
 %>
-	<div class="ex-desc"><%=exhibitionDto.getExDesc()%></div>
+	<%=exhibitionDto.getExDesc()%>
 <%
 	}
 %>
+	</div>
 	<div class="ex-slick-container">
 <%
 			int shopsize = shoplist.size();
