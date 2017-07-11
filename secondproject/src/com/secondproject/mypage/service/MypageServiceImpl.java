@@ -95,6 +95,11 @@ public class MypageServiceImpl implements MypageService {
 		return MypageFollowDaoImpl.getMypageFollowDao().totalFollowSelect(params);
 	}
 
+	@Override
+	public List<FollowUserDto> follower(Map<String, Object> params) {
+		return MypageFollowDaoImpl.getMypageFollowDao().follower(params);
+	}
+
 	
 
 }

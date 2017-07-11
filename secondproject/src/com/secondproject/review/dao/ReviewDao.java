@@ -13,7 +13,7 @@ public interface ReviewDao {
 	int modifyReview(ReviewDto reviewDto);
 
 	int deleteReview(int reviewId);
-	
+
 	ReviewDto getReview(int reviewId);
 
 	int getTotalCountByShopNotBlind(Map<String, Object> params);
@@ -43,5 +43,7 @@ public interface ReviewDao {
 	List<ReviewListDto> getReviewListByUserAll(Map<String, Object> params);
 
 	List<ReviewListDto> getReviewList(String filterShopOrUser, String filterBlind, Map<String, Object> params);
+
+	Map<String, Object> getReviewGoodBadJSON(Map<String, Object> args);
 
 }

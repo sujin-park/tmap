@@ -34,7 +34,7 @@ public class ReviewViewAction extends BoardCommonAction implements Action {
 		UserDto userDto = UserServiceImpl.getUserService().getUser(reviewDto.getUserId());
 		ShopDto shopDto = ShopServiceImpl.getShopService().getShop(reviewDto.getShopId());
 
-		if (reviewDto != null && userDto != null) {
+		if (reviewDto != null && userDto != null && reviewDto.getIsBlind() == 0) {
 
 			HttpSession session = request.getSession();
 			UserDto loginUserDto = (UserDto) session.getAttribute("logininfo");
@@ -57,6 +57,8 @@ public class ReviewViewAction extends BoardCommonAction implements Action {
 			
 			contentPath = "/page/review/view.jsp";
 			
+		} else if (reviewDto.getIsBlind() == 1) {
+			contentPath = "/page/review/blind.jsp";
 		} else {
 			contentPath = "/page/error/error.jsp";
 		}

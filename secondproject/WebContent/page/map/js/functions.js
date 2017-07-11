@@ -42,7 +42,7 @@ var pageFunc = (function(){
 						var tag = '<div class="panel panel-default shop">'
 							tag += '	<a href="' + CONTEXT_PATH + '/shop?act=view&shopId=' + shop.shopId + '" target="_blank"class="panel-body">';
 							tag += '		<span class="category label label-default">' + shop.categoryName + '</span>';
-							tag += '		<span class="score label label-warning">평점 : ' + shop.score + '</span>';
+							tag += '		<span class="score label label-danger">평점 : ' + shop.score + '</span>';
 							tag += '		<span class="category label label-warning">리뷰 ' + shop.reviewCount + '</span>';
 							tag += '		<div>';
 							tag += '			<span class="rank">' + i + '위</span>';

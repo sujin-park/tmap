@@ -10,10 +10,11 @@
 
 .review-view-page .review-content{
 	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 .info-container{
-	margin-top: 30px;
+	margin-top: 15px;
 }
 
 .info-container .label{
@@ -45,4 +46,26 @@
 .hr{
 	border-top: 1px solid #ccc;
 	margin-top: 20px;
+}
+
+.like-unlike-container{
+	margin-top: 13px;
+}
+
+.like-unlike-container .btn{
+	background-color: #fff;
+	border-color: #ffaf3e;
+	color: #ffaf3e;
+	outline: none !important;
+	-webkit-transition: all 0.45s ease;
+	-moz-transition: all 0.45s ease;
+	-ms-transition: all 0.45s ease;
+	-o-transition: all 0.45s ease;
+	transition: all 0.45s ease;
+}
+
+.like-unlike-container .btn.on{
+	background-color: #ffaf3e;
+	border-color: #ffaf3e;
+	color: #fff;
 }

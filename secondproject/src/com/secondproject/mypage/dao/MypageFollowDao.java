@@ -33,5 +33,6 @@ public interface MypageFollowDao {
 	 int followAdd(int followUserId,int userId);
 	 int totalFollowSelect(Map<String, Object> params);
 	 int selectfollowuser(int followUserId,int userId);
+	 List<FollowUserDto> follower(Map<String, Object> params);
 }
 

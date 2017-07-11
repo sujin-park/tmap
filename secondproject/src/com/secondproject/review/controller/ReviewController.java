@@ -18,26 +18,25 @@ public class ReviewController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String act = request.getParameter("act");
 		String path = "";
-		boolean isForword = false;
 		
 		if ("writeForm".equals(act)) {
 			path = ReviewFactory.getReviewWriteFormAction().execute(request, response);
-			isForword = true;
 		} else if ("modifyForm".equals(act)) {
 			path = ReviewFactory.getReviewModifyFormAction().execute(request, response);
-			isForword = true;
 		} else if ("view".equals(act)) {
 			path = ReviewFactory.getReviewViewAction().execute(request, response);
-			isForword = true;
 		} else if ("delete".equals(act)) {
 			path = ReviewFactory.getReviewDeleteAction().execute(request, response);
+		} else if ("goodbad".equals(act)) {
+			String json = ReviewFactory.getReviewGoodBadAction().execute(request, response);
+			response.setContentType("text/html; charset=EUC-KR");
+			response.getWriter().print(json);
 		}
 		
-		if (isForword) {
+		if (path.isEmpty() == false) {
 			PageMove.forward(path, request, response);
-		} else {
-			PageMove.redirect(path, request, response);
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
