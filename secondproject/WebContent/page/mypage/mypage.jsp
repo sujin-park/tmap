@@ -292,7 +292,7 @@ var followUserId;
 							%>
 							<td>
 								&nbsp;&nbsp;&nbsp; 
-								<%if(!fudto.getFollowCount().equals("0")) {%>
+								<%-- <%if(!fudto.getFollowCount().equals("0")) {%>
 								<a href="javascript:mvfollow('<%=fudto.getRegUserId()%>')"><%=fudto.getFollowCount() %>명</a>
 								<%} else {
 								%>	0명
@@ -303,7 +303,8 @@ var followUserId;
 								<%} else {
 								%>	0명
 								<% }%>
-								
+								 --%>
+								 <%=fudto.getFollowCount() %>명/<%=fudto.getFollowerCount() %>명
 							</td>
 						</tr>
 						

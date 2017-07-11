@@ -25,7 +25,6 @@ function follow(followUserId) {
 	<div class="map-container">
 		<div id="map" style="width:100%;height:400px;"></div>
 	</div>
-	<div class=row>
 		<%if(udto.getUser_id()==fudto.getUser_id()) {%>
 				<h4>내가 쓴 후기</h4>
 		<% } else {%>
@@ -35,7 +34,6 @@ function follow(followUserId) {
 			<%} %>
 			</h4> 
 		<%} %>
-	</div>
  <div class="table-container table-responsive">
 					<table class="table table-filter" id="extable">
 						<thead>
