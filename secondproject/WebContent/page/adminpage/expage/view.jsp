@@ -66,8 +66,8 @@ function moveList() {
 								<td width="10%">음식종류</td>
 								<td width="20%">매장 주소</td>
 								<td width="10%">영업시간</td>
-								<td width="10%">평점</td>
-								<td width="20%">상세 설명</td>
+								<!-- <td width="10%">평점</td> -->
+								<td width="30%">상세 설명</td>
 								<td width="10%">Delete</td>
 							</tr>
 						</thead>
@@ -107,13 +107,15 @@ function moveList() {
 										</div>
 									</div>
 								</td>
+								<!-- 
 								<td>
 									<div class="media">
 										<div class="media-body">
-											<span class="media-meta"><%=shopDto.getScore()%></span>
+											<span class="media-meta">123</span>
 										</div>
 									</div>
 								</td>
+								 -->
 								<td>
 									<div class="media">
 										<div class="media-body">

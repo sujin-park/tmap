@@ -101,7 +101,7 @@ function deleteUser() {
                         <td>
                            <div class="media">
                               <div class="media-body">
-                                 <p class="media-meta"><%= userDto.getUser_id()%></p>
+                                 <p class="media-meta"><%= userDto.getEmail()%></p>
                               </div>
                            </div>
                         </td>
